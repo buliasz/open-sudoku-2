@@ -1,0 +1,9 @@
+<html>
+<head><style type="text/css">body {font-size: smaller;}</style></head>
+<body>
+  <b>1.0</b>
+  <ul>
+    <li>Initial Open Sudoku 2 ported from Open Sudoku converted to Kotlin with fixes</li>
+  </ul>
+</body>
+</html>

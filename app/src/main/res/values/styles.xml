@@ -1,0 +1,2586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Buttons that show a number the user can select to enter, like a keypad -->
+    <style name="keypadButton" parent="@style/Widget.Material3.Button">
+        <item name="android:checkable">true</item>
+        <item name="cornerRadius">4dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:paddingLeft">@dimen/m3_btn_icon_only_default_padding</item>
+        <item name="android:paddingRight">@dimen/m3_btn_icon_only_default_padding</item>
+        <item name="android:paddingTop">@dimen/m3_btn_icon_only_default_padding</item>
+        <item name="android:paddingBottom">@dimen/m3_btn_icon_only_default_padding</item>
+        <item name="android:insetLeft">@dimen/m3_btn_inset</item>
+        <item name="android:insetRight">@dimen/m3_btn_inset</item>
+    </style>
+
+    <style name="keypadButton.Tonal" parent="@style/Widget.Material3.Button.TonalButton">
+        <item name="android:checkable">true</item>
+        <item name="cornerRadius">4dp</item>
+    </style>
+
+    <!-- Buttons to switch between input modes -->
+    <style name="modeSwitchButton" parent="@style/Widget.Material3.Button.OutlinedButton">
+        <item name="android:checkable">false</item>
+        <item name="android:padding">0dp</item>
+        <item name="cornerRadius">4dp</item>
+        <item name="android:insetLeft">@dimen/m3_btn_inset</item>
+        <item name="android:insetRight">@dimen/m3_btn_inset</item>
+    </style>
+
+    <style name="popupButton" parent="@style/Widget.Material3.Button.IconButton">
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:checkable">true</item>
+        <item name="cornerRadius">4dp</item>
+    </style>
+
+    <!-- Support styles for customizing app UI theme. -->
+    <style name="colorPrimary_fde0dc">
+        <item name="colorPrimary">@color/red_50</item>
+        <item name="colorPrimaryDark">#f9a094</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f9bdbb">
+        <item name="colorPrimary">@color/red_100</item>
+        <item name="colorPrimaryDark">#f37975</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f69988">
+        <item name="colorPrimary">@color/red_200</item>
+        <item name="colorPrimaryDark">#f15c41</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f36c60">
+        <item name="colorPrimary">@color/red_300</item>
+        <item name="colorPrimaryDark">#ee2a19</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_e84e40">
+        <item name="colorPrimary">@color/red_400</item>
+        <item name="colorPrimaryDark">#c42618</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_e51c23">
+        <item name="colorPrimary">@color/red_500</item>
+        <item name="colorPrimaryDark">#a21318</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_dd191d">
+        <item name="colorPrimary">@color/red_600</item>
+        <item name="colorPrimaryDark">#981114</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_d01716">
+        <item name="colorPrimary">@color/red_700</item>
+        <item name="colorPrimaryDark">#8b0f0f</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_c41411">
+        <item name="colorPrimary">@color/red_800</item>
+        <item name="colorPrimaryDark">#7e0d0b</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_b0120a">
+        <item name="colorPrimary">@color/red_900</item>
+        <item name="colorPrimaryDark">#680b06</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_ff7997">
+        <item name="colorPrimary">@color/red_A100</item>
+        <item name="colorPrimaryDark">#ff2d5c</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ff5177">
+        <item name="colorPrimary">@color/red_A200</item>
+        <item name="colorPrimaryDark">#ff043b</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ff2d6f">
+        <item name="colorPrimary">@color/red_A400</item>
+        <item name="colorPrimaryDark">#e00046</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_e00032">
+        <item name="colorPrimary">@color/red_A700</item>
+        <item name="colorPrimaryDark">#940021</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_fce4ec">
+        <item name="colorPrimary">@color/pink_50</item>
+        <item name="colorPrimaryDark">#f49fbc</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f8bbd0">
+        <item name="colorPrimary">@color/pink_100</item>
+        <item name="colorPrimaryDark">#f176a0</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f48fb1">
+        <item name="colorPrimary">@color/pink_200</item>
+        <item name="colorPrimaryDark">#ed4980</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f06292">
+        <item name="colorPrimary">@color/pink_300</item>
+        <item name="colorPrimaryDark">#e91c62</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ec407a">
+        <item name="colorPrimary">@color/pink_400</item>
+        <item name="colorPrimaryDark">#cb1452</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_e91e63">
+        <item name="colorPrimary">@color/pink_500</item>
+        <item name="colorPrimaryDark">#aa1145</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_d81b60">
+        <item name="colorPrimary">@color/pink_600</item>
+        <item name="colorPrimaryDark">#941242</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_c2185b">
+        <item name="colorPrimary">@color/pink_700</item>
+        <item name="colorPrimaryDark">#7e103b</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_ad1457">
+        <item name="colorPrimary">@color/pink_800</item>
+        <item name="colorPrimaryDark">#680c35</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_880e4f">
+        <item name="colorPrimary">@color/pink_900</item>
+        <item name="colorPrimaryDark">#430727</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_ff80ab">
+        <item name="colorPrimary">@color/pink_A100</item>
+        <item name="colorPrimaryDark">#ff3378</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ff4081">
+        <item name="colorPrimary">@color/pink_A200</item>
+        <item name="colorPrimaryDark">#f30053</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f50057">
+        <item name="colorPrimary">@color/pink_A400</item>
+        <item name="colorPrimaryDark">#a9003c</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_c51162">
+        <item name="colorPrimary">@color/pink_A700</item>
+        <item name="colorPrimaryDark">#7f0b3f</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_f3e5f5">
+        <item name="colorPrimary">@color/purple_50</item>
+        <item name="colorPrimaryDark">#d9aee0</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_e1bee7">
+        <item name="colorPrimary">@color/purple_100</item>
+        <item name="colorPrimaryDark">#c786d2</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ce93d8">
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryDark">#b55bc4</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ba68c8">
+        <item name="colorPrimary">@color/purple_300</item>
+        <item name="colorPrimaryDark">#973da7</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ab47bc">
+        <item name="colorPrimary">@color/purple_400</item>
+        <item name="colorPrimaryDark">#793186</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_9c27b0">
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryDark">#641971</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_8e24aa">
+        <item name="colorPrimary">@color/purple_600</item>
+        <item name="colorPrimaryDark">#59176b</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_7b1fa2">
+        <item name="colorPrimary">@color/purple_700</item>
+        <item name="colorPrimaryDark">#4a1362</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_6a1b9a">
+        <item name="colorPrimary">@color/purple_800</item>
+        <item name="colorPrimaryDark">#3d1059</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_4a148c">
+        <item name="colorPrimary">@color/purple_900</item>
+        <item name="colorPrimaryDark">#270a49</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_ea80fc">
+        <item name="colorPrimary">@color/purple_A100</item>
+        <item name="colorPrimaryDark">#de35fa</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_e040fb">
+        <item name="colorPrimary">@color/purple_A200</item>
+        <item name="colorPrimaryDark">#c905ea</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_d500f9">
+        <item name="colorPrimary">@color/purple_A400</item>
+        <item name="colorPrimaryDark">#9400ac</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_aa00ff">
+        <item name="colorPrimary">@color/purple_A700</item>
+        <item name="colorPrimaryDark">#7700b3</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_ede7f6">
+        <item name="colorPrimary">@color/deep_purple_50</item>
+        <item name="colorPrimaryDark">#c3afe1</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_d1c4e9">
+        <item name="colorPrimary">@color/deep_purple_100</item>
+        <item name="colorPrimaryDark">#a68cd4</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_b39ddb">
+        <item name="colorPrimary">@color/deep_purple_200</item>
+        <item name="colorPrimaryDark">#8865c6</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_9575cd">
+        <item name="colorPrimary">@color/deep_purple_300</item>
+        <item name="colorPrimaryDark">#6b41b4</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_7e57c2">
+        <item name="colorPrimary">@color/deep_purple_400</item>
+        <item name="colorPrimaryDark">#593696</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_673ab7">
+        <item name="colorPrimary">@color/deep_purple_500</item>
+        <item name="colorPrimaryDark">#46287d</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_5e35b1">
+        <item name="colorPrimary">@color/deep_purple_600</item>
+        <item name="colorPrimaryDark">#3f2376</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_512da8">
+        <item name="colorPrimary">@color/deep_purple_700</item>
+        <item name="colorPrimaryDark">#341d6c</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_4527a0">
+        <item name="colorPrimary">@color/deep_purple_800</item>
+        <item name="colorPrimaryDark">#2a1862</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_311b92">
+        <item name="colorPrimary">@color/deep_purple_900</item>
+        <item name="colorPrimaryDark">#1b0f51</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_b388ff">
+        <item name="colorPrimary">@color/deep_purple_A100</item>
+        <item name="colorPrimaryDark">#823bff</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_7c4dff">
+        <item name="colorPrimary">@color/deep_purple_A200</item>
+        <item name="colorPrimaryDark">#4400ff</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_651fff">
+        <item name="colorPrimary">@color/deep_purple_A400</item>
+        <item name="colorPrimaryDark">#4100d2</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_6200ea">
+        <item name="colorPrimary">@color/deep_purple_A700</item>
+        <item name="colorPrimaryDark">#42009e</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_e8eaf6">
+        <item name="colorPrimary">@color/indigo_50</item>
+        <item name="colorPrimaryDark">#b1b8e0</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_c5cae9">
+        <item name="colorPrimary">@color/indigo_100</item>
+        <item name="colorPrimaryDark">#8e97d4</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_9fa8da">
+        <item name="colorPrimary">@color/indigo_200</item>
+        <item name="colorPrimaryDark">#6876c5</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_7986cb">
+        <item name="colorPrimary">@color/indigo_300</item>
+        <item name="colorPrimaryDark">#4556b2</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_5c6bc0">
+        <item name="colorPrimary">@color/indigo_400</item>
+        <item name="colorPrimaryDark">#3a4896</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_3f51b5">
+        <item name="colorPrimary">@color/indigo_500</item>
+        <item name="colorPrimaryDark">#2b387c</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_3949ab">
+        <item name="colorPrimary">@color/indigo_600</item>
+        <item name="colorPrimaryDark">#263172</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_303f9f">
+        <item name="colorPrimary">@color/indigo_700</item>
+        <item name="colorPrimaryDark">#1e2864</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_283593">
+        <item name="colorPrimary">@color/indigo_800</item>
+        <item name="colorPrimaryDark">#181f57</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_1a237e">
+        <item name="colorPrimary">@color/indigo_900</item>
+        <item name="colorPrimaryDark">#0d113f</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_8c9eff">
+        <item name="colorPrimary">@color/indigo_A100</item>
+        <item name="colorPrimaryDark">#405dff</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_536dfe">
+        <item name="colorPrimary">@color/indigo_A200</item>
+        <item name="colorPrimaryDark">#072cfe</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_3d5afe">
+        <item name="colorPrimary">@color/indigo_A400</item>
+        <item name="colorPrimaryDark">#0125ed</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_304ffe">
+        <item name="colorPrimary">@color/indigo_A700</item>
+        <item name="colorPrimaryDark">#0123e0</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_e7e9fd">
+        <item name="colorPrimary">@color/blue_50</item>
+        <item name="colorPrimaryDark">#a0a8f7</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_d0d9ff">
+        <item name="colorPrimary">@color/blue_100</item>
+        <item name="colorPrimaryDark">#849bff</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_afbfff">
+        <item name="colorPrimary">@color/blue_200</item>
+        <item name="colorPrimaryDark">#6282ff</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_91a7ff">
+        <item name="colorPrimary">@color/blue_300</item>
+        <item name="colorPrimaryDark">#456aff</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_738ffe">
+        <item name="colorPrimary">@color/blue_400</item>
+        <item name="colorPrimaryDark">#2752fd</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_5677fc">
+        <item name="colorPrimary">@color/blue_500</item>
+        <item name="colorPrimaryDark">#0b3bfb</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_4e6cef">
+        <item name="colorPrimary">@color/blue_600</item>
+        <item name="colorPrimaryDark">#1439dd</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_455ede">
+        <item name="colorPrimary">@color/blue_700</item>
+        <item name="colorPrimaryDark">#2039b6</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_3b50ce">
+        <item name="colorPrimary">@color/blue_800</item>
+        <item name="colorPrimaryDark">#263697</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_2a36b1">
+        <item name="colorPrimary">@color/blue_900</item>
+        <item name="colorPrimaryDark">#1b2373</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_a6baff">
+        <item name="colorPrimary">@color/blue_A100</item>
+        <item name="colorPrimaryDark">#5a7fff</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_6889ff">
+        <item name="colorPrimary">@color/blue_A200</item>
+        <item name="colorPrimaryDark">#1c4dff</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_4d73ff">
+        <item name="colorPrimary">@color/blue_A400</item>
+        <item name="colorPrimaryDark">#0037ff</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_4d69ff">
+        <item name="colorPrimary">@color/blue_A700</item>
+        <item name="colorPrimaryDark">#0029ff</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_e1f5fe">
+        <item name="colorPrimary">@color/light_blue_50</item>
+        <item name="colorPrimaryDark">#97dcfc</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_b3e5fc">
+        <item name="colorPrimary">@color/light_blue_100</item>
+        <item name="colorPrimaryDark">#69ccf9</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_81d4fa">
+        <item name="colorPrimary">@color/light_blue_200</item>
+        <item name="colorPrimaryDark">#37bbf7</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_4fc3f7">
+        <item name="colorPrimary">@color/light_blue_300</item>
+        <item name="colorPrimaryDark">#0ba8ef</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_29b6f6">
+        <item name="colorPrimary">@color/light_blue_400</item>
+        <item name="colorPrimaryDark">#088eca</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_03a9f4">
+        <item name="colorPrimary">@color/light_blue_500</item>
+        <item name="colorPrimaryDark">#0275a8</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_039be5">
+        <item name="colorPrimary">@color/light_blue_600</item>
+        <item name="colorPrimaryDark">#026899</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_0288d1">
+        <item name="colorPrimary">@color/light_blue_700</item>
+        <item name="colorPrimaryDark">#015785</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_0277bd">
+        <item name="colorPrimary">@color/light_blue_800</item>
+        <item name="colorPrimaryDark">#014771</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_01579b">
+        <item name="colorPrimary">@color/light_blue_900</item>
+        <item name="colorPrimaryDark">#012c4f</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_80d8ff">
+        <item name="colorPrimary">@color/light_blue_A100</item>
+        <item name="colorPrimaryDark">#33c1ff</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_40c4ff">
+        <item name="colorPrimary">@color/light_blue_A200</item>
+        <item name="colorPrimaryDark">#00a8f3</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_00b0ff">
+        <item name="colorPrimary">@color/light_blue_A400</item>
+        <item name="colorPrimaryDark">#007bb3</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_0091ea">
+        <item name="colorPrimary">@color/light_blue_A700</item>
+        <item name="colorPrimaryDark">#00629e</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_e0f7fa">
+        <item name="colorPrimary">@color/cyan_50</item>
+        <item name="colorPrimaryDark">#9ee6ef</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_b2ebf2">
+        <item name="colorPrimary">@color/cyan_100</item>
+        <item name="colorPrimaryDark">#71dae7</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_80deea">
+        <item name="colorPrimary">@color/cyan_200</item>
+        <item name="colorPrimaryDark">#3ecddf</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_4dd0e1">
+        <item name="colorPrimary">@color/cyan_300</item>
+        <item name="colorPrimaryDark">#21afc1</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_26c6da">
+        <item name="colorPrimary">@color/cyan_400</item>
+        <item name="colorPrimaryDark">#1a8b99</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_00bcd4">
+        <item name="colorPrimary">@color/cyan_500</item>
+        <item name="colorPrimaryDark">#007888</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_00acc1">
+        <item name="colorPrimary">@color/cyan_600</item>
+        <item name="colorPrimaryDark">#006875</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_0097a7">
+        <item name="colorPrimary">@color/cyan_700</item>
+        <item name="colorPrimaryDark">#00525a</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_00838f">
+        <item name="colorPrimary">@color/cyan_800</item>
+        <item name="colorPrimaryDark">#003d43</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_006064">
+        <item name="colorPrimary">@color/cyan_900</item>
+        <item name="colorPrimaryDark">#001718</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_84ffff">
+        <item name="colorPrimary">@color/cyan_A100</item>
+        <item name="colorPrimaryDark">#38ffff</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_18ffff">
+        <item name="colorPrimary">@color/cyan_A200</item>
+        <item name="colorPrimaryDark">#00cacb</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_00e5ff">
+        <item name="colorPrimary">@color/cyan_A400</item>
+        <item name="colorPrimaryDark">#00a0b3</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_00b8d4">
+        <item name="colorPrimary">@color/cyan_A700</item>
+        <item name="colorPrimaryDark">#007688</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_e0f2f1">
+        <item name="colorPrimary">@color/teal_50</item>
+        <item name="colorPrimaryDark">#aadbd9</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_b2dfdb">
+        <item name="colorPrimary">@color/teal_100</item>
+        <item name="colorPrimaryDark">#7cc9c2</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_80cbc4">
+        <item name="colorPrimary">@color/teal_200</item>
+        <item name="colorPrimaryDark">#4ab5ab</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_4db6ac">
+        <item name="colorPrimary">@color/teal_300</item>
+        <item name="colorPrimaryDark">#35817a</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_26a69a">
+        <item name="colorPrimary">@color/teal_400</item>
+        <item name="colorPrimaryDark">#186860</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_009688">
+        <item name="colorPrimary">@color/teal_500</item>
+        <item name="colorPrimaryDark">#004a43</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_00897b">
+        <item name="colorPrimary">@color/teal_600</item>
+        <item name="colorPrimaryDark">#003d36</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_00796b">
+        <item name="colorPrimary">@color/teal_700</item>
+        <item name="colorPrimaryDark">#002c27</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_00695c">
+        <item name="colorPrimary">@color/teal_800</item>
+        <item name="colorPrimaryDark">#001c19</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_004d40">
+        <item name="colorPrimary">@color/teal_900</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_a7ffeb">
+        <item name="colorPrimary">@color/teal_A100</item>
+        <item name="colorPrimaryDark">#5affda</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_64ffda">
+        <item name="colorPrimary">@color/teal_A200</item>
+        <item name="colorPrimaryDark">#18ffc8</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_1de9b6">
+        <item name="colorPrimary">@color/teal_A400</item>
+        <item name="colorPrimaryDark">#10a983</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_00bfa5">
+        <item name="colorPrimary">@color/teal_A700</item>
+        <item name="colorPrimaryDark">#007363</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_d0f8ce">
+        <item name="colorPrimary">@color/green_50</item>
+        <item name="colorPrimaryDark">#90ee8b</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_a3e9a4">
+        <item name="colorPrimary">@color/green_100</item>
+        <item name="colorPrimaryDark">#65da67</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_72d572">
+        <item name="colorPrimary">@color/green_200</item>
+        <item name="colorPrimaryDark">#39c139</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_42bd41">
+        <item name="colorPrimary">@color/green_300</item>
+        <item name="colorPrimaryDark">#2e842d</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_2baf2b">
+        <item name="colorPrimary">@color/green_400</item>
+        <item name="colorPrimaryDark">#1c721c</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_259b24">
+        <item name="colorPrimary">@color/green_500</item>
+        <item name="colorPrimaryDark">#165d16</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_0a8f08">
+        <item name="colorPrimary">@color/green_600</item>
+        <item name="colorPrimaryDark">#054704</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_0a7e07">
+        <item name="colorPrimary">@color/green_700</item>
+        <item name="colorPrimaryDark">#043603</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_056f00">
+        <item name="colorPrimary">@color/green_800</item>
+        <item name="colorPrimaryDark">#022300</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_0d5302">
+        <item name="colorPrimary">@color/green_900</item>
+        <item name="colorPrimaryDark">#010800</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_a2f78d">
+        <item name="colorPrimary">@color/green_A100</item>
+        <item name="colorPrimaryDark">#68f246</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_5af158">
+        <item name="colorPrimary">@color/green_A200</item>
+        <item name="colorPrimaryDark">#16e914</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_14e715">
+        <item name="colorPrimary">@color/green_A400</item>
+        <item name="colorPrimaryDark">#0ea10f</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_12c700">
+        <item name="colorPrimary">@color/green_A700</item>
+        <item name="colorPrimaryDark">#0b7b00</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f1f8e9">
+        <item name="colorPrimary">@color/light_green_50</item>
+        <item name="colorPrimaryDark">#cce6af</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_dcedc8">
+        <item name="colorPrimary">@color/light_green_100</item>
+        <item name="colorPrimaryDark">#b7da8e</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_c5e1a5">
+        <item name="colorPrimary">@color/light_green_200</item>
+        <item name="colorPrimaryDark">#a0ce6c</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_aed581">
+        <item name="colorPrimary">@color/light_green_300</item>
+        <item name="colorPrimaryDark">#89c248</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_9ccc65">
+        <item name="colorPrimary">@color/light_green_400</item>
+        <item name="colorPrimaryDark">#76ac39</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_8bc34a">
+        <item name="colorPrimary">@color/light_green_500</item>
+        <item name="colorPrimaryDark">#649130</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_7cb342">
+        <item name="colorPrimary">@color/light_green_600</item>
+        <item name="colorPrimaryDark">#557b2d</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_689f38">
+        <item name="colorPrimary">@color/light_green_700</item>
+        <item name="colorPrimaryDark">#436624</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_558b2f">
+        <item name="colorPrimary">@color/light_green_800</item>
+        <item name="colorPrimaryDark">#32521c</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_33691e">
+        <item name="colorPrimary">@color/light_green_900</item>
+        <item name="colorPrimaryDark">#162e0d</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_ccff90">
+        <item name="colorPrimary">@color/light_green_A100</item>
+        <item name="colorPrimaryDark">#a9ff43</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_b2ff59">
+        <item name="colorPrimary">@color/light_green_A200</item>
+        <item name="colorPrimaryDark">#8fff0c</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_76ff03">
+        <item name="colorPrimary">@color/light_green_A400</item>
+        <item name="colorPrimaryDark">#53b500</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_64dd17">
+        <item name="colorPrimary">@color/light_green_A700</item>
+        <item name="colorPrimaryDark">#459810</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f9fbe7">
+        <item name="colorPrimary">@color/lime_50</item>
+        <item name="colorPrimaryDark">#e9f0a5</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f0f4c3">
+        <item name="colorPrimary">@color/lime_100</item>
+        <item name="colorPrimaryDark">#e0e882</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_e6ee9c">
+        <item name="colorPrimary">@color/lime_200</item>
+        <item name="colorPrimaryDark">#d6e35b</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_dce775">
+        <item name="colorPrimary">@color/lime_300</item>
+        <item name="colorPrimaryDark">#cbdc34</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_d4e157">
+        <item name="colorPrimary">@color/lime_400</item>
+        <item name="colorPrimaryDark">#b8c824</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_cddc39">
+        <item name="colorPrimary">@color/lime_500</item>
+        <item name="colorPrimaryDark">#9daa1e</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_c0ca33">
+        <item name="colorPrimary">@color/lime_600</item>
+        <item name="colorPrimaryDark">#868d24</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_afb42b">
+        <item name="colorPrimary">@color/lime_700</item>
+        <item name="colorPrimaryDark">#73761c</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_9e9d24">
+        <item name="colorPrimary">@color/lime_800</item>
+        <item name="colorPrimaryDark">#605f16</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_827717">
+        <item name="colorPrimary">@color/lime_900</item>
+        <item name="colorPrimaryDark">#413c0c</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f4ff81">
+        <item name="colorPrimary">@color/lime_A100</item>
+        <item name="colorPrimaryDark">#edff35</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_eeff41">
+        <item name="colorPrimary">@color/lime_A200</item>
+        <item name="colorPrimaryDark">#def300</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_c6ff00">
+        <item name="colorPrimary">@color/lime_A400</item>
+        <item name="colorPrimaryDark">#8bb300</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_aeea00">
+        <item name="colorPrimary">@color/lime_A700</item>
+        <item name="colorPrimaryDark">#759e00</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_fffde7">
+        <item name="colorPrimary">@color/yellow_50</item>
+        <item name="colorPrimaryDark">#fff79b</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_fff9c4">
+        <item name="colorPrimary">@color/yellow_100</item>
+        <item name="colorPrimaryDark">#fff177</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_fff59d">
+        <item name="colorPrimary">@color/yellow_200</item>
+        <item name="colorPrimaryDark">#ffed51</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_fff176">
+        <item name="colorPrimary">@color/yellow_300</item>
+        <item name="colorPrimaryDark">#ffe92a</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffee58">
+        <item name="colorPrimary">@color/yellow_400</item>
+        <item name="colorPrimaryDark">#ffe60c</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffeb3b">
+        <item name="colorPrimary">@color/yellow_500</item>
+        <item name="colorPrimaryDark">#eed500</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_fdd835">
+        <item name="colorPrimary">@color/yellow_600</item>
+        <item name="colorPrimaryDark">#e3ba02</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_fbc02d">
+        <item name="colorPrimary">@color/yellow_700</item>
+        <item name="colorPrimaryDark">#d79b04</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f9a825">
+        <item name="colorPrimary">@color/yellow_800</item>
+        <item name="colorPrimaryDark">#cc8006</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f57f17">
+        <item name="colorPrimary">@color/yellow_900</item>
+        <item name="colorPrimaryDark">#b85a08</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffff8d">
+        <item name="colorPrimary">@color/yellow_A100</item>
+        <item name="colorPrimaryDark">#ffff41</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffff00">
+        <item name="colorPrimary">@color/yellow_A200</item>
+        <item name="colorPrimaryDark">#b2b300</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffea00">
+        <item name="colorPrimary">@color/yellow_A400</item>
+        <item name="colorPrimaryDark">#b3a400</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffd600">
+        <item name="colorPrimary">@color/yellow_A700</item>
+        <item name="colorPrimaryDark">#b39600</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_fff8e1">
+        <item name="colorPrimary">@color/amber_50</item>
+        <item name="colorPrimaryDark">#ffe695</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffecb3">
+        <item name="colorPrimary">@color/amber_100</item>
+        <item name="colorPrimaryDark">#ffd966</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffe082">
+        <item name="colorPrimary">@color/amber_200</item>
+        <item name="colorPrimaryDark">#ffcd35</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffd54f">
+        <item name="colorPrimary">@color/amber_300</item>
+        <item name="colorPrimaryDark">#ffc302</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffca28">
+        <item name="colorPrimary">@color/amber_400</item>
+        <item name="colorPrimaryDark">#daa500</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffc107">
+        <item name="colorPrimary">@color/amber_500</item>
+        <item name="colorPrimaryDark">#b98b00</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffb300">
+        <item name="colorPrimary">@color/amber_600</item>
+        <item name="colorPrimaryDark">#b37d00</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffa000">
+        <item name="colorPrimary">@color/amber_700</item>
+        <item name="colorPrimaryDark">#b37000</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ff8f00">
+        <item name="colorPrimary">@color/amber_800</item>
+        <item name="colorPrimaryDark">#b36400</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ff6f00">
+        <item name="colorPrimary">@color/amber_900</item>
+        <item name="colorPrimaryDark">#b34e00</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffe57f">
+        <item name="colorPrimary">@color/amber_A100</item>
+        <item name="colorPrimaryDark">#ffd533</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffd740">
+        <item name="colorPrimary">@color/amber_A200</item>
+        <item name="colorPrimaryDark">#f3c000</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffc400">
+        <item name="colorPrimary">@color/amber_A400</item>
+        <item name="colorPrimaryDark">#b38900</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffab00">
+        <item name="colorPrimary">@color/amber_A700</item>
+        <item name="colorPrimaryDark">#b37800</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_fff3e0">
+        <item name="colorPrimary">@color/orange_50</item>
+        <item name="colorPrimaryDark">#ffd594</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffe0b2">
+        <item name="colorPrimary">@color/orange_100</item>
+        <item name="colorPrimaryDark">#ffc166</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffcc80">
+        <item name="colorPrimary">@color/orange_200</item>
+        <item name="colorPrimaryDark">#ffad33</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffb74d">
+        <item name="colorPrimary">@color/orange_300</item>
+        <item name="colorPrimaryDark">#ff9800</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffa726">
+        <item name="colorPrimary">@color/orange_400</item>
+        <item name="colorPrimaryDark">#d88100</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ff9800">
+        <item name="colorPrimary">@color/orange_500</item>
+        <item name="colorPrimaryDark">#b36a00</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_fb8c00">
+        <item name="colorPrimary">@color/orange_600</item>
+        <item name="colorPrimaryDark">#ae6100</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f57c00">
+        <item name="colorPrimary">@color/orange_700</item>
+        <item name="colorPrimaryDark">#a95500</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ef6c00">
+        <item name="colorPrimary">@color/orange_800</item>
+        <item name="colorPrimaryDark">#a34900</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_e65100">
+        <item name="colorPrimary">@color/orange_900</item>
+        <item name="colorPrimaryDark">#9a3600</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffd180">
+        <item name="colorPrimary">@color/orange_A100</item>
+        <item name="colorPrimaryDark">#ffb533</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffab40">
+        <item name="colorPrimary">@color/orange_A200</item>
+        <item name="colorPrimaryDark">#f38800</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ff9100">
+        <item name="colorPrimary">@color/orange_A400</item>
+        <item name="colorPrimaryDark">#b36500</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ff6d00">
+        <item name="colorPrimary">@color/orange_A700</item>
+        <item name="colorPrimaryDark">#b34c00</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_fbe9e7">
+        <item name="colorPrimary">@color/deep_orange_50</item>
+        <item name="colorPrimaryDark">#f0ada5</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffccbc">
+        <item name="colorPrimary">@color/deep_orange_100</item>
+        <item name="colorPrimaryDark">#ff9270</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ffab91">
+        <item name="colorPrimary">@color/deep_orange_200</item>
+        <item name="colorPrimaryDark">#ff7145</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ff8a65">
+        <item name="colorPrimary">@color/deep_orange_300</item>
+        <item name="colorPrimaryDark">#ff5018</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ff7043">
+        <item name="colorPrimary">@color/deep_orange_400</item>
+        <item name="colorPrimaryDark">#f53b00</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ff5722">
+        <item name="colorPrimary">@color/deep_orange_500</item>
+        <item name="colorPrimaryDark">#d43300</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f4511e">
+        <item name="colorPrimary">@color/deep_orange_600</item>
+        <item name="colorPrimaryDark">#bc3409</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_e64a19">
+        <item name="colorPrimary">@color/deep_orange_700</item>
+        <item name="colorPrimaryDark">#a13411</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_d84315">
+        <item name="colorPrimary">@color/deep_orange_800</item>
+        <item name="colorPrimaryDark">#922d0e</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_bf360c">
+        <item name="colorPrimary">@color/deep_orange_900</item>
+        <item name="colorPrimaryDark">#772207</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_ff9e80">
+        <item name="colorPrimary">@color/deep_orange_A100</item>
+        <item name="colorPrimaryDark">#ff6433</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ff6e40">
+        <item name="colorPrimary">@color/deep_orange_A200</item>
+        <item name="colorPrimaryDark">#f33a00</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_ff3d00">
+        <item name="colorPrimary">@color/deep_orange_A400</item>
+        <item name="colorPrimaryDark">#b32b00</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_dd2c00">
+        <item name="colorPrimary">@color/deep_orange_A700</item>
+        <item name="colorPrimaryDark">#911d00</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_efebe9">
+        <item name="colorPrimary">@color/brown_50</item>
+        <item name="colorPrimaryDark">#cfc3bd</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_d7ccc8">
+        <item name="colorPrimary">@color/brown_100</item>
+        <item name="colorPrimaryDark">#b7a39c</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_bcaaa4">
+        <item name="colorPrimary">@color/brown_200</item>
+        <item name="colorPrimaryDark">#9c8178</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_a1887f">
+        <item name="colorPrimary">@color/brown_300</item>
+        <item name="colorPrimaryDark">#7a625a</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_8d6e63">
+        <item name="colorPrimary">@color/brown_400</item>
+        <item name="colorPrimaryDark">#604b43</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_795548">
+        <item name="colorPrimary">@color/brown_500</item>
+        <item name="colorPrimaryDark">#49332b</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_6d4c41">
+        <item name="colorPrimary">@color/brown_600</item>
+        <item name="colorPrimaryDark">#3d2b24</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_5d4037">
+        <item name="colorPrimary">@color/brown_700</item>
+        <item name="colorPrimaryDark">#2d1f1b</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_4e342e">
+        <item name="colorPrimary">@color/brown_800</item>
+        <item name="colorPrimaryDark">#1e1412</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_3e2723">
+        <item name="colorPrimary">@color/brown_900</item>
+        <item name="colorPrimaryDark">#0d0807</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_fafafa">
+        <item name="colorPrimary">@color/grey_50</item>
+        <item name="colorPrimaryDark">#d4d4d4</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_f5f5f5">
+        <item name="colorPrimary">@color/grey_100</item>
+        <item name="colorPrimaryDark">#cfcfcf</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_eeeeee">
+        <item name="colorPrimary">@color/grey_200</item>
+        <item name="colorPrimaryDark">#c8c8c8</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_e0e0e0">
+        <item name="colorPrimary">@color/grey_300</item>
+        <item name="colorPrimaryDark">#bababa</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_bdbdbd">
+        <item name="colorPrimary">@color/grey_400</item>
+        <item name="colorPrimaryDark">#979797</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_9e9e9e">
+        <item name="colorPrimary">@color/grey_500</item>
+        <item name="colorPrimaryDark">#787878</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_757575">
+        <item name="colorPrimary">@color/grey_600</item>
+        <item name="colorPrimaryDark">#4f4f4f</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_616161">
+        <item name="colorPrimary">@color/grey_700</item>
+        <item name="colorPrimaryDark">#3b3b3b</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_424242">
+        <item name="colorPrimary">@color/grey_800</item>
+        <item name="colorPrimaryDark">#1c1c1c</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_212121">
+        <item name="colorPrimary">@color/grey_900</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_000000">
+        <item name="colorPrimary">@color/grey_1000b</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_ffffff">
+        <item name="colorPrimary">@color/grey_1000w</item>
+        <item name="colorPrimaryDark">#d9d9d9</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_eceff1">
+        <item name="colorPrimary">@color/blue_grey_50</item>
+        <item name="colorPrimaryDark">#c0cad1</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_cfd8dc">
+        <item name="colorPrimary">@color/blue_grey_100</item>
+        <item name="colorPrimaryDark">#a3b4bc</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_b0bec5">
+        <item name="colorPrimary">@color/blue_grey_200</item>
+        <item name="colorPrimaryDark">#849aa5</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_90a4ae">
+        <item name="colorPrimary">@color/blue_grey_300</item>
+        <item name="colorPrimaryDark">#667f8c</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_78909c">
+        <item name="colorPrimary">@color/blue_grey_400</item>
+        <item name="colorPrimaryDark">#546973</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_607d8b">
+        <item name="colorPrimary">@color/blue_grey_500</item>
+        <item name="colorPrimaryDark">#41545e</item>
+        <item name="colorOnPrimary">#000000</item>
+    </style>
+
+    <style name="colorPrimary_546e7a">
+        <item name="colorPrimary">@color/blue_grey_600</item>
+        <item name="colorPrimaryDark">#35454d</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_455a64">
+        <item name="colorPrimary">@color/blue_grey_700</item>
+        <item name="colorPrimaryDark">#263137</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_37474f">
+        <item name="colorPrimary">@color/blue_grey_800</item>
+        <item name="colorPrimaryDark">#181e22</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorPrimary_263238">
+        <item name="colorPrimary">@color/blue_grey_900</item>
+        <item name="colorPrimaryDark">#07090a</item>
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
+    <style name="colorAccent_fde0dc">
+        <item name="colorAccent">@color/red_50</item>
+    </style>
+
+    <style name="colorAccent_f9bdbb">
+        <item name="colorAccent">@color/red_100</item>
+    </style>
+
+    <style name="colorAccent_f69988">
+        <item name="colorAccent">@color/red_200</item>
+    </style>
+
+    <style name="colorAccent_f36c60">
+        <item name="colorAccent">@color/red_300</item>
+    </style>
+
+    <style name="colorAccent_e84e40">
+        <item name="colorAccent">@color/red_400</item>
+    </style>
+
+    <style name="colorAccent_e51c23">
+        <item name="colorAccent">@color/red_500</item>
+    </style>
+
+    <style name="colorAccent_dd191d">
+        <item name="colorAccent">@color/red_600</item>
+    </style>
+
+    <style name="colorAccent_d01716">
+        <item name="colorAccent">@color/red_700</item>
+    </style>
+
+    <style name="colorAccent_c41411">
+        <item name="colorAccent">@color/red_800</item>
+    </style>
+
+    <style name="colorAccent_b0120a">
+        <item name="colorAccent">@color/red_900</item>
+    </style>
+
+    <style name="colorAccent_ff7997">
+        <item name="colorAccent">@color/red_A100</item>
+    </style>
+
+    <style name="colorAccent_ff5177">
+        <item name="colorAccent">@color/red_A200</item>
+    </style>
+
+    <style name="colorAccent_ff2d6f">
+        <item name="colorAccent">@color/red_A400</item>
+    </style>
+
+    <style name="colorAccent_e00032">
+        <item name="colorAccent">@color/red_A700</item>
+    </style>
+
+    <style name="colorAccent_fce4ec">
+        <item name="colorAccent">@color/pink_50</item>
+    </style>
+
+    <style name="colorAccent_f8bbd0">
+        <item name="colorAccent">@color/pink_100</item>
+    </style>
+
+    <style name="colorAccent_f48fb1">
+        <item name="colorAccent">@color/pink_200</item>
+    </style>
+
+    <style name="colorAccent_f06292">
+        <item name="colorAccent">@color/pink_300</item>
+    </style>
+
+    <style name="colorAccent_ec407a">
+        <item name="colorAccent">@color/pink_400</item>
+    </style>
+
+    <style name="colorAccent_e91e63">
+        <item name="colorAccent">@color/pink_500</item>
+    </style>
+
+    <style name="colorAccent_d81b60">
+        <item name="colorAccent">@color/pink_600</item>
+    </style>
+
+    <style name="colorAccent_c2185b">
+        <item name="colorAccent">@color/pink_700</item>
+    </style>
+
+    <style name="colorAccent_ad1457">
+        <item name="colorAccent">@color/pink_800</item>
+    </style>
+
+    <style name="colorAccent_880e4f">
+        <item name="colorAccent">@color/pink_900</item>
+    </style>
+
+    <style name="colorAccent_ff80ab">
+        <item name="colorAccent">@color/pink_A100</item>
+    </style>
+
+    <style name="colorAccent_ff4081">
+        <item name="colorAccent">@color/pink_A200</item>
+    </style>
+
+    <style name="colorAccent_f50057">
+        <item name="colorAccent">@color/pink_A400</item>
+    </style>
+
+    <style name="colorAccent_c51162">
+        <item name="colorAccent">@color/pink_A700</item>
+    </style>
+
+    <style name="colorAccent_f3e5f5">
+        <item name="colorAccent">@color/purple_50</item>
+    </style>
+
+    <style name="colorAccent_e1bee7">
+        <item name="colorAccent">@color/purple_100</item>
+    </style>
+
+    <style name="colorAccent_ce93d8">
+        <item name="colorAccent">@color/purple_200</item>
+    </style>
+
+    <style name="colorAccent_ba68c8">
+        <item name="colorAccent">@color/purple_300</item>
+    </style>
+
+    <style name="colorAccent_ab47bc">
+        <item name="colorAccent">@color/purple_400</item>
+    </style>
+
+    <style name="colorAccent_9c27b0">
+        <item name="colorAccent">@color/purple_500</item>
+    </style>
+
+    <style name="colorAccent_8e24aa">
+        <item name="colorAccent">@color/purple_600</item>
+    </style>
+
+    <style name="colorAccent_7b1fa2">
+        <item name="colorAccent">@color/purple_700</item>
+    </style>
+
+    <style name="colorAccent_6a1b9a">
+        <item name="colorAccent">@color/purple_800</item>
+    </style>
+
+    <style name="colorAccent_4a148c">
+        <item name="colorAccent">@color/purple_900</item>
+    </style>
+
+    <style name="colorAccent_ea80fc">
+        <item name="colorAccent">@color/purple_A100</item>
+    </style>
+
+    <style name="colorAccent_e040fb">
+        <item name="colorAccent">@color/purple_A200</item>
+    </style>
+
+    <style name="colorAccent_d500f9">
+        <item name="colorAccent">@color/purple_A400</item>
+    </style>
+
+    <style name="colorAccent_aa00ff">
+        <item name="colorAccent">@color/purple_A700</item>
+    </style>
+
+    <style name="colorAccent_ede7f6">
+        <item name="colorAccent">@color/deep_purple_50</item>
+    </style>
+
+    <style name="colorAccent_d1c4e9">
+        <item name="colorAccent">@color/deep_purple_100</item>
+    </style>
+
+    <style name="colorAccent_b39ddb">
+        <item name="colorAccent">@color/deep_purple_200</item>
+    </style>
+
+    <style name="colorAccent_9575cd">
+        <item name="colorAccent">@color/deep_purple_300</item>
+    </style>
+
+    <style name="colorAccent_7e57c2">
+        <item name="colorAccent">@color/deep_purple_400</item>
+    </style>
+
+    <style name="colorAccent_673ab7">
+        <item name="colorAccent">@color/deep_purple_500</item>
+    </style>
+
+    <style name="colorAccent_5e35b1">
+        <item name="colorAccent">@color/deep_purple_600</item>
+    </style>
+
+    <style name="colorAccent_512da8">
+        <item name="colorAccent">@color/deep_purple_700</item>
+    </style>
+
+    <style name="colorAccent_4527a0">
+        <item name="colorAccent">@color/deep_purple_800</item>
+    </style>
+
+    <style name="colorAccent_311b92">
+        <item name="colorAccent">@color/deep_purple_900</item>
+    </style>
+
+    <style name="colorAccent_b388ff">
+        <item name="colorAccent">@color/deep_purple_A100</item>
+    </style>
+
+    <style name="colorAccent_7c4dff">
+        <item name="colorAccent">@color/deep_purple_A200</item>
+    </style>
+
+    <style name="colorAccent_651fff">
+        <item name="colorAccent">@color/deep_purple_A400</item>
+    </style>
+
+    <style name="colorAccent_6200ea">
+        <item name="colorAccent">@color/deep_purple_A700</item>
+    </style>
+
+    <style name="colorAccent_e8eaf6">
+        <item name="colorAccent">@color/indigo_50</item>
+    </style>
+
+    <style name="colorAccent_c5cae9">
+        <item name="colorAccent">@color/indigo_100</item>
+    </style>
+
+    <style name="colorAccent_9fa8da">
+        <item name="colorAccent">@color/indigo_200</item>
+    </style>
+
+    <style name="colorAccent_7986cb">
+        <item name="colorAccent">@color/indigo_300</item>
+    </style>
+
+    <style name="colorAccent_5c6bc0">
+        <item name="colorAccent">@color/indigo_400</item>
+    </style>
+
+    <style name="colorAccent_3f51b5">
+        <item name="colorAccent">@color/indigo_500</item>
+    </style>
+
+    <style name="colorAccent_3949ab">
+        <item name="colorAccent">@color/indigo_600</item>
+    </style>
+
+    <style name="colorAccent_303f9f">
+        <item name="colorAccent">@color/indigo_700</item>
+    </style>
+
+    <style name="colorAccent_283593">
+        <item name="colorAccent">@color/indigo_800</item>
+    </style>
+
+    <style name="colorAccent_1a237e">
+        <item name="colorAccent">@color/indigo_900</item>
+    </style>
+
+    <style name="colorAccent_8c9eff">
+        <item name="colorAccent">@color/indigo_A100</item>
+    </style>
+
+    <style name="colorAccent_536dfe">
+        <item name="colorAccent">@color/indigo_A200</item>
+    </style>
+
+    <style name="colorAccent_3d5afe">
+        <item name="colorAccent">@color/indigo_A400</item>
+    </style>
+
+    <style name="colorAccent_304ffe">
+        <item name="colorAccent">@color/indigo_A700</item>
+    </style>
+
+    <style name="colorAccent_e7e9fd">
+        <item name="colorAccent">@color/blue_50</item>
+    </style>
+
+    <style name="colorAccent_d0d9ff">
+        <item name="colorAccent">@color/blue_100</item>
+    </style>
+
+    <style name="colorAccent_afbfff">
+        <item name="colorAccent">@color/blue_200</item>
+    </style>
+
+    <style name="colorAccent_91a7ff">
+        <item name="colorAccent">@color/blue_300</item>
+    </style>
+
+    <style name="colorAccent_738ffe">
+        <item name="colorAccent">@color/blue_400</item>
+    </style>
+
+    <style name="colorAccent_5677fc">
+        <item name="colorAccent">@color/blue_500</item>
+    </style>
+
+    <style name="colorAccent_4e6cef">
+        <item name="colorAccent">@color/blue_600</item>
+    </style>
+
+    <style name="colorAccent_455ede">
+        <item name="colorAccent">@color/blue_700</item>
+    </style>
+
+    <style name="colorAccent_3b50ce">
+        <item name="colorAccent">@color/blue_800</item>
+    </style>
+
+    <style name="colorAccent_2a36b1">
+        <item name="colorAccent">@color/blue_900</item>
+    </style>
+
+    <style name="colorAccent_a6baff">
+        <item name="colorAccent">@color/blue_A100</item>
+    </style>
+
+    <style name="colorAccent_6889ff">
+        <item name="colorAccent">@color/blue_A200</item>
+    </style>
+
+    <style name="colorAccent_4d73ff">
+        <item name="colorAccent">@color/blue_A400</item>
+    </style>
+
+    <style name="colorAccent_4d69ff">
+        <item name="colorAccent">@color/blue_A700</item>
+    </style>
+
+    <style name="colorAccent_e1f5fe">
+        <item name="colorAccent">@color/light_blue_50</item>
+    </style>
+
+    <style name="colorAccent_b3e5fc">
+        <item name="colorAccent">@color/light_blue_100</item>
+    </style>
+
+    <style name="colorAccent_81d4fa">
+        <item name="colorAccent">@color/light_blue_200</item>
+    </style>
+
+    <style name="colorAccent_4fc3f7">
+        <item name="colorAccent">@color/light_blue_300</item>
+    </style>
+
+    <style name="colorAccent_29b6f6">
+        <item name="colorAccent">@color/light_blue_400</item>
+    </style>
+
+    <style name="colorAccent_03a9f4">
+        <item name="colorAccent">@color/light_blue_500</item>
+    </style>
+
+    <style name="colorAccent_039be5">
+        <item name="colorAccent">@color/light_blue_600</item>
+    </style>
+
+    <style name="colorAccent_0288d1">
+        <item name="colorAccent">@color/light_blue_700</item>
+    </style>
+
+    <style name="colorAccent_0277bd">
+        <item name="colorAccent">@color/light_blue_800</item>
+    </style>
+
+    <style name="colorAccent_01579b">
+        <item name="colorAccent">@color/light_blue_900</item>
+    </style>
+
+    <style name="colorAccent_80d8ff">
+        <item name="colorAccent">@color/light_blue_A100</item>
+    </style>
+
+    <style name="colorAccent_40c4ff">
+        <item name="colorAccent">@color/light_blue_A200</item>
+    </style>
+
+    <style name="colorAccent_00b0ff">
+        <item name="colorAccent">@color/light_blue_A400</item>
+    </style>
+
+    <style name="colorAccent_0091ea">
+        <item name="colorAccent">@color/light_blue_A700</item>
+    </style>
+
+    <style name="colorAccent_e0f7fa">
+        <item name="colorAccent">@color/cyan_50</item>
+    </style>
+
+    <style name="colorAccent_b2ebf2">
+        <item name="colorAccent">@color/cyan_100</item>
+    </style>
+
+    <style name="colorAccent_80deea">
+        <item name="colorAccent">@color/cyan_200</item>
+    </style>
+
+    <style name="colorAccent_4dd0e1">
+        <item name="colorAccent">@color/cyan_300</item>
+    </style>
+
+    <style name="colorAccent_26c6da">
+        <item name="colorAccent">@color/cyan_400</item>
+    </style>
+
+    <style name="colorAccent_00bcd4">
+        <item name="colorAccent">@color/cyan_500</item>
+    </style>
+
+    <style name="colorAccent_00acc1">
+        <item name="colorAccent">@color/cyan_600</item>
+    </style>
+
+    <style name="colorAccent_0097a7">
+        <item name="colorAccent">@color/cyan_700</item>
+    </style>
+
+    <style name="colorAccent_00838f">
+        <item name="colorAccent">@color/cyan_800</item>
+    </style>
+
+    <style name="colorAccent_006064">
+        <item name="colorAccent">@color/cyan_900</item>
+    </style>
+
+    <style name="colorAccent_84ffff">
+        <item name="colorAccent">@color/cyan_A100</item>
+    </style>
+
+    <style name="colorAccent_18ffff">
+        <item name="colorAccent">@color/cyan_A200</item>
+    </style>
+
+    <style name="colorAccent_00e5ff">
+        <item name="colorAccent">@color/cyan_A400</item>
+    </style>
+
+    <style name="colorAccent_00b8d4">
+        <item name="colorAccent">@color/cyan_A700</item>
+    </style>
+
+    <style name="colorAccent_e0f2f1">
+        <item name="colorAccent">@color/teal_50</item>
+    </style>
+
+    <style name="colorAccent_b2dfdb">
+        <item name="colorAccent">@color/teal_100</item>
+    </style>
+
+    <style name="colorAccent_80cbc4">
+        <item name="colorAccent">@color/teal_200</item>
+    </style>
+
+    <style name="colorAccent_4db6ac">
+        <item name="colorAccent">@color/teal_300</item>
+    </style>
+
+    <style name="colorAccent_26a69a">
+        <item name="colorAccent">@color/teal_400</item>
+    </style>
+
+    <style name="colorAccent_009688">
+        <item name="colorAccent">@color/teal_500</item>
+    </style>
+
+    <style name="colorAccent_00897b">
+        <item name="colorAccent">@color/teal_600</item>
+    </style>
+
+    <style name="colorAccent_00796b">
+        <item name="colorAccent">@color/teal_700</item>
+    </style>
+
+    <style name="colorAccent_00695c">
+        <item name="colorAccent">@color/teal_800</item>
+    </style>
+
+    <style name="colorAccent_004d40">
+        <item name="colorAccent">@color/teal_900</item>
+    </style>
+
+    <style name="colorAccent_a7ffeb">
+        <item name="colorAccent">@color/teal_A100</item>
+    </style>
+
+    <style name="colorAccent_64ffda">
+        <item name="colorAccent">@color/teal_A200</item>
+    </style>
+
+    <style name="colorAccent_1de9b6">
+        <item name="colorAccent">@color/teal_A400</item>
+    </style>
+
+    <style name="colorAccent_00bfa5">
+        <item name="colorAccent">@color/teal_A700</item>
+    </style>
+
+    <style name="colorAccent_d0f8ce">
+        <item name="colorAccent">@color/green_50</item>
+    </style>
+
+    <style name="colorAccent_a3e9a4">
+        <item name="colorAccent">@color/green_100</item>
+    </style>
+
+    <style name="colorAccent_72d572">
+        <item name="colorAccent">@color/green_200</item>
+    </style>
+
+    <style name="colorAccent_42bd41">
+        <item name="colorAccent">@color/green_300</item>
+    </style>
+
+    <style name="colorAccent_2baf2b">
+        <item name="colorAccent">@color/green_400</item>
+    </style>
+
+    <style name="colorAccent_259b24">
+        <item name="colorAccent">@color/green_500</item>
+    </style>
+
+    <style name="colorAccent_0a8f08">
+        <item name="colorAccent">@color/green_600</item>
+    </style>
+
+    <style name="colorAccent_0a7e07">
+        <item name="colorAccent">@color/green_700</item>
+    </style>
+
+    <style name="colorAccent_056f00">
+        <item name="colorAccent">@color/green_800</item>
+    </style>
+
+    <style name="colorAccent_0d5302">
+        <item name="colorAccent">@color/green_900</item>
+    </style>
+
+    <style name="colorAccent_a2f78d">
+        <item name="colorAccent">@color/green_A100</item>
+    </style>
+
+    <style name="colorAccent_5af158">
+        <item name="colorAccent">@color/green_A200</item>
+    </style>
+
+    <style name="colorAccent_14e715">
+        <item name="colorAccent">@color/green_A400</item>
+    </style>
+
+    <style name="colorAccent_12c700">
+        <item name="colorAccent">@color/green_A700</item>
+    </style>
+
+    <style name="colorAccent_f1f8e9">
+        <item name="colorAccent">@color/light_green_50</item>
+    </style>
+
+    <style name="colorAccent_dcedc8">
+        <item name="colorAccent">@color/light_green_100</item>
+    </style>
+
+    <style name="colorAccent_c5e1a5">
+        <item name="colorAccent">@color/light_green_200</item>
+    </style>
+
+    <style name="colorAccent_aed581">
+        <item name="colorAccent">@color/light_green_300</item>
+    </style>
+
+    <style name="colorAccent_9ccc65">
+        <item name="colorAccent">@color/light_green_400</item>
+    </style>
+
+    <style name="colorAccent_8bc34a">
+        <item name="colorAccent">@color/light_green_500</item>
+    </style>
+
+    <style name="colorAccent_7cb342">
+        <item name="colorAccent">@color/light_green_600</item>
+    </style>
+
+    <style name="colorAccent_689f38">
+        <item name="colorAccent">@color/light_green_700</item>
+    </style>
+
+    <style name="colorAccent_558b2f">
+        <item name="colorAccent">@color/light_green_800</item>
+    </style>
+
+    <style name="colorAccent_33691e">
+        <item name="colorAccent">@color/light_green_900</item>
+    </style>
+
+    <style name="colorAccent_ccff90">
+        <item name="colorAccent">@color/light_green_A100</item>
+    </style>
+
+    <style name="colorAccent_b2ff59">
+        <item name="colorAccent">@color/light_green_A200</item>
+    </style>
+
+    <style name="colorAccent_76ff03">
+        <item name="colorAccent">@color/light_green_A400</item>
+    </style>
+
+    <style name="colorAccent_64dd17">
+        <item name="colorAccent">@color/light_green_A700</item>
+    </style>
+
+    <style name="colorAccent_f9fbe7">
+        <item name="colorAccent">@color/lime_50</item>
+    </style>
+
+    <style name="colorAccent_f0f4c3">
+        <item name="colorAccent">@color/lime_100</item>
+    </style>
+
+    <style name="colorAccent_e6ee9c">
+        <item name="colorAccent">@color/lime_200</item>
+    </style>
+
+    <style name="colorAccent_dce775">
+        <item name="colorAccent">@color/lime_300</item>
+    </style>
+
+    <style name="colorAccent_d4e157">
+        <item name="colorAccent">@color/lime_400</item>
+    </style>
+
+    <style name="colorAccent_cddc39">
+        <item name="colorAccent">@color/lime_500</item>
+    </style>
+
+    <style name="colorAccent_c0ca33">
+        <item name="colorAccent">@color/lime_600</item>
+    </style>
+
+    <style name="colorAccent_afb42b">
+        <item name="colorAccent">@color/lime_700</item>
+    </style>
+
+    <style name="colorAccent_9e9d24">
+        <item name="colorAccent">@color/lime_800</item>
+    </style>
+
+    <style name="colorAccent_827717">
+        <item name="colorAccent">@color/lime_900</item>
+    </style>
+
+    <style name="colorAccent_f4ff81">
+        <item name="colorAccent">@color/lime_A100</item>
+    </style>
+
+    <style name="colorAccent_eeff41">
+        <item name="colorAccent">@color/lime_A200</item>
+    </style>
+
+    <style name="colorAccent_c6ff00">
+        <item name="colorAccent">@color/lime_A400</item>
+    </style>
+
+    <style name="colorAccent_aeea00">
+        <item name="colorAccent">@color/lime_A700</item>
+    </style>
+
+    <style name="colorAccent_fffde7">
+        <item name="colorAccent">@color/yellow_50</item>
+    </style>
+
+    <style name="colorAccent_fff9c4">
+        <item name="colorAccent">@color/yellow_100</item>
+    </style>
+
+    <style name="colorAccent_fff59d">
+        <item name="colorAccent">@color/yellow_200</item>
+    </style>
+
+    <style name="colorAccent_fff176">
+        <item name="colorAccent">@color/yellow_300</item>
+    </style>
+
+    <style name="colorAccent_ffee58">
+        <item name="colorAccent">@color/yellow_400</item>
+    </style>
+
+    <style name="colorAccent_ffeb3b">
+        <item name="colorAccent">@color/yellow_500</item>
+    </style>
+
+    <style name="colorAccent_fdd835">
+        <item name="colorAccent">@color/yellow_600</item>
+    </style>
+
+    <style name="colorAccent_fbc02d">
+        <item name="colorAccent">@color/yellow_700</item>
+    </style>
+
+    <style name="colorAccent_f9a825">
+        <item name="colorAccent">@color/yellow_800</item>
+    </style>
+
+    <style name="colorAccent_f57f17">
+        <item name="colorAccent">@color/yellow_900</item>
+    </style>
+
+    <style name="colorAccent_ffff8d">
+        <item name="colorAccent">@color/yellow_A100</item>
+    </style>
+
+    <style name="colorAccent_ffff00">
+        <item name="colorAccent">@color/yellow_A200</item>
+    </style>
+
+    <style name="colorAccent_ffea00">
+        <item name="colorAccent">@color/yellow_A400</item>
+    </style>
+
+    <style name="colorAccent_ffd600">
+        <item name="colorAccent">@color/yellow_A700</item>
+    </style>
+
+    <style name="colorAccent_fff8e1">
+        <item name="colorAccent">@color/amber_50</item>
+    </style>
+
+    <style name="colorAccent_ffecb3">
+        <item name="colorAccent">@color/amber_100</item>
+    </style>
+
+    <style name="colorAccent_ffe082">
+        <item name="colorAccent">@color/amber_200</item>
+    </style>
+
+    <style name="colorAccent_ffd54f">
+        <item name="colorAccent">@color/amber_300</item>
+    </style>
+
+    <style name="colorAccent_ffca28">
+        <item name="colorAccent">@color/amber_400</item>
+    </style>
+
+    <style name="colorAccent_ffc107">
+        <item name="colorAccent">@color/amber_500</item>
+    </style>
+
+    <style name="colorAccent_ffb300">
+        <item name="colorAccent">@color/amber_600</item>
+    </style>
+
+    <style name="colorAccent_ffa000">
+        <item name="colorAccent">@color/amber_700</item>
+    </style>
+
+    <style name="colorAccent_ff8f00">
+        <item name="colorAccent">@color/amber_800</item>
+    </style>
+
+    <style name="colorAccent_ff6f00">
+        <item name="colorAccent">@color/amber_900</item>
+    </style>
+
+    <style name="colorAccent_ffe57f">
+        <item name="colorAccent">@color/amber_A100</item>
+    </style>
+
+    <style name="colorAccent_ffd740">
+        <item name="colorAccent">@color/amber_A200</item>
+    </style>
+
+    <style name="colorAccent_ffc400">
+        <item name="colorAccent">@color/amber_A400</item>
+    </style>
+
+    <style name="colorAccent_ffab00">
+        <item name="colorAccent">@color/amber_A700</item>
+    </style>
+
+    <style name="colorAccent_fff3e0">
+        <item name="colorAccent">@color/orange_50</item>
+    </style>
+
+    <style name="colorAccent_ffe0b2">
+        <item name="colorAccent">@color/orange_100</item>
+    </style>
+
+    <style name="colorAccent_ffcc80">
+        <item name="colorAccent">@color/orange_200</item>
+    </style>
+
+    <style name="colorAccent_ffb74d">
+        <item name="colorAccent">@color/orange_300</item>
+    </style>
+
+    <style name="colorAccent_ffa726">
+        <item name="colorAccent">@color/orange_400</item>
+    </style>
+
+    <style name="colorAccent_ff9800">
+        <item name="colorAccent">@color/orange_500</item>
+    </style>
+
+    <style name="colorAccent_fb8c00">
+        <item name="colorAccent">@color/orange_600</item>
+    </style>
+
+    <style name="colorAccent_f57c00">
+        <item name="colorAccent">@color/orange_700</item>
+    </style>
+
+    <style name="colorAccent_ef6c00">
+        <item name="colorAccent">@color/orange_800</item>
+    </style>
+
+    <style name="colorAccent_e65100">
+        <item name="colorAccent">@color/orange_900</item>
+    </style>
+
+    <style name="colorAccent_ffd180">
+        <item name="colorAccent">@color/orange_A100</item>
+    </style>
+
+    <style name="colorAccent_ffab40">
+        <item name="colorAccent">@color/orange_A200</item>
+    </style>
+
+    <style name="colorAccent_ff9100">
+        <item name="colorAccent">@color/orange_A400</item>
+    </style>
+
+    <style name="colorAccent_ff6d00">
+        <item name="colorAccent">@color/orange_A700</item>
+    </style>
+
+    <style name="colorAccent_fbe9e7">
+        <item name="colorAccent">@color/deep_orange_50</item>
+    </style>
+
+    <style name="colorAccent_ffccbc">
+        <item name="colorAccent">@color/deep_orange_100</item>
+    </style>
+
+    <style name="colorAccent_ffab91">
+        <item name="colorAccent">@color/deep_orange_200</item>
+    </style>
+
+    <style name="colorAccent_ff8a65">
+        <item name="colorAccent">@color/deep_orange_300</item>
+    </style>
+
+    <style name="colorAccent_ff7043">
+        <item name="colorAccent">@color/deep_orange_400</item>
+    </style>
+
+    <style name="colorAccent_ff5722">
+        <item name="colorAccent">@color/deep_orange_500</item>
+    </style>
+
+    <style name="colorAccent_f4511e">
+        <item name="colorAccent">@color/deep_orange_600</item>
+    </style>
+
+    <style name="colorAccent_e64a19">
+        <item name="colorAccent">@color/deep_orange_700</item>
+    </style>
+
+    <style name="colorAccent_d84315">
+        <item name="colorAccent">@color/deep_orange_800</item>
+    </style>
+
+    <style name="colorAccent_bf360c">
+        <item name="colorAccent">@color/deep_orange_900</item>
+    </style>
+
+    <style name="colorAccent_ff9e80">
+        <item name="colorAccent">@color/deep_orange_A100</item>
+    </style>
+
+    <style name="colorAccent_ff6e40">
+        <item name="colorAccent">@color/deep_orange_A200</item>
+    </style>
+
+    <style name="colorAccent_ff3d00">
+        <item name="colorAccent">@color/deep_orange_A400</item>
+    </style>
+
+    <style name="colorAccent_dd2c00">
+        <item name="colorAccent">@color/deep_orange_A700</item>
+    </style>
+
+    <style name="colorAccent_efebe9">
+        <item name="colorAccent">@color/brown_50</item>
+    </style>
+
+    <style name="colorAccent_d7ccc8">
+        <item name="colorAccent">@color/brown_100</item>
+    </style>
+
+    <style name="colorAccent_bcaaa4">
+        <item name="colorAccent">@color/brown_200</item>
+    </style>
+
+    <style name="colorAccent_a1887f">
+        <item name="colorAccent">@color/brown_300</item>
+    </style>
+
+    <style name="colorAccent_8d6e63">
+        <item name="colorAccent">@color/brown_400</item>
+    </style>
+
+    <style name="colorAccent_795548">
+        <item name="colorAccent">@color/brown_500</item>
+    </style>
+
+    <style name="colorAccent_6d4c41">
+        <item name="colorAccent">@color/brown_600</item>
+    </style>
+
+    <style name="colorAccent_5d4037">
+        <item name="colorAccent">@color/brown_700</item>
+    </style>
+
+    <style name="colorAccent_4e342e">
+        <item name="colorAccent">@color/brown_800</item>
+    </style>
+
+    <style name="colorAccent_3e2723">
+        <item name="colorAccent">@color/brown_900</item>
+    </style>
+
+    <style name="colorAccent_fafafa">
+        <item name="colorAccent">@color/grey_50</item>
+    </style>
+
+    <style name="colorAccent_f5f5f5">
+        <item name="colorAccent">@color/grey_100</item>
+    </style>
+
+    <style name="colorAccent_eeeeee">
+        <item name="colorAccent">@color/grey_200</item>
+    </style>
+
+    <style name="colorAccent_e0e0e0">
+        <item name="colorAccent">@color/grey_300</item>
+    </style>
+
+    <style name="colorAccent_bdbdbd">
+        <item name="colorAccent">@color/grey_400</item>
+    </style>
+
+    <style name="colorAccent_9e9e9e">
+        <item name="colorAccent">@color/grey_500</item>
+    </style>
+
+    <style name="colorAccent_757575">
+        <item name="colorAccent">@color/grey_600</item>
+    </style>
+
+    <style name="colorAccent_616161">
+        <item name="colorAccent">@color/grey_700</item>
+    </style>
+
+    <style name="colorAccent_424242">
+        <item name="colorAccent">@color/grey_800</item>
+    </style>
+
+    <style name="colorAccent_212121">
+        <item name="colorAccent">@color/grey_900</item>
+    </style>
+
+    <style name="colorAccent_000000">
+        <item name="colorAccent">@color/grey_1000b</item>
+    </style>
+
+    <style name="colorAccent_ffffff">
+        <item name="colorAccent">@color/grey_1000w</item>
+    </style>
+
+    <style name="colorAccent_eceff1">
+        <item name="colorAccent">@color/blue_grey_50</item>
+    </style>
+
+    <style name="colorAccent_cfd8dc">
+        <item name="colorAccent">@color/blue_grey_100</item>
+    </style>
+
+    <style name="colorAccent_b0bec5">
+        <item name="colorAccent">@color/blue_grey_200</item>
+    </style>
+
+    <style name="colorAccent_90a4ae">
+        <item name="colorAccent">@color/blue_grey_300</item>
+    </style>
+
+    <style name="colorAccent_78909c">
+        <item name="colorAccent">@color/blue_grey_400</item>
+    </style>
+
+    <style name="colorAccent_607d8b">
+        <item name="colorAccent">@color/blue_grey_500</item>
+    </style>
+
+    <style name="colorAccent_546e7a">
+        <item name="colorAccent">@color/blue_grey_600</item>
+    </style>
+</resources>

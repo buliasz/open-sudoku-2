@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:title="@string/app_startup_category"
+        app:iconSpaceReserved="false">
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="false"
+            android:key="show_sudoku_lists_on_startup"
+            android:summary="@string/show_sudoku_lists_on_startup_summary"
+            android:title="@string/show_sudoku_lists_on_startup_title" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/game_helpers"
+        app:iconSpaceReserved="false">
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="true"
+            android:key="highlight_wrong_values"
+            android:summary="@string/highlight_wrong_values_summary"
+            android:title="@string/highlight_wrong_values" />
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="true"
+            android:key="highlight_completed_values"
+            android:summary="@string/highlight_completed_values_summary"
+            android:title="@string/highlight_completed_values" />
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="true"
+            android:key="highlight_similar_cells"
+            android:summary="@string/highlight_similar_cells_summary"
+            android:title="@string/highlight_similar_cells" />
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="true"
+            android:key="highlight_similar_notes"
+            android:summary="@string/highlight_similar_notes_summary"
+            android:title="@string/highlight_similar_notes" />
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="true"
+            android:key="highlight_touched_cell"
+            android:summary="@string/highlight_touched_cell_summary"
+            android:title="@string/highlight_touched_cell" />
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="true"
+            android:key="bidirectional_selection"
+            android:summary="@string/bidirectional_selection_summary"
+            android:title="@string/bidirectional_selection" />
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="false"
+            android:key="show_number_totals"
+            android:summary="@string/show_number_totals_summary"
+            android:title="@string/show_number_totals" />
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="false"
+            android:key="fill_in_notes_enabled"
+            android:summary="@string/fill_in_notes_summary"
+            android:title="@string/fill_in_notes" />
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="false"
+            android:key="remove_notes_on_input"
+            android:summary="@string/remove_notes_summary"
+            android:title="@string/remove_notes_title" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/input_methods"
+        app:iconSpaceReserved="false">
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="true"
+            android:key="im_popup"
+            android:summary="@string/popup_summary"
+            android:title="@string/popup" />
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="true"
+            android:key="im_single_number"
+            android:summary="@string/single_number_summary"
+            android:title="@string/single_number" />
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="true"
+            android:key="im_numpad"
+            android:summary="@string/numpad_summary"
+            android:title="@string/numpad" />
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="false"
+            android:key="im_numpad_move_right"
+            android:summary="@string/numpad_move_right_summary"
+            android:title="@string/numpad_move_right" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/game"
+        app:iconSpaceReserved="false">
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="true"
+            android:key="show_time"
+            android:summary="@string/show_time_summary"
+            android:title="@string/show_time" />
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="true"
+            android:key="show_hints"
+            android:summary="@string/show_hints_summary"
+            android:title="@string/show_hints" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Colors"
+        app:iconSpaceReserved="false">
+        <ListPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="system"
+            android:dialogTitle="@string/dark_mode_title"
+            android:entries="@array/dark_mode_names"
+            android:entryValues="@array/dark_mode_codes"
+            android:key="@string/dark_mode_key"
+            app:useSimpleSummaryProvider="true"
+            android:title="@string/dark_mode_title" />
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:enabled="false"
+            android:defaultValue="false"
+            android:key="use_dynamic_color"
+            android:summary="@string/use_dynamic_color_summary"
+            android:title="@string/use_dynamic_color" />
+        <ListPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="opensudoku2"
+            android:entries="@array/theme_names"
+            android:entryValues="@array/theme_codes"
+            android:key="theme"
+            app:useSimpleSummaryProvider="true"
+            android:title="@string/theme" />
+        <Preference
+            app:iconSpaceReserved="false"
+            app:fragment="org.buliasz.opensudoku2.gui.CustomThemeFragment"
+            android:key="screen_custom_theme"
+            android:title="@string/screen_custom_theme" />
+    </PreferenceCategory>
+        <SeekBarPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="0"
+            android:dialogTitle="@string/screen_border_size"
+            android:key="screen_border_size"
+            android:title="@string/screen_border_size"
+            android:summary="@string/screen_border_size_summary"
+            app:showSeekBarValue="true"
+            android:max="30"
+            android:min="0" />
+</PreferenceScreen>

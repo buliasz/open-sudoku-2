@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <org.buliasz.opensudoku2.gui.NumberButton
+        android:id="@+id/button_1"
+        style="@style/keypadButton"
+        android:text="1"
+        app:layout_constraintBottom_toTopOf="@+id/button_4"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/button_2"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <org.buliasz.opensudoku2.gui.NumberButton
+        android:id="@+id/button_2"
+        style="@style/keypadButton"
+        android:text="2"
+        app:layout_constraintBottom_toTopOf="@+id/button_5"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/button_3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <org.buliasz.opensudoku2.gui.NumberButton
+        android:id="@+id/button_3"
+        style="@style/keypadButton"
+        android:text="3"
+        app:layout_constraintBottom_toTopOf="@+id/button_6"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/enter_number"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <org.buliasz.opensudoku2.gui.NumberButton
+        android:id="@+id/button_4"
+        style="@style/keypadButton"
+        android:text="4"
+        app:layout_constraintBottom_toTopOf="@+id/button_7"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@+id/button_1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/button_1"
+        app:layout_constraintTop_toBottomOf="@+id/button_1" />
+
+    <org.buliasz.opensudoku2.gui.NumberButton
+        android:id="@+id/button_5"
+        style="@style/keypadButton"
+        android:text="5"
+        app:layout_constraintBottom_toTopOf="@+id/button_8"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="@id/button_2"
+        app:layout_constraintEnd_toEndOf="@+id/button_2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/button_2" />
+
+    <org.buliasz.opensudoku2.gui.NumberButton
+        android:id="@+id/button_6"
+        style="@style/keypadButton"
+        android:text="6"
+        app:layout_constraintBottom_toTopOf="@+id/button_9"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="@id/button_3"
+        app:layout_constraintEnd_toEndOf="@+id/button_3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/button_3" />
+
+    <org.buliasz.opensudoku2.gui.NumberButton
+        android:id="@+id/button_7"
+        style="@style/keypadButton"
+        android:text="7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="@id/button_4"
+        app:layout_constraintEnd_toEndOf="@+id/button_4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/button_4" />
+
+    <org.buliasz.opensudoku2.gui.NumberButton
+        android:id="@+id/button_8"
+        style="@style/keypadButton"
+        android:text="8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="@id/button_5"
+        app:layout_constraintEnd_toEndOf="@+id/button_5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/button_5" />
+
+    <org.buliasz.opensudoku2.gui.NumberButton
+        android:id="@+id/button_9"
+        style="@style/keypadButton"
+        android:text="9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="@id/button_6"
+        app:layout_constraintEnd_toEndOf="@+id/button_6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/button_6" />
+
+    <org.buliasz.opensudoku2.gui.IconButton
+        android:id="@+id/enter_number"
+        style="@style/keypadButton"
+        app:icon="@drawable/ic_enter_number"
+        app:layout_constraintBottom_toBottomOf="@id/button_3"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/button_clear"
+        app:layout_constraintStart_toEndOf="@+id/button_3"
+        app:layout_constraintTop_toTopOf="@id/button_1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <org.buliasz.opensudoku2.gui.IconButton
+        android:id="@+id/corner_note"
+        style="@style/keypadButton"
+        app:icon="@drawable/ic_corner_note"
+        app:layout_constraintBottom_toTopOf="@+id/center_note"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@+id/enter_number"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_6"
+        app:layout_constraintTop_toBottomOf="@+id/enter_number" />
+
+    <org.buliasz.opensudoku2.gui.IconButton
+        android:id="@+id/center_note"
+        style="@style/keypadButton"
+        app:icon="@drawable/ic_center_note"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="@id/corner_note"
+        app:layout_constraintEnd_toEndOf="@+id/corner_note"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/corner_note" />
+
+    <org.buliasz.opensudoku2.gui.IconButton
+        android:id="@+id/button_clear"
+        style="@style/keypadButton"
+        android:checkable="false"
+        app:icon="@drawable/ic_outline_backspace"
+        app:iconGravity="textStart"
+        app:iconTint="@color/grey_900"
+        app:layout_constraintBottom_toBottomOf="@+id/button_3"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/enter_number"
+        app:layout_constraintTop_toTopOf="@+id/enter_number" />
+
+    <Button
+        android:id="@+id/switch_input_mode"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cornerRadius="4dp"
+        android:padding="0dp"
+        android:insetLeft="@dimen/m3_btn_inset"
+        android:insetRight="@dimen/m3_btn_inset"
+        app:layout_constraintBottom_toBottomOf="@+id/button_6"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/corner_note"
+        app:layout_constraintTop_toTopOf="@+id/corner_note" />
+</androidx.constraintlayout.widget.ConstraintLayout>

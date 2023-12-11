@@ -1,0 +1,69 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
+
+android {
+    defaultConfig {
+        applicationId 'org.buliasz.opensudoku2'
+        minSdkVersion 21
+        targetSdk 34
+        versionCode 20231210
+        versionName '1.0'
+
+        vectorDrawables.useSupportLibrary true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    compileOptions {
+        encoding 'UTF-8'
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    packagingOptions {
+        jniLibs {
+            excludes += ['META-INF/*']
+        }
+        resources {
+            excludes += ['META-INF/*']
+        }
+    }
+
+    namespace 'org.buliasz.opensudoku2'
+    lint {
+        checkReleaseBuilds false
+    }
+    buildFeatures {
+        buildConfig true
+    }
+    compileSdk 34
+}
+
+// See https://stackoverflow.com/questions/69817925/problem-duplicate-class-androidx-lifecycle-viewmodel-found-in-modules
+configurations {
+    configureEach {
+        exclude group: 'androidx.lifecycle', module: 'lifecycle-viewmodel-ktx'
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.fragment:fragment:1.6.2'
+    implementation 'androidx.preference:preference:1.2.1'
+    implementation 'com.google.android.material:material:1.10.0'
+
+    // The original net.margaritov.preference.colorpicker.ColorPickerPreference does not work
+    // with androidx.preference.Preference.
+    //
+    // This fork does, but is not published to a repository, so use the module direct from
+    // GitHub. Gradle source dependencies do not support specifying a git ref or tag, so for
+    // reproducibility, use the tag and depend on jitpack.io in the parent build.gradle.
+    implementation 'com.github.attenzione:android-ColorPickerPreference:v1.2.1'
+    implementation 'androidx.core:core-ktx:1.12.0'
+}
