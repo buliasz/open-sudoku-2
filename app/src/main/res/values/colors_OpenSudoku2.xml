@@ -11,7 +11,7 @@
     <color name="OpenSudoku2_md_theme_light_onSecondaryContainer">#000000</color>
     <color name="OpenSudoku2_md_theme_light_tertiary">#009587</color>
     <color name="OpenSudoku2_md_theme_light_onTertiary">#ffffff</color>
-    <color name="OpenSudoku2_md_theme_light_tertiaryContainer">#656565</color>
+    <color name="OpenSudoku2_md_theme_light_tertiaryContainer">#E2F700</color>
     <color name="OpenSudoku2_md_theme_light_onTertiaryContainer">#ffffff</color>
     <color name="OpenSudoku2_md_theme_light_error">#ba1a1a</color>
     <color name="OpenSudoku2_md_theme_light_onError">#ffffff</color>
@@ -41,7 +41,7 @@
     <color name="OpenSudoku2_md_theme_dark_onSecondaryContainer">#ffffff</color>
     <color name="OpenSudoku2_md_theme_dark_tertiary">#656565</color>
     <color name="OpenSudoku2_md_theme_dark_onTertiary">#ffffff</color>
-    <color name="OpenSudoku2_md_theme_dark_tertiaryContainer">#656565</color>
+    <color name="OpenSudoku2_md_theme_dark_tertiaryContainer">#ACBB07</color>
     <color name="OpenSudoku2_md_theme_dark_onTertiaryContainer">#ffffff</color>
     <color name="OpenSudoku2_md_theme_dark_error">#ffb4ab</color>
     <color name="OpenSudoku2_md_theme_dark_onError">#690005</color>

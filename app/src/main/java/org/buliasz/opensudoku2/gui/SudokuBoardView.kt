@@ -492,13 +492,11 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: A
                 when (mHighlightSimilarCells) {
                     HighlightMode.NONE -> {}
                     HighlightMode.NUMBERS -> {
-                        shouldHighlightCell = cellIsNotAlreadySelected &&
-                                highlightedValueIsValid && mHighlightedValue == cell.value
+                        shouldHighlightCell = cellIsNotAlreadySelected && highlightedValueIsValid && mHighlightedValue == cell.value
                     }
 
                     HighlightMode.NUMBERS_AND_NOTES -> {
-                        shouldHighlightCell = cellIsNotAlreadySelected &&
-                                highlightedValueIsValid &&
+                        shouldHighlightCell = highlightedValueIsValid &&
                                 (mHighlightedValue == cell.value || cell.notedNumbers.contains(mHighlightedValue) && cell.value == 0)
                     }
                 }

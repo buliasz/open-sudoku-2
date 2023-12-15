@@ -176,7 +176,7 @@ class DatabaseHelper internal constructor(private val mContext: Context) :
     }
 
     companion object {
-        const val DATABASE_VERSION: Int = 10
+        const val DATABASE_VERSION: Int = 11
         private const val TAG = "DatabaseHelper"
     }
 }

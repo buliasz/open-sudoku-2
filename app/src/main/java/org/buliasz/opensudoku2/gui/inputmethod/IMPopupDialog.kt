@@ -55,6 +55,7 @@ class IMPopupDialog(mContext: Context, mBoard: SudokuBoardView) : Dialog(mContex
     private var mOnNumberEditListener: OnNumberEditListener? = null
     private var onNoteEditListener: OnNoteEditListener? = null
     private val mValueCount: MutableMap<Int, Int> = HashMap()
+
     private val mNumberButtonClicked = View.OnClickListener { v: View ->
         val number = v.tag as Int
         when (mEditMode) {
@@ -117,6 +118,7 @@ class IMPopupDialog(mContext: Context, mBoard: SudokuBoardView) : Dialog(mContex
     init {
         mInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val keypad = mInflater.inflate(R.layout.im_popup_edit_value, null)
+
         mNumberButtons[1] = keypad.findViewById(R.id.button_1)
         mNumberButtons[2] = keypad.findViewById(R.id.button_2)
         mNumberButtons[3] = keypad.findViewById(R.id.button_3)
@@ -126,8 +128,10 @@ class IMPopupDialog(mContext: Context, mBoard: SudokuBoardView) : Dialog(mContex
         mNumberButtons[7] = keypad.findViewById(R.id.button_7)
         mNumberButtons[8] = keypad.findViewById(R.id.button_8)
         mNumberButtons[9] = keypad.findViewById(R.id.button_9)
+
         val textColor: ColorStateList = InputMethod.makeTextColorStateList(mBoard)
         val backgroundColor: ColorStateList = InputMethod.makeBackgroundColorStateList(mBoard)
+
         for ((key, b) in mNumberButtons) {
             b.tag = key
             b.setOnClickListener(mNumberButtonClicked)
@@ -135,32 +139,37 @@ class IMPopupDialog(mContext: Context, mBoard: SudokuBoardView) : Dialog(mContex
             b.backgroundTintList = backgroundColor
             b.setTextColor(textColor)
         }
+
         val clearButton = keypad.findViewById<MaterialButton>(R.id.button_clear)
         clearButton.tag = 0
         clearButton.setOnClickListener(clearButtonListener)
         clearButton.backgroundTintList = backgroundColor
         clearButton.iconTint = textColor
-        mEnterNumberButton = keypad.findViewById(R.id.enter_number)
-        mEnterNumberButton.tag = MODE_EDIT_VALUE
 
         /* Switch mode, and update the UI */
         val modeButtonClicked = View.OnClickListener { v: View ->
             mEditMode = v.tag as Int
             update()
         }
+
+        mEnterNumberButton = keypad.findViewById(R.id.enter_number)
+        mEnterNumberButton.tag = MODE_EDIT_VALUE
         mEnterNumberButton.setOnClickListener(modeButtonClicked)
         mEnterNumberButton.backgroundTintList = backgroundColor
         mEnterNumberButton.iconTint = textColor
+
         mCornerNoteButton = keypad.findViewById(R.id.corner_note)
         mCornerNoteButton.tag = MODE_EDIT_CORNER_NOTE
         mCornerNoteButton.setOnClickListener(modeButtonClicked)
         mCornerNoteButton.backgroundTintList = backgroundColor
         mCornerNoteButton.iconTint = textColor
+
         mCenterNoteButton = keypad.findViewById(R.id.center_note)
         mCenterNoteButton.tag = MODE_EDIT_CENTER_NOTE
         mCenterNoteButton.setOnClickListener(modeButtonClicked)
         mCenterNoteButton.backgroundTintList = backgroundColor
         mCenterNoteButton.iconTint = textColor
+
         val closeButton = keypad.findViewById<View>(R.id.button_close)
         closeButton.setOnClickListener(closeButtonListener)
         setContentView(keypad)

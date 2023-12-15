@@ -17,7 +17,7 @@
     <color name="default_textColorNoteTouched">#ffffff</color>
     <color name="default_backgroundColorTouched">#00695c</color>
 
-    <color name="default_backgroundColorSelected">#546e7a</color>
+    <color name="default_backgroundColorSelected">#7BBEA8</color>
 
     <color name="default_textColorHighlighted">#ffffff</color>
     <color name="default_textColorNoteHighlighted">#ffffff</color>
