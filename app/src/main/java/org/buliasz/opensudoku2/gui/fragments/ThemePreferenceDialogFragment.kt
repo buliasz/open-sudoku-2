@@ -1,4 +1,4 @@
-package org.buliasz.opensudoku2.gui
+package org.buliasz.opensudoku2.gui.fragments
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.radiobutton.MaterialRadioButton
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.game.Cell
-import org.buliasz.opensudoku2.gui.ThemePreferenceDialogFragment.ThemeAdapter.ViewHolder
+import org.buliasz.opensudoku2.gui.SudokuBoardView
+import org.buliasz.opensudoku2.gui.fragments.ThemePreferenceDialogFragment.ThemeAdapter.ViewHolder
 import org.buliasz.opensudoku2.utils.ThemeUtils
 
 /**

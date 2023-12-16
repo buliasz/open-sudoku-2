@@ -32,6 +32,7 @@ import org.buliasz.opensudoku2.game.command.FillInNotesCommand
 import org.buliasz.opensudoku2.game.command.FillInNotesWithAllValuesCommand
 import org.buliasz.opensudoku2.game.command.SetCellValueAndRemoveNotesCommand
 import org.buliasz.opensudoku2.game.command.SetCellValueCommand
+import java.time.Instant
 
 class SudokuGame {
     var id: Long = 0
@@ -191,7 +192,7 @@ class SudokuGame {
         // save time we have spent playing so far - it will be reset after resuming
         mTime += SystemClock.uptimeMillis() - mActiveFromTime
         mActiveFromTime = -1
-        lastPlayed = System.currentTimeMillis()
+        lastPlayed = Instant.now().epochSecond
     }
 
     val isSolvable: Boolean

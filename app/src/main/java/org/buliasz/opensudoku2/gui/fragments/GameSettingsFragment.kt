@@ -1,4 +1,4 @@
-package org.buliasz.opensudoku2.gui
+package org.buliasz.opensudoku2.gui.fragments
 
 
 import android.content.SharedPreferences

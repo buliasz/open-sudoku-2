@@ -1,4 +1,4 @@
-package org.buliasz.opensudoku2.gui
+package org.buliasz.opensudoku2.gui.fragments
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -31,6 +31,7 @@ import net.margaritov.preference.colorpicker.ColorPickerDialog
 import net.margaritov.preference.colorpicker.ColorPickerPreference
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.game.Cell
+import org.buliasz.opensudoku2.gui.SudokuBoardView
 import org.buliasz.opensudoku2.gui.SudokuBoardView.HighlightMode
 import org.buliasz.opensudoku2.utils.ThemeUtils
 

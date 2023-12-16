@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import org.buliasz.opensudoku2.R
+import org.buliasz.opensudoku2.gui.fragments.GameSettingsFragment
 
 class GameSettingsActivity :
     ThemedActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback, FragmentManager.OnBackStackChangedListener {

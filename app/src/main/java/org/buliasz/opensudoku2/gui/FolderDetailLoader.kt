@@ -20,7 +20,6 @@
 package org.buliasz.opensudoku2.gui
 
 import android.content.Context
-import android.os.Handler
 import android.util.Log
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.game.FolderInfo
@@ -31,9 +30,7 @@ import java.util.concurrent.Executors
  * Loads details of given folders on one single background thread.
  * Results are published on GUI thread via [FolderDetailCallback] interface.
  *
- *
  * Please note that instance of this class has to be created on GUI thread!
- *
  *
  * You should explicitly call [.destroy] when this object is no longer needed.
  *
@@ -41,19 +38,17 @@ import java.util.concurrent.Executors
  */
 class FolderDetailLoader(context: Context?) {
     private val mDatabase: SudokuDatabase
-    private val mGuiHandler: Handler
-    private val mLoaderService = Executors.newSingleThreadExecutor()
+    private val executorService = Executors.newSingleThreadExecutor()
 
     init {
         mDatabase = SudokuDatabase(context!!)
-        mGuiHandler = Handler()
     }
 
     fun loadDetailAsync(folderID: Long, loadedCallback: FolderDetailCallback) {
-        mLoaderService.execute {
+        executorService.execute {
             try {
                 val folderInfo = mDatabase.getFolderInfoFull(folderID)
-                mGuiHandler.post { loadedCallback.onLoaded(folderInfo) }
+                loadedCallback.onLoaded(folderInfo)
             } catch (e: Exception) {    // this is unimportant, we can log an error and continue
                 Log.e(TAG, "Error occurred while loading full folder info.", e)
             }
@@ -61,7 +56,7 @@ class FolderDetailLoader(context: Context?) {
     }
 
     fun destroy() {
-        mLoaderService.shutdownNow()
+        executorService.shutdownNow()
         mDatabase.close()
     }
 

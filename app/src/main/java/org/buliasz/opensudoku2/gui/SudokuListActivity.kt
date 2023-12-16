@@ -19,10 +19,8 @@
  */
 package org.buliasz.opensudoku2.gui
 
-import android.app.Dialog
 import android.content.ComponentName
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.database.Cursor
 import android.os.Bundle
@@ -39,7 +37,6 @@ import android.widget.AdapterView.AdapterContextMenuInfo
 import android.widget.ListView
 import android.widget.SimpleCursorAdapter
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.preference.PreferenceManager
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.Names
@@ -47,9 +44,19 @@ import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.game.CellCollection
 import org.buliasz.opensudoku2.game.FolderInfo
 import org.buliasz.opensudoku2.game.SudokuGame
+import org.buliasz.opensudoku2.gui.fragments.DeletePuzzleDialogFragment
+import org.buliasz.opensudoku2.gui.fragments.EditUserNoteDialogFragment
+import org.buliasz.opensudoku2.gui.fragments.FilterDialogFragment
+import org.buliasz.opensudoku2.gui.fragments.ResetAllDialogFragment
+import org.buliasz.opensudoku2.gui.fragments.ResetPuzzleDialogFragment
+import org.buliasz.opensudoku2.gui.fragments.SortDialogFragment
 import org.buliasz.opensudoku2.utils.ThemeUtils
 import java.text.DateFormat
-import java.util.Date
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 /**
  * List of puzzles in folder.
@@ -57,19 +64,21 @@ import java.util.Date
  * @author romario, Kotlin version by buliasz
  */
 class SudokuListActivity : ThemedActivity() {
+    private lateinit var editUserNoteDialog: EditUserNoteDialogFragment
+    private lateinit var resetPuzzleDialog: ResetPuzzleDialogFragment
+    private lateinit var deletePuzzleDialog: DeletePuzzleDialogFragment
+    private lateinit var filterDialog: FilterDialogFragment
+    private lateinit var sortDialog: SortDialogFragment
+    private lateinit var resetAllDialog: ResetAllDialogFragment
     private var mFolderID: Long = 0
 
     // input parameters for dialogs
-    private var mDeletePuzzleID: Long = 0
-    private var mResetPuzzleID: Long = 0
-    private var mEditNotePuzzleID: Long = 0
-    private var mEditNoteInput: TextView? = null
-    private var mListFilter: SudokuListFilter? = null
-    private var mListSorter: SudokuListSorter? = null
+    private lateinit var mListFilter: SudokuListFilter
+    private lateinit var mListSorter: SudokuListSorter
     private var mFilterStatus: TextView? = null
     private var mAdapter: SimpleCursorAdapter? = null
     private var mCursor: Cursor? = null
-    private var mDatabase: SudokuDatabase? = null
+    private lateinit var mDatabase: SudokuDatabase
     private var mFolderDetailLoader: FolderDetailLoader? = null
     private var mListView: ListView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,26 +122,35 @@ class SudokuListActivity : ThemedActivity() {
         listView.adapter = mAdapter
         listView.setOnItemClickListener { _: AdapterView<*>?, _: View?, _: Int, id: Long -> playSudoku(id) }
         registerForContextMenu(listView)
+
+        resetPuzzleDialog = ResetPuzzleDialogFragment(mDatabase, ::updateList)
+        deletePuzzleDialog = DeletePuzzleDialogFragment(mDatabase, settings, ::updateList)
+        filterDialog = FilterDialogFragment(mListFilter, settings, ::updateList)
+        sortDialog = SortDialogFragment(mListSorter, settings, ::updateList)
+        resetAllDialog = ResetAllDialogFragment(mDatabase, mFolderID, mListSorter, ::updateList)
+
+        val factory = LayoutInflater.from(this)
+        editUserNoteDialog = EditUserNoteDialogFragment(factory, mDatabase, ::updateList)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mDatabase!!.close()
+        mDatabase.close()
         mFolderDetailLoader!!.destroy()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putLong("mDeletePuzzleID", mDeletePuzzleID)
-        outState.putLong("mResetPuzzleID", mResetPuzzleID)
-        outState.putLong("mEditNotePuzzleID", mEditNotePuzzleID)
+        outState.putLong("DeletePuzzleID", deletePuzzleDialog.puzzleID)
+        outState.putLong("ResetPuzzleID", resetPuzzleDialog.puzzleID)
+        outState.putLong("EditNotePuzzleID", editUserNoteDialog.puzzleId)
     }
 
     override fun onRestoreInstanceState(state: Bundle) {
         super.onRestoreInstanceState(state)
-        mDeletePuzzleID = state.getLong("mDeletePuzzleID")
-        mResetPuzzleID = state.getLong("mResetPuzzleID")
-        mEditNotePuzzleID = state.getLong("mEditNotePuzzleID")
+        deletePuzzleDialog.puzzleID = state.getLong("DeletePuzzleID")
+        resetPuzzleDialog.puzzleID = state.getLong("ResetPuzzleID")
+        editUserNoteDialog.puzzleId = state.getLong("EditNotePuzzleID")
     }
 
     override fun onResume() {
@@ -173,8 +191,8 @@ class SudokuListActivity : ThemedActivity() {
         menu.add(0, MENU_ITEM_SETTINGS, 4, R.string.settings).setShortcut('4', 's')
             .setIcon(R.drawable.ic_settings)
         // I'm not sure this one is ready for release
-//		menu.add(0, MENU_ITEM_GENERATE, 3, R.string.generate_sudoku).setShortcut('4', 'g')
-//		.setIcon(R.drawable.ic_add);
+        menu.add(0, MENU_ITEM_GENERATE, 3, R.string.generate_sudoku).setShortcut('4', 'g')
+            .setIcon(R.drawable.ic_add)
 
         // Generate any additional actions that can be performed on the
         // overall list. In a normal install, there are no additional
@@ -188,138 +206,6 @@ class SudokuListActivity : ThemedActivity() {
             intent, 0, null
         )
         return true
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onCreateDialog(id: Int): Dialog {
-        val settings = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        when (id) {
-            DIALOG_DELETE_PUZZLE -> return AlertDialog.Builder(this)
-                .setIcon(R.drawable.ic_delete)
-                .setTitle("Puzzle")
-                .setMessage(R.string.delete_puzzle_confirm)
-                .setPositiveButton(android.R.string.yes) { _: DialogInterface?, _: Int ->
-                    val mostRecentId = settings.getLong("most_recently_played_sudoku_id", 0)
-                    if (mDeletePuzzleID == mostRecentId) {
-                        settings.edit().remove("most_recently_played_sudoku_id").apply()
-                    }
-                    mDatabase!!.deleteSudoku(mDeletePuzzleID)
-                    updateList()
-                }
-                .setNegativeButton(android.R.string.no, null).create()
-
-            DIALOG_EDIT_NOTE -> {
-                val factory = LayoutInflater.from(this)
-                val noteView = factory.inflate(
-                    R.layout.sudoku_list_item_note,
-                    null
-                )
-                val editNoteInput = noteView.findViewById<TextView>(R.id.user_note)
-                mEditNoteInput = editNoteInput
-                return AlertDialog.Builder(this)
-                    .setIcon(R.drawable.ic_add)
-                    .setTitle(R.string.edit_note)
-                    .setView(noteView)
-                    .setPositiveButton(R.string.save) { _: DialogInterface?, _: Int ->
-                        val game = mDatabase!!.getSudoku(mEditNotePuzzleID)
-                        mDatabase!!.updateSudoku(game!!)
-                        updateList()
-                    }
-                    .setNegativeButton(android.R.string.cancel, null).create()
-            }
-
-            DIALOG_RESET_PUZZLE -> return AlertDialog.Builder(this)
-                .setIcon(R.drawable.ic_restore)
-                .setTitle("Puzzle")
-                .setMessage(R.string.reset_puzzle_confirm)
-                .setPositiveButton(android.R.string.yes) { _: DialogInterface?, _: Int ->
-                    val game = mDatabase!!.getSudoku(mResetPuzzleID)
-                    if (game != null) {
-                        game.reset()
-                        mDatabase!!.updateSudoku(game)
-                    }
-                    updateList()
-                }
-                .setNegativeButton(android.R.string.no, null).create()
-
-            DIALOG_FILTER -> return AlertDialog.Builder(this)
-                .setIcon(R.drawable.ic_view)
-                .setTitle(R.string.filter_by_gamestate)
-                .setMultiChoiceItems(
-                    R.array.game_states, booleanArrayOf(
-                        mListFilter!!.showStateNotStarted,
-                        mListFilter!!.showStatePlaying,
-                        mListFilter!!.showStateCompleted
-                    )
-                ) { _: DialogInterface?, whichButton: Int, isChecked: Boolean ->
-                    when (whichButton) {
-                        0 -> mListFilter!!.showStateNotStarted = isChecked
-                        1 -> mListFilter!!.showStatePlaying = isChecked
-                        2 -> mListFilter!!.showStateCompleted = isChecked
-                    }
-                }
-                .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
-                    settings.edit()
-                        .putBoolean(FILTER_STATE_NOT_STARTED, mListFilter!!.showStateNotStarted)
-                        .putBoolean(FILTER_STATE_PLAYING, mListFilter!!.showStatePlaying)
-                        .putBoolean(FILTER_STATE_SOLVED, mListFilter!!.showStateCompleted)
-                        .apply()
-                    updateList()
-                }
-                .setNegativeButton(android.R.string.cancel) { _: DialogInterface?, _: Int -> }
-                .create()
-
-            DIALOG_SORT -> return AlertDialog.Builder(this)
-                .setIcon(R.drawable.ic_sort)
-                .setTitle(R.string.sort_puzzles_by)
-                .setSingleChoiceItems(
-                    R.array.game_sort,
-                    mListSorter!!.sortType
-                ) { _: DialogInterface?, whichButton: Int -> mListSorter!!.sortType = whichButton }
-                .setPositiveButton(R.string.sort_order_ascending) { _: DialogInterface?, _: Int ->
-                    mListSorter!!.isAscending = (true)
-                    settings.edit()
-                        .putInt(SORT_TYPE, mListSorter!!.sortType)
-                        .putBoolean(SORT_ORDER, true)
-                        .apply()
-                    updateList()
-                }
-                .setNegativeButton(R.string.sort_order_descending) { _: DialogInterface?, _: Int ->
-                    mListSorter!!.isAscending = (false)
-                    settings.edit()
-                        .putInt(SORT_TYPE, mListSorter!!.sortType)
-                        .putBoolean(SORT_ORDER, false)
-                        .apply()
-                    updateList()
-                }
-                .setNeutralButton(android.R.string.cancel) { _: DialogInterface?, _: Int -> }
-                .create()
-
-            DIALOG_RESET_ALL -> return AlertDialog.Builder(this)
-                .setIcon(R.drawable.ic_restore)
-                .setTitle(R.string.reset_all_puzzles_confirm)
-                .setPositiveButton(android.R.string.yes) { _: DialogInterface?, _: Int ->
-                    val sudokuGames = mDatabase!!.getAllSudokuByFolder(mFolderID, mListSorter!!)
-                    for (sudokuGame in sudokuGames) {
-                        sudokuGame.reset()
-                        mDatabase!!.updateSudoku(sudokuGame)
-                    }
-                    updateList()
-                }
-                .setNegativeButton(android.R.string.no) { _: DialogInterface?, _: Int -> }
-                .create()
-        }
-        throw Exception("Invalid id $id")
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onPrepareDialog(id: Int, dialog: Dialog) {
-        super.onPrepareDialog(id, dialog)
-        if (id == DIALOG_EDIT_NOTE) {
-            val db = SudokuDatabase(applicationContext)
-            val game = db.getSudoku(mEditNotePuzzleID)
-            mEditNoteInput?.text = game?.userNote ?: ""
-        }
     }
 
     override fun onCreateContextMenu(menu: ContextMenu, view: View, menuInfo: ContextMenuInfo) {
@@ -362,20 +248,21 @@ class SudokuListActivity : ThemedActivity() {
             }
 
             MENU_ITEM_DELETE -> {
-                mDeletePuzzleID = info!!.id
-                showDialog(DIALOG_DELETE_PUZZLE)
+                deletePuzzleDialog.puzzleID = info!!.id
+                deletePuzzleDialog.show(supportFragmentManager, "DeletePuzzleDialog")
                 return true
             }
 
             MENU_ITEM_EDIT_NOTE -> {
-                mEditNotePuzzleID = info!!.id
-                showDialog(DIALOG_EDIT_NOTE)
+                editUserNoteDialog.puzzleId = info!!.id
+                editUserNoteDialog.currentValue = mDatabase.getSudoku(editUserNoteDialog.puzzleId)?.userNote ?: ""
+                editUserNoteDialog.show(supportFragmentManager, "EditUserNoteDialog")
                 return true
             }
 
             MENU_ITEM_RESET -> {
-                mResetPuzzleID = info!!.id
-                showDialog(DIALOG_RESET_PUZZLE)
+                resetPuzzleDialog.puzzleID = info!!.id
+                resetPuzzleDialog.show(supportFragmentManager, "ResetPuzzleDialog")
                 return true
             }
         }
@@ -402,12 +289,12 @@ class SudokuListActivity : ThemedActivity() {
             }
 
             MENU_ITEM_FILTER -> {
-                showDialog(DIALOG_FILTER)
+                filterDialog.show(supportFragmentManager, "FilterDialog")
                 return true
             }
 
             MENU_ITEM_SORT -> {
-                showDialog(DIALOG_SORT)
+                sortDialog.show(supportFragmentManager, "SortDialog")
                 return true
             }
 
@@ -419,7 +306,7 @@ class SudokuListActivity : ThemedActivity() {
             }
 
             MENU_ITEM_RESET_ALL -> {
-                showDialog(DIALOG_RESET_ALL)
+                resetAllDialog.show(supportFragmentManager, "ResetAllDialog")
                 return true
             }
         }
@@ -435,13 +322,13 @@ class SudokuListActivity : ThemedActivity() {
         if (mCursor != null) {
             stopManagingCursor(mCursor)
         }
-        mCursor = mDatabase!!.getSudokuList(mFolderID, mListFilter, mListSorter!!)
+        mCursor = mDatabase.getSudokuList(mFolderID, mListFilter, mListSorter)
         startManagingCursor(mCursor)
         mAdapter!!.changeCursor(mCursor)
     }
 
     private fun updateFilterStatus() {
-        if (mListFilter!!.showStateCompleted && mListFilter!!.showStateNotStarted && mListFilter!!.showStatePlaying) {
+        if (mListFilter.showStateCompleted && mListFilter.showStateNotStarted && mListFilter.showStatePlaying) {
             mFilterStatus!!.visibility = View.GONE
         } else {
             mFilterStatus!!.text = getString(R.string.filter_active, mListFilter)
@@ -450,7 +337,7 @@ class SudokuListActivity : ThemedActivity() {
     }
 
     private fun updateTitle() {
-        val folder = mDatabase!!.getFolderInfo(mFolderID)
+        val folder = mDatabase.getFolderInfo(mFolderID)
         title = folder!!.name
         mFolderDetailLoader!!.loadDetailAsync(mFolderID, object : FolderDetailLoader.FolderDetailCallback {
             override fun onLoaded(folderInfo: FolderInfo?) {
@@ -470,8 +357,7 @@ class SudokuListActivity : ThemedActivity() {
         private val mDateTimeFormatter = DateFormat.getDateTimeInstance(
             DateFormat.SHORT, DateFormat.SHORT
         )
-        private val mTimeFormatter = DateFormat
-            .getTimeInstance(DateFormat.SHORT)
+        private val mTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
 
         override fun setViewValue(view: View, c: Cursor, columnIndex: Int): Boolean {
             val state = c.getInt(c.getColumnIndexOrThrow(Names.STATE))
@@ -574,17 +460,16 @@ class SudokuListActivity : ThemedActivity() {
             return true
         }
 
-        private fun getDateAndTimeForHumans(datetime: Long): String {
-            val date = Date(datetime)
-            val now = Date(System.currentTimeMillis())
-            val today = Date(now.year, now.month, now.date)
-            val yesterday = Date(System.currentTimeMillis() - 1000 * 60 * 60 * 24)
-            return if (date.after(today)) {
-                mContext.getString(R.string.at_time, mTimeFormatter.format(date))
-            } else if (date.after(yesterday)) {
-                mContext.getString(R.string.yesterday_at_time, mTimeFormatter.format(date))
+        private fun getDateAndTimeForHumans(utcEpochSeconds: Long): String {
+            val dateTime = LocalDateTime.ofEpochSecond(utcEpochSeconds, 0, ZoneOffset.UTC)
+            val today = LocalDate.now()
+            val yesterday = today.minusDays(1)
+            return if (dateTime.isAfter(today.atStartOfDay())) {
+                mContext.getString(R.string.at_time, dateTime.format(mTimeFormatter))
+            } else if (dateTime.isAfter(yesterday.atStartOfDay())) {
+                mContext.getString(R.string.yesterday_at_time, dateTime.format(mTimeFormatter))
             } else {
-                mContext.getString(R.string.on_date, mDateTimeFormatter.format(date))
+                mContext.getString(R.string.on_date, mDateTimeFormatter.format(dateTime))
             }
         }
     }
@@ -601,17 +486,12 @@ class SudokuListActivity : ThemedActivity() {
         const val MENU_ITEM_SORT = Menu.FIRST + 8
         const val MENU_ITEM_FOLDERS = Menu.FIRST + 9
         const val MENU_ITEM_SETTINGS = Menu.FIRST + 10
-        private const val DIALOG_DELETE_PUZZLE = 0
-        private const val DIALOG_RESET_PUZZLE = 1
-        private const val DIALOG_RESET_ALL = 2
-        private const val DIALOG_EDIT_NOTE = 3
-        private const val DIALOG_FILTER = 4
-        private const val DIALOG_SORT = 5
-        private const val FILTER_STATE_NOT_STARTED = "filter" + SudokuGame.GAME_STATE_NOT_STARTED
-        private const val FILTER_STATE_PLAYING = "filter" + SudokuGame.GAME_STATE_PLAYING
-        private const val FILTER_STATE_SOLVED = "filter" + SudokuGame.GAME_STATE_COMPLETED
-        private const val SORT_TYPE = "sort_type"
-        private const val SORT_ORDER = "sort_order"
+        const val MENU_ITEM_GENERATE = Menu.FIRST + 11
+        const val FILTER_STATE_NOT_STARTED = "filter" + SudokuGame.GAME_STATE_NOT_STARTED
+        const val FILTER_STATE_PLAYING = "filter" + SudokuGame.GAME_STATE_PLAYING
+        const val FILTER_STATE_SOLVED = "filter" + SudokuGame.GAME_STATE_COMPLETED
+        const val SORT_TYPE = "sort_type"
+        const val SORT_ORDER = "sort_order"
         private const val TAG = "SudokuListActivity"
     }
 }
