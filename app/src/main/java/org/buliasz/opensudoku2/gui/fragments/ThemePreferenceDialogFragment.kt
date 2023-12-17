@@ -1,3 +1,21 @@
+/*
+ * This file is part of Open Sudoku 2 - an open-source Sudoku game.
+ * Copyright (C) 2009-2023 by original authors.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package org.buliasz.opensudoku2.gui.fragments
 
 import android.graphics.drawable.Drawable
@@ -22,19 +40,15 @@ import org.buliasz.opensudoku2.utils.ThemeUtils
  * Dialog fragment that displays a list of themes and a sudoku board to
  * preview the theme.
  *
- *
  * Necessary because although an AlertDialog allows you to display a list of
  * items and specify a custom view, you cannot do both of these things at
  * the same time.
  *
- *
  * This class is a reimplementation of [ListPreferenceDialogFragmentCompat]
  * but without calling setSingleChoiceItems() on the AlertDialog.Builder.
  *
- *
  * This allows the class to set its own view which includes the list view
  * as well as other views.
- *
  *
  * This also means this class has to manage the list adapter and recycler
  * view as well, instead of allowing the AlertDialog to do it.

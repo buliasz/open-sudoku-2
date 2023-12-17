@@ -4,7 +4,7 @@
 original Open Sudoku project. Open Sudoku 2 has been converted/rewritten to the Kotlin
 programming language with many modifications and reimplementation to be up to date with the current
 Android software development standards. New functionalities as well as improvements for the existing
-ones are also in progress.
+ones are there.
 
 It's designed to be controlled both by finger and keyboard.
 It's preloaded with 90 puzzles in 3 difficulty levels.
