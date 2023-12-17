@@ -75,12 +75,12 @@ class SudokuListActivity : ThemedActivity() {
     // input parameters for dialogs
     private lateinit var mListFilter: SudokuListFilter
     private lateinit var mListSorter: SudokuListSorter
-    private var mFilterStatus: TextView? = null
-    private var mAdapter: SimpleCursorAdapter? = null
+    private lateinit var mFilterStatus: TextView
+    private lateinit var mAdapter: SimpleCursorAdapter
     private var mCursor: Cursor? = null
     private lateinit var mDatabase: SudokuDatabase
-    private var mFolderDetailLoader: FolderDetailLoader? = null
-    private var mListView: ListView? = null
+    private lateinit var mFolderDetailLoader: FolderDetailLoader
+    private lateinit var mListView: ListView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sudoku_list)
@@ -115,7 +115,7 @@ class SudokuListActivity : ThemedActivity() {
             arrayOf(Names.CELLS_DATA, Names.STATE, Names.TIME, Names.LAST_PLAYED, Names.CREATED, Names.USER_NOTE),
             intArrayOf(R.id.cells_data, R.id.state, R.id.time, R.id.last_played, R.id.created, R.id.user_note)
         )
-        mAdapter!!.viewBinder = SudokuListViewBinder(this)
+        mAdapter.viewBinder = SudokuListViewBinder(this)
         updateList()
         val listView = findViewById<ListView>(android.R.id.list)
         mListView = listView
@@ -136,7 +136,7 @@ class SudokuListActivity : ThemedActivity() {
     override fun onDestroy() {
         super.onDestroy()
         mDatabase.close()
-        mFolderDetailLoader!!.destroy()
+        mFolderDetailLoader.destroy()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -215,7 +215,7 @@ class SudokuListActivity : ThemedActivity() {
             Log.e(TAG, "bad menuInfo", e)
             return
         }
-        mListView!!.adapter.getItem(info.position)
+        mListView.adapter.getItem(info.position)
         menu.setHeaderTitle("Puzzle")
 
         // Add a menu item to delete the note
@@ -227,41 +227,41 @@ class SudokuListActivity : ThemedActivity() {
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        val info: AdapterContextMenuInfo? = try {
-            item.menuInfo as AdapterContextMenuInfo?
+        val info: AdapterContextMenuInfo = try {
+            item.menuInfo as AdapterContextMenuInfo
         } catch (e: ClassCastException) {
             Log.e(TAG, "bad menuInfo", e)
             return false
         }
         when (item.itemId) {
             MENU_ITEM_PLAY -> {
-                playSudoku(info!!.id)
+                playSudoku(info.id)
                 return true
             }
 
             MENU_ITEM_EDIT -> {
                 val i = Intent(this, SudokuEditActivity::class.java)
                 i.setAction(Intent.ACTION_EDIT)
-                i.putExtra(SudokuEditActivity.EXTRA_SUDOKU_ID, info!!.id)
+                i.putExtra(SudokuEditActivity.EXTRA_SUDOKU_ID, info.id)
                 startActivity(i)
                 return true
             }
 
             MENU_ITEM_DELETE -> {
-                deletePuzzleDialog.puzzleID = info!!.id
+                deletePuzzleDialog.puzzleID = info.id
                 deletePuzzleDialog.show(supportFragmentManager, "DeletePuzzleDialog")
                 return true
             }
 
             MENU_ITEM_EDIT_NOTE -> {
-                editUserNoteDialog.puzzleId = info!!.id
+                editUserNoteDialog.puzzleId = info.id
                 editUserNoteDialog.currentValue = mDatabase.getSudoku(editUserNoteDialog.puzzleId)?.userNote ?: ""
                 editUserNoteDialog.show(supportFragmentManager, "EditUserNoteDialog")
                 return true
             }
 
             MENU_ITEM_RESET -> {
-                resetPuzzleDialog.puzzleID = info!!.id
+                resetPuzzleDialog.puzzleID = info.id
                 resetPuzzleDialog.show(supportFragmentManager, "ResetPuzzleDialog")
                 return true
             }
@@ -324,22 +324,22 @@ class SudokuListActivity : ThemedActivity() {
         }
         mCursor = mDatabase.getSudokuList(mFolderID, mListFilter, mListSorter)
         startManagingCursor(mCursor)
-        mAdapter!!.changeCursor(mCursor)
+        mAdapter.changeCursor(mCursor)
     }
 
     private fun updateFilterStatus() {
         if (mListFilter.showStateCompleted && mListFilter.showStateNotStarted && mListFilter.showStatePlaying) {
-            mFilterStatus!!.visibility = View.GONE
+            mFilterStatus.visibility = View.GONE
         } else {
-            mFilterStatus!!.text = getString(R.string.filter_active, mListFilter)
-            mFilterStatus!!.visibility = View.VISIBLE
+            mFilterStatus.text = getString(R.string.filter_active, mListFilter)
+            mFilterStatus.visibility = View.VISIBLE
         }
     }
 
     private fun updateTitle() {
         val folder = mDatabase.getFolderInfo(mFolderID)
-        title = folder!!.name
-        mFolderDetailLoader!!.loadDetailAsync(mFolderID, object : FolderDetailLoader.FolderDetailCallback {
+        title = folder?.name ?: "NO FOLDER NAME"
+        mFolderDetailLoader.loadDetailAsync(mFolderID, object : FolderDetailLoader.FolderDetailCallback {
             override fun onLoaded(folderInfo: FolderInfo?) {
                 if (folderInfo != null) title = folderInfo.name + " - " + folderInfo.getDetail(applicationContext)
             }
