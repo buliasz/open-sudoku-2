@@ -23,8 +23,8 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@android:id/list"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sudoku_list_recycler"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 

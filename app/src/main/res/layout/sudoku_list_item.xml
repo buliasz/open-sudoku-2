@@ -25,18 +25,16 @@
     android:padding="6dp">
 
     <org.buliasz.opensudoku2.gui.SudokuBoardView
-        android:id="@+id/cells_data"
+        android:id="@+id/board_view"
         android:layout_width="100sp"
         android:layout_height="100sp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginRight="6dp" />
+        android:layout_marginEnd="6dp" />
 
     <TextView
         android:id="@+id/state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/cells_data"
-        android:layout_toRightOf="@+id/cells_data"
+        android:layout_toEndOf="@+id/board_view"
         android:text="State"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -45,9 +43,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8sp"
-        android:layout_marginLeft="8sp"
         android:layout_toEndOf="@+id/state"
-        android:layout_toRightOf="@+id/state"
         android:gravity="end"
         android:text="00:00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -58,8 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/state"
         android:layout_marginTop="4sp"
-        android:layout_toEndOf="@+id/cells_data"
-        android:layout_toRightOf="@+id/cells_data"
+        android:layout_toEndOf="@+id/board_view"
         android:text="last_played" />
 
     <TextView
@@ -68,8 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/last_played"
         android:layout_marginTop="4sp"
-        android:layout_toEndOf="@+id/cells_data"
-        android:layout_toRightOf="@+id/cells_data"
+        android:layout_toEndOf="@+id/board_view"
         android:text="created" />
 
     <TextView
@@ -78,8 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/created"
         android:layout_marginTop="4sp"
-        android:layout_toEndOf="@+id/cells_data"
-        android:layout_toRightOf="@+id/cells_data"
+        android:layout_toEndOf="@+id/board_view"
         android:text="note" />
 
 </RelativeLayout>

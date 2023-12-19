@@ -99,7 +99,7 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
     override fun onPrepareDialogBuilder(builder: AlertDialog.Builder) {
         val inflater = LayoutInflater.from(context)
         val preferenceView = inflater.inflate(R.layout.preference_dialog_sudoku_board_theme, null)
-        mBoard = preferenceView.findViewById(R.id.cells_data)
+        mBoard = preferenceView.findViewById(R.id.board_view)
         val recyclerView = preferenceView.findViewById<RecyclerView>(R.id.theme_list)
         val layoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = layoutManager

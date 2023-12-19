@@ -101,7 +101,7 @@ class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBoard = view.findViewById(R.id.cells_data)
+        mBoard = view.findViewById(R.id.board_view)
         prepareSudokuPreviewView(mBoard)
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)

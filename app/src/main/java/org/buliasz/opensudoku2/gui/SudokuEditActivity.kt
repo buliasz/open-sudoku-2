@@ -71,7 +71,7 @@ class SudokuEditActivity : ThemedActivity() {
         }
         setContentView(R.layout.sudoku_edit)
         mRootLayout = findViewById(R.id.root_layout)
-        val mBoard = findViewById<SudokuBoardView>(R.id.cells_data)
+        val mBoard = findViewById<SudokuBoardView>(R.id.board_view)
         mDatabase = SudokuDatabase(applicationContext)
         mGuiHandler = Handler()
         val intent = intent

@@ -118,7 +118,7 @@ class SudokuPlayActivity : ThemedActivity() {
         }
         setContentView(R.layout.sudoku_play)
         mRootLayout = findViewById(R.id.root_layout)
-        mSudokuBoard = findViewById(R.id.cells_data)
+        mSudokuBoard = findViewById(R.id.board_view)
         mTimeLabel = findViewById(R.id.time_label)
         mDatabase = SudokuDatabase(applicationContext)
         mHintsQueue = HintsQueue(this)

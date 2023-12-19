@@ -26,7 +26,7 @@
     android:orientation="vertical">
 
     <org.buliasz.opensudoku2.gui.SudokuBoardView
-        android:id="@+id/cells_data"
+        android:id="@+id/board_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 

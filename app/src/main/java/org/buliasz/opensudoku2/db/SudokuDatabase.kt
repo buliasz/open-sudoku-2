@@ -183,7 +183,7 @@ class SudokuDatabase(context: Context) {
      * @param folderID Primary key of folder.
      * @return
      */
-    fun getSudokuList(folderID: Long, filter: SudokuListFilter?, sorter: SudokuListSorter): Cursor {
+    fun getSudokuListCursor(folderID: Long, filter: SudokuListFilter?, sorter: SudokuListSorter): Cursor {
         val qb = SQLiteQueryBuilder()
         qb.tables = Names.GAME
         //qb.setProjectionMap(sPlacesProjectionMap);
@@ -208,8 +208,8 @@ class SudokuDatabase(context: Context) {
      *
      * @param folderID Primary key of folder.
      */
-    fun getAllSudokuByFolder(folderID: Long, sorter: SudokuListSorter): List<SudokuGame> {
-        val cursor = getSudokuList(folderID, null, sorter)
+    fun getSudokuGameList(folderID: Long, filter: SudokuListFilter?, sorter: SudokuListSorter): List<SudokuGame> {
+        val cursor = getSudokuListCursor(folderID, filter, sorter)
         if (cursor.moveToFirst()) {
             val sudokuList: MutableList<SudokuGame> = LinkedList()
             while (!cursor.isAfterLast) {

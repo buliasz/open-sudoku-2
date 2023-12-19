@@ -18,28 +18,21 @@
 package org.buliasz.opensudoku2.gui
 
 import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.os.Bundle
 import android.util.Log
-import android.view.ContextMenu
-import android.view.ContextMenu.ContextMenuInfo
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.AdapterContextMenuInfo
-import android.widget.ListView
-import android.widget.SimpleCursorAdapter
 import android.widget.TextView
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuDatabase
-import org.buliasz.opensudoku2.game.CellCollection
 import org.buliasz.opensudoku2.game.FolderInfo
 import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.gui.fragments.DeletePuzzleDialogFragment
@@ -48,19 +41,7 @@ import org.buliasz.opensudoku2.gui.fragments.FilterDialogFragment
 import org.buliasz.opensudoku2.gui.fragments.ResetAllDialogFragment
 import org.buliasz.opensudoku2.gui.fragments.ResetPuzzleDialogFragment
 import org.buliasz.opensudoku2.gui.fragments.SortDialogFragment
-import org.buliasz.opensudoku2.utils.ThemeUtils
-import java.text.DateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 
-/**
- * List of puzzles in folder.
- *
- * @author romario, Kotlin version by buliasz
- */
 class SudokuListActivity : ThemedActivity() {
     private lateinit var editUserNoteDialog: EditUserNoteDialogFragment
     private lateinit var resetPuzzleDialog: ResetPuzzleDialogFragment
@@ -73,12 +54,14 @@ class SudokuListActivity : ThemedActivity() {
     // input parameters for dialogs
     private lateinit var mListFilter: SudokuListFilter
     private lateinit var mListSorter: SudokuListSorter
+
     private lateinit var mFilterStatus: TextView
-    private lateinit var mAdapter: SimpleCursorAdapter
-    private var mCursor: Cursor? = null
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var mAdapter: SudokuListRecyclerAdapter
+
     private lateinit var mDatabase: SudokuDatabase
     private lateinit var mFolderDetailLoader: FolderDetailLoader
-    private lateinit var mListView: ListView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sudoku_list)
@@ -87,6 +70,7 @@ class SudokuListActivity : ThemedActivity() {
         mDatabase = SudokuDatabase(applicationContext)
         mFolderDetailLoader = FolderDetailLoader(applicationContext)
         val intent = intent
+
         mFolderID = if (intent.hasExtra(Names.FOLDER_ID)) {
             intent.getLongExtra(Names.FOLDER_ID, 0)
         } else {
@@ -94,6 +78,7 @@ class SudokuListActivity : ThemedActivity() {
             finish()
             return
         }
+
         val settings = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         with(SudokuListFilter(applicationContext)) {
             showStateNotStarted = settings.getBoolean(FILTER_STATE_NOT_STARTED, true)
@@ -101,25 +86,23 @@ class SudokuListActivity : ThemedActivity() {
             showStateCompleted = settings.getBoolean(FILTER_STATE_SOLVED, true)
             mListFilter = this
         }
+
         with(SudokuListSorter()) {
             sortType = settings.getInt(SORT_TYPE, SudokuListSorter.SORT_BY_CREATED)
             isAscending = (settings.getBoolean(SORT_ORDER, false))
             mListSorter = this
         }
-        mAdapter = SimpleCursorAdapter(
-            this,
-            R.layout.sudoku_list_item,
-            null,
-            arrayOf(Names.CELLS_DATA, Names.STATE, Names.TIME, Names.LAST_PLAYED, Names.CREATED, Names.USER_NOTE),
-            intArrayOf(R.id.cells_data, R.id.state, R.id.time, R.id.last_played, R.id.created, R.id.user_note)
-        )
-        mAdapter.viewBinder = SudokuListViewBinder(this)
-        updateList()
-        val listView = findViewById<ListView>(android.R.id.list)
-        mListView = listView
-        listView.adapter = mAdapter
-        listView.setOnItemClickListener { _: AdapterView<*>?, _: View?, _: Int, id: Long -> playSudoku(id) }
-        registerForContextMenu(listView)
+
+        updateTitle()
+        updateFilterStatus()
+
+        val games = mDatabase.getSudokuGameList(mFolderID, mListFilter, mListSorter)
+        mAdapter = SudokuListRecyclerAdapter(this, games, ::playSudoku)
+
+        recyclerView = findViewById(R.id.sudoku_list_recycler)
+        recyclerView.adapter = mAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        registerForContextMenu(recyclerView)
 
         resetPuzzleDialog = ResetPuzzleDialogFragment(mDatabase, ::updateList)
         deletePuzzleDialog = DeletePuzzleDialogFragment(mDatabase, settings, ::updateList)
@@ -153,9 +136,8 @@ class SudokuListActivity : ThemedActivity() {
 
     override fun onResume() {
         super.onResume()
-        // the puzzle list is naturally refreshed when the window
-        // regains focus, so we only need to update the title
         updateTitle()
+        updateList()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -206,60 +188,36 @@ class SudokuListActivity : ThemedActivity() {
         return true
     }
 
-    override fun onCreateContextMenu(menu: ContextMenu, view: View, menuInfo: ContextMenuInfo) {
-        val info: AdapterContextMenuInfo = try {
-            menuInfo as AdapterContextMenuInfo
-        } catch (e: ClassCastException) {
-            Log.e(TAG, "bad menuInfo", e)
-            return
-        }
-        mListView.adapter.getItem(info.position)
-        menu.setHeaderTitle("Puzzle")
-
-        // Add a menu item to delete the note
-        menu.add(0, MENU_ITEM_PLAY, 0, R.string.play_puzzle)
-        menu.add(0, MENU_ITEM_EDIT_NOTE, 1, R.string.edit_note)
-        menu.add(0, MENU_ITEM_RESET, 2, R.string.reset_puzzle)
-        menu.add(0, MENU_ITEM_EDIT, 3, R.string.edit_puzzle)
-        menu.add(0, MENU_ITEM_DELETE, 4, R.string.delete_puzzle)
-    }
-
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        val info: AdapterContextMenuInfo = try {
-            item.menuInfo as AdapterContextMenuInfo
-        } catch (e: ClassCastException) {
-            Log.e(TAG, "bad menuInfo", e)
-            return false
-        }
         when (item.itemId) {
             MENU_ITEM_PLAY -> {
-                playSudoku(info.id)
+                playSudoku(mAdapter.selectedGameId)
                 return true
             }
 
             MENU_ITEM_EDIT -> {
                 val i = Intent(this, SudokuEditActivity::class.java)
                 i.setAction(Intent.ACTION_EDIT)
-                i.putExtra(SudokuEditActivity.EXTRA_SUDOKU_ID, info.id)
+                i.putExtra(SudokuEditActivity.EXTRA_SUDOKU_ID, mAdapter.selectedGameId)
                 startActivity(i)
                 return true
             }
 
             MENU_ITEM_DELETE -> {
-                deletePuzzleDialog.puzzleID = info.id
+                deletePuzzleDialog.puzzleID = mAdapter.selectedGameId
                 deletePuzzleDialog.show(supportFragmentManager, "DeletePuzzleDialog")
                 return true
             }
 
             MENU_ITEM_EDIT_NOTE -> {
-                editUserNoteDialog.puzzleId = info.id
+                editUserNoteDialog.puzzleId = mAdapter.selectedGameId
                 editUserNoteDialog.currentValue = mDatabase.getSudoku(editUserNoteDialog.puzzleId)?.userNote ?: ""
                 editUserNoteDialog.show(supportFragmentManager, "EditUserNoteDialog")
                 return true
             }
 
             MENU_ITEM_RESET -> {
-                resetPuzzleDialog.puzzleID = info.id
+                resetPuzzleDialog.puzzleID = mAdapter.selectedGameId
                 resetPuzzleDialog.show(supportFragmentManager, "ResetPuzzleDialog")
                 return true
             }
@@ -271,7 +229,6 @@ class SudokuListActivity : ThemedActivity() {
         val i: Intent
         when (item.itemId) {
             MENU_ITEM_INSERT -> {
-
                 // Launch activity to insert a new item
                 i = Intent(this, SudokuEditActivity::class.java)
                 i.setAction(Intent.ACTION_INSERT)
@@ -317,12 +274,7 @@ class SudokuListActivity : ThemedActivity() {
     private fun updateList() {
         updateTitle()
         updateFilterStatus()
-        if (mCursor != null) {
-            stopManagingCursor(mCursor)
-        }
-        mCursor = mDatabase.getSudokuList(mFolderID, mListFilter, mListSorter)
-        startManagingCursor(mCursor)
-        mAdapter.changeCursor(mCursor)
+        mAdapter.updateGameList(mDatabase.getSudokuGameList(mFolderID, mListFilter, mListSorter))
     }
 
     private fun updateFilterStatus() {
@@ -348,128 +300,6 @@ class SudokuListActivity : ThemedActivity() {
         val i = Intent(this@SudokuListActivity, SudokuPlayActivity::class.java)
         i.putExtra(SudokuPlayActivity.EXTRA_SUDOKU_ID, sudokuID)
         startActivity(i)
-    }
-
-    private class SudokuListViewBinder(private val mContext: Context) : SimpleCursorAdapter.ViewBinder {
-        private val mGameTimeFormatter = GameTimeFormat()
-        private val mDateTimeFormatter = DateFormat.getDateTimeInstance(
-            DateFormat.SHORT, DateFormat.SHORT
-        )
-        private val mTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
-
-        override fun setViewValue(view: View, c: Cursor, columnIndex: Int): Boolean {
-            val state = c.getInt(c.getColumnIndexOrThrow(Names.STATE))
-            val label: TextView
-            when (view.id) {
-                R.id.cells_data -> {
-                    val data = c.getString(columnIndex)
-                    // TODO: still can be faster, I don't have to call initCollection and read notes
-                    val cells: CellCollection = try {
-                        CellCollection.deserialize(data)
-                    } catch (e: Exception) {
-                        val id = c.getLong(c.getColumnIndexOrThrow(Names.ID))
-                        Log.e(TAG, "Exception occurred when deserializing puzzle with id $id.", e)
-                        CellCollection.createEmpty()
-                    }
-                    val board = view as SudokuBoardView
-                    board.isReadOnly = true
-                    board.isFocusable = false
-                    view.cells = cells
-                    ThemeUtils.applyThemeToSudokuBoardViewFromContext(
-                        ThemeUtils.getCurrentThemeFromPreferences(mContext),
-                        board,
-                        mContext
-                    )
-                }
-
-                R.id.state -> {
-                    label = view as TextView
-                    var stateString: String? = null
-                    when (state) {
-                        SudokuGame.GAME_STATE_COMPLETED -> stateString = mContext.getString(R.string.solved)
-                        SudokuGame.GAME_STATE_PLAYING -> stateString = mContext.getString(R.string.playing)
-                    }
-                    label.visibility = if (stateString == null) View.GONE else View.VISIBLE
-                    label.text = stateString
-                    if (state == SudokuGame.GAME_STATE_COMPLETED) {
-                        label.setTextColor(ThemeUtils.getCurrentThemeColor(view.getContext(), android.R.attr.colorAccent))
-                    } else {
-                        label.setTextColor(ThemeUtils.getCurrentThemeColor(view.getContext(), android.R.attr.textColorPrimary))
-                    }
-                }
-
-                R.id.time -> {
-                    val time = c.getLong(columnIndex)
-                    label = view as TextView
-                    var timeString: String? = null
-                    if (time != 0L) {
-                        timeString = mGameTimeFormatter.format(time)
-                    }
-                    label.visibility = if (timeString == null) View.GONE else View.VISIBLE
-                    label.text = timeString
-                    if (state == SudokuGame.GAME_STATE_COMPLETED) {
-                        label.setTextColor(ThemeUtils.getCurrentThemeColor(view.getContext(), android.R.attr.colorAccent))
-                    } else {
-                        label.setTextColor(ThemeUtils.getCurrentThemeColor(view.getContext(), android.R.attr.textColorPrimary))
-                    }
-                }
-
-                R.id.last_played -> {
-                    val lastPlayed = c.getLong(columnIndex)
-                    label = view as TextView
-                    var lastPlayedString: String? = null
-                    if (lastPlayed != 0L) {
-                        lastPlayedString = mContext.getString(
-                            R.string.last_played_at,
-                            getDateAndTimeForHumans(lastPlayed)
-                        )
-                    }
-                    label.visibility = if (lastPlayedString == null) View.GONE else View.VISIBLE
-                    label.text = lastPlayedString
-                }
-
-                R.id.created -> {
-                    val created = c.getLong(columnIndex)
-                    label = view as TextView
-                    var createdString: String? = null
-                    if (created != 0L) {
-                        createdString = mContext.getString(
-                            R.string.created_at,
-                            getDateAndTimeForHumans(created)
-                        )
-                    }
-                    // TODO: when GONE, note is not correctly aligned below last_played
-                    label.visibility = if (createdString == null) View.GONE else View.VISIBLE
-                    label.text = createdString
-                }
-
-                R.id.user_note -> {
-                    val note = c.getString(columnIndex)
-                    label = view as TextView
-                    if (note == null || note.trim { it <= ' ' } == "") {
-                        view.setVisibility(View.GONE)
-                    } else {
-                        view.text = note
-                    }
-                    label.visibility = if (note == null || note.trim { it <= ' ' } == "") View.GONE else View.VISIBLE
-                    label.text = note
-                }
-            }
-            return true
-        }
-
-        private fun getDateAndTimeForHumans(utcEpochSeconds: Long): String {
-            val dateTime = LocalDateTime.ofEpochSecond(utcEpochSeconds, 0, ZoneOffset.UTC)
-            val today = LocalDate.now()
-            val yesterday = today.minusDays(1)
-            return if (dateTime.isAfter(today.atStartOfDay())) {
-                mContext.getString(R.string.at_time, dateTime.format(mTimeFormatter))
-            } else if (dateTime.isAfter(yesterday.atStartOfDay())) {
-                mContext.getString(R.string.yesterday_at_time, dateTime.format(mTimeFormatter))
-            } else {
-                mContext.getString(R.string.on_date, mDateTimeFormatter.format(dateTime))
-            }
-        }
     }
 
     companion object {
