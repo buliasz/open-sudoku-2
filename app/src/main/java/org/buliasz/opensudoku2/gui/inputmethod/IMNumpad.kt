@@ -21,6 +21,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import com.google.android.material.button.MaterialButton
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.game.Cell
@@ -49,6 +50,8 @@ class IMNumpad : InputMethod() {
     private var mEnterNumberButton: MaterialButton? = null
     private var mCornerNoteButton: MaterialButton? = null
     private var mCenterNoteButton: MaterialButton? = null
+    private lateinit var mSwitchModeButton: Button
+
     private val mNumberButtonClicked = View.OnClickListener { v: View ->
         val selNumber = v.tag as Int
         val selCell = mSelectedCell
@@ -108,7 +111,7 @@ class IMNumpad : InputMethod() {
         game.cells.addOnChangeListener(mOnCellsChangeListener)
     }
 
-    override fun createControlPanelView(): View? {
+    override fun createControlPanelView(abbrName: String): View {
         val inflater = mContext!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val controlPanel = inflater.inflate(R.layout.im_numpad, null)
 
@@ -163,6 +166,9 @@ class IMNumpad : InputMethod() {
         centerNoteButton.iconTint = textColor
         mCenterNoteButton = centerNoteButton
 
+        mSwitchModeButton = controlPanel.findViewById(R.id.numpad_switch_input_mode)
+        mSwitchModeButton.text = abbrName
+
         return controlPanel
     }
 
@@ -172,6 +178,8 @@ class IMNumpad : InputMethod() {
         get() = R.string.im_numpad_hint
     override val abbrName: String
         get() = mContext!!.getString(R.string.numpad_abbr)
+    override val switchModeButton: Button
+        get() = mSwitchModeButton
 
     override fun onActivated() {
         onCellSelected(if (mBoard!!.isReadOnly) null else mBoard!!.selectedCell)

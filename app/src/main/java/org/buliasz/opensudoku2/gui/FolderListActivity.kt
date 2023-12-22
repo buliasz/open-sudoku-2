@@ -17,35 +17,28 @@
  */
 package org.buliasz.opensudoku2.gui
 
-import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.view.ContextMenu
-import android.view.ContextMenu.ContextMenuInfo
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.AdapterContextMenuInfo
-import android.widget.ListView
-import android.widget.SimpleCursorAdapter
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuDatabase
-import org.buliasz.opensudoku2.game.FolderInfo
-import org.buliasz.opensudoku2.utils.AndroidUtils
+import org.buliasz.opensudoku2.gui.fragments.AboutDialogFragment
+import org.buliasz.opensudoku2.gui.fragments.AddFolderDialogFragment
+import org.buliasz.opensudoku2.gui.fragments.DeleteFolderDialogFragment
+import org.buliasz.opensudoku2.gui.fragments.RenameFolderDialogFragment
 
 /**
  * List of puzzle's folder. This activity also serves as root activity of application.
@@ -53,18 +46,16 @@ import org.buliasz.opensudoku2.utils.AndroidUtils
  * @author romario, Kotlin version by buliasz
  */
 class FolderListActivity : ThemedActivity() {
+    private lateinit var addFolderDialog: AddFolderDialogFragment
+    private lateinit var renameFolderDialog: RenameFolderDialogFragment
+    private lateinit var aboutDialog: AboutDialogFragment
+    private lateinit var deleteFolderDialog: DeleteFolderDialogFragment
+    private lateinit var mAdapter: FolderListRecyclerAdapter
     private val storagePermissionCoe = 1
-    private var mCursor: Cursor? = null
-    private var mDatabase: SudokuDatabase? = null
-    private var mFolderListBinder: FolderListViewBinder? = null
-    private var mListView: ListView? = null
+    private lateinit var mDatabase: SudokuDatabase
+    private lateinit var recyclerView: RecyclerView
     private var mMenu: Menu? = null
 
-    // input parameters for dialogs
-    private var mAddFolderNameInput: TextView? = null
-    private var mRenameFolderNameInput: TextView? = null
-    private var mRenameFolderID: Long = 0
-    private var mDeleteFolderID: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.folder_list)
@@ -88,26 +79,22 @@ class FolderListActivity : ThemedActivity() {
             }
         }
         mDatabase = SudokuDatabase(applicationContext)
-        mCursor = mDatabase!!.folderList
-        startManagingCursor(mCursor)
-        val adapter = SimpleCursorAdapter(
-            this,
-            R.layout.folder_list_item,
-            mCursor,
-            arrayOf(Names.FOLDER_NAME, Names.ID),
-            intArrayOf(R.id.name, R.id.detail)
-        )
-        mFolderListBinder = FolderListViewBinder(this)
-        adapter.viewBinder = mFolderListBinder
-        val listView = findViewById<ListView>(android.R.id.list)
-        listView.adapter = adapter
-        listView.setOnItemClickListener { _: AdapterView<*>?, _: View?, _: Int, id: Long ->
+        mAdapter = FolderListRecyclerAdapter(this, mDatabase.getFolderList()) { id: Long ->
             val i = Intent(applicationContext, SudokuListActivity::class.java)
             i.putExtra(Names.FOLDER_ID, id)
             startActivity(i)
         }
-        registerForContextMenu(listView)
-        mListView = listView
+
+        recyclerView = findViewById(R.id.folder_list_recycler)
+        recyclerView.adapter = mAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        registerForContextMenu(recyclerView)
+
+        val factory = LayoutInflater.from(this)
+        aboutDialog = AboutDialogFragment(factory)
+        addFolderDialog = AddFolderDialogFragment(factory, mDatabase, ::updateList)
+        deleteFolderDialog = DeleteFolderDialogFragment(mDatabase, ::updateList)
+        renameFolderDialog = RenameFolderDialogFragment(factory, mDatabase, ::updateList)
 
         // show changelog on first run
         val changelog = Changelog(this)
@@ -119,22 +106,14 @@ class FolderListActivity : ThemedActivity() {
         updateList()
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateList()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        mDatabase!!.close()
-        mFolderListBinder!!.destroy()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putLong("mRenameFolderID", mRenameFolderID)
-        outState.putLong("mDeleteFolderID", mDeleteFolderID)
-    }
-
-    override fun onRestoreInstanceState(state: Bundle) {
-        super.onRestoreInstanceState(state)
-        mRenameFolderID = state.getLong("mRenameFolderID")
-        mDeleteFolderID = state.getLong("mDeleteFolderID")
+        mDatabase.close()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -173,134 +152,25 @@ class FolderListActivity : ThemedActivity() {
         return true
     }
 
-    override fun onCreateContextMenu(menu: ContextMenu, view: View, menuInfo: ContextMenuInfo) {
-        val info: AdapterContextMenuInfo = try {
-            menuInfo as AdapterContextMenuInfo
-        } catch (e: ClassCastException) {
-            Log.e(TAG, "bad menuInfo", e)
-            return
-        }
-        val cursor = mListView!!.adapter.getItem(info.position) as Cursor
-        menu.setHeaderTitle(cursor.getString(cursor.getColumnIndexOrThrow(Names.FOLDER_NAME)))
-        menu.add(0, MENU_ITEM_EXPORT, 0, R.string.export_folder)
-        menu.add(0, MENU_ITEM_RENAME, 1, R.string.rename_folder)
-        menu.add(0, MENU_ITEM_DELETE, 2, R.string.delete_folder)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onCreateDialog(id: Int): Dialog {
-        val factory = LayoutInflater.from(this)
-        when (id) {
-            DIALOG_ABOUT -> {
-                val aboutView = factory.inflate(R.layout.about, null)
-                val versionLabel = aboutView.findViewById<TextView>(R.id.version_label)
-                val versionName = AndroidUtils.getAppVersionName(applicationContext)
-                versionLabel.text = getString(R.string.version, versionName)
-                return AlertDialog.Builder(this)
-                    .setIcon(R.mipmap.ic_launcher)
-                    .setTitle(R.string.app_name)
-                    .setView(aboutView)
-                    .setPositiveButton("OK", null)
-                    .create()
-            }
-
-            DIALOG_ADD_FOLDER -> {
-                val addFolderView = factory.inflate(R.layout.folder_name, null)
-                val addFolderNameInput = addFolderView.findViewById<TextView>(R.id.name)
-                mAddFolderNameInput = addFolderNameInput
-                return AlertDialog.Builder(this)
-                    .setIcon(R.drawable.ic_add)
-                    .setTitle(R.string.add_folder)
-                    .setView(addFolderView)
-                    .setPositiveButton(R.string.save) { _: DialogInterface?, _: Int ->
-                        mDatabase!!.insertFolder(
-                            addFolderNameInput.text.toString().trim { it <= ' ' },
-                            System.currentTimeMillis()
-                        )
-                        updateList()
-                    }
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .create()
-            }
-
-            DIALOG_RENAME_FOLDER -> {
-                val renameFolderView = factory.inflate(R.layout.folder_name, null)
-                val renameFolderNameInput = renameFolderView.findViewById<TextView>(R.id.name)
-                mRenameFolderNameInput = renameFolderNameInput
-                return AlertDialog.Builder(this)
-                    .setIcon(R.drawable.ic_edit_grey)
-                    .setTitle(R.string.rename_folder_title)
-                    .setView(renameFolderView)
-                    .setPositiveButton(R.string.save) { _: DialogInterface?, _: Int ->
-                        mDatabase!!.updateFolder(
-                            mRenameFolderID,
-                            renameFolderNameInput.text.toString().trim { it <= ' ' })
-                        updateList()
-                    }
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .create()
-            }
-
-            DIALOG_DELETE_FOLDER -> return AlertDialog.Builder(this)
-                .setIcon(R.drawable.ic_delete)
-                .setTitle(R.string.delete_folder_title)
-                .setMessage(R.string.delete_folder_confirm)
-                .setPositiveButton(android.R.string.yes) { _: DialogInterface?, _: Int ->
-                    // TODO: this could take a while, I should show progress dialog
-                    mDatabase!!.deleteFolder(mDeleteFolderID)
-                    updateList()
-                }
-                .setNegativeButton(android.R.string.no, null)
-                .create()
-        }
-        throw Exception("Unknown dialog $id")
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onPrepareDialog(id: Int, dialog: Dialog) {
-        super.onPrepareDialog(id, dialog)
-        when (id) {
-            DIALOG_ADD_FOLDER -> {}
-            DIALOG_RENAME_FOLDER -> {
-                val folder = mDatabase!!.getFolderInfo(mRenameFolderID)
-                val folderName = if (folder != null) folder.name else ""
-                dialog.setTitle(getString(R.string.rename_folder_title, folderName))
-                mRenameFolderNameInput!!.text = folderName
-            }
-
-            DIALOG_DELETE_FOLDER -> {
-                val folder = mDatabase!!.getFolderInfo(mDeleteFolderID)
-                val folderName = if (folder != null) folder.name else ""
-                dialog.setTitle(getString(R.string.delete_folder_title, folderName))
-            }
-        }
-    }
-
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        val info: AdapterContextMenuInfo? = try {
-            item.menuInfo as AdapterContextMenuInfo?
-        } catch (e: ClassCastException) {
-            Log.e(TAG, "bad menuInfo", e)
-            return false
-        }
         when (item.itemId) {
             MENU_ITEM_EXPORT -> {
                 val intent = Intent()
                 intent.setClass(this, SudokuExportActivity::class.java)
-                intent.putExtra(Names.FOLDER_ID, info!!.id)
+                intent.putExtra(Names.FOLDER_ID, mAdapter.selectedFolderId)
                 startActivity(intent)
                 return true
             }
 
             MENU_ITEM_RENAME -> {
-                mRenameFolderID = info!!.id
-                showDialog(DIALOG_RENAME_FOLDER)
+                renameFolderDialog.mRenameFolderID = mAdapter.selectedFolderId
+                renameFolderDialog.show(supportFragmentManager, "RenameFolderDialog")
                 return true
             }
 
             MENU_ITEM_DELETE -> {
-                mDeleteFolderID = info!!.id
-                showDialog(DIALOG_DELETE_FOLDER)
+                deleteFolderDialog.mDeleteFolderID = mAdapter.selectedFolderId
+                deleteFolderDialog.show(supportFragmentManager, "DeleteFolderDialog")
                 return true
             }
         }
@@ -311,7 +181,7 @@ class FolderListActivity : ThemedActivity() {
         val intent: Intent
         when (item.itemId) {
             MENU_ITEM_ADD -> {
-                showDialog(DIALOG_ADD_FOLDER)
+                addFolderDialog.show(supportFragmentManager, "AddFolderDialog")
                 return true
             }
 
@@ -342,7 +212,7 @@ class FolderListActivity : ThemedActivity() {
             }
 
             MENU_ITEM_ABOUT -> {
-                showDialog(DIALOG_ABOUT)
+                aboutDialog.show(supportFragmentManager, "AboutDialog")
                 return true
             }
         }
@@ -380,34 +250,7 @@ class FolderListActivity : ThemedActivity() {
     }
 
     private fun updateList() {
-        mCursor!!.requery()
-    }
-
-    private class FolderListViewBinder(private val mContext: Context) :
-        SimpleCursorAdapter.ViewBinder {
-        private val mDetailLoader: FolderDetailLoader = FolderDetailLoader(mContext)
-
-        override fun setViewValue(view: View, c: Cursor, columnIndex: Int): Boolean {
-            when (view.id) {
-                R.id.name -> (view as TextView).text = c.getString(columnIndex)
-                R.id.detail -> {
-                    val folderID = c.getLong(columnIndex)
-                    val detailView = view as TextView
-                    detailView.text = mContext.getString(R.string.loading)
-                    mDetailLoader.loadDetailAsync(folderID, object :
-                        FolderDetailLoader.FolderDetailCallback {
-                        override fun onLoaded(folderInfo: FolderInfo?) {
-                            if (folderInfo != null) detailView.text = folderInfo.getDetail(mContext)
-                        }
-                    })
-                }
-            }
-            return true
-        }
-
-        fun destroy() {
-            mDetailLoader.destroy()
-        }
+        mAdapter.updateFoldersList(mDatabase.getFolderList())
     }
 
     companion object {
@@ -420,10 +263,5 @@ class FolderListActivity : ThemedActivity() {
         const val MENU_ITEM_IMPORT = Menu.FIRST + 6
         const val MENU_ITEM_SETTINGS = Menu.FIRST + 7
         private const val OPEN_FILE = 1
-        private const val DIALOG_ABOUT = 0
-        private const val DIALOG_ADD_FOLDER = 1
-        private const val DIALOG_RENAME_FOLDER = 2
-        private const val DIALOG_DELETE_FOLDER = 3
-        private const val TAG = "FolderListActivity"
     }
 }

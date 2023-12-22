@@ -52,18 +52,28 @@ class SudokuDatabase(context: Context) {
     private val mOpenHelper: DatabaseHelper = DatabaseHelper(context)
     private var mInsertSudokuStatement: SQLiteStatement? = null
 
-    val folderList: Cursor
-        /**
-         * Returns list of puzzle folders.
-         *
-         * @return
-         */
-        get() {
-            val qb = SQLiteQueryBuilder()
-            qb.tables = Names.FOLDER
-            val db = mOpenHelper.readableDatabase
-            return qb.query(db, null, null, null, null, null, "${Names.FOLDER_CREATED} ASC")
+    /**
+     * Returns list of puzzle folders.
+     */
+    fun getFolderList(): List<FolderInfo> {
+        val qb = SQLiteQueryBuilder()
+        val folderList: MutableList<FolderInfo> = LinkedList()
+        qb.tables = Names.FOLDER
+        mOpenHelper.readableDatabase.use { db ->
+            qb.query(db, null, null, null, null, null, null).use { cursor ->
+                if (cursor.moveToFirst()) {
+                    while (!cursor.isAfterLast) {
+                        val folderInfo = FolderInfo()
+                        folderInfo.id = cursor.getLong(cursor.getColumnIndexOrThrow(Names.ID))
+                        folderInfo.name = cursor.getString(cursor.getColumnIndexOrThrow(Names.FOLDER_NAME))
+                        folderList.add(getFolderInfoFull(folderInfo.id) ?: folderInfo)
+                        cursor.moveToNext()
+                    }
+                }
+            }
         }
+        return folderList
+    }
 
     /**
      * Returns the folder info.
@@ -104,23 +114,24 @@ class SudokuDatabase(context: Context) {
                 "from ${Names.FOLDER} f left join ${Names.GAME} g on f.${Names.ID} = g.${Names.FOLDER_ID} " +
                 "where f.${Names.ID} = $folderID " +
                 "group by g.${Names.STATE}"
-        val db: SQLiteDatabase = mOpenHelper.readableDatabase
-        db.rawQuery(q, null).use { c ->
-            // selectionArgs: You may include ?s in where clause in the query, which will be replaced by the values from selectionArgs.
-            // The values will be bound as Strings.
-            while (c.moveToNext()) {
-                val id = c.getLong(c.getColumnIndexOrThrow(Names.ID))
-                val name = c.getString(c.getColumnIndexOrThrow(Names.FOLDER_NAME))
-                val state = c.getInt(c.getColumnIndexOrThrow(Names.STATE))
-                val count = c.getInt(c.getColumnIndexOrThrow(Names.COUNT))
-                if (folder == null) {
-                    folder = FolderInfo(id, name)
-                }
-                folder!!.puzzleCount += count
-                if (state == SudokuGame.GAME_STATE_COMPLETED) {
-                    folder!!.solvedCount += count
-                } else if (state == SudokuGame.GAME_STATE_PLAYING) {
-                    folder!!.playingCount += count
+        mOpenHelper.readableDatabase.use { db ->
+            db.rawQuery(q, null).use { cursor ->
+                // selectionArgs: You may include ?s in where clause in the query, which will be replaced by the values from selectionArgs.
+                // The values will be bound as Strings.
+                while (cursor.moveToNext()) {
+                    val id = cursor.getLong(cursor.getColumnIndexOrThrow(Names.ID))
+                    val name = cursor.getString(cursor.getColumnIndexOrThrow(Names.FOLDER_NAME))
+                    val state = cursor.getInt(cursor.getColumnIndexOrThrow(Names.STATE))
+                    val count = cursor.getInt(cursor.getColumnIndexOrThrow(Names.COUNT))
+                    if (folder == null) {
+                        folder = FolderInfo(id, name)
+                    }
+                    folder!!.puzzleCount += count
+                    if (state == SudokuGame.GAME_STATE_COMPLETED) {
+                        folder!!.solvedCount += count
+                    } else if (state == SudokuGame.GAME_STATE_PLAYING) {
+                        folder!!.playingCount += count
+                    }
                 }
             }
         }
@@ -138,13 +149,14 @@ class SudokuDatabase(context: Context) {
         values.put(Names.FOLDER_CREATED, created)
         values.put(Names.FOLDER_NAME, name)
         val rowId: Long
-        val db = mOpenHelper.writableDatabase
-        rowId = db.insert(Names.FOLDER, Names.ID, values)
-        if (rowId > 0) {
-            val fi = FolderInfo()
-            fi.id = rowId
-            fi.name = name
-            return fi
+        mOpenHelper.writableDatabase.use { db ->
+            rowId = db.insert(Names.FOLDER, Names.ID, values)
+            if (rowId > 0) {
+                val fi = FolderInfo()
+                fi.id = rowId
+                fi.name = name
+                return@insertFolder fi
+            }
         }
         throw SQLException("Failed to insert folder '$name'.")
     }
@@ -158,8 +170,9 @@ class SudokuDatabase(context: Context) {
     fun updateFolder(folderID: Long, name: String?) {
         val values = ContentValues()
         values.put(Names.FOLDER_NAME, name)
-        val db: SQLiteDatabase = mOpenHelper.writableDatabase
-        db.update(Names.FOLDER, values, Names.ID + "=" + folderID, null)
+        mOpenHelper.writableDatabase.use { db ->
+            db.update(Names.FOLDER, values, Names.ID + "=" + folderID, null)
+        }
     }
 
     /**
@@ -168,22 +181,21 @@ class SudokuDatabase(context: Context) {
      * @param folderID Primary key of folder.
      */
     fun deleteFolder(folderID: Long) {
-
         // TODO: should run in transaction
-        val db = mOpenHelper.writableDatabase
-        // delete all puzzles in folder we are going to delete
-        db.delete(Names.GAME, Names.FOLDER_ID + "=" + folderID, null)
-        // delete the folder
-        db.delete(Names.FOLDER, Names.ID + "=" + folderID, null)
+        mOpenHelper.writableDatabase.use { db ->
+            // delete all puzzles in folder we are going to delete
+            db.delete(Names.GAME, Names.FOLDER_ID + "=" + folderID, null)
+            // delete the folder
+            db.delete(Names.FOLDER, Names.ID + "=" + folderID, null)
+        }
     }
 
     /**
-     * Returns list of puzzles in the given folder.
+     * Returns list of sudoku game objects
      *
      * @param folderID Primary key of folder.
-     * @return
      */
-    fun getSudokuListCursor(folderID: Long, filter: SudokuListFilter?, sorter: SudokuListSorter): Cursor {
+    fun getSudokuGameList(folderID: Long, filter: SudokuListFilter?, sorter: SudokuListSorter): List<SudokuGame> {
         val qb = SQLiteQueryBuilder()
         qb.tables = Names.GAME
         //qb.setProjectionMap(sPlacesProjectionMap);
@@ -199,24 +211,17 @@ class SudokuDatabase(context: Context) {
                 qb.appendWhere(" and " + Names.STATE + "!=" + SudokuGame.GAME_STATE_PLAYING)
             }
         }
-        val db = mOpenHelper.readableDatabase
-        return qb.query(db, null, null, null, null, null, sorter.sortOrder)
-    }
-
-    /**
-     * Returns list of sudoku game objects
-     *
-     * @param folderID Primary key of folder.
-     */
-    fun getSudokuGameList(folderID: Long, filter: SudokuListFilter?, sorter: SudokuListSorter): List<SudokuGame> {
-        val cursor = getSudokuListCursor(folderID, filter, sorter)
-        if (cursor.moveToFirst()) {
-            val sudokuList: MutableList<SudokuGame> = LinkedList()
-            while (!cursor.isAfterLast) {
-                sudokuList.add(extractSudokuGameFromCursorRow(cursor))
-                cursor.moveToNext()
+        mOpenHelper.readableDatabase.use { db ->
+            qb.query(db, null, null, null, null, null, sorter.sortOrder).use { cursor ->
+                if (cursor.moveToFirst()) {
+                    val sudokuList: MutableList<SudokuGame> = LinkedList()
+                    while (!cursor.isAfterLast) {
+                        sudokuList.add(extractSudokuGameFromCursorRow(cursor))
+                        cursor.moveToNext()
+                    }
+                    return@getSudokuGameList sudokuList
+                }
             }
-            return sudokuList
         }
         return emptyList()
     }
@@ -269,23 +274,24 @@ class SudokuDatabase(context: Context) {
      * @param folderID Primary key of the folder in which puzzle should be saved.
      */
     fun insertSudoku(folderID: Long, game: SudokuGame): Long {
-        val db = mOpenHelper.writableDatabase
-        val values = ContentValues()
-        values.put(Names.CELLS_DATA, game.cells.serialize())
-        values.put(Names.CREATED, game.created)
-        values.put(Names.LAST_PLAYED, game.lastPlayed)
-        values.put(Names.STATE, game.state)
-        values.put(Names.TIME, game.time)
-        values.put(Names.USER_NOTE, game.userNote)
-        values.put(Names.FOLDER_ID, folderID)
-        var commandStack = ""
-        if (game.state == SudokuGame.GAME_STATE_PLAYING) {
-            commandStack = game.commandStack.serialize()
-        }
-        values.put(Names.COMMAND_STACK, commandStack)
-        val rowId = db.insert(Names.GAME, Names.FOLDER_NAME, values)
-        if (rowId > 0) {
-            return rowId
+        mOpenHelper.writableDatabase.use { db ->
+            val values = ContentValues()
+            values.put(Names.CELLS_DATA, game.cells.serialize())
+            values.put(Names.CREATED, game.created)
+            values.put(Names.LAST_PLAYED, game.lastPlayed)
+            values.put(Names.STATE, game.state)
+            values.put(Names.TIME, game.time)
+            values.put(Names.USER_NOTE, game.userNote)
+            values.put(Names.FOLDER_ID, folderID)
+            var commandStack = ""
+            if (game.state == SudokuGame.GAME_STATE_PLAYING) {
+                commandStack = game.commandStack.serialize()
+            }
+            values.put(Names.COMMAND_STACK, commandStack)
+            val rowId = db.insert(Names.GAME, Names.FOLDER_NAME, values)
+            if (rowId > 0) {
+                return@insertSudoku rowId
+            }
         }
         throw SQLException("Failed to insert sudoku.")
     }
@@ -297,12 +303,13 @@ class SudokuDatabase(context: Context) {
             throw SudokuInvalidFormatException(importParams.cellsData)
         }
         if (mInsertSudokuStatement == null) {
-            val db = mOpenHelper.writableDatabase
-            mInsertSudokuStatement = db.compileStatement(
-                "insert into ${Names.GAME} (${Names.FOLDER_ID}, ${Names.CREATED}, ${Names.STATE}, ${Names.TIME}, " +
-                        "${Names.LAST_PLAYED}, ${Names.CELLS_DATA}, ${Names.USER_NOTE}, ${Names.COMMAND_STACK}) " +
-                        "values (?, ?, ?, ?, ?, ?, ?, ?)"
-            )
+            mOpenHelper.writableDatabase.use { db ->
+                mInsertSudokuStatement = db.compileStatement(
+                    "insert into ${Names.GAME} (${Names.FOLDER_ID}, ${Names.CREATED}, ${Names.STATE}, ${Names.TIME}, " +
+                            "${Names.LAST_PLAYED}, ${Names.CELLS_DATA}, ${Names.USER_NOTE}, ${Names.COMMAND_STACK}) " +
+                            "values (?, ?, ?, ?, ?, ?, ?, ?)"
+                )
+            }
         }
         with(mInsertSudokuStatement!!) {
             bindLong(1, folderID)
@@ -355,8 +362,9 @@ class SudokuDatabase(context: Context) {
             commandStack = sudoku.commandStack.serialize()
         }
         values.put(Names.COMMAND_STACK, commandStack)
-        val db = mOpenHelper.writableDatabase
-        db.update(Names.GAME, values, Names.ID + "=" + sudoku.id, null)
+        mOpenHelper.writableDatabase.use { db ->
+            db.update(Names.GAME, values, Names.ID + "=" + sudoku.id, null)
+        }
     }
 
     /**
@@ -365,8 +373,9 @@ class SudokuDatabase(context: Context) {
      * @param sudokuID
      */
     fun deleteSudoku(sudokuID: Long) {
-        val db = mOpenHelper.writableDatabase
-        db.delete(Names.GAME, Names.ID + "=" + sudokuID, null)
+        mOpenHelper.writableDatabase.use { db ->
+            db.delete(Names.GAME, Names.ID + "=" + sudokuID, null)
+        }
     }
 
     fun close() {

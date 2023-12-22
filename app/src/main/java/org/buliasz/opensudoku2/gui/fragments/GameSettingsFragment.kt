@@ -100,9 +100,7 @@ class GameSettingsFragment : PreferenceFragmentCompat(), TargetFragment, OnShare
         f.show(parentFragmentManager, ThemePreferenceDialogFragment.TAG)
     }
 
-    override fun <T : Preference?> findPreference(key: CharSequence): T? {
-        return super.findPreference(key)
-    }
+    override fun <T : Preference?> findPreference(key: CharSequence): T? = super.findPreference(key)
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
         if (key == getString(R.string.dark_mode_key)) {
@@ -138,8 +136,7 @@ class GameSettingsFragment : PreferenceFragmentCompat(), TargetFragment, OnShare
             if (ThemeUtils.isDarkTheme(themeName)) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
-                val mode = sharedPreferences.getString("ui_mode", "system")
-                when (mode) {
+                when (sharedPreferences.getString("ui_mode", "system")) {
                     "light" -> {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                         return

@@ -21,7 +21,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.View.OnClickListener
-import android.widget.Button
 import android.widget.LinearLayout
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.game.Cell
@@ -66,10 +65,10 @@ class IMControlPanel : LinearLayout {
         mContext = context
     }
 
-    fun initialize(board: SudokuBoardView?, game: SudokuGame?, hintsQueue: HintsQueue?) {
+    fun initialize(board: SudokuBoardView, game: SudokuGame?, hintsQueue: HintsQueue?) {
+        board.setOnCellTappedListener(mOnCellTapListener)
+        board.setOnCellSelectedListener(mOnCellSelected)
         mBoard = board
-        mBoard!!.setOnCellTappedListener(mOnCellTapListener)
-        mBoard!!.setOnCellSelectedListener(mOnCellSelected)
         mGame = game
         mHintsQueue = hintsQueue
         createInputMethods()
@@ -122,7 +121,7 @@ class IMControlPanel : LinearLayout {
         for (i in mInputMethods.indices) {
             val im = mInputMethods[i]
             if (im.isInputMethodViewCreated) {
-                im.inputMethodView!!.visibility = if (i == id) VISIBLE else GONE
+                im.inputMethodView.visibility = if (i == id) VISIBLE else GONE
             }
         }
         activeMethodIndex = id
@@ -189,10 +188,9 @@ class IMControlPanel : LinearLayout {
     private fun ensureControlPanel(methodID: Int) {
         val im = mInputMethods[methodID]
         if (!im.isInputMethodViewCreated) {
-            val controlPanel = im.inputMethodView
-            val switchModeButton = controlPanel!!.findViewById<Button>(R.id.switch_input_mode)
-            switchModeButton.setOnClickListener(mSwitchModeListener)
-            this.addView(controlPanel, LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT)
+            im.createInputMethodView()
+            im.switchModeButton.setOnClickListener(mSwitchModeListener)
+            this.addView(im.inputMethodView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         }
     }
 

@@ -18,6 +18,7 @@
 
 package org.buliasz.opensudoku2.gui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -51,6 +52,7 @@ internal class SudokuListRecyclerAdapter(
 
     override fun getItemCount(): Int = games.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateGameList(newGames: List<SudokuGame>) {
         games = newGames
         notifyDataSetChanged()

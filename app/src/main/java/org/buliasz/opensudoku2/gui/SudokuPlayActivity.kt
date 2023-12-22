@@ -49,7 +49,7 @@ class SudokuPlayActivity : ThemedActivity() {
     private var mDatabase: SudokuDatabase? = null
     private var mGuiHandler: Handler? = null
     private var mRootLayout: ViewGroup? = null
-    private var mSudokuBoard: SudokuBoardView? = null
+    private lateinit var mSudokuBoard: SudokuBoardView
     private var mTimeLabel: TextView? = null
     private var mOptionsMenu: Menu? = null
     private lateinit var mIMControlPanel: IMControlPanel
@@ -72,7 +72,7 @@ class SudokuPlayActivity : ThemedActivity() {
             if (mShowTime) {
                 mGameTimer!!.stop()
             }
-            mSudokuBoard!!.isReadOnly = (true)
+            mSudokuBoard.isReadOnly = (true)
             mOptionsMenu!!.findItem(MENU_ITEM_UNDO_ACTION)
                 .setEnabled(false)
             if (mSudokuGame!!.usedSolver()) {
@@ -88,14 +88,14 @@ class SudokuPlayActivity : ThemedActivity() {
             override fun onSelectedNumberChanged(number: Int) {
                 if (number != 0) {
                     val cell = mSudokuGame!!.cells.findFirstCell(number)
-                    mSudokuBoard!!.setHighlightedValue(number)
+                    mSudokuBoard.setHighlightedValue(number)
                     if (cell != null) {
-                        mSudokuBoard!!.moveCellSelectionTo(cell.rowIndex, cell.columnIndex)
+                        mSudokuBoard.moveCellSelectionTo(cell.rowIndex, cell.columnIndex)
                     } else {
-                        mSudokuBoard!!.clearCellSelection()
+                        mSudokuBoard.clearCellSelection()
                     }
                 } else {
-                    mSudokuBoard!!.clearCellSelection()
+                    mSudokuBoard.clearCellSelection()
                 }
             }
         }
@@ -117,8 +117,8 @@ class SudokuPlayActivity : ThemedActivity() {
             mFullScreen = true
         }
         setContentView(R.layout.sudoku_play)
-        mRootLayout = findViewById(R.id.root_layout)
-        mSudokuBoard = findViewById(R.id.board_view)
+        mRootLayout = findViewById(R.id.play_root_layout)
+        mSudokuBoard = findViewById(R.id.play_board_view)
         mTimeLabel = findViewById(R.id.time_label)
         mDatabase = SudokuDatabase(applicationContext)
         mHintsQueue = HintsQueue(this)
@@ -148,9 +148,9 @@ class SudokuPlayActivity : ThemedActivity() {
             mSudokuGame!!.resume()
         }
         if (mSudokuGame!!.state == SudokuGame.GAME_STATE_COMPLETED) {
-            mSudokuBoard!!.isReadOnly = (true)
+            mSudokuBoard.isReadOnly = (true)
         }
-        mSudokuBoard!!.setGame(mSudokuGame!!)
+        mSudokuBoard.setGame(mSudokuGame!!)
         mSudokuGame!!.setOnPuzzleSolvedListener(onSolvedListener)
         mHintsQueue!!.showOneTimeHint("welcome", R.string.welcome, R.string.first_run_hint)
         mIMControlPanel = findViewById(R.id.input_methods)
@@ -160,10 +160,10 @@ class SudokuPlayActivity : ThemedActivity() {
         mIMSingleNumber = mIMControlPanel.imSingleNumber
         mIMNumpad = mIMControlPanel.imNumpad
         val cell = mSudokuGame!!.lastChangedCell
-        if (cell != null && !mSudokuBoard!!.isReadOnly) mSudokuBoard!!.moveCellSelectionTo(
+        if (cell != null && !mSudokuBoard.isReadOnly) mSudokuBoard.moveCellSelectionTo(
             cell.rowIndex,
             cell.columnIndex
-        ) else mSudokuBoard!!.moveCellSelectionTo(0, 0)
+        ) else mSudokuBoard.moveCellSelectionTo(0, 0)
     }
 
     override fun onResume() {
@@ -176,17 +176,17 @@ class SudokuPlayActivity : ThemedActivity() {
         mFillInNotesEnabled = gameSettings.getBoolean("fill_in_notes_enabled", false)
         val theme = gameSettings.getString("theme", "opensudoku2")
         if (theme == "custom" || theme == "custom_light") {
-            ThemeUtils.applyCustomThemeToSudokuBoardViewFromSharedPreferences(this, mSudokuBoard!!)
+            ThemeUtils.applyCustomThemeToSudokuBoardViewFromSharedPreferences(this, mSudokuBoard)
         } else {
-            mSudokuBoard!!.setAllColorsFromThemedContext(this)
+            mSudokuBoard.setAllColorsFromThemedContext(this)
         }
-        mSudokuBoard!!.setHighlightWrongValues(
+        mSudokuBoard.setHighlightWrongValues(
             gameSettings.getBoolean(
                 "highlight_wrong_values",
                 true
             )
         )
-        mSudokuBoard!!.setHighlightTouchedCell(
+        mSudokuBoard.setHighlightTouchedCell(
             gameSettings.getBoolean(
                 "highlight_touched_cell",
                 true
@@ -195,9 +195,9 @@ class SudokuPlayActivity : ThemedActivity() {
         val highlightSimilarCells = gameSettings.getBoolean("highlight_similar_cells", true)
         val highlightSimilarNotes = gameSettings.getBoolean("highlight_similar_notes", true)
         if (highlightSimilarCells) {
-            mSudokuBoard!!.setHighlightSimilarCell(if (highlightSimilarNotes) HighlightMode.NUMBERS_AND_NOTES else HighlightMode.NUMBERS)
+            mSudokuBoard.setHighlightSimilarCell(if (highlightSimilarNotes) HighlightMode.NUMBERS_AND_NOTES else HighlightMode.NUMBERS)
         } else {
-            mSudokuBoard!!.setHighlightSimilarCell(HighlightMode.NONE)
+            mSudokuBoard.setHighlightSimilarCell(HighlightMode.NONE)
         }
         mSudokuGame!!.setRemoveNotesOnEntry(gameSettings.getBoolean("remove_notes_on_input", false))
         mShowTime = gameSettings.getBoolean("show_time", true)
@@ -209,7 +209,7 @@ class SudokuPlayActivity : ThemedActivity() {
         }
         mTimeLabel!!.visibility = if (mFullScreen && mShowTime) View.VISIBLE else View.GONE
         val moveCellSelectionOnPress = gameSettings.getBoolean("im_numpad_move_right", false)
-        mSudokuBoard!!.setMoveCellSelectionOnPress(moveCellSelectionOnPress)
+        mSudokuBoard.setMoveCellSelectionOnPress(moveCellSelectionOnPress)
         mIMNumpad!!.isMoveCellSelectionOnPress = (moveCellSelectionOnPress)
         mIMPopup!!.isEnabled = (gameSettings.getBoolean("im_popup", true))
         mIMSingleNumber!!.isEnabled = (gameSettings.getBoolean("im_single_number", true))
@@ -245,8 +245,8 @@ class SudokuPlayActivity : ThemedActivity() {
         mIMNumpad!!.setShowNumberTotals(gameSettings.getBoolean("show_number_totals", false))
         mIMControlPanel.activateFirstInputMethod() // make sure that some input method is activated
         mIMControlPanelStatePersister!!.restoreState(mIMControlPanel)
-        if (!mSudokuBoard!!.isReadOnly) {
-            mSudokuBoard!!.invokeOnCellSelected()
+        if (!mSudokuBoard.isReadOnly) {
+            mSudokuBoard.invokeOnCellSelected()
         }
         updateTime()
     }
@@ -517,7 +517,7 @@ class SudokuPlayActivity : ThemedActivity() {
                     // Restart game
                     mSudokuGame!!.reset()
                     mSudokuGame!!.start()
-                    mSudokuBoard!!.isReadOnly = (false)
+                    mSudokuBoard.isReadOnly = (false)
                     if (mShowTime) {
                         mGameTimer!!.start()
                     }
@@ -598,7 +598,7 @@ class SudokuPlayActivity : ThemedActivity() {
                 .setTitle(R.string.app_name)
                 .setMessage(R.string.hint_confirm)
                 .setPositiveButton(android.R.string.yes) { _: DialogInterface?, _: Int ->
-                    val cell = mSudokuBoard!!.selectedCell
+                    val cell = mSudokuBoard.selectedCell
                     if (cell != null && cell.isEditable) {
                         if (mSudokuGame!!.isSolvable) {
                             mSudokuGame!!.solveCell(cell)
@@ -623,7 +623,7 @@ class SudokuPlayActivity : ThemedActivity() {
 
     private fun selectLastChangedCell() {
         val cell = mSudokuGame!!.lastChangedCell
-        if (cell != null) mSudokuBoard!!.moveCellSelectionTo(cell.rowIndex, cell.columnIndex)
+        if (cell != null) mSudokuBoard.moveCellSelectionTo(cell.rowIndex, cell.columnIndex)
     }
 
     /**

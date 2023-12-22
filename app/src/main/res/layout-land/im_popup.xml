@@ -37,7 +37,7 @@
             android:visibility="invisible" />
 
         <Button
-            android:id="@+id/switch_input_mode"
+            android:id="@+id/popup_switch_input_mode"
             style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"

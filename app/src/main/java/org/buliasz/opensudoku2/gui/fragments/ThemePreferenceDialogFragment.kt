@@ -57,15 +57,16 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
     private var mBoard: SudokuBoardView? = null
     var mClickedDialogEntryIndex = 0
     private var mEntries: Array<CharSequence?>? = null
-    private var mEntryValues: Array<CharSequence>? = null
-    private var mAdapter: ThemeAdapter? = null
+    private lateinit var mEntryValues: Array<CharSequence>
+    private lateinit var mAdapter: ThemeAdapter
+
     private val mOnItemClickListener = View.OnClickListener { v ->
         val viewHolder = v.tag as ViewHolder
         val prevSelectedPosition = mClickedDialogEntryIndex
         mClickedDialogEntryIndex = viewHolder.adapterPosition
-        mAdapter!!.notifyItemChanged(prevSelectedPosition)
-        mAdapter!!.notifyItemChanged(mClickedDialogEntryIndex)
-        applyThemePreview(mEntryValues!![mClickedDialogEntryIndex] as String)
+        mAdapter.notifyItemChanged(prevSelectedPosition)
+        mAdapter.notifyItemChanged(mClickedDialogEntryIndex)
+        applyThemePreview(mEntryValues[mClickedDialogEntryIndex] as String)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,7 +83,7 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
         } else {
             mClickedDialogEntryIndex = savedInstanceState.getInt(SAVE_STATE_INDEX, 0)
             mEntries = savedInstanceState.getCharSequenceArray(SAVE_STATE_ENTRIES)
-            mEntryValues = savedInstanceState.getCharSequenceArray(SAVE_STATE_ENTRY_VALUES)
+            mEntryValues = savedInstanceState.getCharSequenceArray(SAVE_STATE_ENTRY_VALUES)!!
         }
     }
 
@@ -99,22 +100,22 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
     override fun onPrepareDialogBuilder(builder: AlertDialog.Builder) {
         val inflater = LayoutInflater.from(context)
         val preferenceView = inflater.inflate(R.layout.preference_dialog_sudoku_board_theme, null)
-        mBoard = preferenceView.findViewById(R.id.board_view)
+        mBoard = preferenceView.findViewById(R.id.preference_board_view)
         val recyclerView = preferenceView.findViewById<RecyclerView>(R.id.theme_list)
         val layoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = layoutManager
         layoutManager.scrollToPosition(mClickedDialogEntryIndex)
         mAdapter = ThemeAdapter(mEntries)
         recyclerView.adapter = mAdapter
-        mAdapter!!.setOnItemClickListener(mOnItemClickListener)
-        prepareSudokuPreviewView("${mEntryValues!![mClickedDialogEntryIndex]}")
+        mAdapter.setOnItemClickListener(mOnItemClickListener)
+        prepareSudokuPreviewView("${mEntryValues[mClickedDialogEntryIndex]}")
         builder.setView(preferenceView)
         builder.setTitle("")
     }
 
     override fun onDialogClosed(positiveResult: Boolean) {
         if (positiveResult && mClickedDialogEntryIndex >= 0) {
-            val value = "${mEntryValues!![mClickedDialogEntryIndex]}"
+            val value = "${mEntryValues[mClickedDialogEntryIndex]}"
             val preference = listPreference
             if (preference.callChangeListener(value)) {
                 preference.value = value
@@ -155,7 +156,7 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
             val button = holder.radioButton
             button.text = mEntries!![position]
             button.isChecked = position == mClickedDialogEntryIndex
-            if (ThemeUtils.isDarkTheme(mEntryValues!![position] as String)) {
+            if (ThemeUtils.isDarkTheme(mEntryValues[position] as String)) {
                 button.setCompoundDrawablesWithIntrinsicBounds(null, null, mDarkModeIcon, null)
             } else {
                 button.setCompoundDrawables(null, null, null, null)

@@ -81,7 +81,7 @@ class TitleScreenActivity : ThemedActivity() {
                 startActivity(intentToPlay)
             }
         } else {
-            mResumeButton!!.visibility = View.GONE
+            mResumeButton?.visibility = View.GONE
         }
     }
 

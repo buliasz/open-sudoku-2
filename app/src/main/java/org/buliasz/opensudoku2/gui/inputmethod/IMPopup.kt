@@ -21,6 +21,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.game.Cell
 import org.buliasz.opensudoku2.game.CellCollection
@@ -33,6 +34,7 @@ class IMPopup : InputMethod() {
     private var mShowNumberTotals = false
     private var mEditCellDialog: IMPopupDialog? = null
     private var mSelectedCell: Cell? = null
+    private lateinit var mSwitchModeButton: Button
 
     /**
      * Occurs when user selects number in EditCellDialog.
@@ -136,9 +138,16 @@ class IMPopup : InputMethod() {
         get() = R.string.im_popup_hint
     override val abbrName: String
         get() = mContext!!.getString(R.string.popup_abbr)
+    override val switchModeButton: Button
+        get() = mSwitchModeButton
 
-    override fun createControlPanelView(): View? {
+    override fun createControlPanelView(abbrName: String): View {
         val inflater = mContext!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        return inflater.inflate(R.layout.im_popup, null)
+        val controlPanel = inflater.inflate(R.layout.im_popup, null)
+
+        mSwitchModeButton = controlPanel.findViewById(R.id.popup_switch_input_mode)
+        mSwitchModeButton.text = abbrName
+
+        return controlPanel
     }
 }

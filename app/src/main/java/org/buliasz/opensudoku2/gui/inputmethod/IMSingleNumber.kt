@@ -23,6 +23,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
+import android.widget.Button
 import com.google.android.material.button.MaterialButton
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.game.Cell
@@ -57,6 +58,7 @@ class IMSingleNumber : InputMethod() {
     private var mEnterNumberButton: MaterialButton? = null
     private var mCornerNoteButton: MaterialButton? = null
     private var mCenterNoteButton: MaterialButton? = null
+    private lateinit var mSwitchModeButton: Button
     private var mOnSelectedNumberChangedListener: OnSelectedNumberChangedListener? = null
     private val mNumberButtonTouched = OnTouchListener { view: View, _: MotionEvent? ->
         view.performClick()
@@ -65,16 +67,19 @@ class IMSingleNumber : InputMethod() {
         update()
         true
     }
+
     private val mNumberButtonClicked = View.OnClickListener { v: View ->
         mSelectedNumber = v.tag as Int
         onSelectedNumberChanged()
         update()
     }
+
     private val mOnCellsChangeListener = CellCollection.OnChangeListener {
         if (mActive) {
             update()
         }
     }
+
     private val mModeButtonClicked = View.OnClickListener { v: View ->
         mEditMode = v.tag as Int
         update()
@@ -120,7 +125,10 @@ class IMSingleNumber : InputMethod() {
     override val abbrName: String
         get() = mContext!!.getString(R.string.single_number_abbr)
 
-    override fun createControlPanelView(): View? {
+    override val switchModeButton: Button
+        get() = mSwitchModeButton
+
+    override fun createControlPanelView(abbrName: String): View {
         val inflater = mContext!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val controlPanel = inflater.inflate(R.layout.im_single_number, null)
         val numberButtons = HashMap<Int, NumberButton>()
@@ -179,6 +187,9 @@ class IMSingleNumber : InputMethod() {
             iconTint = textColor
             mCenterNoteButton = this
         }
+
+        mSwitchModeButton = controlPanel.findViewById(R.id.single_number_switch_input_mode)
+        mSwitchModeButton.text = abbrName
 
         return controlPanel
     }

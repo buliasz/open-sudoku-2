@@ -37,6 +37,8 @@ import kotlin.math.ceil
  * @author romario, Kotlin version by buliasz
  */
 abstract class InputMethod {
+    abstract val switchModeButton: Button
+
     // TODO: I should not have mPrefix for fields used in subclasses, create proper getters
     protected var mContext: Context? = null
     private var mControlPanel: IMControlPanel? = null
@@ -67,17 +69,15 @@ abstract class InputMethod {
 
     val isInputMethodViewCreated: Boolean
         get() = mInputMethodView != null
-    val inputMethodView: View?
-        get() {
-            if (mInputMethodView == null) {
-                mInputMethodView = createControlPanelView()
-                val switchModeView = mInputMethodView!!.findViewById<View>(R.id.switch_input_mode)
-                val switchModeButton = switchModeView as Button
-                switchModeButton.text = abbrName
-                onControlPanelCreated()
-            }
-            return mInputMethodView
-        }
+    val inputMethodView: View
+        get() = mInputMethodView!!
+
+    fun createInputMethodView(): View {
+        val inputMethodView = createControlPanelView(abbrName)
+        mInputMethodView = inputMethodView
+        onControlPanelCreated()
+        return inputMethodView
+    }
 
     /**
      * This should be called when activity is paused (so InputMethod can do some cleanup,
@@ -116,7 +116,7 @@ abstract class InputMethod {
         onDeactivated()
     }
 
-    protected abstract fun createControlPanelView(): View?
+    protected abstract fun createControlPanelView(abbrName: String): View
     private fun onControlPanelCreated() {}
     protected open fun onActivated() {}
     protected open fun onDeactivated() {}

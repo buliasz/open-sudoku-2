@@ -159,7 +159,7 @@
         app:layout_constraintTop_toTopOf="@id/button_9" />
 
     <Button
-        android:id="@+id/switch_input_mode"
+        android:id="@+id/numpad_switch_input_mode"
         style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
