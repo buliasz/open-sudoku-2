@@ -41,8 +41,8 @@
             style="@style/Widget.Material3.Button.TonalButton"
             app:cornerRadius="4dp"
             android:padding="0dp"
-            android:insetLeft="@dimen/m3_btn_inset"
-            android:insetRight="@dimen/m3_btn_inset"
+            android:insetLeft="4dp"
+            android:insetRight="4dp"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="5" />

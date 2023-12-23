@@ -59,9 +59,11 @@
     <string name="delete_folder_title">Sil %s</string>
     <string name="delete_folder_confirm">Klasörü silmek istediğinize emin misiniz?</string>
 
-    <string name="no_puzzles">Bulmaca yok</string>
-    <string name="one_puzzle">1 bulmaca</string>
-    <string name="n_puzzles">%d bulmaca</string>
+    <plurals name="n_puzzles">
+        <item quantity="zero">Bulmaca yok</item>
+        <item quantity="one">1 bulmaca</item>
+        <item quantity="other">%d bulmaca</item>
+    </plurals>
     <string name="all_solved">Hepsi çözüldü</string>
     <string name="n_solved">%s çözüldü</string>
     <string name="n_unsolved">%d çözülmedi</string>
@@ -83,7 +85,6 @@
     <string name="reset_puzzle_confirm">Bulmacayı yeniden başlatmak istediğine emin misin?</string>
     <string name="play_puzzle">Bulmacayı Oyna</string>
     <string name="reset_puzzle">Bulmacayı Sıfırla</string>
-    <string name="edit_puzzle">Bulmacayı Düzenle</string>
     <string name="delete_puzzle">Bulmacayı Sil</string>
     <string name="filter_active">Filtrelendi: %s</string>
 
@@ -199,13 +200,6 @@
     <string name="bidirectional_selection_summary">In single number input panel, the selection of a non editable cell automatically selects the corresponding button and vice versa.</string>
 
     <!-- Strings added/changed in 2.5.0 -->
-    <string name="game_state_not_started">Başlamadı</string>
-    <string name="game_state_playing">Oynanıyor</string>
-    <string name="game_state_solved">Çözüldü</string>
-
-    <string name="game_level_easy">Kolay</string>
-    <string name="game_level_medium">Orta</string>
-    <string name="game_level_hard">Zor</string>
 
     <string name="theme_paper">Paper</string>
     <string name="theme_graph_paper">Graph Paper</string>

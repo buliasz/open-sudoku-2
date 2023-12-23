@@ -63,9 +63,11 @@
     <string name="delete_folder_title">删除 %s</string>
     <string name="delete_folder_confirm">你确定想删除这个分类？</string>
 
-    <string name="no_puzzles">没有谜题</string>
-    <string name="one_puzzle">1个谜题</string>
-    <string name="n_puzzles">%d个谜题</string>
+    <plurals name="n_puzzles">
+        <item quantity="zero">没有谜题</item>
+        <item quantity="one">1个谜题</item>
+        <item quantity="other">%d个谜题</item>
+    </plurals>
     <string name="all_solved">全部已解决</string>
     <string name="n_solved">%s个已解决</string>
     <string name="n_unsolved">%d个未解决</string>
@@ -87,7 +89,6 @@
     <string name="reset_puzzle_confirm">你确定想重置选择的谜题？</string>
     <string name="play_puzzle">玩这个谜题</string>
     <string name="reset_puzzle">重置谜题</string>
-    <string name="edit_puzzle">编辑谜题</string>
     <string name="delete_puzzle">删除谜题</string>
     <string name="filter_active">过滤：%s</string>
 
@@ -257,13 +258,6 @@
 
 
     <!-- Strings added/changed in 2.5.0 -->
-    <string name="game_state_not_started">未开始</string>
-    <string name="game_state_playing">游戏中</string>
-    <string name="game_state_solved">已解决</string>
-
-    <string name="game_level_easy">简单</string>
-    <string name="game_level_medium">中等</string>
-    <string name="game_level_hard">困难</string>
 
     <string name="theme_paper">纸</string>
     <string name="theme_graph_paper">方格纸</string>
@@ -295,7 +289,6 @@
     <string name="used_solver">你使用了求解器看这个解法！</string>
     <string name="puzzle_not_solved">这个谜题没有解法。</string>
 
-    <string name="solver_hint">提示</string>
     <string name="hint_confirm">将为所选格子填写正确的值。你想继续吗？</string>
     <string name="cannot_give_hint">无法获得这个格子的提示。</string>
 

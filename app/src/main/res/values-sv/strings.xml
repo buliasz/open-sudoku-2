@@ -49,9 +49,12 @@
     <string name="delete_folder_title">Ta bort %s</string>
     <string name="delete_folder_confirm">Är du säker på att du vill ta bort den här mappen?</string>
 
-    <string name="no_puzzles">Inga pussel</string>
-    <string name="one_puzzle">Ett pussel</string>
-    <string name="n_puzzles">%d pussel</string>
+    <plurals name="n_puzzles">
+        <item quantity="zero">Inga pussel</item>
+        <item quantity="one">Ett pussel</item>
+        <item quantity="other">%d pussel</item>
+    </plurals>
+
     <string name="all_solved">alla lösta</string>
     <string name="n_solved">%s lösta</string>
     <string name="n_unsolved">%d ej lösta</string>
@@ -74,7 +77,6 @@
     <string name="reset_puzzle_confirm">Är du säker på att du vill återställa det markerade pusslet?</string>
     <string name="play_puzzle">Påbörja det här pusslet</string>
     <string name="reset_puzzle">Återställ pussel</string>
-    <string name="edit_puzzle">Redigera pussel</string>
     <string name="delete_puzzle">Ta bort pussel</string>
     <string name="filter_active">Filtrerade: %s</string>
 
@@ -223,13 +225,6 @@
     <string name="bidirectional_selection_summary">In single number input panel, the selection of a non editable cell automatically selects the corresponding button and vice versa.</string>
 
     <!-- Strings added/changed in 2.5.0 -->
-    <string name="game_state_not_started">Ej påbörjade</string>
-    <string name="game_state_playing">Påbörjade</string>
-    <string name="game_state_solved">Lösta</string>
-
-    <string name="game_level_easy">Easy</string>
-    <string name="game_level_medium">Medium</string>
-    <string name="game_level_hard">Hard</string>
 
     <string name="theme_paper">Paper</string>
     <string name="theme_graph_paper">Graph Paper</string>

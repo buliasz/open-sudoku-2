@@ -19,19 +19,14 @@
 
 <resources>
     <string-array name="game_states">
-        <item>@string/game_state_not_started</item>
-        <item>@string/game_state_playing</item>
-        <item>@string/game_state_solved</item>
+        <item>@string/not_started</item>
+        <item>@string/playing</item>
+        <item>@string/solved</item>
     </string-array>
     <string-array name="game_sort">
         <item>@string/sort_creation_date</item>
         <item>@string/sort_play_time</item>
         <item>@string/sort_last_played</item>
-    </string-array>
-    <string-array name="game_levels">
-        <item>@string/game_level_easy</item>
-        <item>@string/game_level_medium</item>
-        <item>@string/game_level_hard</item>
     </string-array>
     <string-array name="theme_names">
         <item>@string/app_name</item>

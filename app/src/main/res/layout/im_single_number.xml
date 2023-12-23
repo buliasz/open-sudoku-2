@@ -20,6 +20,7 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -34,7 +35,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="HardcodedText" />
 
     <org.buliasz.opensudoku2.gui.NumberButton
         android:id="@+id/button_2"
@@ -47,7 +49,8 @@
         app:layout_constraintStart_toEndOf="@+id/button_1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="HardcodedText" />
 
     <org.buliasz.opensudoku2.gui.NumberButton
         android:id="@+id/button_3"
@@ -60,7 +63,8 @@
         app:layout_constraintStart_toEndOf="@+id/button_2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="HardcodedText" />
 
     <org.buliasz.opensudoku2.gui.NumberButton
         android:id="@+id/button_4"
@@ -71,7 +75,8 @@
         app:layout_constraintEnd_toEndOf="@+id/button_1"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/button_1"
-        app:layout_constraintTop_toBottomOf="@+id/button_1" />
+        app:layout_constraintTop_toBottomOf="@+id/button_1"
+        tools:ignore="HardcodedText" />
 
     <org.buliasz.opensudoku2.gui.NumberButton
         android:id="@+id/button_5"
@@ -82,7 +87,8 @@
         app:layout_constraintStart_toStartOf="@id/button_2"
         app:layout_constraintEnd_toEndOf="@+id/button_2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintTop_toBottomOf="@+id/button_2" />
+        app:layout_constraintTop_toBottomOf="@+id/button_2"
+        tools:ignore="HardcodedText" />
 
     <org.buliasz.opensudoku2.gui.NumberButton
         android:id="@+id/button_6"
@@ -93,7 +99,8 @@
         app:layout_constraintStart_toStartOf="@id/button_3"
         app:layout_constraintEnd_toEndOf="@+id/button_3"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintTop_toBottomOf="@+id/button_3" />
+        app:layout_constraintTop_toBottomOf="@+id/button_3"
+        tools:ignore="HardcodedText" />
 
     <org.buliasz.opensudoku2.gui.NumberButton
         android:id="@+id/button_7"
@@ -104,7 +111,8 @@
         app:layout_constraintStart_toStartOf="@id/button_4"
         app:layout_constraintEnd_toEndOf="@+id/button_4"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintTop_toBottomOf="@+id/button_4" />
+        app:layout_constraintTop_toBottomOf="@+id/button_4"
+        tools:ignore="HardcodedText" />
 
     <org.buliasz.opensudoku2.gui.NumberButton
         android:id="@+id/button_8"
@@ -115,7 +123,8 @@
         app:layout_constraintStart_toStartOf="@id/button_5"
         app:layout_constraintEnd_toEndOf="@+id/button_5"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintTop_toBottomOf="@+id/button_5" />
+        app:layout_constraintTop_toBottomOf="@+id/button_5"
+        tools:ignore="HardcodedText" />
 
     <org.buliasz.opensudoku2.gui.NumberButton
         android:id="@+id/button_9"
@@ -126,7 +135,8 @@
         app:layout_constraintStart_toStartOf="@id/button_6"
         app:layout_constraintEnd_toEndOf="@+id/button_6"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintTop_toBottomOf="@+id/button_6" />
+        app:layout_constraintTop_toBottomOf="@+id/button_6"
+        tools:ignore="HardcodedText" />
 
     <org.buliasz.opensudoku2.gui.IconButton
         android:id="@+id/enter_number"
@@ -179,8 +189,8 @@
         android:layout_height="0dp"
         app:cornerRadius="4dp"
         android:padding="0dp"
-        android:insetLeft="@dimen/m3_btn_inset"
-        android:insetRight="@dimen/m3_btn_inset"
+        android:insetLeft="4dp"
+        android:insetRight="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/button_6"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"

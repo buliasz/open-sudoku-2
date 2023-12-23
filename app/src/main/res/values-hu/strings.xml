@@ -57,10 +57,11 @@
     <string name="rename_folder_title">\"%s\" átnevezése</string>
     <string name="delete_folder_title">\"%s\" törlése</string>
     <string name="delete_folder_confirm">Biztosan törölni akarod a kiválaszott mappát?</string>
-
-    <string name="no_puzzles">Nincsenek feladványok</string>
-    <string name="one_puzzle">1 feladvány</string>
-    <string name="n_puzzles">%d feladvány</string>
+    <plurals name="n_puzzles">
+        <item quantity="zero">Nincsenek feladványok</item>
+        <item quantity="one">%d feladvány</item>
+        <item quantity="other">%d feladvány</item>
+    </plurals>
     <string name="all_solved">mind megoldott</string>
     <string name="n_solved">%s megoldott</string>
     <string name="n_unsolved">%d megoldatlan</string>
@@ -82,7 +83,6 @@
     <string name="reset_puzzle_confirm">Biztosan alaphelyzetbe szeretnéd állítani a feladványt?</string>
     <string name="play_puzzle">Játék indítása</string>
     <string name="reset_puzzle">Visszaállítás</string>
-    <string name="edit_puzzle">Feladvány szerkesztése</string>
     <string name="delete_puzzle">Feladvány törlése</string>
     <string name="filter_active">Aktív szűrő(k): %s</string>
 
@@ -254,13 +254,6 @@
     <string name="contributors_label">Közreműködők</string>
 
     <!-- Strings added/changed in 2.5.0 -->
-    <string name="game_state_not_started">Nem elkezdett</string>
-    <string name="game_state_playing">Folyamatban</string>
-    <string name="game_state_solved">Megoldott</string>
-
-    <string name="game_level_easy">Könnyű</string>
-    <string name="game_level_medium">Közepes</string>
-    <string name="game_level_hard">Nehéz</string>
 
     <string name="theme_paper">Papírlap</string>
     <string name="theme_graph_paper">Milliméterpapír</string>
@@ -292,7 +285,6 @@
     <string name="used_solver">Feladvány megfejtve</string>
     <string name="puzzle_not_solved">A feladvány nem oldható meg!</string>
 
-    <string name="solver_hint">Segítség</string>
     <string name="hint_confirm">A kiválasztott cellában megjelenik a helyes érték. Biztosan ezt szeretnéd?</string>
     <string name="cannot_give_hint">A kiválasztott cellához nem adható segítség.</string>
 

@@ -19,6 +19,7 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -36,7 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/board_view"
         android:text="State"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/time"
@@ -46,7 +48,8 @@
         android:layout_toEndOf="@+id/state"
         android:gravity="end"
         android:text="00:00"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/last_played"
@@ -55,7 +58,8 @@
         android:layout_below="@+id/state"
         android:layout_marginTop="4sp"
         android:layout_toEndOf="@+id/board_view"
-        android:text="last_played" />
+        android:text="last_played"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/created"
@@ -64,7 +68,8 @@
         android:layout_below="@+id/last_played"
         android:layout_marginTop="4sp"
         android:layout_toEndOf="@+id/board_view"
-        android:text="created" />
+        android:text="created"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/user_note"
@@ -73,6 +78,7 @@
         android:layout_below="@+id/created"
         android:layout_marginTop="4sp"
         android:layout_toEndOf="@+id/board_view"
-        android:text="note" />
+        android:text="note"
+        tools:ignore="HardcodedText" />
 
 </RelativeLayout>

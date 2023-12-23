@@ -21,6 +21,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.game.Cell
@@ -29,125 +30,127 @@ import org.buliasz.opensudoku2.game.CellNote
 import org.buliasz.opensudoku2.gui.inputmethod.IMPopupDialog.OnNoteEditListener
 import org.buliasz.opensudoku2.gui.inputmethod.IMPopupDialog.OnNumberEditListener
 
-class IMPopup : InputMethod() {
-    private var mHighlightCompletedValues = true
-    private var mShowNumberTotals = false
-    private var mEditCellDialog: IMPopupDialog? = null
-    private var mSelectedCell: Cell? = null
-    private lateinit var mSwitchModeButton: Button
+class IMPopup(val parent: ViewGroup) : InputMethod() {
+	private var mHighlightCompletedValues = true
+	private var mShowNumberTotals = false
+	private var mEditCellDialog: IMPopupDialog? = null
+	private var mSelectedCell: Cell? = null
+	private lateinit var mSwitchModeButton: Button
 
-    /**
-     * Occurs when user selects number in EditCellDialog.
-     */
-    private val mOnNumberEditListener = OnNumberEditListener { number ->
-        if (number != -1 && mSelectedCell != null) {
-            mGame!!.setCellValue(mSelectedCell!!, number)
-            mBoard!!.setHighlightedValue(number)
-        }
-        true
-    }
+	/**
+	 * Occurs when user selects number in EditCellDialog.
+	 */
+	private val mOnNumberEditListener = OnNumberEditListener { number ->
+		if (number != -1 && mSelectedCell != null) {
+			mGame!!.setCellValue(mSelectedCell!!, number)
+			mBoard!!.setHighlightedValue(number)
+		}
+		true
+	}
 
-    /**
-     * Occurs when user edits note in EditCellDialog
-     */
-    private val mOnNoteEditListener: OnNoteEditListener = object : OnNoteEditListener {
-        override fun onCornerNoteEdit(numbers: Array<Int>): Boolean {
-            if (mSelectedCell != null) {
-                mGame!!.setCellCornerNote(mSelectedCell!!, CellNote.fromIntArray(numbers))
-            }
-            return true
-        }
+	/**
+	 * Occurs when user edits note in EditCellDialog
+	 */
+	private val mOnNoteEditListener: OnNoteEditListener = object : OnNoteEditListener {
+		override fun onCornerNoteEdit(numbers: Array<Int>): Boolean {
+			if (mSelectedCell != null) {
+				mGame!!.setCellCornerNote(mSelectedCell!!, CellNote.fromIntArray(numbers))
+			}
+			return true
+		}
 
-        override fun onCenterNoteEdit(numbers: Array<Int>): Boolean {
-            if (mSelectedCell != null) {
-                mGame!!.setCellCenterNote(mSelectedCell!!, CellNote.fromIntArray(numbers))
-            }
-            return true
-        }
-    }
+		override fun onCenterNoteEdit(numbers: Array<Int>): Boolean {
+			if (mSelectedCell != null) {
+				mGame!!.setCellCenterNote(mSelectedCell!!, CellNote.fromIntArray(numbers))
+			}
+			return true
+		}
+	}
 
-    /**
-     * Occurs when popup dialog is closed.
-     */
-    private val mOnPopupDismissedListener = DialogInterface.OnDismissListener { _: DialogInterface? -> mBoard!!.hideTouchedCellHint() }
+	/**
+	 * Occurs when popup dialog is closed.
+	 */
+	private val mOnPopupDismissedListener = DialogInterface.OnDismissListener { _: DialogInterface? -> mBoard!!.hideTouchedCellHint() }
 
-    /**
-     * If set to true, buttons for numbers, which occur in [CellCollection]
-     * more than [CellCollection.SUDOKU_SIZE]-times, will be highlighted.
-     *
-     * @param highlightCompletedValues
-     */
-    fun setHighlightCompletedValues(highlightCompletedValues: Boolean) {
-        mHighlightCompletedValues = highlightCompletedValues
-    }
+	/**
+	 * If set to true, buttons for numbers, which occur in [CellCollection]
+	 * more than [CellCollection.SUDOKU_SIZE]-times, will be highlighted.
+	 *
+	 * @param highlightCompletedValues
+	 */
+	fun setHighlightCompletedValues(highlightCompletedValues: Boolean) {
+		mHighlightCompletedValues = highlightCompletedValues
+	}
 
-    fun setShowNumberTotals(showNumberTotals: Boolean) {
-        mShowNumberTotals = showNumberTotals
-    }
+	fun setShowNumberTotals(showNumberTotals: Boolean) {
+		mShowNumberTotals = showNumberTotals
+	}
 
-    private fun ensureEditCellDialog() {
-        if (mEditCellDialog == null) {
-            mEditCellDialog = IMPopupDialog(mContext!!, mBoard!!)
-            mEditCellDialog!!.setOnNumberEditListener(mOnNumberEditListener)
-            mEditCellDialog!!.setOnNoteEditListener(mOnNoteEditListener)
-            mEditCellDialog!!.setOnDismissListener(mOnPopupDismissedListener)
-            mEditCellDialog!!.setShowNumberTotals(mShowNumberTotals)
-            mEditCellDialog!!.setHighlightCompletedValues(mHighlightCompletedValues)
-        }
-    }
+	private fun ensureEditCellDialog() {
+		if (mEditCellDialog == null) {
+			with(IMPopupDialog(parent, mContext!!, mBoard!!)) {
+				setOnNumberEditListener(mOnNumberEditListener)
+				setOnNoteEditListener(mOnNoteEditListener)
+				setOnDismissListener(mOnPopupDismissedListener)
+				setShowNumberTotals(mShowNumberTotals)
+				setHighlightCompletedValues(mHighlightCompletedValues)
+				mEditCellDialog = this
+			}
+		}
+	}
 
-    override fun onActivated() {
-        mBoard!!.setAutoHideTouchedCellHint(false)
-    }
+	override fun onActivated() {
+		mBoard!!.setAutoHideTouchedCellHint(false)
+	}
 
-    override fun onDeactivated() {
-        mBoard!!.setAutoHideTouchedCellHint(true)
-    }
+	override fun onDeactivated() {
+		mBoard!!.setAutoHideTouchedCellHint(true)
+	}
 
-    override fun onCellTapped(cell: Cell) {
-        mSelectedCell = cell
-        if (cell.isEditable) {
-            ensureEditCellDialog()
-            mEditCellDialog!!.resetState()
-            mEditCellDialog!!.setNumber(cell.value)
-            mEditCellDialog!!.setCornerNotes(cell.cornerNote.notedNumbers)
-            mEditCellDialog!!.setCenterNotes(cell.centerNote.notedNumbers)
-            val valuesUseCount = mGame!!.cells.valuesUseCount
-            mEditCellDialog!!.setValueCount(valuesUseCount)
-            mEditCellDialog!!.show()
-        } else {
-            mBoard!!.hideTouchedCellHint()
-        }
-    }
+	override fun onCellTapped(cell: Cell) {
+		mSelectedCell = cell
+		if (cell.isEditable) {
+			ensureEditCellDialog()
+			mEditCellDialog!!.resetState()
+			mEditCellDialog!!.setNumber(cell.value)
+			mEditCellDialog!!.setCornerNotes(cell.cornerNote.notedNumbers)
+			mEditCellDialog!!.setCenterNotes(cell.centerNote.notedNumbers)
+			val valuesUseCount = mGame!!.cells.valuesUseCount
+			mEditCellDialog!!.setValueCount(valuesUseCount)
+			mEditCellDialog!!.show()
+		} else {
+			mBoard!!.hideTouchedCellHint()
+		}
+	}
 
-    override fun onCellSelected(cell: Cell?) {
-        super.onCellSelected(cell)
-        mBoard!!.setHighlightedValue(cell?.value ?: 0)
-    }
+	override fun onCellSelected(cell: Cell?) {
+		super.onCellSelected(cell)
+		mBoard!!.setHighlightedValue(cell?.value ?: 0)
+	}
 
-    override fun onPause() {
-        // release dialog resource (otherwise WindowLeaked exception is logged)
-        if (mEditCellDialog != null) {
-            mEditCellDialog!!.cancel()
-        }
-    }
+	override fun onPause() {
+		// release dialog resource (otherwise WindowLeaked exception is logged)
+		if (mEditCellDialog != null) {
+			mEditCellDialog!!.cancel()
+		}
+	}
 
-    override val nameResID: Int
-        get() = R.string.popup
-    override val helpResID: Int
-        get() = R.string.im_popup_hint
-    override val abbrName: String
-        get() = mContext!!.getString(R.string.popup_abbr)
-    override val switchModeButton: Button
-        get() = mSwitchModeButton
+	override val nameResID: Int
+		get() = R.string.popup
+	override val helpResID: Int
+		get() = R.string.im_popup_hint
+	override val abbrName: String
+		get() = mContext!!.getString(R.string.popup_abbr)
+	override val switchModeButton: Button
+		get() = mSwitchModeButton
 
-    override fun createControlPanelView(abbrName: String): View {
-        val inflater = mContext!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val controlPanel = inflater.inflate(R.layout.im_popup, null)
+	override fun createControlPanelView(abbrName: String): View {
+		val inflater = mContext!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+		val controlPanel = inflater.inflate(R.layout.im_popup, null)
 
-        mSwitchModeButton = controlPanel.findViewById(R.id.popup_switch_input_mode)
-        mSwitchModeButton.text = abbrName
+		mSwitchModeButton = controlPanel.findViewById(R.id.popup_switch_input_mode)
+		mSwitchModeButton.text = abbrName
 
-        return controlPanel
-    }
+		return controlPanel
+	}
 }

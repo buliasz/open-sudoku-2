@@ -58,7 +58,7 @@ class SudokuPlayActivity : ThemedActivity() {
     private var mIMSingleNumber: IMSingleNumber? = null
     private var mIMNumpad: IMNumpad? = null
     private var mShowTime = true
-    private var mGameTimer: GameTimer? = null
+    private lateinit var mGameTimer: GameTimer
     private val mGameTimeFormatter = GameTimeFormat()
     private var mFullScreen = false
     private var mFillInNotesEnabled = false
@@ -70,7 +70,7 @@ class SudokuPlayActivity : ThemedActivity() {
     private val onSolvedListener = object : OnPuzzleSolvedListener {
         override fun onPuzzleSolved() {
             if (mShowTime) {
-                mGameTimer!!.stop()
+                mGameTimer.stop()
             }
             mSudokuBoard.isReadOnly = (true)
             mOptionsMenu!!.findItem(MENU_ITEM_UNDO_ACTION)
@@ -134,7 +134,7 @@ class SudokuPlayActivity : ThemedActivity() {
             // activity has been running before, restore its state
             mSudokuGame = SudokuGame()
             mSudokuGame!!.restoreState(savedInstanceState)
-            mGameTimer!!.restoreState(savedInstanceState)
+            mGameTimer.restoreState(savedInstanceState)
         }
 
         // save our most recently played sudoku
@@ -204,7 +204,7 @@ class SudokuPlayActivity : ThemedActivity() {
         if (mSudokuGame!!.state == SudokuGame.GAME_STATE_PLAYING) {
             mSudokuGame!!.resume()
             if (mShowTime) {
-                mGameTimer!!.start()
+                mGameTimer.start()
             }
         }
         mTimeLabel!!.visibility = if (mFullScreen && mShowTime) View.VISIBLE else View.GONE
@@ -270,7 +270,7 @@ class SudokuPlayActivity : ThemedActivity() {
 
         // we will save game to the database as we might not be able to get back
         mDatabase!!.updateSudoku(mSudokuGame!!)
-        mGameTimer!!.stop()
+        mGameTimer.stop()
         mIMControlPanel.pause()
         mIMControlPanelStatePersister!!.saveState(mIMControlPanel)
     }
@@ -282,12 +282,12 @@ class SudokuPlayActivity : ThemedActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mGameTimer!!.stop()
+        mGameTimer.stop()
         if (mSudokuGame!!.state == SudokuGame.GAME_STATE_PLAYING) {
             mSudokuGame!!.pause()
         }
         mSudokuGame!!.saveState(outState)
-        mGameTimer!!.saveState(outState)
+        mGameTimer.saveState(outState)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -340,7 +340,7 @@ class SudokuPlayActivity : ThemedActivity() {
             4,
             getString(R.string.undo_to_before_mistake)
         )
-        menu.add(0, MENU_ITEM_HINT, 5, R.string.solver_hint)
+        menu.add(0, MENU_ITEM_HINT, 5, R.string.hint)
         menu.add(0, MENU_ITEM_SOLVE, 6, R.string.solve_puzzle)
         menu.add(0, MENU_ITEM_RESTART, 7, R.string.restart)
             .setShortcut('7', 'r')
@@ -519,7 +519,7 @@ class SudokuPlayActivity : ThemedActivity() {
                     mSudokuGame!!.start()
                     mSudokuBoard.isReadOnly = (false)
                     if (mShowTime) {
-                        mGameTimer!!.start()
+                        mGameTimer.start()
                     }
                     removeDialog(DIALOG_WELL_DONE)
                     val menuItemSolve =

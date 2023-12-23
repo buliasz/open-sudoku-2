@@ -53,10 +53,11 @@
     <string name="rename_folder_title">Renommer %s</string>
     <string name="delete_folder_title">Effacer %s</string>
     <string name="delete_folder_confirm">Voulez-vous vraiment supprimer ce dossier ?</string>
-
-    <string name="no_puzzles">Aucun grille</string>
-    <string name="one_puzzle">1 grille</string>
-    <string name="n_puzzles">%d grilles</string>
+    <plurals name="n_puzzles">
+        <item quantity="zero">Aucun grille</item>
+        <item quantity="one">%d grille</item>
+        <item quantity="other">%d grilles</item>
+    </plurals>
     <string name="all_solved">toutes résolues</string>
     <string name="n_solved">%s résolues</string>
     <string name="n_unsolved">%d non résolues</string>
@@ -78,7 +79,6 @@
     <string name="reset_puzzle_confirm">Voulez-vous vraiment réinitialiser la grille sélectionnée ?</string>
     <string name="play_puzzle">Jouer la grille</string>
     <string name="reset_puzzle">Réinitialiser la grille</string>
-    <string name="edit_puzzle">Editer la grille</string>
     <string name="delete_puzzle">Supprimer la grille</string>
     <string name="filter_active">Filtré : %s</string>
 
@@ -214,13 +214,6 @@
     <string name="contributors_label">Contributeurs</string>
 
     <!-- Strings added/changed in 2.5.0 -->
-    <string name="game_state_not_started">Non démarré</string>
-    <string name="game_state_playing">En cours</string>
-    <string name="game_state_solved">Résolu</string>
-
-    <string name="game_level_easy">Facile</string>
-    <string name="game_level_medium">Moyen</string>
-    <string name="game_level_hard">Difficile</string>
 
     <string name="theme_paper">Papier</string>
     <string name="theme_graph_paper">Papier quadrillé</string>
@@ -250,7 +243,6 @@
     <string name="used_solver">Vous avez utilisé le solveur pour voir la solution !</string>
     <string name="puzzle_not_solved">Aucune solution pour cette grille.</string>
 
-    <string name="solver_hint">Indice</string>
     <string name="hint_confirm">La valeur correcte de le cellule sélectionnée va être complétée. Voulez-vous continuer ?</string>
     <string name="cannot_give_hint">Vous ne pouvez pas obtenir d\'indice pour cette cellule.</string>
 

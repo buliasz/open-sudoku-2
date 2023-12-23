@@ -48,10 +48,11 @@
     <string name="rename_folder_title">Rinomina %s</string>
     <string name="delete_folder_title">Elimina %s</string>
     <string name="delete_folder_confirm">Sei sicuro di voler eliminare questa cartella?</string>
-
-    <string name="no_puzzles">Nessun rompicapo</string>
-    <string name="one_puzzle">1 rompicapo</string>
-    <string name="n_puzzles">%d rompicapi</string>
+    <plurals name="n_puzzles">
+        <item quantity="zero">Nessun rompicapo</item>
+        <item quantity="one">%d rompicapo</item>
+        <item quantity="other">%d rompicapi</item>
+    </plurals>
     <string name="all_solved">tutti risolti</string>
     <string name="n_solved">%s risolti</string>
     <string name="n_unsolved">%d non risolti</string>
@@ -73,7 +74,6 @@
     <string name="reset_puzzle_confirm">Sei sicuro di voler reimpostare i rompicapi selezionati?</string>
     <string name="play_puzzle">Gioca a questo rompicapo</string>
     <string name="reset_puzzle">Reimposta rompicapo</string>
-    <string name="edit_puzzle">Modifica rompicapo</string>
     <string name="delete_puzzle">Elimina rompicapo</string>
     <string name="filter_active">Filtrato: %s</string>
 
@@ -224,13 +224,6 @@
     <string name="bidirectional_selection_summary">Nel pannello di immissione del numero singolo, la selezione di una cella non modificabile seleziona automaticamente il pulsante corrispondente e viceversa.</string>
 
     <!-- Strings added/changed in 2.5.0 -->
-    <string name="game_state_not_started">Non avviato</string>
-    <string name="game_state_playing">Giocato</string>
-    <string name="game_state_solved">Risolto</string>
-
-    <string name="game_level_easy">Facile</string>
-    <string name="game_level_medium">Medio</string>
-    <string name="game_level_hard">Difficile</string>
 
     <string name="theme_paper">Carta</string>
     <string name="theme_graph_paper">Carta millimetrata</string>
@@ -260,7 +253,6 @@
     <string name="used_solver">Hai usato il risolutore per vedere la soluzione!</string>
     <string name="puzzle_not_solved">Questo rompicapo non ha nessuna soluzione.</string>
 
-    <string name="solver_hint">Aiuto</string>
     <string name="hint_confirm">Verrà inserito il valore corretto nella cella selezionata. Vuoi continuare?</string>
     <string name="cannot_give_hint">Non puoi ricevere aiuto per quella cella.</string>
 
@@ -272,7 +264,7 @@
     <!-- Strings added/changed in 3.0.0 -->
     <string name="theme_default">Scuro</string>
     <string name="theme_amoled">AMOLED</string>
-    <string name="theme_latte">Caffé latte</string>
+    <string name="theme_latte">Caffè latte</string>
     <string name="theme_espresso">Espresso</string>
     <string name="theme_sunrise">Alva</string>
     <string name="theme_honeybee">Ape</string>

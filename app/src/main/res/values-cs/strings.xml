@@ -57,10 +57,11 @@
     <string name="rename_folder_title">Přejmenovat %s</string>
     <string name="delete_folder_title">Smazat %s</string>
     <string name="delete_folder_confirm">Opravdu chcete smazat tuto složku?</string>
-
-    <string name="no_puzzles">Žádné sudoku</string>
-    <string name="one_puzzle">1 sudoku</string>
-    <string name="n_puzzles">%d sudoku</string>
+    <plurals name="n_puzzles">
+        <item quantity="zero">Žádné sudoku</item>
+        <item quantity="one">%d sudoku</item>
+        <item quantity="other">%d sudoku</item>
+    </plurals>
     <string name="all_solved">všechna vyřešena</string>
     <string name="n_solved">%s vyřešeno</string>
     <string name="n_unsolved">%d nevyřešeno</string>
@@ -82,7 +83,6 @@
     <string name="reset_puzzle_confirm">Opravdu chcete vybrané sudoku vrátit do stavu před hrou?</string>
     <string name="play_puzzle">Hrát sudoku</string>
     <string name="reset_puzzle">Reset sudoku</string>
-    <string name="edit_puzzle">Upravit sudoku</string>
     <string name="delete_puzzle">Smazat sudoku</string>
     <string name="filter_active">Filtrováno: %s</string>
 
@@ -256,13 +256,6 @@
     <string name="contributors_label">Přispěvovatelé</string>
 
     <!-- Strings added/changed in 2.5.0 -->
-    <string name="game_state_not_started">Nehrané</string>
-    <string name="game_state_playing">Rozehráno</string>
-    <string name="game_state_solved">Vyřešeno</string>
-
-    <string name="game_level_easy">Snadné</string>
-    <string name="game_level_medium">Střední obtížnost</string>
-    <string name="game_level_hard">Obtížné</string>
 
     <string name="theme_paper">Papír</string>
     <string name="theme_graph_paper">Milimetrový papír</string>
@@ -294,7 +287,6 @@
     <string name="used_solver">Použil jste řešící algoritmus pro zobrazení řešení!</string>
     <string name="puzzle_not_solved">Toto sudoku nemá řešení.</string>
 
-    <string name="solver_hint">Tip</string>
     <string name="hint_confirm">Tato možnost vyplní do vybrané buňky správnou hodnotu. Přejete si pokračovat?</string>
     <string name="cannot_give_hint">Pro tuto buňku není možné získat tip.</string>
 

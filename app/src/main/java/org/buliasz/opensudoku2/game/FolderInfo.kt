@@ -61,12 +61,9 @@ class FolderInfo {
 
     fun getDetail(c: Context): String {
         val sb = StringBuilder()
-        if (puzzleCount == 0) {
-            // no puzzles in folder
-            sb.append(c.getString(R.string.no_puzzles))
-        } else {
+        sb.append(c.resources.getQuantityString(R.plurals.n_puzzles, puzzleCount, puzzleCount))
+        if (puzzleCount > 0) {
             // there are some puzzles
-            sb.append(if (puzzleCount == 1) c.getString(R.string.one_puzzle) else c.getString(R.string.n_puzzles, puzzleCount))
             val unsolvedCount = puzzleCount - solvedCount
 
             // if there are any playing or unsolved puzzles, add info about them

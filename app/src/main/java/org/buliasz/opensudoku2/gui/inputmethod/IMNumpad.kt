@@ -21,6 +21,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import com.google.android.material.button.MaterialButton
 import org.buliasz.opensudoku2.R
@@ -34,7 +35,7 @@ import org.buliasz.opensudoku2.gui.NumberButton
 import org.buliasz.opensudoku2.gui.SudokuBoardView
 import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanelStatePersister.StateBundle
 
-class IMNumpad : InputMethod() {
+class IMNumpad(val parent: ViewGroup) : InputMethod() {
     var isMoveCellSelectionOnPress = true
     private var mHighlightCompletedValues = true
     private var mShowNumberTotals = false

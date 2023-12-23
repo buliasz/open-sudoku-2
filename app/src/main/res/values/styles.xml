@@ -24,12 +24,12 @@
         <item name="cornerRadius">4dp</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:paddingLeft">@dimen/m3_btn_icon_only_default_padding</item>
-        <item name="android:paddingRight">@dimen/m3_btn_icon_only_default_padding</item>
-        <item name="android:paddingTop">@dimen/m3_btn_icon_only_default_padding</item>
-        <item name="android:paddingBottom">@dimen/m3_btn_icon_only_default_padding</item>
-        <item name="android:insetLeft">@dimen/m3_btn_inset</item>
-        <item name="android:insetRight">@dimen/m3_btn_inset</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:insetLeft">4dp</item>
+        <item name="android:insetRight">4dp</item>
     </style>
 
     <style name="keypadButton.Tonal" parent="@style/Widget.Material3.Button.TonalButton">
@@ -42,8 +42,8 @@
         <item name="android:checkable">false</item>
         <item name="android:padding">0dp</item>
         <item name="cornerRadius">4dp</item>
-        <item name="android:insetLeft">@dimen/m3_btn_inset</item>
-        <item name="android:insetRight">@dimen/m3_btn_inset</item>
+        <item name="android:insetLeft">4dp</item>
+        <item name="android:insetRight">4dp</item>
     </style>
 
     <style name="popupButton" parent="@style/Widget.Material3.Button.IconButton">

@@ -57,10 +57,11 @@
     <string name="rename_folder_title">Renombrar %s</string>
     <string name="delete_folder_title">Borrar %s</string>
     <string name="delete_folder_confirm">¿Estás completamente seguro de que quieres borrar esta carpeta?</string>
-
-    <string name="no_puzzles">Sin puzzles</string>
-    <string name="one_puzzle">1 puzzle</string>
-    <string name="n_puzzles">%d puzzles</string>
+    <plurals name="n_puzzles">
+        <item quantity="zero">Sin puzzles</item>
+        <item quantity="one">%d puzzle</item>
+        <item quantity="other">%d puzzles</item>
+    </plurals>
     <string name="all_solved">todos resueltos</string>
     <string name="n_solved">%s resuelto</string>
     <string name="n_unsolved">%d sin resolver</string>
@@ -82,7 +83,6 @@
     <string name="reset_puzzle_confirm">¿Estás seguro de que quieres reiniciar este puzzle?</string>
     <string name="play_puzzle">Jugar este puzzle</string>
     <string name="reset_puzzle">Reiniciar puzzle</string>
-    <string name="edit_puzzle">Editar puzzle</string>
     <string name="delete_puzzle">Eliminar puzzle</string>
     <string name="filter_active">Filtrando: %s</string>
 
@@ -232,13 +232,6 @@
     <string name="bidirectional_selection_summary">En el método de entrada de número simple, la selección de una celda no editable automáticamente selecciona el botón correspondiente y viceversa.</string>
 
     <!-- Strings added/changed in 2.5.0 -->
-    <string name="game_state_not_started">Sin comenzar</string>
-    <string name="game_state_playing">Jugando</string>
-    <string name="game_state_solved">Resuelto</string>
-
-    <string name="game_level_easy">Fácil</string>
-    <string name="game_level_medium">Medio</string>
-    <string name="game_level_hard">Difícil</string>
 
     <string name="theme_paper">Papel</string>
     <string name="theme_graph_paper">Papel cuadriculado</string>
@@ -268,7 +261,6 @@
     <string name="used_solver">¡Has usado el solucionador para resolver el puzzle!</string>
     <string name="puzzle_not_solved">Este puzzle no tiene solución.</string>
 
-    <string name="solver_hint">Pista</string>
     <string name="hint_confirm">Esto introducirá el valor correcto en la celda seleccionada. ¿Quieres continuar?</string>
     <string name="cannot_give_hint">No puedes obtener una pista para esa celda.</string>
 

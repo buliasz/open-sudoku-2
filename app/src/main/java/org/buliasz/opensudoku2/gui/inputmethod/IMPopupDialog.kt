@@ -22,6 +22,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.google.android.material.button.MaterialButton
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.gui.NumberButton
@@ -34,7 +35,7 @@ import org.buliasz.opensudoku2.gui.SudokuBoardView
  *
  * When entering a note the dialog remains open, to allow multiple notes to be entered at once.
  */
-class IMPopupDialog(mContext: Context, mBoard: SudokuBoardView) : Dialog(mContext) {
+class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoardView) : Dialog(mContext) {
     private val mInflater: LayoutInflater
     private var mEditMode = MODE_EDIT_VALUE
     private val mNumberButtons: MutableMap<Int, NumberButton> = HashMap()

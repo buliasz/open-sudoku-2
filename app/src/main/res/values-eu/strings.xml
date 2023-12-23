@@ -57,10 +57,11 @@
     <string name="rename_folder_title">Berrizendatu %s</string>
     <string name="delete_folder_title">Ezabatu %s</string>
     <string name="delete_folder_confirm">Ziur karpeta hau ezabatu nahi duzula?</string>
-
-    <string name="no_puzzles">Sudokurik ez</string>
-    <string name="one_puzzle">Sudoku 1</string>
-    <string name="n_puzzles">%d sudoku</string>
+    <plurals name="n_puzzles">
+        <item quantity="zero">Sudokurik ez</item>
+        <item quantity="one">Sudoku %d</item>
+        <item quantity="other">%d sudoku</item>
+    </plurals>
     <string name="all_solved">guztiak ebatzita</string>
     <string name="n_solved">%s ebatzita</string>
     <string name="n_unsolved">%d ebatzi gabe</string>
@@ -82,7 +83,6 @@
     <string name="reset_puzzle_confirm">Ziur hautatutako sudokua berrezarri nahi duzula?</string>
     <string name="play_puzzle">Jolastu sudoku hau</string>
     <string name="reset_puzzle">Berrezarri sudokua</string>
-    <string name="edit_puzzle">Editatu sudokua</string>
     <string name="delete_puzzle">Ezabatu sudokua</string>
     <string name="filter_active">Iragazita: %s</string>
 
@@ -254,13 +254,6 @@
     <string name="contributors_label">Kolaboratzaileak</string>
 
     <!-- Strings added/changed in 2.5.0 -->
-    <string name="game_state_not_started">Hasi gabea</string>
-    <string name="game_state_playing">Jolasten</string>
-    <string name="game_state_solved">Ebatzia</string>
-
-    <string name="game_level_easy">Erraza</string>
-    <string name="game_level_medium">Bitartekoa</string>
-    <string name="game_level_hard">Zaila</string>
 
     <string name="theme_paper">Papera</string>
     <string name="theme_graph_paper">Paper grafikoa</string>
@@ -292,7 +285,6 @@
     <string name="used_solver">Ebaztailea erabili duzu soluzioa ikusteko!</string>
     <string name="puzzle_not_solved">Sudoku honek ez du soluziorik.</string>
 
-    <string name="solver_hint">Pista</string>
     <string name="hint_confirm">Honek hautatutako gelaxka balio zuzenarekin osatuko du. Jarraitu nahi al duzu?</string>
     <string name="cannot_give_hint">Ezin duzu gelaxka horrentzat pistarik lortu.</string>
 

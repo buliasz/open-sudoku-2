@@ -19,6 +19,7 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="?attr/listPreferredItemHeight"
     android:gravity="center_vertical"
@@ -29,17 +30,19 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingStart="5dip"
-        android:paddingLeft="5dip"
+        android:paddingEnd="5dip"
         android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/detail"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingStart="5dip"
-        android:paddingLeft="5dip"
-        android:text="detail" />
+        android:paddingEnd="5dip"
+        android:text="detail"
+        tools:ignore="HardcodedText" />
 
 </LinearLayout>

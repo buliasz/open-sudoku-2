@@ -49,11 +49,11 @@
     <string name="rename_folder_title">%s umbenennen</string>
     <string name="delete_folder_title">%s löschen</string>
     <string name="delete_folder_confirm">Möchten Sie diesen Ordner wirklich löschen?</string>
-
-    <string name="no_puzzles">Keine Sudoku-Rätsel</string>
-    <string name="one_puzzle">1 Sudoku-Rätsel</string>
-    <string name="n_puzzles">%d Sudoku-Rätsel</string>
-    <string name="all_solved">Alle gelöst</string>
+    <plurals name="n_puzzles">
+        <item quantity="zero">Keine Sudoku-Rätsel</item>
+        <item quantity="one">%d Sudoku-Rätsel</item>
+        <item quantity="other">%d Sudoku-Rätsel</item>
+    </plurals>
     <string name="n_solved">%s gelöst</string>
     <string name="n_unsolved">%d neu</string>
     <string name="n_playing">%d in Bearbeitung</string>
@@ -74,7 +74,6 @@
     <string name="reset_puzzle_confirm">Möchten Sie die ausgewählten Sudoku-Rätsel wirklich zurücksetzen?</string>
     <string name="play_puzzle">Dieses Sudoku-Rätsel spielen</string>
     <string name="reset_puzzle">Sudoku-Rätsel zurücksetzen</string>
-    <string name="edit_puzzle">Sudoku-Rätsel bearbeiten</string>
     <string name="delete_puzzle">Sudoku-Rätsel löschen</string>
     <string name="filter_active">Gefiltert: %s</string>
 
@@ -214,13 +213,6 @@
     <string name="bidirectional_selection_summary">Im EZ-Modus übernimmt die Auswahl einer festen Zahl die Zahl als nächste Eingabe.</string>
 
     <!-- Strings added/changed in 2.5.0 -->
-    <string name="game_state_not_started">neu</string>
-    <string name="game_state_playing">am spielen</string>
-    <string name="game_state_solved">gelöst</string>
-
-    <string name="game_level_easy">Einfach</string>
-    <string name="game_level_medium">Medium</string>
-    <string name="game_level_hard">Schwer</string>
 
     <string name="theme_paper">Papier</string>
     <string name="theme_graph_paper">Karopapier</string>
@@ -249,7 +241,6 @@
     <string name="show_sudoku_lists_on_startup_title">Sudoku-Liste zum Start anzeigen</string>
     <string name="solve_puzzle">Puzzle lösen</string>
     <string name="solve_puzzle_confirm">Möchten Sie die Lösung wirklich sehen?</string>
-    <string name="solver_hint">Hinweis</string>
     <string name="sort">Sortieren</string>
     <string name="sort_creation_date">Erstellungsdatum</string>
     <string name="sort_last_played">Zuletzt gespiele</string>
@@ -269,7 +260,7 @@
     <string name="theme_ruby">Rubin</string>
     <string name="theme_sunrise">Sonnenaufgang</string>
     <string name="undo_to_before_mistake">Rückgängig auf vor Fehler</string>
-    <string name="undo_to_before_mistake_confirm">Möchten Sie wirklich alle Aktionen seit dem letzten lösbaren Zustand zurücksetzen?</string>
+    <string name="undo_to_before_mistake_confirm">Möchten Sie wirklich alle Aktionen seitdem letzten lösbaren Zustand zurücksetzen?</string>
     <string name="used_solver">Sie haben die Hilfe genutzt, um die Lösung zu sehen!</string>
     <string name="cannot_give_hint">Es gibt keinen Hinweis für dieses Feld</string>
     <string name="check_solvabitily">Lösbarkeit prüfen</string>

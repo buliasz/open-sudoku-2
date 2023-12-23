@@ -29,7 +29,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="6dp"
-        android:layout_marginRight="6dp" />
+        android:layout_marginStart="6dp" />
 
     <!-- The widgets for the list are added in the code -->
 </LinearLayout>

@@ -73,10 +73,11 @@
     <string name="rename_folder_title">Rename %s</string>
     <string name="delete_folder_title">Delete %s</string>
     <string name="delete_folder_confirm">Are you sure you want to delete this folder?</string>
-
-    <string name="no_puzzles">No puzzles</string>
-    <string name="one_puzzle">1 puzzle</string>
-    <string name="n_puzzles">%d puzzles</string>
+    <plurals name="n_puzzles">
+        <item quantity="zero">No puzzles</item>
+        <item quantity="one">%d puzzle</item>
+        <item quantity="other">%d puzzles</item>
+    </plurals>
     <string name="all_solved">all solved</string>
     <string name="n_solved">%s solved</string>
     <string name="n_unsolved">%d unsolved</string>
@@ -98,7 +99,6 @@
     <string name="reset_puzzle_confirm">Are you sure you want to reset selected puzzle?</string>
     <string name="play_puzzle">Play this puzzle</string>
     <string name="reset_puzzle">Reset puzzle</string>
-    <string name="edit_puzzle">Edit puzzle</string>
     <string name="delete_puzzle">Delete puzzle</string>
     <string name="filter_active">Filtered: %s</string>
 
@@ -129,7 +129,7 @@
 
     <string name="numpad_abbr">Number Pad</string>
     <string name="popup_abbr">Pop</string>
-    <string name="single_number_abbr">Single Number</string>
+    <string name="single_number_abbr">SN</string>
     <string name="welcome">Welcome</string>
     <string name="hint">Hint</string>
     <string name="help">Help</string>
@@ -275,15 +275,6 @@
         Justin Nordin
     </string>
 
-    <!-- Strings added/changed in 2.5.0 -->
-    <string name="game_state_not_started">Not started</string>
-    <string name="game_state_playing">Playing</string>
-    <string name="game_state_solved">Solved</string>
-
-    <string name="game_level_easy">Easy</string>
-    <string name="game_level_medium">Medium</string>
-    <string name="game_level_hard">Hard</string>
-
     <string name="theme_paper">Paper</string>
     <string name="theme_graph_paper">Graph Paper</string>
     <string name="theme_light">Light</string>
@@ -308,13 +299,11 @@
 
     <string name="default_backgroundColor">Background</string>
 
-    <!-- Strings added/changed in 2.6.0 -->
     <string name="solve_puzzle">Solve Puzzle</string>
     <string name="solve_puzzle_confirm">Are you sure you want to see the solution?</string>
     <string name="used_solver">You used the solver to see the solution!</string>
     <string name="puzzle_not_solved">This puzzle has no solution.</string>
 
-    <string name="solver_hint">Hint</string>
     <string name="hint_confirm">This will fill in the correct value for the selected cell. Do you want to continue?</string>
     <string name="cannot_give_hint">You cannot get a hint for that cell.</string>
 
