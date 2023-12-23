@@ -160,7 +160,7 @@
             android:title="@string/theme" />
         <Preference
             app:iconSpaceReserved="false"
-            app:fragment="org.buliasz.opensudoku2.gui.CustomThemeFragment"
+            app:fragment="org.buliasz.opensudoku2.gui.fragments.CustomThemeFragment"
             android:key="screen_custom_theme"
             android:title="@string/screen_custom_theme" />
     </PreferenceCategory>

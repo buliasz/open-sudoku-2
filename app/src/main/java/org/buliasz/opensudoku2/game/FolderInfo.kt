@@ -36,6 +36,8 @@ class FolderInfo {
      */
     var name: String? = null
 
+    var created: Long = 0
+
     /**
      * Total count of puzzles in the folder.
      */

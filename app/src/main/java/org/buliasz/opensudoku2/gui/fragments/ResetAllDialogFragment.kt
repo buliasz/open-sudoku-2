@@ -38,7 +38,7 @@ class ResetAllDialogFragment(
             .setIcon(R.drawable.ic_restore)
             .setTitle(R.string.reset_all_puzzles_confirm)
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
-                val sudokuGames = mDatabase.getSudokuGameList(mFolderID, null, mListSorter)
+                val sudokuGames = mDatabase.getSudokuGameList(mFolderID, null, mListSorter.sortOrder)
                 for (sudokuGame in sudokuGames) {
                     sudokuGame.reset()
                     mDatabase.updateSudoku(sudokuGame)

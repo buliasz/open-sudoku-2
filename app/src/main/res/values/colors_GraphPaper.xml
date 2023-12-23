@@ -59,7 +59,7 @@
     <color name="GraphPaper_md_theme_dark_onSecondaryContainer">#ffffff</color>
     <color name="GraphPaper_md_theme_dark_tertiary">#546e7a</color>
     <color name="GraphPaper_md_theme_dark_onTertiary">#ffffff</color>
-    <color name="GraphPaper_md_theme_dark_tertiaryContainer">#00695c</color>
+    <color name="GraphPaper_md_theme_dark_tertiaryContainer">#00FFDF</color>
     <color name="GraphPaper_md_theme_dark_onTertiaryContainer">#ffffff</color>
     <color name="GraphPaper_md_theme_dark_error">#ffb4ab</color>
     <color name="GraphPaper_md_theme_dark_onError">#690005</color>

@@ -312,11 +312,12 @@ class CellCollection private constructor(
         }
     }
 
-    fun addOnChangeListener(listener: OnChangeListener?) {
+    fun ensureOnChangeListener(listener: OnChangeListener?) {
         requireNotNull(listener) { "The listener is null." }
         synchronized(mChangeListeners) {
-            check(!mChangeListeners.contains(listener)) { "Listener " + listener + "is already registered." }
-            mChangeListeners.add(listener)
+            if (!mChangeListeners.contains(listener)) {
+                mChangeListeners.add(listener)
+            }
         }
     }
 

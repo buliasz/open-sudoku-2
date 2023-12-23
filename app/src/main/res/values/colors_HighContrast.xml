@@ -59,7 +59,7 @@
     <color name="HighContrast_md_theme_dark_onSecondaryContainer">#ffffff</color>
     <color name="HighContrast_md_theme_dark_tertiary">#000099</color>
     <color name="HighContrast_md_theme_dark_onTertiary">#ffffff</color>
-    <color name="HighContrast_md_theme_dark_tertiaryContainer">#000099</color>
+    <color name="HighContrast_md_theme_dark_tertiaryContainer">#4444FF</color>
     <color name="HighContrast_md_theme_dark_onTertiaryContainer">#ffffff</color>
     <color name="HighContrast_md_theme_dark_error">#ffb4ab</color>
     <color name="HighContrast_md_theme_dark_onError">#690005</color>

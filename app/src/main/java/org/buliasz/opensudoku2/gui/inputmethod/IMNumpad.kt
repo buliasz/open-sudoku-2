@@ -108,7 +108,7 @@ class IMNumpad : InputMethod() {
         game: SudokuGame, board: SudokuBoardView?, hintsQueue: HintsQueue?
     ) {
         super.initialize(context, controlPanel, game, board, hintsQueue)
-        game.cells.addOnChangeListener(mOnCellsChangeListener)
+        game.cells.ensureOnChangeListener(mOnCellsChangeListener)
     }
 
     override fun createControlPanelView(abbrName: String): View {

@@ -115,7 +115,7 @@ class IMSingleNumber : InputMethod() {
         context: Context?, controlPanel: IMControlPanel?, game: SudokuGame, board: SudokuBoardView?, hintsQueue: HintsQueue?
     ) {
         super.initialize(context, controlPanel, game, board, hintsQueue)
-        game.cells.addOnChangeListener(mOnCellsChangeListener)
+        game.cells.ensureOnChangeListener(mOnCellsChangeListener)
     }
 
     override val nameResID: Int

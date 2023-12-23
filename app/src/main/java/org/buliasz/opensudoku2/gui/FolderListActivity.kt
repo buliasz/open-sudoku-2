@@ -250,7 +250,7 @@ class FolderListActivity : ThemedActivity() {
     }
 
     private fun updateList() {
-        mAdapter.updateFoldersList(mDatabase.getFolderList())
+        mAdapter.updateFoldersList(mDatabase.getFolderList(true))
     }
 
     companion object {

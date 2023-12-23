@@ -19,7 +19,6 @@
 package org.buliasz.opensudoku2.gui.exporting
 
 import android.content.Context
-import android.database.Cursor
 import android.os.Handler
 import android.util.Log
 import android.util.Xml
@@ -28,6 +27,8 @@ import kotlinx.coroutines.withContext
 import org.buliasz.opensudoku2.BuildConfig
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuDatabase
+import org.buliasz.opensudoku2.game.FolderInfo
+import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.utils.Const
 import org.xmlpull.v1.XmlSerializer
 import java.io.BufferedWriter
@@ -51,60 +52,30 @@ class FileExportTask {
     }
 
     private fun saveToFile(exportParams: FileExportTaskParams, context: Context): FileExportTaskResult {
-        require(!(exportParams.folderID == null && exportParams.sudokuID == null)) { "Exactly one of folderID and sudokuID must be set." }
-        require(!(exportParams.folderID != null && exportParams.sudokuID != null)) { "Exactly one of folderID and sudokuID must be set." }
+        require(!(exportParams.folderID == null && exportParams.sudokuID == null)) { "Exactly one of folderID or sudokuID must be set." }
+        require(!(exportParams.folderID != null && exportParams.sudokuID != null)) { "Only one of folderID or sudokuID must be set." }
         requireNotNull(exportParams.fileOutputStream) { "Filename must be set." }
         val start = System.currentTimeMillis()
         val result = FileExportTaskResult()
         result.isSuccess = true
         result.filename = exportParams.filename
-        var database: SudokuDatabase? = null
-        var cursor: Cursor? = null
         var writer: Writer? = null
         try {
-            database = SudokuDatabase(context)
-            val generateFolders: Boolean
-            if (exportParams.folderID != null) {
-                cursor = database.exportFolder(exportParams.folderID!!)
-                generateFolders = true
-            } else {
-                cursor = database.exportFolder(exportParams.sudokuID!!)
-                generateFolders = false
-            }
             val serializer = Xml.newSerializer()
             writer = BufferedWriter(OutputStreamWriter(exportParams.fileOutputStream))
             serializer.setOutput(writer)
             serializer.startDocument("UTF-8", true)
             serializer.startTag("", "opensudoku2")
             serializer.attribute("", "version", FILE_EXPORT_VERSION)
-            var currentFolderId: Long = -1
-            while (cursor.moveToNext()) {
-                if (generateFolders && currentFolderId != cursor.getLong(cursor.getColumnIndexOrThrow(Names.FOLDER_ID))) {
-                    // next folder
-                    if (currentFolderId != -1L) {
-                        serializer.endTag("", Names.FOLDER)
-                    }
-                    currentFolderId = cursor.getLong(cursor.getColumnIndexOrThrow(Names.FOLDER_ID))
-                    serializer.startTag("", Names.FOLDER)
-                    attribute(serializer, cursor, Names.FOLDER_NAME)
-                    attribute(serializer, cursor, Names.FOLDER_CREATED)
-                }
-                val data = cursor.getString(cursor.getColumnIndexOrThrow(Names.CELLS_DATA))
-                if (data != null) {
-                    serializer.startTag("", Names.GAME)
-                    attribute(serializer, cursor, Names.CREATED)
-                    attribute(serializer, cursor, Names.STATE)
-                    attribute(serializer, cursor, Names.TIME)
-                    attribute(serializer, cursor, Names.LAST_PLAYED)
-                    attribute(serializer, cursor, Names.CELLS_DATA)
-                    attribute(serializer, cursor, Names.USER_NOTE)
-                    attribute(serializer, cursor, Names.COMMAND_STACK)
-                    serializer.endTag("", Names.GAME)
+
+            SudokuDatabase(context).use { db ->
+                if (exportParams.folderID != null) {
+                    serializeFolders(db, serializer, exportParams.folderID!!)
+                } else {
+                    serializeGame(serializer, db.getSudoku(exportParams.sudokuID!!)!!)
                 }
             }
-            if (generateFolders && currentFolderId != -1L) {
-                serializer.endTag("", Names.FOLDER)
-            }
+
             serializer.endTag("", "opensudoku2")
             serializer.endDocument()
         } catch (e: IOException) {
@@ -112,8 +83,6 @@ class FileExportTask {
             result.isSuccess = false
             return result
         } finally {
-            cursor?.close()
-            database?.close()
             if (writer != null) {
                 try {
                     writer.close()
@@ -128,12 +97,30 @@ class FileExportTask {
         return result
     }
 
-    @Throws(IllegalArgumentException::class, IllegalStateException::class, IOException::class)
-    private fun attribute(serializer: XmlSerializer, cursor: Cursor, columnName: String) {
-        val value = cursor.getString(cursor.getColumnIndexOrThrow(columnName))
-        if (value != null) {
-            serializer.attribute("", columnName, value)
+    private fun serializeFolders(db: SudokuDatabase, serializer: XmlSerializer, folderID: Long) {
+        val folderList: List<FolderInfo> = if (folderID == -1L) db.getFolderList() else listOf(db.getFolderInfo(folderID)!!)
+        for (folder in folderList) {
+            serializer.startTag("", Names.FOLDER)
+            serializer.attribute("", Names.FOLDER_NAME, folder.name ?: "")
+            serializer.attribute("", Names.FOLDER_CREATED, folder.created.toString())
+            val sudokuList = db.getSudokuGameList(folder.id, null, null)
+            for (game in sudokuList) {
+                serializeGame(serializer, game)
+            }
+            serializer.endTag("", Names.FOLDER)
         }
+    }
+
+    private fun serializeGame(serializer: XmlSerializer, game: SudokuGame) {
+        serializer.startTag("", Names.GAME)
+        serializer.attribute("", Names.CREATED, game.created.toString())
+        serializer.attribute("", Names.STATE, game.state.toString())
+        serializer.attribute("", Names.TIME, game.time.toString())
+        serializer.attribute("", Names.LAST_PLAYED, game.lastPlayed.toString())
+        serializer.attribute("", Names.CELLS_DATA, game.cells.serialize())
+        serializer.attribute("", Names.USER_NOTE, game.userNote)
+        serializer.attribute("", Names.COMMAND_STACK, game.commandStack.serialize())
+        serializer.endTag("", Names.GAME)
     }
 
     interface OnExportFinishedListener {
@@ -146,6 +133,6 @@ class FileExportTask {
     }
 
     companion object {
-        val FILE_EXPORT_VERSION: String = "3"
+        val FILE_EXPORT_VERSION: String get() = "3"
     }
 }

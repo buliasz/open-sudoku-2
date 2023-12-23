@@ -96,7 +96,7 @@ class SudokuListActivity : ThemedActivity() {
         updateTitle()
         updateFilterStatus()
 
-        val games = mDatabase.getSudokuGameList(mFolderID, mListFilter, mListSorter)
+        val games = mDatabase.getSudokuGameList(mFolderID, mListFilter, mListSorter.sortOrder)
         mAdapter = SudokuListRecyclerAdapter(this, games, ::playSudoku)
 
         recyclerView = findViewById(R.id.sudoku_list_recycler)
@@ -274,7 +274,7 @@ class SudokuListActivity : ThemedActivity() {
     private fun updateList() {
         updateTitle()
         updateFilterStatus()
-        mAdapter.updateGameList(mDatabase.getSudokuGameList(mFolderID, mListFilter, mListSorter))
+        mAdapter.updateGameList(mDatabase.getSudokuGameList(mFolderID, mListFilter, mListSorter.sortOrder))
     }
 
     private fun updateFilterStatus() {

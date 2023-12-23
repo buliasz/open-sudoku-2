@@ -45,7 +45,10 @@ class GameSettingsActivity :
             pref.fragment!!
         )
         fragment.arguments = args
+
+        @Suppress("DEPRECATION")    // known bug in Preferences library https://stackoverflow.com/a/74230035/7926219
         fragment.setTargetFragment(caller, 0)
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.preferences_content, fragment)
             .addToBackStack(null)

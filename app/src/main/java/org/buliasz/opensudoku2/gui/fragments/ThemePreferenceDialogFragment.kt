@@ -116,6 +116,7 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
     override fun onDialogClosed(positiveResult: Boolean) {
         if (positiveResult && mClickedDialogEntryIndex >= 0) {
             val value = "${mEntryValues[mClickedDialogEntryIndex]}"
+
             val preference = listPreference
             if (preference.callChangeListener(value)) {
                 preference.value = value

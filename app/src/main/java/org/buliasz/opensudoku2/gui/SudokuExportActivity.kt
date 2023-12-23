@@ -39,8 +39,9 @@ import java.io.FileNotFoundException
 import java.util.Date
 
 class SudokuExportActivity : ThemedActivity() {
-    private var mFileExportTask: FileExportTask? = null
-    private var mExportParams: FileExportTaskParams? = null
+    private lateinit var mFileExportTask: FileExportTask
+    private lateinit var mExportParams: FileExportTaskParams
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sudoku_export)
@@ -48,7 +49,7 @@ class SudokuExportActivity : ThemedActivity() {
         mExportParams = FileExportTaskParams()
         var intent = intent
         if (intent.hasExtra(Names.FOLDER_ID)) {
-            mExportParams!!.folderID = intent.getLongExtra(Names.FOLDER_ID, ALL_FOLDERS)
+            mExportParams.folderID = intent.getLongExtra(Names.FOLDER_ID, ALL_FOLDERS)
         } else {
             Log.d(TAG, "No 'FOLDER_ID' extra provided, exiting.")
             finish()
@@ -56,13 +57,13 @@ class SudokuExportActivity : ThemedActivity() {
         }
         val fileName: String
         val timestamp = DateFormat.format("yyyy-MM-dd-HH-mm-ss", Date()).toString()
-        if (mExportParams!!.folderID == -1L) {
+        if (mExportParams.folderID == -1L) {
             fileName = "all-folders-$timestamp"
         } else {
             val database = SudokuDatabase(applicationContext)
-            val folder = database.getFolderInfo(mExportParams!!.folderID!!)
+            val folder = database.getFolderInfo(mExportParams.folderID!!)
             if (folder == null) {
-                Log.d(TAG, "Folder with id ${mExportParams!!.folderID} not found, exiting.")
+                Log.d(TAG, "Folder with id ${mExportParams.folderID} not found, exiting.")
                 finish()
                 return
             }
@@ -91,7 +92,7 @@ class SudokuExportActivity : ThemedActivity() {
     }
 
     private fun startExportToFileTask(uri: Uri?) {
-        mFileExportTask!!.onExportFinishedListener = object : OnExportFinishedListener {
+        mFileExportTask.onExportFinishedListener = object : OnExportFinishedListener {
             override fun onExportFinished(result: FileExportTaskResult?) {
                 if (result!!.isSuccess) {
                     Toast.makeText(
@@ -110,10 +111,10 @@ class SudokuExportActivity : ThemedActivity() {
             }
         }
         try {
-            mExportParams!!.fileOutputStream = contentResolver.openOutputStream(uri!!)
+            mExportParams.fileOutputStream = contentResolver.openOutputStream(uri!!)
             val cursor = contentResolver.query(uri, null, null, null, null)
             if (cursor != null && cursor.moveToFirst()) {
-                mExportParams!!.filename = cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
+                mExportParams.filename = cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
                 cursor.close()
             }
         } catch (e: FileNotFoundException) {
@@ -124,7 +125,7 @@ class SudokuExportActivity : ThemedActivity() {
             ).show()
         }
         CoroutineScope(Dispatchers.IO).launch {
-            mFileExportTask!!.exportToFile(this@SudokuExportActivity, mExportParams)
+            mFileExportTask.exportToFile(this@SudokuExportActivity, mExportParams)
         }
     }
 

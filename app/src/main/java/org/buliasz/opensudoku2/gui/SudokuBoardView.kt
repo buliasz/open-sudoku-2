@@ -283,7 +283,7 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: A
                 selectedCell = mCells.getCell(0, 0) // first cell will be selected by default
                 onCellSelected(selectedCell)
             }
-            mCells.addOnChangeListener(this::postInvalidate)
+            mCells.ensureOnChangeListener(this::postInvalidate)
             postInvalidate()
         }
     var isReadOnly: Boolean

@@ -101,16 +101,11 @@ abstract class AbstractImportTask {
         val start = System.currentTimeMillis()
         mDatabase = SudokuDatabase(context)
         try {
-            mDatabase!!.beginTransaction()
-
-            // let subclass handle the import
-            processImport(context)
-            mDatabase!!.setTransactionSuccessful()
+            processImport(context)  // let subclass handle the import
         } catch (e: SudokuInvalidFormatException) {
             Log.e(this.javaClass.name, "Invalid format", e)
             setError(context.getString(R.string.invalid_format))
         } finally {
-            mDatabase!!.endTransaction()
             mDatabase!!.close()
             mDatabase = null
         }

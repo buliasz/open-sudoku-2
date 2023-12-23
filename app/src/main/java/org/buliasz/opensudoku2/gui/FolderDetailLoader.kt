@@ -45,7 +45,7 @@ class FolderDetailLoader(context: Context?) {
     fun loadDetailAsync(folderID: Long, loadedCallback: FolderDetailCallback) {
         executorService.execute {
             try {
-                val folderInfo = mDatabase.getFolderInfoFull(folderID)
+                val folderInfo = mDatabase.getFolderInfoWithCounts(folderID)
                 loadedCallback.onLoaded(folderInfo)
             } catch (e: Exception) {    // this is unimportant, we can log an error and continue
                 Log.e(TAG, "Error occurred while loading full folder info.", e)
