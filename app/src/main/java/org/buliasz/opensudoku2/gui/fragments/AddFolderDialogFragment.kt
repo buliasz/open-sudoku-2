@@ -29,26 +29,26 @@ import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.SudokuDatabase
 
 class AddFolderDialogFragment(
-    private val factory: LayoutInflater,
-    private val mDatabase: SudokuDatabase,
-    val updateList: () -> Unit
+	private val factory: LayoutInflater,
+	private val mDatabase: SudokuDatabase,
+	val updateList: () -> Unit
 ) : DialogFragment() {
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val addFolderView = factory.inflate(R.layout.folder_name, null)
-        val addFolderNameInput = addFolderView.findViewById<TextView>(R.id.name)
-        val builder = AlertDialog.Builder(requireActivity())
-            .setIcon(R.drawable.ic_add)
-            .setTitle(R.string.add_folder)
-            .setView(addFolderView)
-            .setPositiveButton(R.string.save) { _: DialogInterface?, _: Int ->
-                mDatabase.insertFolder(
-                    addFolderNameInput.text.toString().trim { it <= ' ' },
-                    System.currentTimeMillis()
-                )
-                updateList()
-            }
-            .setNegativeButton(android.R.string.cancel, null)
+	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+		val addFolderView = factory.inflate(R.layout.folder_name, null)
+		val addFolderNameInput = addFolderView.findViewById<TextView>(R.id.name)
+		val builder = AlertDialog.Builder(requireActivity())
+			.setIcon(R.drawable.ic_add)
+			.setTitle(R.string.add_folder)
+			.setView(addFolderView)
+			.setPositiveButton(R.string.save) { _: DialogInterface?, _: Int ->
+				mDatabase.insertFolder(
+					addFolderNameInput.text.toString().trim { it <= ' ' },
+					System.currentTimeMillis()
+				)
+				updateList()
+			}
+			.setNegativeButton(android.R.string.cancel, null)
 
-        return builder.create()
-    }
+		return builder.create()
+	}
 }

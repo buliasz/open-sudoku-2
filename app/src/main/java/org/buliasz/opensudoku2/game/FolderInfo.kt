@@ -24,66 +24,66 @@ import org.buliasz.opensudoku2.R
  * Some information about folder, used in FolderListActivity.
  */
 class FolderInfo {
-    /**
-     * Primary key of folder.
-     */
-    var id: Long = 0
+	/**
+	 * Primary key of folder.
+	 */
+	var id: Long = 0
 
-    /**
-     * Name of the folder.
-     */
-    var name: String? = null
+	/**
+	 * Name of the folder.
+	 */
+	var name: String? = null
 
-    var created: Long = 0
+	var created: Long = 0
 
-    /**
-     * Total count of puzzles in the folder.
-     */
-    var puzzleCount = 0
+	/**
+	 * Total count of puzzles in the folder.
+	 */
+	var puzzleCount = 0
 
-    /**
-     * Count of solved puzzles in the folder.
-     */
-    var solvedCount = 0
+	/**
+	 * Count of solved puzzles in the folder.
+	 */
+	var solvedCount = 0
 
-    /**
-     * Count of puzzles in "playing" state in the folder.
-     */
-    var playingCount = 0
+	/**
+	 * Count of puzzles in "playing" state in the folder.
+	 */
+	var playingCount = 0
 
-    constructor()
-    constructor(id: Long, name: String?) {
-        this.id = id
-        this.name = name
-    }
+	constructor()
+	constructor(id: Long, name: String?) {
+		this.id = id
+		this.name = name
+	}
 
-    fun getDetail(c: Context): String {
-        val sb = StringBuilder()
-        sb.append(c.resources.getQuantityString(R.plurals.n_puzzles, puzzleCount, puzzleCount))
-        if (puzzleCount > 0) {
-            // there are some puzzles
-            val unsolvedCount = puzzleCount - solvedCount
+	fun getDetail(c: Context): String {
+		val sb = StringBuilder()
+		sb.append(c.resources.getQuantityString(R.plurals.n_puzzles, puzzleCount, puzzleCount))
+		if (puzzleCount > 0) {
+			// there are some puzzles
+			val unsolvedCount = puzzleCount - solvedCount
 
-            // if there are any playing or unsolved puzzles, add info about them
-            if (playingCount != 0 || unsolvedCount != 0) {
-                sb.append(" (")
-                if (playingCount != 0) {
-                    sb.append(c.getString(R.string.n_playing, playingCount))
-                    if (unsolvedCount != 0) {
-                        sb.append(", ")
-                    }
-                }
-                if (unsolvedCount != 0) {
-                    sb.append(c.getString(R.string.n_unsolved, unsolvedCount))
-                }
-                sb.append(")")
-            }
+			// if there are any playing or unsolved puzzles, add info about them
+			if (playingCount != 0 || unsolvedCount != 0) {
+				sb.append(" (")
+				if (playingCount != 0) {
+					sb.append(c.getString(R.string.n_playing, playingCount))
+					if (unsolvedCount != 0) {
+						sb.append(", ")
+					}
+				}
+				if (unsolvedCount != 0) {
+					sb.append(c.getString(R.string.n_unsolved, unsolvedCount))
+				}
+				sb.append(")")
+			}
 
-            // maybe all puzzles are solved?
-            if (unsolvedCount == 0 && puzzleCount != 0) {
-                sb.append(" (").append(c.getString(R.string.all_solved)).append(")")
-            }
-        }
-        return "$sb"
-    }
+			// maybe all puzzles are solved?
+			if (unsolvedCount == 0 && puzzleCount != 0) {
+				sb.append(" (").append(c.getString(R.string.all_solved)).append(")")
+			}
+		}
+		return "$sb"
+	}
 }

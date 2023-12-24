@@ -21,35 +21,35 @@ import org.buliasz.opensudoku2.game.Cell
 import java.util.StringTokenizer
 
 class SetCellValueCommand : AbstractSingleCellCommand {
-    private var mValue = 0
-    private var mOldValue = 0
+	private var mValue = 0
+	private var mOldValue = 0
 
-    constructor(cell: Cell, value: Int) : super(cell) {
-        mValue = value
-    }
+	constructor(cell: Cell, value: Int) : super(cell) {
+		mValue = value
+	}
 
-    internal constructor()
+	internal constructor()
 
-    override fun serialize(data: StringBuilder) {
-        super.serialize(data)
-        data.append(mValue).append("|")
-        data.append(mOldValue).append("|")
-    }
+	override fun serialize(data: StringBuilder) {
+		super.serialize(data)
+		data.append(mValue).append("|")
+		data.append(mOldValue).append("|")
+	}
 
-    override fun deserialize(data: StringTokenizer) {
-        super.deserialize(data)
-        mValue = data.nextToken().toInt()
-        mOldValue = data.nextToken().toInt()
-    }
+	override fun deserialize(data: StringTokenizer) {
+		super.deserialize(data)
+		mValue = data.nextToken().toInt()
+		mOldValue = data.nextToken().toInt()
+	}
 
-    override fun execute() {
-        val cell = cell
-        mOldValue = cell.value
-        cell.value = mValue
-    }
+	override fun execute() {
+		val cell = cell
+		mOldValue = cell.value
+		cell.value = mValue
+	}
 
-    override fun undo() {
-        val cell = cell
-        cell.value = mOldValue
-    }
+	override fun undo() {
+		val cell = cell
+		cell.value = mOldValue
+	}
 }

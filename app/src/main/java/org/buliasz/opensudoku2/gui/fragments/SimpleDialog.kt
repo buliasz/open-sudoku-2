@@ -31,14 +31,14 @@ import org.buliasz.opensudoku2.R
 class SimpleDialog : DialogFragment(), DialogInterface.OnClickListener {
 	@StringRes var messageId: Int = 0
 	var message: String? = null
-	@DrawableRes var icon: Int = 0
-	@StringRes var title: Int = R.string.app_name
+	@DrawableRes var iconId: Int = 0
+	@StringRes var titleId: Int = R.string.app_name
 	var onOkCallback: (() -> Unit)? = null
 
 	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 		val builder = AlertDialog.Builder(requireActivity())
-			.setIcon(icon)
-			.setTitle(title)
+			.setIcon(iconId)
+			.setTitle(titleId)
 
 		if (message == null) {
 			builder.setMessage(messageId)

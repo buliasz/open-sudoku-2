@@ -78,8 +78,8 @@ class SudokuPlayActivity : ThemedActivity() {
 
 			} else {
 				with(SimpleDialog()) {
-					icon = R.drawable.ic_info
-					title = R.string.well_done
+					iconId = R.drawable.ic_info
+					titleId = R.string.well_done
 					message = getString(R.string.congrats, mGameTimeFormatter.format(mSudokuGame.time))
 					show(supportFragmentManager)
 				}
@@ -383,8 +383,8 @@ class SudokuPlayActivity : ThemedActivity() {
 		when (item.itemId) {
 			MENU_ITEM_RESTART -> {
 				with(SimpleDialog()) {
-					icon = R.drawable.ic_restore
-					title = R.string.app_name
+					iconId = R.drawable.ic_restore
+					titleId = R.string.app_name
 					messageId = R.string.restart_confirm
 					onOkCallback = ::resetGame
 					show(supportFragmentManager)
@@ -394,8 +394,8 @@ class SudokuPlayActivity : ThemedActivity() {
 
 			MENU_ITEM_CLEAR_ALL_NOTES -> {
 				with(SimpleDialog()) {
-					icon = R.drawable.ic_delete
-					title = R.string.app_name
+					iconId = R.drawable.ic_delete
+					titleId = R.string.app_name
 					messageId = R.string.clear_all_notes_confirm
 					onOkCallback = mSudokuGame::clearAllNotes
 					show(supportFragmentManager)
@@ -446,8 +446,8 @@ class SudokuPlayActivity : ThemedActivity() {
 
 			MENU_ITEM_UNDO_TO_CHECKPOINT -> {
 				with(SimpleDialog()) {
-					icon = R.drawable.ic_undo
-					title = R.string.app_name
+					iconId = R.drawable.ic_undo
+					titleId = R.string.app_name
 					messageId = R.string.undo_to_checkpoint_confirm
 					onOkCallback = {
 						mSudokuGame.undoToCheckpoint()
@@ -460,8 +460,8 @@ class SudokuPlayActivity : ThemedActivity() {
 
 			MENU_ITEM_UNDO_TO_BEFORE_MISTAKE -> {
 				with(SimpleDialog()) {
-					icon = R.drawable.ic_undo
-					title = R.string.app_name
+					iconId = R.drawable.ic_undo
+					titleId = R.string.app_name
 					messageId = R.string.undo_to_before_mistake_confirm
 					onOkCallback = {
 						mSudokuGame.undoToBeforeMistake()
@@ -474,7 +474,7 @@ class SudokuPlayActivity : ThemedActivity() {
 
 			MENU_ITEM_SOLVE -> {
 				with(SimpleDialog()) {
-					title = R.string.app_name
+					titleId = R.string.app_name
 					messageId = R.string.solve_puzzle_confirm
 					onOkCallback = {
 						if (mSudokuGame.isSolvable) {

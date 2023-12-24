@@ -54,142 +54,142 @@ import org.buliasz.opensudoku2.utils.ThemeUtils
  * view as well, instead of allowing the AlertDialog to do it.
  */
 class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
-    private var mBoard: SudokuBoardView? = null
-    var mClickedDialogEntryIndex = 0
-    private var mEntries: Array<CharSequence?>? = null
-    private lateinit var mEntryValues: Array<CharSequence>
-    private lateinit var mAdapter: ThemeAdapter
+	private var mBoard: SudokuBoardView? = null
+	var mClickedDialogEntryIndex = 0
+	private var mEntries: Array<CharSequence?>? = null
+	private lateinit var mEntryValues: Array<CharSequence>
+	private lateinit var mAdapter: ThemeAdapter
 
-    private val mOnItemClickListener = View.OnClickListener { v ->
-        val viewHolder = v.tag as ViewHolder
-        val prevSelectedPosition = mClickedDialogEntryIndex
-        mClickedDialogEntryIndex = viewHolder.adapterPosition
-        mAdapter.notifyItemChanged(prevSelectedPosition)
-        mAdapter.notifyItemChanged(mClickedDialogEntryIndex)
-        applyThemePreview(mEntryValues[mClickedDialogEntryIndex] as String)
-    }
+	private val mOnItemClickListener = View.OnClickListener { v ->
+		val viewHolder = v.tag as ViewHolder
+		val prevSelectedPosition = mClickedDialogEntryIndex
+		mClickedDialogEntryIndex = viewHolder.adapterPosition
+		mAdapter.notifyItemChanged(prevSelectedPosition)
+		mAdapter.notifyItemChanged(mClickedDialogEntryIndex)
+		applyThemePreview(mEntryValues[mClickedDialogEntryIndex] as String)
+	}
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
-            val preference = listPreference
-            check(!(preference.entries == null || preference.entryValues == null)) {
-                "ListPreference requires an entries array and an entryValues array."
-            }
-            val themeCode = preference.value
-            mClickedDialogEntryIndex = preference.findIndexOfValue(themeCode)
-            mEntries = preference.entries
-            mEntryValues = preference.entryValues
-        } else {
-            mClickedDialogEntryIndex = savedInstanceState.getInt(SAVE_STATE_INDEX, 0)
-            mEntries = savedInstanceState.getCharSequenceArray(SAVE_STATE_ENTRIES)
-            mEntryValues = savedInstanceState.getCharSequenceArray(SAVE_STATE_ENTRY_VALUES)!!
-        }
-    }
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		if (savedInstanceState == null) {
+			val preference = listPreference
+			check(!(preference.entries == null || preference.entryValues == null)) {
+				"ListPreference requires an entries array and an entryValues array."
+			}
+			val themeCode = preference.value
+			mClickedDialogEntryIndex = preference.findIndexOfValue(themeCode)
+			mEntries = preference.entries
+			mEntryValues = preference.entryValues
+		} else {
+			mClickedDialogEntryIndex = savedInstanceState.getInt(SAVE_STATE_INDEX, 0)
+			mEntries = savedInstanceState.getCharSequenceArray(SAVE_STATE_ENTRIES)
+			mEntryValues = savedInstanceState.getCharSequenceArray(SAVE_STATE_ENTRY_VALUES)!!
+		}
+	}
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt(SAVE_STATE_INDEX, mClickedDialogEntryIndex)
-        outState.putCharSequenceArray(SAVE_STATE_ENTRIES, mEntries)
-        outState.putCharSequenceArray(SAVE_STATE_ENTRY_VALUES, mEntryValues)
-    }
+	override fun onSaveInstanceState(outState: Bundle) {
+		super.onSaveInstanceState(outState)
+		outState.putInt(SAVE_STATE_INDEX, mClickedDialogEntryIndex)
+		outState.putCharSequenceArray(SAVE_STATE_ENTRIES, mEntries)
+		outState.putCharSequenceArray(SAVE_STATE_ENTRY_VALUES, mEntryValues)
+	}
 
-    private val listPreference: ListPreference
-        get() = preference as ListPreference
+	private val listPreference: ListPreference
+		get() = preference as ListPreference
 
-    override fun onPrepareDialogBuilder(builder: AlertDialog.Builder) {
-        val inflater = LayoutInflater.from(context)
-        val preferenceView = inflater.inflate(R.layout.preference_dialog_sudoku_board_theme, null)
-        mBoard = preferenceView.findViewById(R.id.preference_board_view)
-        val recyclerView = preferenceView.findViewById<RecyclerView>(R.id.theme_list)
-        val layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.layoutManager = layoutManager
-        layoutManager.scrollToPosition(mClickedDialogEntryIndex)
-        mAdapter = ThemeAdapter(mEntries)
-        recyclerView.adapter = mAdapter
-        mAdapter.setOnItemClickListener(mOnItemClickListener)
-        prepareSudokuPreviewView("${mEntryValues[mClickedDialogEntryIndex]}")
-        builder.setView(preferenceView)
-        builder.setTitle("")
-    }
+	override fun onPrepareDialogBuilder(builder: AlertDialog.Builder) {
+		val inflater = LayoutInflater.from(context)
+		val preferenceView = inflater.inflate(R.layout.preference_dialog_sudoku_board_theme, null)
+		mBoard = preferenceView.findViewById(R.id.preference_board_view)
+		val recyclerView = preferenceView.findViewById<RecyclerView>(R.id.theme_list)
+		val layoutManager = LinearLayoutManager(requireContext())
+		recyclerView.layoutManager = layoutManager
+		layoutManager.scrollToPosition(mClickedDialogEntryIndex)
+		mAdapter = ThemeAdapter(mEntries)
+		recyclerView.adapter = mAdapter
+		mAdapter.setOnItemClickListener(mOnItemClickListener)
+		prepareSudokuPreviewView("${mEntryValues[mClickedDialogEntryIndex]}")
+		builder.setView(preferenceView)
+		builder.setTitle("")
+	}
 
-    override fun onDialogClosed(positiveResult: Boolean) {
-        if (positiveResult && mClickedDialogEntryIndex >= 0) {
-            val value = "${mEntryValues[mClickedDialogEntryIndex]}"
+	override fun onDialogClosed(positiveResult: Boolean) {
+		if (positiveResult && mClickedDialogEntryIndex >= 0) {
+			val value = "${mEntryValues[mClickedDialogEntryIndex]}"
 
-            val preference = listPreference
-            if (preference.callChangeListener(value)) {
-                preference.value = value
-            }
-        }
-    }
+			val preference = listPreference
+			if (preference.callChangeListener(value)) {
+				preference.value = value
+			}
+		}
+	}
 
-    internal inner class ThemeAdapter(private val mEntries: Array<CharSequence?>?) : RecyclerView.Adapter<ViewHolder?>() {
-        private var mOnItemClickListener: View.OnClickListener? = null
+	internal inner class ThemeAdapter(private val mEntries: Array<CharSequence?>?) : RecyclerView.Adapter<ViewHolder?>() {
+		private var mOnItemClickListener: View.OnClickListener? = null
 
-        /** Drawable for icon that indicates this theme enforces dark mode  */
-        private val mDarkModeIcon: Drawable? =
-            ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_dark_mode, requireContext().theme)
+		/** Drawable for icon that indicates this theme enforces dark mode  */
+		private val mDarkModeIcon: Drawable? =
+			ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_dark_mode, requireContext().theme)
 
-        internal inner class ViewHolder(itemView: MaterialRadioButton) : RecyclerView.ViewHolder(itemView) {
-            val radioButton: MaterialRadioButton
+		internal inner class ViewHolder(itemView: MaterialRadioButton) : RecyclerView.ViewHolder(itemView) {
+			val radioButton: MaterialRadioButton
 
-            init {
-                itemView.tag = this
-                itemView.setOnClickListener(mOnItemClickListener)
-                radioButton = itemView.findViewById(android.R.id.text1)
-            }
-        }
+			init {
+				itemView.tag = this
+				itemView.setOnClickListener(mOnItemClickListener)
+				radioButton = itemView.findViewById(android.R.id.text1)
+			}
+		}
 
-        fun setOnItemClickListener(itemClickListener: View.OnClickListener?) {
-            mOnItemClickListener = itemClickListener
-        }
+		fun setOnItemClickListener(itemClickListener: View.OnClickListener?) {
+			mOnItemClickListener = itemClickListener
+		}
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val v = LayoutInflater.from(parent.context).inflate(
-                R.layout.preference_dialog_theme_listitem,
-                parent, false
-            ) as MaterialRadioButton
-            return ViewHolder(v)
-        }
+		override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+			val v = LayoutInflater.from(parent.context).inflate(
+				R.layout.preference_dialog_theme_listitem,
+				parent, false
+			) as MaterialRadioButton
+			return ViewHolder(v)
+		}
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val button = holder.radioButton
-            button.text = mEntries!![position]
-            button.isChecked = position == mClickedDialogEntryIndex
-            if (ThemeUtils.isDarkTheme(mEntryValues[position] as String)) {
-                button.setCompoundDrawablesWithIntrinsicBounds(null, null, mDarkModeIcon, null)
-            } else {
-                button.setCompoundDrawables(null, null, null, null)
-            }
-        }
+		override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+			val button = holder.radioButton
+			button.text = mEntries!![position]
+			button.isChecked = position == mClickedDialogEntryIndex
+			if (ThemeUtils.isDarkTheme(mEntryValues[position] as String)) {
+				button.setCompoundDrawablesWithIntrinsicBounds(null, null, mDarkModeIcon, null)
+			} else {
+				button.setCompoundDrawables(null, null, null, null)
+			}
+		}
 
-        override fun getItemCount(): Int = mEntries?.size ?: 0
-    }
+		override fun getItemCount(): Int = mEntries?.size ?: 0
+	}
 
-    private fun prepareSudokuPreviewView(initialTheme: String) {
-        mBoard!!.setOnCellSelectedListener { cell: Cell? ->
-            mBoard!!.setHighlightedValue(cell?.value ?: 0)
-        }
-        ThemeUtils.prepareSudokuPreviewView(mBoard!!)
-        applyThemePreview(initialTheme)
-    }
+	private fun prepareSudokuPreviewView(initialTheme: String) {
+		mBoard!!.setOnCellSelectedListener { cell: Cell? ->
+			mBoard!!.setHighlightedValue(cell?.value ?: 0)
+		}
+		ThemeUtils.prepareSudokuPreviewView(mBoard!!)
+		applyThemePreview(initialTheme)
+	}
 
-    private fun applyThemePreview(theme: String) {
-        ThemeUtils.applyThemeToSudokuBoardViewFromContext(theme, mBoard!!, requireContext())
-    }
+	private fun applyThemePreview(theme: String) {
+		ThemeUtils.applyThemeToSudokuBoardViewFromContext(theme, mBoard!!, requireContext())
+	}
 
-    companion object {
-        var TAG = "ThemePreferenceDialogFragment"
-        private const val SAVE_STATE_INDEX = "ThemePreferenceDialogFragment.index"
-        private const val SAVE_STATE_ENTRIES = "ThemePreferenceDialogFragment.entries"
-        private const val SAVE_STATE_ENTRY_VALUES = "ThemePreferenceDialogFragment.entryValues"
-        fun newInstance(key: String?): ThemePreferenceDialogFragment {
-            val fragment = ThemePreferenceDialogFragment()
-            val b = Bundle(1)
-            b.putString(ARG_KEY, key)
-            fragment.arguments = b
-            return fragment
-        }
-    }
+	companion object {
+		var TAG = "ThemePreferenceDialogFragment"
+		private const val SAVE_STATE_INDEX = "ThemePreferenceDialogFragment.index"
+		private const val SAVE_STATE_ENTRIES = "ThemePreferenceDialogFragment.entries"
+		private const val SAVE_STATE_ENTRY_VALUES = "ThemePreferenceDialogFragment.entryValues"
+		fun newInstance(key: String?): ThemePreferenceDialogFragment {
+			val fragment = ThemePreferenceDialogFragment()
+			val b = Bundle(1)
+			b.putString(ARG_KEY, key)
+			fragment.arguments = b
+			return fragment
+		}
+	}
 }

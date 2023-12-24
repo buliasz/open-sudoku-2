@@ -33,34 +33,34 @@ import java.util.concurrent.Executors
  * You should explicitly call [.destroy] when this object is no longer needed.
  */
 class FolderDetailLoader(context: Context?) {
-    private val mDatabase: SudokuDatabase
-    private val executorService = Executors.newSingleThreadExecutor()
+	private val mDatabase: SudokuDatabase
+	private val executorService = Executors.newSingleThreadExecutor()
 
-    init {
-        mDatabase = SudokuDatabase(context!!)
-    }
+	init {
+		mDatabase = SudokuDatabase(context!!)
+	}
 
-    fun loadDetailAsync(folderID: Long, loadedCallback: FolderDetailCallback) {
-        executorService.execute {
-            try {
-                val folderInfo = mDatabase.getFolderInfoWithCounts(folderID)
-                loadedCallback.onLoaded(folderInfo)
-            } catch (e: Exception) {    // this is unimportant, we can log an error and continue
-                Log.e(TAG, "Error occurred while loading full folder info.", e)
-            }
-        }
-    }
+	fun loadDetailAsync(folderID: Long, loadedCallback: FolderDetailCallback) {
+		executorService.execute {
+			try {
+				val folderInfo = mDatabase.getFolderInfoWithCounts(folderID)
+				loadedCallback.onLoaded(folderInfo)
+			} catch (e: Exception) {    // this is unimportant, we can log an error and continue
+				Log.e(TAG, "Error occurred while loading full folder info.", e)
+			}
+		}
+	}
 
-    fun destroy() {
-        executorService.shutdownNow()
-        mDatabase.close()
-    }
+	fun destroy() {
+		executorService.shutdownNow()
+		mDatabase.close()
+	}
 
-    interface FolderDetailCallback {
-        fun onLoaded(folderInfo: FolderInfo?)
-    }
+	interface FolderDetailCallback {
+		fun onLoaded(folderInfo: FolderInfo?)
+	}
 
-    companion object {
-        private const val TAG = "FolderDetailLoader"
-    }
+	companion object {
+		private const val TAG = "FolderDetailLoader"
+	}
 }

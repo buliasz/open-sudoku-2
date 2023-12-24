@@ -23,27 +23,27 @@ import java.util.Formatter
  * Game time formatter.
  */
 class GameTimeFormat {
-    private val mTimeText = StringBuilder()
-    private val mGameTimeFormatter = Formatter(mTimeText)
+	private val mTimeText = StringBuilder()
+	private val mGameTimeFormatter = Formatter(mTimeText)
 
-    /**
-     * Formats time to format of mm:ss, hours are
-     * never displayed, only total number of minutes.
-     *
-     * @param time Time in milliseconds.
-     * @return
-     */
-    fun format(time: Long): String {
-        mTimeText.setLength(0)
-        if (time > TIME_99_99) {
-            mGameTimeFormatter.format("%d:%02d", time / 60000, time / 1000 % 60)
-        } else {
-            mGameTimeFormatter.format("%02d:%02d", time / 60000, time / 1000 % 60)
-        }
-        return "$mTimeText"
-    }
+	/**
+	 * Formats time to format of mm:ss, hours are
+	 * never displayed, only total number of minutes.
+	 *
+	 * @param time Time in milliseconds.
+	 * @return
+	 */
+	fun format(time: Long): String {
+		mTimeText.setLength(0)
+		if (time > TIME_99_99) {
+			mGameTimeFormatter.format("%d:%02d", time / 60000, time / 1000 % 60)
+		} else {
+			mGameTimeFormatter.format("%02d:%02d", time / 60000, time / 1000 % 60)
+		}
+		return "$mTimeText"
+	}
 
-    companion object {
-        private const val TIME_99_99 = 99 * 99 * 1000
-    }
+	companion object {
+		private const val TIME_99_99 = 99 * 99 * 1000
+	}
 }

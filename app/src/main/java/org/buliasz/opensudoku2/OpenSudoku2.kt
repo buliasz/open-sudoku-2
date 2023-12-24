@@ -26,34 +26,34 @@ import android.util.Log
 import androidx.preference.PreferenceManager
 
 class OpenSudoku2 : Application() {
-    init {
-        if (BuildConfig.DEBUG) {
-            StrictMode.setVmPolicy(VmPolicy.Builder().detectLeakedClosableObjects().penaltyLog().build())
-        }
-    }
+	init {
+		if (BuildConfig.DEBUG) {
+			StrictMode.setVmPolicy(VmPolicy.Builder().detectLeakedClosableObjects().penaltyLog().build())
+		}
+	}
 
-    override fun onCreate() {
-        super.onCreate()
+	override fun onCreate() {
+		super.onCreate()
 
-        // Migrate shared preference keys from version to version.
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val oldVersion = sharedPreferences.getInt("schema_version", 20231221)
-        val newVersion = BuildConfig.VERSION_CODE
-        if (oldVersion != newVersion) {
-            upgradeSharedPreferences(sharedPreferences, oldVersion, newVersion)
-        }
-    }
+		// Migrate shared preference keys from version to version.
+		val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+		val oldVersion = sharedPreferences.getInt("schema_version", 20231221)
+		val newVersion = BuildConfig.VERSION_CODE
+		if (oldVersion != newVersion) {
+			upgradeSharedPreferences(sharedPreferences, oldVersion, newVersion)
+		}
+	}
 
-    private fun upgradeSharedPreferences(
-        sharedPreferences: SharedPreferences, oldVersion: Int, @Suppress("SameParameterValue") newVersion: Int
-    ) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "Upgrading shared preferences: $oldVersion -> $newVersion")
-        val editor = sharedPreferences.edit()
-        editor.putInt("schema_version", newVersion)
-        editor.apply()
-    }
+	private fun upgradeSharedPreferences(
+		sharedPreferences: SharedPreferences, oldVersion: Int, @Suppress("SameParameterValue") newVersion: Int
+	) {
+		if (BuildConfig.DEBUG) Log.d(TAG, "Upgrading shared preferences: $oldVersion -> $newVersion")
+		val editor = sharedPreferences.edit()
+		editor.putInt("schema_version", newVersion)
+		editor.apply()
+	}
 
-    companion object {
-        private val TAG = OpenSudoku2::class.java.simpleName
-    }
+	companion object {
+		private val TAG = OpenSudoku2::class.java.simpleName
+	}
 }

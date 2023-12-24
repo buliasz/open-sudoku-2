@@ -29,31 +29,31 @@ import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.SudokuDatabase
 
 class RenameFolderDialogFragment(
-    private val factory: LayoutInflater,
-    private val mDatabase: SudokuDatabase,
-    val updateList: () -> Unit,
+	private val factory: LayoutInflater,
+	private val mDatabase: SudokuDatabase,
+	val updateList: () -> Unit,
 ) : DialogFragment() {
 
-    var mRenameFolderID: Long = 0
+	var mRenameFolderID: Long = 0
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val renameFolderView = factory.inflate(R.layout.folder_name, null)
-        val renameFolderNameInput = renameFolderView.findViewById<TextView>(R.id.name)
-        val folder = mDatabase.getFolderInfo(mRenameFolderID)
-        val folderName = if (folder != null) folder.name else ""
-        renameFolderNameInput.text = folderName
-        val builder = AlertDialog.Builder(requireActivity())
-            .setIcon(R.drawable.ic_edit_grey)
-            .setTitle(getString(R.string.rename_folder_title, folderName))
-            .setView(renameFolderView)
-            .setPositiveButton(R.string.save) { _: DialogInterface?, _: Int ->
-                mDatabase.updateFolder(
-                    mRenameFolderID,
-                    renameFolderNameInput.text.toString().trim { it <= ' ' })
-                updateList()
-            }
-            .setNegativeButton(android.R.string.cancel, null)
+	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+		val renameFolderView = factory.inflate(R.layout.folder_name, null)
+		val renameFolderNameInput = renameFolderView.findViewById<TextView>(R.id.name)
+		val folder = mDatabase.getFolderInfo(mRenameFolderID)
+		val folderName = if (folder != null) folder.name else ""
+		renameFolderNameInput.text = folderName
+		val builder = AlertDialog.Builder(requireActivity())
+			.setIcon(R.drawable.ic_edit_grey)
+			.setTitle(getString(R.string.rename_folder_title, folderName))
+			.setView(renameFolderView)
+			.setPositiveButton(R.string.save) { _: DialogInterface?, _: Int ->
+				mDatabase.updateFolder(
+					mRenameFolderID,
+					renameFolderNameInput.text.toString().trim { it <= ' ' })
+				updateList()
+			}
+			.setNegativeButton(android.R.string.cancel, null)
 
-        return builder.create()
-    }
+		return builder.create()
+	}
 }

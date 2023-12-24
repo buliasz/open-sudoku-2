@@ -22,35 +22,35 @@ import org.buliasz.opensudoku2.game.CellNote
 import java.util.StringTokenizer
 
 class EditCellCenterNoteCommand : AbstractSingleCellCommand {
-    private lateinit var mNote: CellNote
-    private lateinit var mOldNote: CellNote
+	private lateinit var mNote: CellNote
+	private lateinit var mOldNote: CellNote
 
-    constructor(cell: Cell, note: CellNote) : super(cell) {
-        mNote = note
-    }
+	constructor(cell: Cell, note: CellNote) : super(cell) {
+		mNote = note
+	}
 
-    internal constructor()
+	internal constructor()
 
-    override fun serialize(data: StringBuilder) {
-        super.serialize(data)
-        mNote.serialize(data)
-        mOldNote.serialize(data)
-    }
+	override fun serialize(data: StringBuilder) {
+		super.serialize(data)
+		mNote.serialize(data)
+		mOldNote.serialize(data)
+	}
 
-    override fun deserialize(data: StringTokenizer) {
-        super.deserialize(data)
-        mNote = CellNote.deserialize(data.nextToken())
-        mOldNote = CellNote.deserialize(data.nextToken())
-    }
+	override fun deserialize(data: StringTokenizer) {
+		super.deserialize(data)
+		mNote = CellNote.deserialize(data.nextToken())
+		mOldNote = CellNote.deserialize(data.nextToken())
+	}
 
-    override fun execute() {
-        val cell = cell
-        mOldNote = cell.centerNote
-        cell.centerNote = mNote
-    }
+	override fun execute() {
+		val cell = cell
+		mOldNote = cell.centerNote
+		cell.centerNote = mNote
+	}
 
-    override fun undo() {
-        val cell = cell
-        cell.centerNote = mOldNote
-    }
+	override fun undo() {
+		val cell = cell
+		cell.centerNote = mOldNote
+	}
 }

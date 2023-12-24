@@ -27,99 +27,99 @@ import java.util.LinkedList
 import java.util.Queue
 
 class HintsQueue(private val mContext: Context) {
-    // TODO: should be persisted in activity's state
-    private val mMessages: Queue<Message>
-    private val mHintDialog: AlertDialog?
-    private val mPrefs: SharedPreferences = mContext.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)
-    private var mOneTimeHintsEnabled: Boolean
+	// TODO: should be persisted in activity's state
+	private val mMessages: Queue<Message>
+	private val mHintDialog: AlertDialog?
+	private val mPrefs: SharedPreferences = mContext.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)
+	private var mOneTimeHintsEnabled: Boolean
 
-    init {
-        val gameSettings = PreferenceManager.getDefaultSharedPreferences(mContext)
-        gameSettings.registerOnSharedPreferenceChangeListener { sharedPreferences: SharedPreferences, key: String? ->
-            if (key == "show_hints") {
-                mOneTimeHintsEnabled = sharedPreferences.getBoolean("show_hints", true)
-            }
-        }
-        mOneTimeHintsEnabled = gameSettings.getBoolean("show_hints", true)
+	init {
+		val gameSettings = PreferenceManager.getDefaultSharedPreferences(mContext)
+		gameSettings.registerOnSharedPreferenceChangeListener { sharedPreferences: SharedPreferences, key: String? ->
+			if (key == "show_hints") {
+				mOneTimeHintsEnabled = sharedPreferences.getBoolean("show_hints", true)
+			}
+		}
+		mOneTimeHintsEnabled = gameSettings.getBoolean("show_hints", true)
 
-        //processQueue();
-        val mHintClosed = DialogInterface.OnClickListener { _: DialogInterface?, _: Int -> }
-        mHintDialog = AlertDialog.Builder(mContext)
-            .setIcon(R.drawable.ic_info)
-            .setTitle(R.string.hint)
-            .setMessage("")
-            .setPositiveButton(R.string.close, mHintClosed).create()
-        mHintDialog.setOnDismissListener(DialogInterface.OnDismissListener { processQueue() })
-        mMessages = LinkedList()
-    }
+		//processQueue();
+		val mHintClosed = DialogInterface.OnClickListener { _: DialogInterface?, _: Int -> }
+		mHintDialog = AlertDialog.Builder(mContext)
+			.setIcon(R.drawable.ic_info)
+			.setTitle(R.string.hint)
+			.setMessage("")
+			.setPositiveButton(R.string.close, mHintClosed).create()
+		mHintDialog.setOnDismissListener(DialogInterface.OnDismissListener { processQueue() })
+		mMessages = LinkedList()
+	}
 
-    private fun addHint(hint: Message) {
-        synchronized(mMessages) { mMessages.add(hint) }
-        synchronized(mHintDialog!!) {
-            if (!mHintDialog.isShowing) {
-                processQueue()
-            }
-        }
-    }
+	private fun addHint(hint: Message) {
+		synchronized(mMessages) { mMessages.add(hint) }
+		synchronized(mHintDialog!!) {
+			if (!mHintDialog.isShowing) {
+				processQueue()
+			}
+		}
+	}
 
-    private fun processQueue() {
-        var hint: Message?
-        synchronized(mMessages) { hint = mMessages.poll() }
-        if (hint != null) {
-            showHintDialog(hint!!)
-        }
-    }
+	private fun processQueue() {
+		var hint: Message?
+		synchronized(mMessages) { hint = mMessages.poll() }
+		if (hint != null) {
+			showHintDialog(hint!!)
+		}
+	}
 
-    private fun showHintDialog(hint: Message) {
-        synchronized(mHintDialog!!) {
-            mHintDialog.setTitle(mContext.getString(hint.titleResID))
-            mHintDialog.setMessage(mContext.getText(hint.messageResID))
-            mHintDialog.show()
-        }
-    }
+	private fun showHintDialog(hint: Message) {
+		synchronized(mHintDialog!!) {
+			mHintDialog.setTitle(mContext.getString(hint.titleResID))
+			mHintDialog.setMessage(mContext.getText(hint.messageResID))
+			mHintDialog.show()
+		}
+	}
 
-    fun showHint(titleResID: Int, messageResID: Int) {
-        val hint = Message()
-        hint.titleResID = titleResID
-        hint.messageResID = messageResID
-        //hint.args = args;
-        addHint(hint)
-    }
+	fun showHint(titleResID: Int, messageResID: Int) {
+		val hint = Message()
+		hint.titleResID = titleResID
+		hint.messageResID = messageResID
+		//hint.args = args;
+		addHint(hint)
+	}
 
-    fun showOneTimeHint(key: String, titleResID: Int, messageResID: Int) {
-        if (mOneTimeHintsEnabled) {
+	fun showOneTimeHint(key: String, titleResID: Int, messageResID: Int) {
+		if (mOneTimeHintsEnabled) {
 
-            // FIXME: remove in future versions
-            // Before 1.0.0, hintKey was created from messageResID. This ID has in 1.0.0 changed.
-            // From 1.0.0, hintKey is based on key, to be backward compatible, check for old
-            // hint keys.
-            if (legacyHintsWereDisplayed()) {
-                return
-            }
-            val hintKey = "hint_$key"
-            if (!mPrefs.getBoolean(hintKey, false)) {
-                showHint(titleResID, messageResID)
-                val editor = mPrefs.edit()
-                editor.putBoolean(hintKey, true)
-                editor.apply()
-            }
-        }
-    }
+			// FIXME: remove in future versions
+			// Before 1.0.0, hintKey was created from messageResID. This ID has in 1.0.0 changed.
+			// From 1.0.0, hintKey is based on key, to be backward compatible, check for old
+			// hint keys.
+			if (legacyHintsWereDisplayed()) {
+				return
+			}
+			val hintKey = "hint_$key"
+			if (!mPrefs.getBoolean(hintKey, false)) {
+				showHint(titleResID, messageResID)
+				val editor = mPrefs.edit()
+				editor.putBoolean(hintKey, true)
+				editor.apply()
+			}
+		}
+	}
 
-    private fun legacyHintsWereDisplayed(): Boolean {
-        return mPrefs.getBoolean("hint_2131099727", false) &&
-                mPrefs.getBoolean("hint_2131099730", false) &&
-                mPrefs.getBoolean("hint_2131099726", false) &&
-                mPrefs.getBoolean("hint_2131099729", false) &&
-                mPrefs.getBoolean("hint_2131099728", false)
-    }
+	private fun legacyHintsWereDisplayed(): Boolean {
+		return mPrefs.getBoolean("hint_2131099727", false) &&
+				mPrefs.getBoolean("hint_2131099730", false) &&
+				mPrefs.getBoolean("hint_2131099726", false) &&
+				mPrefs.getBoolean("hint_2131099729", false) &&
+				mPrefs.getBoolean("hint_2131099728", false)
+	}
 
-    private class Message {
-        var titleResID = 0
-        var messageResID = 0 //Object[] args;
-    }
+	private class Message {
+		var titleResID = 0
+		var messageResID = 0 //Object[] args;
+	}
 
-    companion object {
-        private const val PREF_FILE_NAME = "hints"
-    }
+	companion object {
+		private const val PREF_FILE_NAME = "hints"
+	}
 }

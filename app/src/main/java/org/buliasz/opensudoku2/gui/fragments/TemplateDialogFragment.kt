@@ -26,16 +26,16 @@ import androidx.fragment.app.DialogFragment
 import org.buliasz.opensudoku2.db.SudokuDatabase
 
 class TemplateDialogFragment(
-    private val factory: LayoutInflater,
-    private val mDatabase: SudokuDatabase,
-    val updateList: () -> Unit
+	private val factory: LayoutInflater,
+	private val mDatabase: SudokuDatabase,
+	val updateList: () -> Unit
 ) :
-    DialogFragment() {
-    lateinit var currentValue: String
+	DialogFragment() {
+	lateinit var currentValue: String
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(requireActivity())
+	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+		val builder = AlertDialog.Builder(requireActivity())
 
-        return builder.create()
-    }
+		return builder.create()
+	}
 }

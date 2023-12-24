@@ -25,42 +25,42 @@ import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.gui.fragments.GameSettingsFragment
 
 class GameSettingsActivity :
-    ThemedActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback, FragmentManager.OnBackStackChangedListener {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.preferences_host)
-        supportFragmentManager.addOnBackStackChangedListener(this)
-        if (savedInstanceState == null) {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.preferences_content, GameSettingsFragment())
-                .commit()
-        }
-    }
+	ThemedActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback, FragmentManager.OnBackStackChangedListener {
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setContentView(R.layout.preferences_host)
+		supportFragmentManager.addOnBackStackChangedListener(this)
+		if (savedInstanceState == null) {
+			supportFragmentManager
+				.beginTransaction()
+				.replace(R.id.preferences_content, GameSettingsFragment())
+				.commit()
+		}
+	}
 
-    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
-        val args = pref.extras
-        val fragment = supportFragmentManager.fragmentFactory.instantiate(
-            classLoader,
-            pref.fragment!!
-        )
-        fragment.arguments = args
+	override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
+		val args = pref.extras
+		val fragment = supportFragmentManager.fragmentFactory.instantiate(
+			classLoader,
+			pref.fragment!!
+		)
+		fragment.arguments = args
 
-        @Suppress("DEPRECATION")    // known bug in Preferences library https://stackoverflow.com/a/74230035/7926219
-        fragment.setTargetFragment(caller, 0)
+		@Suppress("DEPRECATION")    // known bug in Preferences library https://stackoverflow.com/a/74230035/7926219
+		fragment.setTargetFragment(caller, 0)
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.preferences_content, fragment)
-            .addToBackStack(null)
-            .commit()
-        return true
-    }
+		supportFragmentManager.beginTransaction()
+			.replace(R.id.preferences_content, fragment)
+			.addToBackStack(null)
+			.commit()
+		return true
+	}
 
-    override fun onBackStackChanged() {
-        // One of the nested fragments (e.g., CustomThemeFragment) may have changed a preference
-        // that changes the color/theme. Check whenever the backstack changes, so that when the
-        // user returns from a nested fragment the activity will recreate with the new colors
-        // if appropriate.
-        recreateActivityIfThemeChanged()
-    }
+	override fun onBackStackChanged() {
+		// One of the nested fragments (e.g., CustomThemeFragment) may have changed a preference
+		// that changes the color/theme. Check whenever the backstack changes, so that when the
+		// user returns from a nested fragment the activity will recreate with the new colors
+		// if appropriate.
+		recreateActivityIfThemeChanged()
+	}
 }

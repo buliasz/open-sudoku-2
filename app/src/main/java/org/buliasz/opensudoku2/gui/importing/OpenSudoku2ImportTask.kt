@@ -40,97 +40,97 @@ import java.net.URISyntaxException
  * Handles import of application/x-opensudoku2 or .opensudoku2 files.
  */
 class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
-    @Throws(SudokuInvalidFormatException::class)
-    override fun processImport(context: Context) {
-        try {
-            val streamReader: InputStreamReader
-            if (mUri.scheme == "content") {
-                val contentResolver = context.contentResolver
-                streamReader = InputStreamReader(contentResolver.openInputStream(mUri))
-            } else {
-                val juri: URI = URI(mUri.scheme, mUri.schemeSpecificPart, mUri.fragment)
-                streamReader = InputStreamReader(juri.toURL().openStream())
-            }
-            try {
-                importXml(context, streamReader)
-            } finally {
-                streamReader.close()
-            }
-        } catch (e: MalformedURLException) {
-            throw RuntimeException(e)
-        } catch (e: IOException) {
-            throw RuntimeException(e)
-        } catch (e: URISyntaxException) {
-            throw RuntimeException(e)
-        }
-    }
+	@Throws(SudokuInvalidFormatException::class)
+	override fun processImport(context: Context) {
+		try {
+			val streamReader: InputStreamReader
+			if (mUri.scheme == "content") {
+				val contentResolver = context.contentResolver
+				streamReader = InputStreamReader(contentResolver.openInputStream(mUri))
+			} else {
+				val juri: URI = URI(mUri.scheme, mUri.schemeSpecificPart, mUri.fragment)
+				streamReader = InputStreamReader(juri.toURL().openStream())
+			}
+			try {
+				importXml(context, streamReader)
+			} finally {
+				streamReader.close()
+			}
+		} catch (e: MalformedURLException) {
+			throw RuntimeException(e)
+		} catch (e: IOException) {
+			throw RuntimeException(e)
+		} catch (e: URISyntaxException) {
+			throw RuntimeException(e)
+		}
+	}
 
-    @Throws(SudokuInvalidFormatException::class)
-    private fun importXml(context: Context, `in`: Reader) {
-        val inBR = BufferedReader(`in`)
+	@Throws(SudokuInvalidFormatException::class)
+	private fun importXml(context: Context, `in`: Reader) {
+		val inBR = BufferedReader(`in`)
 
-        // parse xml
-        val factory: XmlPullParserFactory
-        val xpp: XmlPullParser
-        try {
-            factory = XmlPullParserFactory.newInstance()
-            factory.isNamespaceAware = false
-            xpp = factory.newPullParser()
-            xpp.setInput(inBR)
-            var eventType = xpp.eventType
-            var rootTag: String
-            while (eventType != XmlPullParser.END_DOCUMENT) {
-                if (eventType == XmlPullParser.START_TAG) {
-                    rootTag = xpp.name
-                    if (rootTag == "opensudoku2") {
-                        when (xpp.getAttributeValue(null, "version")) {
-                            FileExportTask.FILE_EXPORT_VERSION -> {
-                                importStateV3(xpp)
-                            }
+		// parse xml
+		val factory: XmlPullParserFactory
+		val xpp: XmlPullParser
+		try {
+			factory = XmlPullParserFactory.newInstance()
+			factory.isNamespaceAware = false
+			xpp = factory.newPullParser()
+			xpp.setInput(inBR)
+			var eventType = xpp.eventType
+			var rootTag: String
+			while (eventType != XmlPullParser.END_DOCUMENT) {
+				if (eventType == XmlPullParser.START_TAG) {
+					rootTag = xpp.name
+					if (rootTag == "opensudoku2") {
+						when (xpp.getAttributeValue(null, "version")) {
+							FileExportTask.FILE_EXPORT_VERSION -> {
+								importStateV3(xpp)
+							}
 
-                            else -> {
-                                setError("Unknown version of data.")
-                            }
-                        }
-                    } else {
-                        setError(context.getString(R.string.invalid_format))
-                        return
-                    }
-                }
-                eventType = xpp.next()
-            }
-        } catch (e: XmlPullParserException) {
-            throw RuntimeException(e)
-        } catch (e: IOException) {
-            throw RuntimeException(e)
-        }
-    }
+							else -> {
+								setError("Unknown version of data.")
+							}
+						}
+					} else {
+						setError(context.getString(R.string.invalid_format))
+						return
+					}
+				}
+				eventType = xpp.next()
+			}
+		} catch (e: XmlPullParserException) {
+			throw RuntimeException(e)
+		} catch (e: IOException) {
+			throw RuntimeException(e)
+		}
+	}
 
-    @Throws(XmlPullParserException::class, IOException::class, SudokuInvalidFormatException::class)
-    private fun importStateV3(parser: XmlPullParser) {
-        var eventType = parser.eventType
-        var lastTag: String
-        val importParams = SudokuImportParams()
-        while (eventType != XmlPullParser.END_DOCUMENT) {
-            if (eventType == XmlPullParser.START_TAG) {
-                lastTag = parser.name
-                if (lastTag == Names.FOLDER) {
-                    val name = parser.getAttributeValue(null, Names.FOLDER_NAME)
-                    val created = parser.getAttributeValue(null, Names.FOLDER_CREATED).toLong()
-                    importFolder(name, created)
-                } else if (lastTag == Names.GAME) {
-                    importParams.clear()
-                    importParams.created = parser.getAttributeValue(null, Names.CREATED).toLong()
-                    importParams.state = parser.getAttributeValue(null, Names.STATE).toLong()
-                    importParams.time = parser.getAttributeValue(null, Names.TIME).toLong()
-                    importParams.lastPlayed = parser.getAttributeValue(null, Names.LAST_PLAYED).toLong()
-                    importParams.cellsData = parser.getAttributeValue(null, Names.CELLS_DATA)
-                    importParams.userNote = parser.getAttributeValue(null, Names.USER_NOTE)
-                    importParams.commandStack = parser.getAttributeValue(null, Names.COMMAND_STACK)
-                    importGame(importParams)
-                }
-            }
-            eventType = parser.next()
-        }
-    }
+	@Throws(XmlPullParserException::class, IOException::class, SudokuInvalidFormatException::class)
+	private fun importStateV3(parser: XmlPullParser) {
+		var eventType = parser.eventType
+		var lastTag: String
+		val importParams = SudokuImportParams()
+		while (eventType != XmlPullParser.END_DOCUMENT) {
+			if (eventType == XmlPullParser.START_TAG) {
+				lastTag = parser.name
+				if (lastTag == Names.FOLDER) {
+					val name = parser.getAttributeValue(null, Names.FOLDER_NAME)
+					val created = parser.getAttributeValue(null, Names.FOLDER_CREATED).toLong()
+					importFolder(name, created)
+				} else if (lastTag == Names.GAME) {
+					importParams.clear()
+					importParams.created = parser.getAttributeValue(null, Names.CREATED).toLong()
+					importParams.state = parser.getAttributeValue(null, Names.STATE).toLong()
+					importParams.time = parser.getAttributeValue(null, Names.TIME).toLong()
+					importParams.lastPlayed = parser.getAttributeValue(null, Names.LAST_PLAYED).toLong()
+					importParams.cellsData = parser.getAttributeValue(null, Names.CELLS_DATA)
+					importParams.userNote = parser.getAttributeValue(null, Names.USER_NOTE)
+					importParams.commandStack = parser.getAttributeValue(null, Names.COMMAND_STACK)
+					importGame(importParams)
+				}
+			}
+			eventType = parser.next()
+		}
+	}
 }

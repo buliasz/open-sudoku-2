@@ -29,31 +29,31 @@ import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.SudokuDatabase
 
 class EditUserNoteDialogFragment(
-    private val factory: LayoutInflater,
-    private val mDatabase: SudokuDatabase,
-    val updateList: () -> Unit
+	private val factory: LayoutInflater,
+	private val mDatabase: SudokuDatabase,
+	val updateList: () -> Unit
 ) :
-    DialogFragment() {
-    var puzzleId: Long = 0
-    lateinit var currentValue: String
+	DialogFragment() {
+	var puzzleId: Long = 0
+	lateinit var currentValue: String
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val noteView = factory.inflate(R.layout.sudoku_list_item_note, null)
-        val mEditNoteInput = noteView.findViewById<TextView>(R.id.user_note)!!
-        mEditNoteInput.text = currentValue
+	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+		val noteView = factory.inflate(R.layout.sudoku_list_item_note, null)
+		val mEditNoteInput = noteView.findViewById<TextView>(R.id.user_note)!!
+		mEditNoteInput.text = currentValue
 
-        val builder = AlertDialog.Builder(requireActivity())
-            .setIcon(R.drawable.ic_add)
-            .setTitle(R.string.edit_note)
-            .setView(noteView)
-            .setPositiveButton(R.string.save) { _: DialogInterface?, _: Int ->
-                val game = mDatabase.getSudoku(puzzleId)!!
-                game.userNote = mEditNoteInput.text.toString()
-                mDatabase.updateSudoku(game)
-                updateList()
-            }
-            .setNegativeButton(android.R.string.cancel, null)
+		val builder = AlertDialog.Builder(requireActivity())
+			.setIcon(R.drawable.ic_add)
+			.setTitle(R.string.edit_note)
+			.setView(noteView)
+			.setPositiveButton(R.string.save) { _: DialogInterface?, _: Int ->
+				val game = mDatabase.getSudoku(puzzleId)!!
+				game.userNote = mEditNoteInput.text.toString()
+				mDatabase.updateSudoku(game)
+				updateList()
+			}
+			.setNegativeButton(android.R.string.cancel, null)
 
-        return builder.create()
-    }
+		return builder.create()
+	}
 }

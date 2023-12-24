@@ -23,130 +23,130 @@ import java.util.StringTokenizer
  * Note attached to cell. This object is immutable by design.
  */
 class CellNote {
-    private val mNotedNumbers: Short
+	private val mNotedNumbers: Short
 
-    constructor() {
-        mNotedNumbers = 0
-    }
+	constructor() {
+		mNotedNumbers = 0
+	}
 
-    private constructor(notedNumbers: Short) {
-        mNotedNumbers = notedNumbers
-    }
+	private constructor(notedNumbers: Short) {
+		mNotedNumbers = notedNumbers
+	}
 
-    /**
-     * Appends string representation of this object to the given `StringBuilder`.
-     * You can later recreate object from this string by calling [.deserialize].
-     */
-    fun serialize(target: StringBuilder) {
-        target.append(mNotedNumbers.toInt())
-        target.append("|")
-    }
+	/**
+	 * Appends string representation of this object to the given `StringBuilder`.
+	 * You can later recreate object from this string by calling [.deserialize].
+	 */
+	fun serialize(target: StringBuilder) {
+		target.append(mNotedNumbers.toInt())
+		target.append("|")
+	}
 
-    fun serialize(): String {
-        val sb = StringBuilder()
-        serialize(sb)
-        return "$sb"
-    }
+	fun serialize(): String {
+		val sb = StringBuilder()
+		serialize(sb)
+		return "$sb"
+	}
 
-    val notedNumbers: MutableList<Int>
-        /**
-         * Returns numbers currently noted in cell.
-         */
-        get() {
-            val result: MutableList<Int> = ArrayList()
-            var c = 1
-            for (i in 0..8) {
-                if (mNotedNumbers.toInt() and c.toShort().toInt() != 0) {
-                    result.add(i + 1)
-                }
-                c = c shl 1
-            }
-            return result
-        }
+	val notedNumbers: MutableList<Int>
+		/**
+		 * Returns numbers currently noted in cell.
+		 */
+		get() {
+			val result: MutableList<Int> = ArrayList()
+			var c = 1
+			for (i in 0..8) {
+				if (mNotedNumbers.toInt() and c.toShort().toInt() != 0) {
+					result.add(i + 1)
+				}
+				c = c shl 1
+			}
+			return result
+		}
 
-    /**
-     * Toggles noted number: if number is already noted, it will be removed otherwise it will be added.
-     *
-     * @param number Number to toggle.
-     * @return New CellNote instance with changes.
-     */
-    fun toggleNumber(number: Int): CellNote {
-        require(!(number < 1 || number > 9)) { "Number must be between 1-9." }
-        return CellNote((mNotedNumbers.toInt() xor (1 shl number - 1)).toShort())
-    }
+	/**
+	 * Toggles noted number: if number is already noted, it will be removed otherwise it will be added.
+	 *
+	 * @param number Number to toggle.
+	 * @return New CellNote instance with changes.
+	 */
+	fun toggleNumber(number: Int): CellNote {
+		require(!(number < 1 || number > 9)) { "Number must be between 1-9." }
+		return CellNote((mNotedNumbers.toInt() xor (1 shl number - 1)).toShort())
+	}
 
-    /**
-     * Adds number to the cell's note (if not present already).
-     */
-    fun addNumber(number: Int): CellNote {
-        require(!(number < 1 || number > 9)) { "Number must be between 1-9." }
-        return CellNote((mNotedNumbers.toInt() or (1 shl number - 1)).toShort())
-    }
+	/**
+	 * Adds number to the cell's note (if not present already).
+	 */
+	fun addNumber(number: Int): CellNote {
+		require(!(number < 1 || number > 9)) { "Number must be between 1-9." }
+		return CellNote((mNotedNumbers.toInt() or (1 shl number - 1)).toShort())
+	}
 
-    /**
-     * Removes number from the cell's note.
-     */
-    fun removeNumber(number: Int): CellNote {
-        require(!(number < 1 || number > 9)) { "Number must be between 1-9." }
-        return CellNote((mNotedNumbers.toInt() and (1 shl number - 1).inv()).toShort())
-    }
+	/**
+	 * Removes number from the cell's note.
+	 */
+	fun removeNumber(number: Int): CellNote {
+		require(!(number < 1 || number > 9)) { "Number must be between 1-9." }
+		return CellNote((mNotedNumbers.toInt() and (1 shl number - 1).inv()).toShort())
+	}
 
-    fun hasNumber(number: Int): Boolean {
-        return if (number < 1 || number > 9) {
-            false
-        } else mNotedNumbers.toInt() and (1 shl number - 1) != 0
-    }
+	fun hasNumber(number: Int): Boolean {
+		return if (number < 1 || number > 9) {
+			false
+		} else mNotedNumbers.toInt() and (1 shl number - 1) != 0
+	}
 
-    fun clear(): CellNote = CellNote()
+	fun clear(): CellNote = CellNote()
 
-    val isEmpty: Boolean
-        /**
-         * Returns true, if note is empty.
-         *
-         * @return True if note is empty.
-         */
-        get() = mNotedNumbers.toInt() == 0
+	val isEmpty: Boolean
+		/**
+		 * Returns true, if note is empty.
+		 *
+		 * @return True if note is empty.
+		 */
+		get() = mNotedNumbers.toInt() == 0
 
-    companion object {
-        val EMPTY = CellNote()
+	companion object {
+		val EMPTY = CellNote()
 
-        /**
-         * Creates instance from given string (string which has been
-         * created by [.serialize] or [.serialize] method).
-         * earlier.
-         */
-        @JvmOverloads
-        fun deserialize(note: String, version: Int = CellCollection.DATA_VERSION): CellNote {
-            var noteValue = 0
-            if (note != "" && note != "-") {
-                if (version == CellCollection.DATA_VERSION_1) {
-                    val tokenizer = StringTokenizer(note, ",")
-                    while (tokenizer.hasMoreTokens()) {
-                        val value = tokenizer.nextToken()
-                        if (value != "-") {
-                            val number = value.toInt()
-                            noteValue = noteValue or (1 shl number - 1)
-                        }
-                    }
-                } else {
-                    noteValue = note.toInt()
-                }
-            }
-            return CellNote(noteValue.toShort())
-        }
+		/**
+		 * Creates instance from given string (string which has been
+		 * created by [.serialize] or [.serialize] method).
+		 * earlier.
+		 */
+		@JvmOverloads
+		fun deserialize(note: String, version: Int = CellCollection.DATA_VERSION): CellNote {
+			var noteValue = 0
+			if (note != "" && note != "-") {
+				if (version == CellCollection.DATA_VERSION_1) {
+					val tokenizer = StringTokenizer(note, ",")
+					while (tokenizer.hasMoreTokens()) {
+						val value = tokenizer.nextToken()
+						if (value != "-") {
+							val number = value.toInt()
+							noteValue = noteValue or (1 shl number - 1)
+						}
+					}
+				} else {
+					noteValue = note.toInt()
+				}
+			}
+			return CellNote(noteValue.toShort())
+		}
 
-        /**
-         * Creates note instance from given `int` array.
-         *
-         * @param notedNumbersArray Array of integers, which should be part of note.
-         * @return New note instance.
-         */
-        fun fromIntArray(notedNumbersArray: Array<Int>): CellNote {
-            var notedNumbers = 0
-            for (n in notedNumbersArray) {
-                notedNumbers = (notedNumbers or (1 shl n - 1)).toShort().toInt()
-            }
-            return CellNote(notedNumbers.toShort())
-        }
-    }
+		/**
+		 * Creates note instance from given `int` array.
+		 *
+		 * @param notedNumbersArray Array of integers, which should be part of note.
+		 * @return New note instance.
+		 */
+		fun fromIntArray(notedNumbersArray: Array<Int>): CellNote {
+			var notedNumbers = 0
+			for (n in notedNumbersArray) {
+				notedNumbers = (notedNumbers or (1 shl n - 1)).toShort().toInt()
+			}
+			return CellNote(notedNumbers.toShort())
+		}
+	}
 }

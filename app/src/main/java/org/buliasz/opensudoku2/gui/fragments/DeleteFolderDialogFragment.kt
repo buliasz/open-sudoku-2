@@ -28,22 +28,22 @@ import org.buliasz.opensudoku2.db.SudokuDatabase
 
 class DeleteFolderDialogFragment(private val mDatabase: SudokuDatabase, val updateList: () -> Unit) : DialogFragment() {
 
-    var mDeleteFolderID: Long = 0
+	var mDeleteFolderID: Long = 0
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val folderInfo = mDatabase.getFolderInfo(mDeleteFolderID)
-        val folderName = folderInfo?.name ?: ""
+	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+		val folderInfo = mDatabase.getFolderInfo(mDeleteFolderID)
+		val folderName = folderInfo?.name ?: ""
 
-        val builder = AlertDialog.Builder(requireActivity())
-            .setIcon(R.drawable.ic_delete)
-            .setTitle(getString(R.string.delete_folder_title, folderName))
-            .setMessage(R.string.delete_folder_confirm)
-            .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
-                mDatabase.deleteFolder(mDeleteFolderID)
-                updateList()
-            }
-            .setNegativeButton(android.R.string.cancel, null)
+		val builder = AlertDialog.Builder(requireActivity())
+			.setIcon(R.drawable.ic_delete)
+			.setTitle(getString(R.string.delete_folder_title, folderName))
+			.setMessage(R.string.delete_folder_confirm)
+			.setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
+				mDatabase.deleteFolder(mDeleteFolderID)
+				updateList()
+			}
+			.setNegativeButton(android.R.string.cancel, null)
 
-        return builder.create()
-    }
+		return builder.create()
+	}
 }

@@ -28,18 +28,18 @@ import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.utils.AndroidUtils
 
 class AboutDialogFragment(private val factory: LayoutInflater) : DialogFragment() {
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val aboutView = factory.inflate(R.layout.about, null)
-        val versionLabel = aboutView.findViewById<TextView>(R.id.version_label)
-        val versionName = AndroidUtils.getAppVersionName(requireContext())
-        versionLabel.text = getString(R.string.version, versionName)
+	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+		val aboutView = factory.inflate(R.layout.about, null)
+		val versionLabel = aboutView.findViewById<TextView>(R.id.version_label)
+		val versionName = AndroidUtils.getAppVersionName(requireContext())
+		versionLabel.text = getString(R.string.version, versionName)
 
-        val builder = AlertDialog.Builder(requireActivity())
-            .setIcon(R.mipmap.ic_launcher)
-            .setTitle(R.string.app_name)
-            .setView(aboutView)
-            .setPositiveButton("OK", null)
+		val builder = AlertDialog.Builder(requireActivity())
+			.setIcon(R.mipmap.ic_launcher)
+			.setTitle(R.string.app_name)
+			.setView(aboutView)
+			.setPositiveButton("OK", null)
 
-        return builder.create()
-    }
+		return builder.create()
+	}
 }

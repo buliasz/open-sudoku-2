@@ -21,8 +21,8 @@ package org.buliasz.opensudoku2.db
 import java.io.Serial
 
 class SudokuInvalidFormatException(val data: String?) : Exception("Invalid format of sudoku.") {
-    companion object {
-        @Serial
-        private val serialVersionUID = -5415032786641425594L
-    }
+	companion object {
+		@Serial
+		private val serialVersionUID = -5415032786641425594L
+	}
 }

@@ -23,84 +23,84 @@ import java.util.StringTokenizer
  * Generic interface for command in application.
  */
 abstract class AbstractCommand {
-    protected open fun deserialize(data: StringTokenizer) {}
-    open fun serialize(data: StringBuilder) {
-        val cmdLongName = commandClass
-        for (cmdDef in commands) {
-            if (cmdDef.longName == cmdLongName) {
-                data.append(cmdDef.shortName).append("|")
-                return
-            }
-        }
-        throw IllegalArgumentException("Unknown command class '$cmdLongName'.")
-    }
+	protected open fun deserialize(data: StringTokenizer) {}
+	open fun serialize(data: StringBuilder) {
+		val cmdLongName = commandClass
+		for (cmdDef in commands) {
+			if (cmdDef.longName == cmdLongName) {
+				data.append(cmdDef.shortName).append("|")
+				return
+			}
+		}
+		throw IllegalArgumentException("Unknown command class '$cmdLongName'.")
+	}
 
-    private val commandClass: String
-        get() = javaClass.simpleName
+	private val commandClass: String
+		get() = javaClass.simpleName
 
-    /**
-     * Executes the command.
-     */
-    abstract fun execute()
+	/**
+	 * Executes the command.
+	 */
+	abstract fun execute()
 
-    /**
-     * Undo this command.
-     */
-    abstract fun undo()
-    private interface CommandCreatorFunction {
-        fun create(): AbstractCommand
-    }
+	/**
+	 * Undo this command.
+	 */
+	abstract fun undo()
+	private interface CommandCreatorFunction {
+		fun create(): AbstractCommand
+	}
 
-    private class CommandDef(var longName: String, var shortName: String, var mCreator: CommandCreatorFunction) {
-        fun create(): AbstractCommand = mCreator.create()
-    }
+	private class CommandDef(var longName: String, var shortName: String, var mCreator: CommandCreatorFunction) {
+		fun create(): AbstractCommand = mCreator.create()
+	}
 
-    companion object {
-        private val commands = arrayOf(
-            CommandDef(ClearAllNotesCommand::class.java.simpleName, "c1",
-                object : CommandCreatorFunction {
-                    override fun create(): AbstractCommand = ClearAllNotesCommand()
-                }),
-            CommandDef(EditCellCornerNoteCommand::class.java.simpleName, "c2",
-                object : CommandCreatorFunction {
-                    override fun create(): AbstractCommand = EditCellCornerNoteCommand()
-                }),
-            CommandDef(FillInNotesCommand::class.java.simpleName, "c3",
-                object : CommandCreatorFunction {
-                    override fun create(): AbstractCommand = FillInNotesCommand()
-                }),
-            CommandDef(SetCellValueCommand::class.java.simpleName, "c4",
-                object : CommandCreatorFunction {
-                    override fun create(): AbstractCommand = SetCellValueCommand()
-                }),
-            CommandDef(CheckpointCommand::class.java.simpleName, "c5",
-                object : CommandCreatorFunction {
-                    override fun create(): AbstractCommand = CheckpointCommand()
-                }),
-            CommandDef(SetCellValueAndRemoveNotesCommand::class.java.simpleName, "c6",
-                object : CommandCreatorFunction {
-                    override fun create(): AbstractCommand = SetCellValueAndRemoveNotesCommand()
-                }),
-            CommandDef(FillInNotesWithAllValuesCommand::class.java.simpleName, "c7",
-                object : CommandCreatorFunction {
-                    override fun create(): AbstractCommand = FillInNotesWithAllValuesCommand()
-                }),
-            CommandDef(EditCellCenterNoteCommand::class.java.simpleName, "c8",
-                object : CommandCreatorFunction {
-                    override fun create(): AbstractCommand = EditCellCenterNoteCommand()
-                })
-        )
+	companion object {
+		private val commands = arrayOf(
+			CommandDef(ClearAllNotesCommand::class.java.simpleName, "c1",
+				object : CommandCreatorFunction {
+					override fun create(): AbstractCommand = ClearAllNotesCommand()
+				}),
+			CommandDef(EditCellCornerNoteCommand::class.java.simpleName, "c2",
+				object : CommandCreatorFunction {
+					override fun create(): AbstractCommand = EditCellCornerNoteCommand()
+				}),
+			CommandDef(FillInNotesCommand::class.java.simpleName, "c3",
+				object : CommandCreatorFunction {
+					override fun create(): AbstractCommand = FillInNotesCommand()
+				}),
+			CommandDef(SetCellValueCommand::class.java.simpleName, "c4",
+				object : CommandCreatorFunction {
+					override fun create(): AbstractCommand = SetCellValueCommand()
+				}),
+			CommandDef(CheckpointCommand::class.java.simpleName, "c5",
+				object : CommandCreatorFunction {
+					override fun create(): AbstractCommand = CheckpointCommand()
+				}),
+			CommandDef(SetCellValueAndRemoveNotesCommand::class.java.simpleName, "c6",
+				object : CommandCreatorFunction {
+					override fun create(): AbstractCommand = SetCellValueAndRemoveNotesCommand()
+				}),
+			CommandDef(FillInNotesWithAllValuesCommand::class.java.simpleName, "c7",
+				object : CommandCreatorFunction {
+					override fun create(): AbstractCommand = FillInNotesWithAllValuesCommand()
+				}),
+			CommandDef(EditCellCenterNoteCommand::class.java.simpleName, "c8",
+				object : CommandCreatorFunction {
+					override fun create(): AbstractCommand = EditCellCenterNoteCommand()
+				})
+		)
 
-        fun deserialize(data: StringTokenizer): AbstractCommand {
-            val cmdShortName = data.nextToken()
-            for (cmdDef in commands) {
-                if (cmdDef.shortName == cmdShortName) {
-                    val cmd = cmdDef.create()
-                    cmd.deserialize(data)
-                    return cmd
-                }
-            }
-            throw IllegalArgumentException("Unknown command class '$cmdShortName'.")
-        }
-    }
+		fun deserialize(data: StringTokenizer): AbstractCommand {
+			val cmdShortName = data.nextToken()
+			for (cmdDef in commands) {
+				if (cmdDef.shortName == cmdShortName) {
+					val cmd = cmdDef.create()
+					cmd.deserialize(data)
+					return cmd
+				}
+			}
+			throw IllegalArgumentException("Unknown command class '$cmdShortName'.")
+		}
+	}
 }

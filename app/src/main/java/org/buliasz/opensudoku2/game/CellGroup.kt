@@ -24,47 +24,47 @@ package org.buliasz.opensudoku2.game
  * Typical examples of instances are sudoku row, column or sector (3x3 group of cells).
  */
 class CellGroup {
-    val cells = Array(CellCollection.SUDOKU_SIZE) { Cell() }
-    private var mPos = 0
-    fun addCell(cell: Cell) {
-        cells[mPos] = cell
-        mPos++
-    }
+	val cells = Array(CellCollection.SUDOKU_SIZE) { Cell() }
+	private var mPos = 0
+	fun addCell(cell: Cell) {
+		cells[mPos] = cell
+		mPos++
+	}
 
-    /**
-     * Validates numbers in given sudoku group - numbers must be unique. Cells with invalid
-     * numbers are marked (see [Cell.isValid]).
-     *
-     *
-     * Method expects that cell's invalid properties has been set to false
-     * ([CellCollection.validate] does this).
-     *
-     * @return True if validation is successful.
-     */
-    fun validate(): Boolean {
-        var valid = true
-        val cellsByValue: MutableMap<Int, Cell> = HashMap()
-        for (cell in cells) {
-            val value = cell.value
-            if (cellsByValue[value] != null) {
-                cell.isValid = false
-                cellsByValue[value]!!.isValid = (false)
-                valid = false
-            } else {
-                cellsByValue[value] = cell
-                // we cannot set cell as valid here, because same cell can be invalid
-                // as part of another group
-            }
-        }
-        return valid
-    }
+	/**
+	 * Validates numbers in given sudoku group - numbers must be unique. Cells with invalid
+	 * numbers are marked (see [Cell.isValid]).
+	 *
+	 *
+	 * Method expects that cell's invalid properties has been set to false
+	 * ([CellCollection.validate] does this).
+	 *
+	 * @return True if validation is successful.
+	 */
+	fun validate(): Boolean {
+		var valid = true
+		val cellsByValue: MutableMap<Int, Cell> = HashMap()
+		for (cell in cells) {
+			val value = cell.value
+			if (cellsByValue[value] != null) {
+				cell.isValid = false
+				cellsByValue[value]!!.isValid = (false)
+				valid = false
+			} else {
+				cellsByValue[value] = cell
+				// we cannot set cell as valid here, because same cell can be invalid
+				// as part of another group
+			}
+		}
+		return valid
+	}
 
-    operator fun contains(value: Int): Boolean {
-        for (mCell in cells) {
-            if (mCell.value == value) {
-                return true
-            }
-        }
-        return false
-    }
+	operator fun contains(value: Int): Boolean {
+		for (mCell in cells) {
+			if (mCell.value == value) {
+				return true
+			}
+		}
+		return false
+	}
 }

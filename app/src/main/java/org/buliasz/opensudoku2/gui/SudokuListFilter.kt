@@ -22,20 +22,20 @@ import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.utils.StringUtils
 
 class SudokuListFilter(private val mContext: Context) {
-    var showStateNotStarted = true
-    var showStatePlaying = true
-    var showStateCompleted = true
-    override fun toString(): String {
-        val visibleStates: MutableList<String?> = ArrayList()
-        if (showStateNotStarted) {
-            visibleStates.add(mContext.getString(R.string.not_started))
-        }
-        if (showStatePlaying) {
-            visibleStates.add(mContext.getString(R.string.playing))
-        }
-        if (showStateCompleted) {
-            visibleStates.add(mContext.getString(R.string.solved))
-        }
-        return StringUtils.join(visibleStates, ",")
-    }
+	var showStateNotStarted = true
+	var showStatePlaying = true
+	var showStateCompleted = true
+	override fun toString(): String {
+		val visibleStates: MutableList<String?> = ArrayList()
+		if (showStateNotStarted) {
+			visibleStates.add(mContext.getString(R.string.not_started))
+		}
+		if (showStatePlaying) {
+			visibleStates.add(mContext.getString(R.string.playing))
+		}
+		if (showStateCompleted) {
+			visibleStates.add(mContext.getString(R.string.solved))
+		}
+		return StringUtils.join(visibleStates, ",")
+	}
 }

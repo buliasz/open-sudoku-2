@@ -18,15 +18,15 @@
 package org.buliasz.opensudoku2.utils
 
 object StringUtils {
-    fun join(s: Collection<*>, delimiter: String?): String {
-        val builder = StringBuilder()
-        val iterator = s.iterator()
-        while (iterator.hasNext()) {
-            builder.append(iterator.next())
-            if (iterator.hasNext()) {
-                builder.append(delimiter)
-            }
-        }
-        return "$builder"
-    }
+	fun join(s: Collection<*>, delimiter: String?): String {
+		val builder = StringBuilder()
+		val iterator = s.iterator()
+		while (iterator.hasNext()) {
+			builder.append(iterator.next())
+			if (iterator.hasNext()) {
+				builder.append(delimiter)
+			}
+		}
+		return "$builder"
+	}
 }
