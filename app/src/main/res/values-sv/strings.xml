@@ -18,7 +18,7 @@
   -->
 
 <resources>
-    <string name="app_name">OpenSudoku2</string>
+    <string name="app_name">Open Sudoku 2</string>
     <string name="edit_sudoku">Redigera sudoku</string>
 
     <string name="puzzle_folders">OpenSudoku2 - mappar</string>
@@ -247,5 +247,6 @@
     <string name="default_textColorNote">Note text</string>
 
     <string name="default_backgroundColor">Primary background</string>
+    <string name="solve_puzzle">Lös pussel</string>
 
 </resources>

@@ -41,8 +41,6 @@ import java.net.URISyntaxException
 /**
  * This activity is responsible for importing puzzles from various sources
  * (web, file, .opensudoku2, .sdm, extras).
- *
- * @author romario, Kotlin version by buliasz
  */
 class SudokuImportActivity : ThemedActivity() {
     private val mOnImportFinishedListener = object : AbstractImportTask.OnImportFinishedListener {

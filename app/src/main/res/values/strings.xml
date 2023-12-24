@@ -301,7 +301,7 @@
 
     <string name="solve_puzzle">Solve Puzzle</string>
     <string name="solve_puzzle_confirm">Are you sure you want to see the solution?</string>
-    <string name="used_solver">You used the solver to see the solution!</string>
+    <string name="used_solver">You have used the solver to see the solution!</string>
     <string name="puzzle_not_solved">This puzzle has no solution.</string>
 
     <string name="hint_confirm">This will fill in the correct value for the selected cell. Do you want to continue?</string>
@@ -379,7 +379,7 @@
 
     <string name="press_color_to_apply">Press on Color to apply</string>
 
-    <string name="dark_mode_key">ui_mode</string>
+    <string name="dark_mode_key" translatable="false">ui_mode</string>
     <string name="dark_mode_title">UI Mode</string>
 
     <!-- Options when selecting dark mode -->

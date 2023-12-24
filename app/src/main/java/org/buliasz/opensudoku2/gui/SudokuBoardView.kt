@@ -38,8 +38,6 @@ import kotlin.math.roundToInt
 
 /**
  * Sudoku board widget.
- *
- * @author romario, Kotlin version by buliasz
  */
 open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null) : View(context, attrs) {
     private var mCellWidth = 0f
@@ -833,8 +831,6 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: A
 
     /**
      * Occurs when user tap the cell.
-     *
-     * @author romario, Kotlin version by buliasz
      */
     fun interface OnCellTappedListener {
         fun onCellTapped(cell: Cell?)
@@ -842,8 +838,6 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: A
 
     /**
      * Occurs when user selects the cell.
-     *
-     * @author romario, Kotlin version by buliasz
      */
     fun interface OnCellSelectedListener {
         fun onCellSelected(cell: Cell?)

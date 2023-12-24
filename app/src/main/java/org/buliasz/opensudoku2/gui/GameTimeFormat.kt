@@ -21,8 +21,6 @@ import java.util.Formatter
 
 /**
  * Game time formatter.
- *
- * @author romario, Kotlin version by buliasz
  */
 class GameTimeFormat {
     private val mTimeText = StringBuilder()

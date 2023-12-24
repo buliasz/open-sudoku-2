@@ -23,8 +23,6 @@ import java.util.StringTokenizer
 /**
  * Sudoku cell. Every cell has value, some notes attached to it and some basic
  * state (whether it is editable and valid).
- *
- * @author romario, Kotlin version by buliasz
  */
 class Cell private constructor(value: Int, cornerNote: CellNote, centerNote: CellNote, editable: Boolean, valid: Boolean) {
     private val mCellCollectionLock = Any()

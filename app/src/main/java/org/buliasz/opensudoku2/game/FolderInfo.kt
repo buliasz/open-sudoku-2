@@ -22,8 +22,6 @@ import org.buliasz.opensudoku2.R
 
 /**
  * Some information about folder, used in FolderListActivity.
- *
- * @author romario, Kotlin version by buliasz
  */
 class FolderInfo {
     /**

@@ -33,8 +33,6 @@ import kotlin.math.ceil
 
 /**
  * Base class for several input methods used to edit sudoku contents.
- *
- * @author romario, Kotlin version by buliasz
  */
 abstract class InputMethod {
 	abstract val switchModeButton: Button

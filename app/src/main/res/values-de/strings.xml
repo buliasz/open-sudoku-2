@@ -18,7 +18,7 @@
   -->
 
 <resources>
-    <string name="app_name">OpenSudoku2</string>
+    <string name="app_name">Open Sudoku 2</string>
     <string name="edit_sudoku">Sudoku-Rätsel bearbeiten</string>
 
     <string name="puzzle_folders">OpenSudoku2 Rätsel-Ordner</string>

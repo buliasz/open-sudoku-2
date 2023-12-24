@@ -29,8 +29,6 @@ import java.net.URL
 
 /**
  * Handles import of .sdm files (see http://sudocue.net/download.php).
- *
- * @author romario, Kotlin version by buliasz
  */
 class SdmImportTask(private val mUri: Uri) : AbstractImportTask() {
     @Throws(SudokuInvalidFormatException::class)

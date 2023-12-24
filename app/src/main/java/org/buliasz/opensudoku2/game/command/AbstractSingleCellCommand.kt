@@ -45,5 +45,5 @@ abstract class AbstractSingleCellCommand : AbstractCellCommand {
     }
 
     val cell: Cell
-        get() = cells!!.getCell(mCellRow, mCellColumn)
+        get() = cells.getCell(mCellRow, mCellColumn)
 }

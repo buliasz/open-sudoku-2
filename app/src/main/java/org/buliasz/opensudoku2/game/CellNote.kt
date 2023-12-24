@@ -21,8 +21,6 @@ import java.util.StringTokenizer
 
 /**
  * Note attached to cell. This object is immutable by design.
- *
- * @author romario, Kotlin version by buliasz
  */
 class CellNote {
     private val mNotedNumbers: Short

@@ -42,8 +42,6 @@ import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanel
 
 /**
  * Activity for editing content of puzzle.
- *
- * @author romario, Kotlin version by buliasz
  */
 class SudokuEditActivity : ThemedActivity() {
     private var mState = 0

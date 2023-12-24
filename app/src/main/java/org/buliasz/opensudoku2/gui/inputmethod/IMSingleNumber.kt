@@ -40,8 +40,6 @@ import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanelStatePersister.Stat
 /**
  * This class represents following type of number input workflow: Number buttons are displayed
  * in the sidebar, user selects one number and then fill values by tapping the cells.
- *
- * @author romario, Kotlin version by buliasz
  */
 class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 	private var mHighlightCompletedValues = true

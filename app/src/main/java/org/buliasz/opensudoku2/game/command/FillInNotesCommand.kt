@@ -23,6 +23,6 @@ class FillInNotesCommand : AbstractMultiNoteCommand() {
         val cells = cells
         mOldCornerNotes.clear()
         saveOldNotes()
-        cells!!.fillInCenterNotes()
+        cells.fillInCenterNotes()
     }
 }

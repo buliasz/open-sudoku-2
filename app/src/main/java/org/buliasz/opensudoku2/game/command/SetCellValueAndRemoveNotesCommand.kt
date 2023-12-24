@@ -36,7 +36,7 @@ class SetCellValueAndRemoveNotesCommand : AbstractMultiNoteCommand {
     internal constructor()
 
     val cell: Cell
-        get() = cells!!.getCell(mCellRow, mCellColumn)
+        get() = cells.getCell(mCellRow, mCellColumn)
 
     override fun serialize(data: StringBuilder) {
         super.serialize(data)
@@ -58,7 +58,7 @@ class SetCellValueAndRemoveNotesCommand : AbstractMultiNoteCommand {
         mOldCornerNotes.clear()
         saveOldNotes()
         val cell = cell
-        cells!!.removeNotesForChangedCell(cell, mValue)
+        cells.removeNotesForChangedCell(cell, mValue)
         mOldValue = cell.value
         cell.value = mValue
     }

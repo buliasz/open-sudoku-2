@@ -21,8 +21,6 @@ import java.util.StringTokenizer
 
 /**
  * Generic interface for command in application.
- *
- * @author romario, Kotlin version by buliasz
  */
 abstract class AbstractCommand {
     protected open fun deserialize(data: StringTokenizer) {}

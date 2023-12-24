@@ -22,8 +22,6 @@ package org.buliasz.opensudoku2.game
  *
  *
  * Typical examples of instances are sudoku row, column or sector (3x3 group of cells).
- *
- * @author romario, Kotlin version by buliasz
  */
 class CellGroup {
     val cells = Array(CellCollection.SUDOKU_SIZE) { Cell() }

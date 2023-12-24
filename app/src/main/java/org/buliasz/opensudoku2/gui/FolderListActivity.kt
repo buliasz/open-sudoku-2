@@ -42,8 +42,6 @@ import org.buliasz.opensudoku2.gui.fragments.RenameFolderDialogFragment
 
 /**
  * List of puzzle's folder. This activity also serves as root activity of application.
- *
- * @author romario, Kotlin version by buliasz
  */
 class FolderListActivity : ThemedActivity() {
     private lateinit var addFolderDialog: AddFolderDialogFragment

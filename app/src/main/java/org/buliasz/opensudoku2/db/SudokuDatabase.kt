@@ -44,8 +44,6 @@ import java.util.LinkedList
  * This class supports database transactions using [.beginTransaction], \
  * [.setTransactionSuccessful] and [.endTransaction].
  * See [SQLiteDatabase] for details on how to use them.
- *
- * @author romario, Kotlin version by buliasz
  */
 class SudokuDatabase(context: Context) : Closeable {
     private val mOpenHelper: DatabaseHelper = DatabaseHelper(context)

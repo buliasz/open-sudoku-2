@@ -31,8 +31,6 @@ import java.util.concurrent.Executors
  * Please note that instance of this class has to be created on GUI thread!
  *
  * You should explicitly call [.destroy] when this object is no longer needed.
- *
- * @author romario, Kotlin version by buliasz
  */
 class FolderDetailLoader(context: Context?) {
     private val mDatabase: SudokuDatabase

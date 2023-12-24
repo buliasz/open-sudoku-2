@@ -31,9 +31,6 @@ import org.buliasz.opensudoku2.gui.SudokuBoardView.OnCellSelectedListener
 import org.buliasz.opensudoku2.gui.SudokuBoardView.OnCellTappedListener
 import java.util.Collections
 
-/**
- * @author romario, Kotlin version by buliasz
- */
 class IMControlPanel : LinearLayout {
 	val imPopup: IMPopup = IMPopup(this)
 	val imSingleNumber: IMSingleNumber = IMSingleNumber(this)

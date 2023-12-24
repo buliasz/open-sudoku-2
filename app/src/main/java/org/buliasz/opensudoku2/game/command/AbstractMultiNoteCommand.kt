@@ -65,10 +65,10 @@ abstract class AbstractMultiNoteCommand : AbstractCellCommand() {
     override fun undo() {
         val cells = cells
         for (ne in mOldCornerNotes) {
-            cells!!.getCell(ne.rowIndex, ne.colIndex).cornerNote = ne.note
+            cells.getCell(ne.rowIndex, ne.colIndex).cornerNote = ne.note
         }
         for (ne in mOldCenterNotes) {
-            cells!!.getCell(ne.rowIndex, ne.colIndex).centerNote = ne.note
+            cells.getCell(ne.rowIndex, ne.colIndex).centerNote = ne.note
         }
     }
 
@@ -76,7 +76,7 @@ abstract class AbstractMultiNoteCommand : AbstractCellCommand() {
         val cells = cells
         for (r in 0..<CellCollection.SUDOKU_SIZE) {
             for (c in 0..<CellCollection.SUDOKU_SIZE) {
-                mOldCornerNotes.add(NoteEntry(r, c, cells!!.getCell(r, c).cornerNote))
+                mOldCornerNotes.add(NoteEntry(r, c, cells.getCell(r, c).cornerNote))
                 mOldCenterNotes.add(NoteEntry(r, c, cells.getCell(r, c).centerNote))
             }
         }

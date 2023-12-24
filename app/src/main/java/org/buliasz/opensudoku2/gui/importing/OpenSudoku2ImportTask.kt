@@ -38,8 +38,6 @@ import java.net.URISyntaxException
 
 /**
  * Handles import of application/x-opensudoku2 or .opensudoku2 files.
- *
- * @author romario, Kotlin version by buliasz
  */
 class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
     @Throws(SudokuInvalidFormatException::class)

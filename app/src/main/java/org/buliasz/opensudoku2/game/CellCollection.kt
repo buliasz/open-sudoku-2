@@ -23,7 +23,6 @@ import java.util.regex.Pattern
 
 /**
  * Collection of sudoku cells. This class in fact represents one sudoku board (9x9).
- * @author romario, Kotlin version by buliasz
  */
 class CellCollection private constructor(
     // Cell's data.

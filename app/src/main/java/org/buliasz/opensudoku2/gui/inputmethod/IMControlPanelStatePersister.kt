@@ -24,8 +24,6 @@ import androidx.preference.PreferenceManager
 
 /**
  * This class is responsible for persisting of control panel's state.
- *
- * @author romario, Kotlin version by buliasz
  */
 class IMControlPanelStatePersister(context: Context?) {
     private val mPreferences: SharedPreferences
@@ -67,8 +65,6 @@ class IMControlPanelStatePersister(context: Context?) {
      * This is basically wrapper around anything which is capable of storing
      * state. Instance of this object will be passed to concrete input method's
      * to store and retrieve their state.
-     *
-     * @author romario, Kotlin version by buliasz
      */
     class StateBundle(private val mPreferences: SharedPreferences, private val mPrefix: String, private val mEditable: Boolean) {
         private var mPrefEditor: SharedPreferences.Editor? = null
