@@ -28,8 +28,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
-import android.view.Window
-import android.view.WindowManager
 import android.widget.Toast
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.Names
@@ -50,22 +48,9 @@ class SudokuEditActivity : ThemedActivity() {
 	private var mRootLayout: ViewGroup? = null
 	private var mGuiHandler: Handler? = null
 	private var mClipboard: ClipboardManager? = null
-	private var mFullScreen = false
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
-		// go fullscreen for devices with QVGA screen (only way I found how to fit UI on the screen)
-		val display = windowManager.defaultDisplay
-		if ((display.width == 240 || display.width == 320)
-			&& (display.height == 240 || display.height == 320)
-		) {
-			supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
-			window.setFlags(
-				WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN
-			)
-			mFullScreen = true
-		}
 		setContentView(R.layout.sudoku_edit)
 		mRootLayout = findViewById(R.id.root_layout)
 		val mBoard = findViewById<SudokuBoardView>(R.id.board_view)
@@ -119,20 +104,6 @@ class SudokuEditActivity : ThemedActivity() {
 		mInputMethods.imNumpad.isEnabled = true
 		mInputMethods.activateInputMethod(IMControlPanel.INPUT_METHOD_NUMPAD)
 		mClipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-	}
-
-	override fun onWindowFocusChanged(hasFocus: Boolean) {
-		super.onWindowFocusChanged(hasFocus)
-		if (hasFocus) {
-			// FIXME: When activity is resumed, title isn't sometimes hidden properly (there is black
-			// empty space at the top of the screen). This is desperate workaround.
-			if (mFullScreen) {
-				mGuiHandler!!.postDelayed({
-					window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN)
-					mRootLayout!!.requestLayout()
-				}, 1000)
-			}
-		}
 	}
 
 	override fun onPause() {

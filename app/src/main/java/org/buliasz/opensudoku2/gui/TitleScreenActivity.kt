@@ -36,7 +36,6 @@ import org.buliasz.opensudoku2.utils.AndroidUtils
 class TitleScreenActivity : ThemedActivity() {
 	private val menuItemSettings = 0
 	private val menuItemAbout = 1
-	private val dialogAbout = 0
 	private var mResumeButton: Button? = null
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
