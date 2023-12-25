@@ -77,7 +77,7 @@
     <string name="on_date">en %s</string>
     <string name="add_sudoku">Añadir sudoku</string>
     <string name="filter">Filtrar</string>
-    <string name="filter_by_gamestate">Filtrar por estado</string>
+    <string name="filter_by_game_state">Filtrar por estado</string>
     <string name="folders">Carpetas</string>
     <string name="delete_puzzle_confirm">¿Estás seguro de que quieres borrar este puzzle?</string>
     <string name="reset_puzzle_confirm">¿Estás seguro de que quieres reiniciar este puzzle?</string>
@@ -264,7 +264,7 @@
     <string name="hint_confirm">Esto introducirá el valor correcto en la celda seleccionada. ¿Quieres continuar?</string>
     <string name="cannot_give_hint">No puedes obtener una pista para esa celda.</string>
 
-    <string name="check_solvabitily">Comprobar si tiene solución</string>
+    <string name="check_solvability">Comprobar si tiene solución</string>
     <string name="puzzle_solvable">Este puzzle tiene solución.</string>
 
     <string name="copy_from_existing_theme">Copiar del tema existente…</string>

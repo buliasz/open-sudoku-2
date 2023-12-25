@@ -28,6 +28,7 @@ import android.widget.Toast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuDatabase
@@ -93,19 +94,21 @@ class SudokuExportActivity : ThemedActivity() {
 
 	private fun startExportToFileTask(uri: Uri?) {
 		mFileExportTask.onExportFinishedListener = object : OnExportFinishedListener {
-			override fun onExportFinished(result: FileExportTaskResult?) {
-				if (result!!.isSuccess) {
-					Toast.makeText(
-						this@SudokuExportActivity, getString(
-							R.string.puzzles_have_been_exported, result.filename
-						), Toast.LENGTH_SHORT
-					).show()
-				} else {
-					Toast.makeText(
-						this@SudokuExportActivity, getString(
-							R.string.unknown_export_error
-						), Toast.LENGTH_LONG
-					).show()
+			override suspend fun onExportFinished(result: FileExportTaskResult?) {
+				withContext(Dispatchers.Main) {
+					if (result!!.isSuccess) {
+						Toast.makeText(
+							this@SudokuExportActivity, getString(
+								R.string.puzzles_have_been_exported, result.filename
+							), Toast.LENGTH_SHORT
+						).show()
+					} else {
+						Toast.makeText(
+							this@SudokuExportActivity, getString(
+								R.string.unknown_export_error
+							), Toast.LENGTH_LONG
+						).show()
+					}
 				}
 				finish()
 			}

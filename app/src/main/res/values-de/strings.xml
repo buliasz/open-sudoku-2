@@ -69,7 +69,7 @@
     <string name="on_date">am %s</string>
     <string name="add_sudoku">Sudoku-Rätsel hinzufügen</string>
     <string name="filter">Filtern</string>
-    <string name="filter_by_gamestate">Filtern nach Spiel-Status</string>
+    <string name="filter_by_game_state">Filtern nach Spiel-Status</string>
     <string name="folders">Ordner</string>
     <string name="delete_puzzle_confirm">Möchten Sie dieses Sudoku-Rätsel wirklich löschen?</string>
     <string name="reset_puzzle_confirm">Möchten Sie die ausgewählten Sudoku-Rätsel wirklich zurücksetzen?</string>
@@ -264,7 +264,7 @@
     <string name="undo_to_before_mistake_confirm">Möchten Sie wirklich alle Aktionen seitdem letzten lösbaren Zustand zurücksetzen?</string>
     <string name="used_solver">Sie haben die Hilfe genutzt, um die Lösung zu sehen!</string>
     <string name="cannot_give_hint">Es gibt keinen Hinweis für dieses Feld</string>
-    <string name="check_solvabitily">Lösbarkeit prüfen</string>
+    <string name="check_solvability">Lösbarkeit prüfen</string>
     <string name="copy_from_existing_theme">Von existierendem Schema kopieren</string>
     <string name="create_from_single_color">Aus einzelner Farbe erstellen</string>
     <string name="highlight_similar_notes">Gleiche Notizen hervorheben</string>

@@ -66,7 +66,7 @@
     <string name="on_date">em %s</string>
     <string name="add_sudoku">Adicionar sudoku</string>
     <string name="filter">Filtros</string>
-    <string name="filter_by_gamestate">Filtrar pelo status do jogo</string>
+    <string name="filter_by_game_state">Filtrar pelo status do jogo</string>
     <string name="folders">Pastas</string>
     <string name="delete_puzzle_confirm">Quer realmente excluir o jogo selecionado?</string>
     <string name="reset_puzzle_confirm">Quer realmente resetar o jogo selecionado?</string>
@@ -244,7 +244,7 @@
     <string name="puzzle_not_solved">Este quebra-cabeça não tem solução.</string>
     <string name="hint_confirm">Isso preencherá o valor correto para a célula selecionada. Você quer continuar?</string>
     <string name="cannot_give_hint">Você não pode obter uma dica para essa célula.</string>
-    <string name="check_solvabitily">Verifique a solubilidade</string>
+    <string name="check_solvability">Verifique a solubilidade</string>
     <string name="puzzle_solvable">Este quebra-cabeça tem solução.</string>
     <string name="copy_from_existing_theme">Copiar do tema existente</string>
     <string name="theme_default">Escuro</string>

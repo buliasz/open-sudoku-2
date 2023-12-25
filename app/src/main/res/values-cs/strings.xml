@@ -77,7 +77,7 @@
     <string name="on_date">%s</string>
     <string name="add_sudoku">Přidat sudoku</string>
     <string name="filter">Filtr</string>
-    <string name="filter_by_gamestate">Filtruj podle stavu hry</string>
+    <string name="filter_by_game_state">Filtruj podle stavu hry</string>
     <string name="folders">Složky</string>
     <string name="delete_puzzle_confirm">Opravdu chcete smazat vybrané sudoku?</string>
     <string name="reset_puzzle_confirm">Opravdu chcete vybrané sudoku vrátit do stavu před hrou?</string>
@@ -290,7 +290,7 @@
     <string name="hint_confirm">Tato možnost vyplní do vybrané buňky správnou hodnotu. Přejete si pokračovat?</string>
     <string name="cannot_give_hint">Pro tuto buňku není možné získat tip.</string>
 
-    <string name="check_solvabitily">Kontrola řešitelnosti</string>
+    <string name="check_solvability">Kontrola řešitelnosti</string>
     <string name="puzzle_solvable">Toto sudoku má řešení.</string>
 
     <string name="copy_from_existing_theme">Zkopírovat z existujícího motivu</string>

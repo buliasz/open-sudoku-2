@@ -68,7 +68,7 @@
     <string name="on_date">il %s</string>
     <string name="add_sudoku">Aggiungi sudoku</string>
     <string name="filter">Filtro</string>
-    <string name="filter_by_gamestate">Filtra per stato gioco</string>
+    <string name="filter_by_game_state">Filtra per stato gioco</string>
     <string name="folders">Cartelle</string>
     <string name="delete_puzzle_confirm">Sei sicuro di voler eliminare i rompicapi selezionati?</string>
     <string name="reset_puzzle_confirm">Sei sicuro di voler reimpostare i rompicapi selezionati?</string>
@@ -256,7 +256,7 @@
     <string name="hint_confirm">Verrà inserito il valore corretto nella cella selezionata. Vuoi continuare?</string>
     <string name="cannot_give_hint">Non puoi ricevere aiuto per quella cella.</string>
 
-    <string name="check_solvabitily">Verifica risolvibilità</string>
+    <string name="check_solvability">Verifica risolvibilità</string>
     <string name="puzzle_solvable">Questo rompicapo ha una soluzione.</string>
 
     <string name="copy_from_existing_theme">Copia da tema esistente</string>

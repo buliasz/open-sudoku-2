@@ -19,10 +19,10 @@
 package org.buliasz.opensudoku2.gui.exporting
 
 import android.content.Context
-import android.os.Handler
 import android.util.Log
 import android.util.Xml
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.buliasz.opensudoku2.BuildConfig
 import org.buliasz.opensudoku2.db.Names
@@ -37,14 +37,13 @@ import java.io.OutputStreamWriter
 import java.io.Writer
 
 class FileExportTask {
-	private val mGuiHandler = Handler()
 	var onExportFinishedListener: OnExportFinishedListener? = null
 
 	internal suspend fun exportToFile(context: Context, vararg params: FileExportTaskParams?) {
 		withContext(Dispatchers.IO) {
-			for (par in params) {
-				val result = saveToFile(par!!, context)
-				mGuiHandler.post {
+			for (param in params) {
+				val result = saveToFile(param!!, context)
+				launch {
 					onExportFinishedListener?.onExportFinished(result)
 				}
 			}
@@ -129,7 +128,7 @@ class FileExportTask {
 		 *
 		 * @param result The result of the export
 		 */
-		fun onExportFinished(result: FileExportTaskResult?)
+		suspend fun onExportFinished(result: FileExportTaskResult?)
 	}
 
 	companion object {

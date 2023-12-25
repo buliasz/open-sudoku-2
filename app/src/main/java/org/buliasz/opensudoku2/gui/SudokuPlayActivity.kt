@@ -20,7 +20,6 @@ package org.buliasz.opensudoku2.gui
 import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -43,7 +42,6 @@ import org.buliasz.opensudoku2.utils.ThemeUtils
 class SudokuPlayActivity : ThemedActivity() {
 	private lateinit var mSudokuGame: SudokuGame
 	private lateinit var mDatabase: SudokuDatabase
-	private lateinit var mGuiHandler: Handler
 	private lateinit var mRootLayout: ViewGroup
 	private lateinit var mSudokuBoard: SudokuBoardView
 	private lateinit var mTimeLabel: TextView
@@ -114,7 +112,6 @@ class SudokuPlayActivity : ThemedActivity() {
 		mDatabase = SudokuDatabase(applicationContext)
 		mHintsQueue = HintsQueue(this)
 		mGameTimer = GameTimer()
-		mGuiHandler = Handler()
 
 		// create sudoku game instance
 		if (savedInstanceState == null) {

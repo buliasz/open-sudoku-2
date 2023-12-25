@@ -23,7 +23,6 @@ import android.content.ClipboardManager
 import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -46,7 +45,6 @@ class SudokuEditActivity : ThemedActivity() {
 	private var mDatabase: SudokuDatabase? = null
 	private var mGame: SudokuGame? = null
 	private var mRootLayout: ViewGroup? = null
-	private var mGuiHandler: Handler? = null
 	private var mClipboard: ClipboardManager? = null
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -55,7 +53,6 @@ class SudokuEditActivity : ThemedActivity() {
 		mRootLayout = findViewById(R.id.root_layout)
 		val mBoard = findViewById<SudokuBoardView>(R.id.board_view)
 		mDatabase = SudokuDatabase(applicationContext)
-		mGuiHandler = Handler()
 		val intent = intent
 		val action = intent.action
 		val mSudokuID: Long
@@ -128,7 +125,7 @@ class SudokuEditActivity : ThemedActivity() {
 		// new note into the list.
 		menu.add(0, MENU_ITEM_COPY, 0, android.R.string.copy)
 		menu.add(0, MENU_ITEM_PASTE, 1, android.R.string.paste)
-		menu.add(0, MENU_ITEM_CHECK_RESOLVABILITY, 2, R.string.check_solvabitily)
+		menu.add(0, MENU_ITEM_CHECK_RESOLVABILITY, 2, R.string.check_solvability)
 		menu.add(0, MENU_ITEM_SAVE, 3, R.string.save)
 			.setShortcut('1', 's')
 			.setIcon(R.drawable.ic_save)

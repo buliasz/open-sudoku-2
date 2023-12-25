@@ -33,7 +33,7 @@ class FilterDialogFragment(private val mListFilter: SudokuListFilter, val settin
 	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 		val builder = AlertDialog.Builder(requireActivity())
 			.setIcon(R.drawable.ic_view)
-			.setTitle(R.string.filter_by_gamestate)
+			.setTitle(R.string.filter_by_game_state)
 			.setMultiChoiceItems(
 				R.array.game_states, booleanArrayOf(
 					mListFilter.showStateNotStarted,

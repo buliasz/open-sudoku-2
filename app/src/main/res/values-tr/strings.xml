@@ -79,7 +79,7 @@
     <string name="on_date">%s</string>
     <string name="add_sudoku">Sudoku Ekle</string>
     <string name="filter">Filtre</string>
-    <string name="filter_by_gamestate">Seçeneklere göre filtrele</string>
+    <string name="filter_by_game_state">Seçeneklere göre filtrele</string>
     <string name="folders">Klasörler</string>
     <string name="delete_puzzle_confirm">Bulmacayı silmek istediğine emin misin?</string>
     <string name="reset_puzzle_confirm">Bulmacayı yeniden başlatmak istediğine emin misin?</string>
@@ -228,7 +228,7 @@
     <string name="puzzle_not_solved">Bu bulmacanın çözümü yok.</string>
     <string name="hint_confirm">Bu, seçilen hücre için doğru değeri dolduracaktır. Devam etmek istiyor musun?</string>
     <string name="cannot_give_hint">O hücreye dair ipucu alamazsınız.</string>
-    <string name="check_solvabitily">Çözülebilirliği Kontrol Edin</string>
+    <string name="check_solvability">Çözülebilirliği Kontrol Edin</string>
     <string name="puzzle_solvable">Bu bulmacanın bir çözümü var.</string>
     <string name="copy_from_existing_theme">Mevcut temadan kopyala</string>
     <string name="theme_default">Karanlık</string>

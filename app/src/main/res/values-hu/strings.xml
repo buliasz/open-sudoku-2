@@ -77,7 +77,7 @@
     <string name="on_date">%s</string>
     <string name="add_sudoku">Új feladvány</string>
     <string name="filter">Szűrő</string>
-    <string name="filter_by_gamestate">Állapot szerinti szűrés</string>
+    <string name="filter_by_game_state">Állapot szerinti szűrés</string>
     <string name="folders">Mappák</string>
     <string name="delete_puzzle_confirm">Biztosan törölni akarod a kiválaszott feladványt?</string>
     <string name="reset_puzzle_confirm">Biztosan alaphelyzetbe szeretnéd állítani a feladványt?</string>
@@ -288,7 +288,7 @@
     <string name="hint_confirm">A kiválasztott cellában megjelenik a helyes érték. Biztosan ezt szeretnéd?</string>
     <string name="cannot_give_hint">A kiválasztott cellához nem adható segítség.</string>
 
-    <string name="check_solvabitily">Megoldhatóság tesztelése</string>
+    <string name="check_solvability">Megoldhatóság tesztelése</string>
     <string name="puzzle_solvable">A feladvány megoldható!</string>
     <string name="copy_from_existing_theme">Másolás meglévő témából</string>
 

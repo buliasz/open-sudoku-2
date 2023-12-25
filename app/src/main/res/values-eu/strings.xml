@@ -77,7 +77,7 @@
     <string name="on_date">%s(e)an</string>
     <string name="add_sudoku">Gehitu sudokua</string>
     <string name="filter">Iragazi</string>
-    <string name="filter_by_gamestate">Iragazi egoeraren arabera</string>
+    <string name="filter_by_game_state">Iragazi egoeraren arabera</string>
     <string name="folders">Karpetak</string>
     <string name="delete_puzzle_confirm">Ziur hautatutako sudokua ezabatu nahi duzula?</string>
     <string name="reset_puzzle_confirm">Ziur hautatutako sudokua berrezarri nahi duzula?</string>
@@ -288,7 +288,7 @@
     <string name="hint_confirm">Honek hautatutako gelaxka balio zuzenarekin osatuko du. Jarraitu nahi al duzu?</string>
     <string name="cannot_give_hint">Ezin duzu gelaxka horrentzat pistarik lortu.</string>
 
-    <string name="check_solvabitily">Egiaztatu ebazgarritasuna</string>
+    <string name="check_solvability">Egiaztatu ebazgarritasuna</string>
     <string name="puzzle_solvable">Sudoku honek badu soluzioa.</string>
 
     <string name="copy_from_existing_theme">Kopiatu jada badagoen itxuratik</string>

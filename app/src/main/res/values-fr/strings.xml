@@ -73,7 +73,7 @@
     <string name="on_date">le %s</string>
     <string name="add_sudoku">Ajouter sudoku</string>
     <string name="filter">Filtre</string>
-    <string name="filter_by_gamestate">Filtrer par statut</string>
+    <string name="filter_by_game_state">Filtrer par statut</string>
     <string name="folders">Dossiers</string>
     <string name="delete_puzzle_confirm">Voulez-vous vraiment supprimer la grille sélectionnée ?</string>
     <string name="reset_puzzle_confirm">Voulez-vous vraiment réinitialiser la grille sélectionnée ?</string>
@@ -246,7 +246,7 @@
     <string name="hint_confirm">La valeur correcte de le cellule sélectionnée va être complétée. Voulez-vous continuer ?</string>
     <string name="cannot_give_hint">Vous ne pouvez pas obtenir d\'indice pour cette cellule.</string>
 
-    <string name="check_solvabitily">Vérifier résolution</string>
+    <string name="check_solvability">Vérifier résolution</string>
     <string name="puzzle_solvable">Cette grille a une solution.</string>
 
     <string name="copy_from_existing_theme">Copie du thème existant</string>
