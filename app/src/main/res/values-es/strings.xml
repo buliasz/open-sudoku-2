@@ -277,6 +277,7 @@
     <string name="theme_honeybee">Miel de abeja</string>
     <string name="theme_crystal">Cristal</string>
     <string name="theme_midnight_blue">Azul medianoche</string>
+    <string name="dark_mode_title">Modo de interfaz</string>
     <string name="theme_emerald">Esmeralda</string>
     <string name="theme_forest">Bosque</string>
     <string name="theme_amethyst">Amatista</string>
@@ -332,4 +333,23 @@
     <string name="fill_all_notes">Rellenar notas con todos los valores</string>
 
     <string name="press_color_to_apply">Presiona el color para aplicar</string>
+    <string name="dark_mode_light">Modo de luz</string>
+    <string name="dark_mode_dark">Modo oscuro</string>
+    <string name="dark_mode_system">Usar el modo claro/oscuro del sistema</string>
+    <string name="disabled_by_theme">El tema seleccionado establece el modo</string>
+    <string name="use_dynamic_color">Usar color dinámico</string>
+    <string name="use_dynamic_color_summary">Usa los colores de tu fondo de pantalla</string>
+    <string name="theme_custom_light">Tema de luz personalizado</string>
+    <string name="pref_border_title">Bordes de celda</string>
+    <string name="pref_border_summary">Colores de borde alrededor de celdas y cuadros de 3x3</string>
+    <string name="pref_touched_title">Células tocadas</string>
+    <string name="pref_touched_summary">Celdas en la cruz de selección</string>
+    <string name="pref_selected_title">Celda seleccionada</string>
+    <string name="pref_selected_summary">El indicador de enfoque de la celda seleccionada</string>
+    <string name="pref_highlighted_title">Destacado</string>
+    <string name="pref_highlighted_summary">Celdas idénticas a la celda seleccionada</string>
+    <string name="pref_error_title">Valores no válidos</string>
+    <string name="pref_error_summary">Celdas que contienen valores no válidos</string>
+    <string name="pref_even_title">Células uniformes</string>
+    <string name="pref_even_summary">Celdas en cajas pares de 3x3</string>
 </resources>

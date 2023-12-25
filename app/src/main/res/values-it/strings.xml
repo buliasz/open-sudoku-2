@@ -269,6 +269,7 @@
     <string name="theme_honeybee">Ape</string>
     <string name="theme_crystal">Cristallo</string>
     <string name="theme_midnight_blue">Blu notte</string>
+    <string name="dark_mode_title">Modalità interfaccia</string>
     <string name="theme_emerald">Smeraldo</string>
     <string name="theme_forest">Foresta</string>
     <string name="theme_amethyst">Ametista</string>
@@ -323,4 +324,23 @@
     <string name="fill_all_notes">Compila le note con tutti i valori</string>
 
     <string name="press_color_to_apply">Premi sul colore per applicare</string>
+    <string name="dark_mode_light">Modalità luce</string>
+    <string name="dark_mode_dark">Modalità scura</string>
+    <string name="dark_mode_system">Usa la modalità luce/buio del sistema</string>
+    <string name="disabled_by_theme">Il tema selezionato imposta la modalità</string>
+    <string name="use_dynamic_color">Usa colore dinamico</string>
+    <string name="use_dynamic_color_summary">Usa i colori della tua carta da parati</string>
+    <string name="theme_custom_light">Tema luminoso personalizzato</string>
+    <string name="pref_border_title">Bordi delle celle</string>
+    <string name="pref_border_summary">Colori dei bordi intorno alle celle e alle caselle 3x3</string>
+    <string name="pref_touched_title">Cellule toccate</string>
+    <string name="pref_touched_summary">Celle nella croce di selezione</string>
+    <string name="pref_selected_title">Cella selezionata</string>
+    <string name="pref_selected_summary">L\'indicatore di messa a fuoco della cella selezionata</string>
+    <string name="pref_highlighted_title">Evidenziato</string>
+    <string name="pref_highlighted_summary">Celle identiche alla cella selezionata</string>
+    <string name="pref_error_title">Valori non validi</string>
+    <string name="pref_error_summary">Celle contenenti valori non validi</string>
+    <string name="pref_even_title">Cellule uniformi</string>
+    <string name="pref_even_summary">Celle in caselle 3x3 pari</string>
 </resources>

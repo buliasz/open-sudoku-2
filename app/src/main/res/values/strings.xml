@@ -321,7 +321,6 @@
     <string name="theme_honeybee">Honey Bee</string>
     <string name="theme_crystal">Crystal</string>
     <string name="theme_midnight_blue">Midnight Blue</string>
-    <string name="theme_emerald">Emerald</string>
     <string name="theme_forest">Forest</string>
     <string name="theme_amethyst">Amethyst</string>
     <string name="theme_ruby">Ruby</string>
@@ -391,7 +390,7 @@
     <string name="use_dynamic_color">Use dynamic color</string>
     <string name="use_dynamic_color_summary">Use colors from your wallpaper</string>
 
-    <string name="theme_custom_light">Custom Theme Light</string>
+    <string name="theme_custom_light">Custom Light Theme</string>
 
     <string name="pref_border_title">Cell borders</string>
     <string name="pref_border_summary">Border colors around cells and 3x3 boxes</string>
@@ -403,6 +402,7 @@
     <string name="pref_highlighted_summary">Cells identical to the selected cell</string>
     <string name="pref_error_title">Invalid values</string>
     <string name="pref_error_summary">Cells containing invalid values</string>
-    <string name="pref_even_title">Even boxes</string>
+    <string name="pref_even_title">Even cells</string>
     <string name="pref_even_summary">Cells in even-numbered 3x3 boxes</string>
+    <string name="theme_emerald">Emerald</string>
 </resources>

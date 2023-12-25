@@ -259,6 +259,7 @@
     <string name="theme_honeybee">Honey Bee</string>
     <string name="theme_crystal">Crystal</string>
     <string name="theme_midnight_blue">Midnight Blue</string>
+    <string name="dark_mode_title">Mode d’interface</string>
     <string name="theme_emerald">Emerald</string>
     <string name="theme_forest">Forest</string>
     <string name="theme_amethyst">Amethyst</string>
@@ -298,5 +299,32 @@
     <string name="sort_creation_date">Date de création</string>
     <string name="sort_play_time">Temps de jeu</string>
     <string name="sort_last_played">Dernière jouée</string>
+    <string name="pasted_from_clipboard">Collé à partir du presse-papiers</string>
+    <string name="copied_to_clipboard">Copié dans le presse-papiers</string>
+    <string name="invalid_puzzle_format">Format de puzzle non valide</string>
+    <string name="invalid_mime_type">Type MIME non valide, veuillez vérifier le contenu de votre presse-papiers</string>
+    <string name="reset_all_puzzles">Tout réinitialiser</string>
+    <string name="reset_all_puzzles_confirm">Êtes-vous sûr de vouloir réinitialiser toutes les énigmes de ce dossier ?</string>
+    <string name="fill_all_notes">Remplir les notes avec toutes les valeurs</string>
+    <string name="press_color_to_apply">Appuyez sur Couleur pour appliquer</string>
+    <string name="dark_mode_light">Mode d’éclairage</string>
+    <string name="dark_mode_dark">Mode sombre</string>
+    <string name="dark_mode_system">Utiliser le mode clair/sombre du système</string>
+    <string name="disabled_by_theme">Le thème sélectionné définit le mode</string>
+    <string name="use_dynamic_color">Utiliser la couleur dynamique</string>
+    <string name="use_dynamic_color_summary">Utilisez les couleurs de votre fond d’écran</string>
+    <string name="theme_custom_light">Thème de lumière personnalisé</string>
+    <string name="pref_border_title">Bordures de cellule</string>
+    <string name="pref_border_summary">Couleurs de bordure autour des cellules et des cases 3x3</string>
+    <string name="pref_touched_title">Cellules touchées</string>
+    <string name="pref_touched_summary">Les cellules de la croix de sélection</string>
+    <string name="pref_selected_title">Cellule sélectionnée</string>
+    <string name="pref_selected_summary">L’indicateur de mise au point de la cellule sélectionnée</string>
+    <string name="pref_highlighted_title">Surligné</string>
+    <string name="pref_highlighted_summary">Cellules identiques à la cellule sélectionnée</string>
+    <string name="pref_error_title">Valeurs non valides</string>
+    <string name="pref_error_summary">Cellules contenant des valeurs non valides</string>
+    <string name="pref_even_title">Cellules uniformes</string>
+    <string name="pref_even_summary">Cellules dans des boîtes paires de 3x3</string>
 
 </resources>

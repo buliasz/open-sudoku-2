@@ -303,6 +303,7 @@
     <string name="theme_honeybee">Včelí med</string>
     <string name="theme_crystal">Křišťál</string>
     <string name="theme_midnight_blue">Půlnoční modrá</string>
+    <string name="dark_mode_title">Režim rozhraní</string>
     <string name="theme_emerald">Smaragd</string>
     <string name="theme_forest">Les</string>
     <string name="theme_amethyst">Ametyst</string>
@@ -355,4 +356,24 @@
     <string name="reset_all_puzzles_confirm">Opravdu si přejete resetovat všechna sudoku v této složce?</string>
 
     <string name="fill_all_notes">Vyplnit poznámky všemi hodnotami</string>
+    <string name="press_color_to_apply">Stiskněte tlačítko Barva pro použití</string>
+    <string name="dark_mode_light">Světelný režim</string>
+    <string name="dark_mode_dark">Tmavý režim</string>
+    <string name="dark_mode_system">Použijte systémový režim světlý/tmavý</string>
+    <string name="disabled_by_theme">Vybrané téma nastaví režim</string>
+    <string name="use_dynamic_color">Použití dynamických barev</string>
+    <string name="use_dynamic_color_summary">Použití barev z tapety</string>
+    <string name="theme_custom_light">Vlastní světelný motiv</string>
+    <string name="pref_border_title">Ohraničení buněk</string>
+    <string name="pref_border_summary">Barvy ohraničení kolem buněk a polí 3x3</string>
+    <string name="pref_touched_title">Dotykové buňky</string>
+    <string name="pref_touched_summary">Buňky ve výběrovém kříži</string>
+    <string name="pref_selected_title">Vybraná buňka</string>
+    <string name="pref_selected_summary">Indikátor zaostření vybrané buňky</string>
+    <string name="pref_highlighted_title">Zvýrazněný</string>
+    <string name="pref_highlighted_summary">Buňky shodné s vybranou buňkou</string>
+    <string name="pref_error_title">Neplatné hodnoty</string>
+    <string name="pref_error_summary">Buňky obsahující neplatné hodnoty</string>
+    <string name="pref_even_title">Rovnoměrné buňky</string>
+    <string name="pref_even_summary">Buňky v sudých polích 3x3</string>
 </resources>

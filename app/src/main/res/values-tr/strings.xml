@@ -273,12 +273,12 @@
     <string name="reset_all_puzzles_confirm">Bu klasördeki tüm bulmacaları sıfırlamak istediğinizden emin misiniz?</string>
     <string name="fill_all_notes">Notları tüm değerlerle doldurun</string>
     <string name="press_color_to_apply">Uygulamak için Renk\'e basın</string>
-    <string name="dark_mode_title">UI de</string>
+    <string name="dark_mode_title">Arayüz Modu</string>
     <string name="dark_mode_light">Işık modu</string>
     <string name="dark_mode_dark">Karanlık mod</string>
     <string name="dark_mode_system">Sistemin açık/karanlık modunu kullanma</string>
     <string name="disabled_by_theme">Seçilen tema modu belirler</string>
-    <string name="use_dynamic_color">Use dynamic color</string>
+    <string name="use_dynamic_color">Dinamik renk kullan</string>
     <string name="use_dynamic_color_summary">Duvar kağıdınızdaki renkleri kullanın</string>
     <string name="theme_custom_light">Özel Tema Işığı</string>
     <string name="pref_border_title">Hücre sınırları</string>
