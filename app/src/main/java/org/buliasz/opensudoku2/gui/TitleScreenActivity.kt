@@ -18,7 +18,6 @@
 
 package org.buliasz.opensudoku2.gui
 
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,11 +26,11 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.preference.PreferenceManager
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.game.SudokuGame
+import org.buliasz.opensudoku2.gui.fragments.SimpleDialog
 import org.buliasz.opensudoku2.utils.AndroidUtils
 
 class TitleScreenActivity : ThemedActivity() {
@@ -104,29 +103,20 @@ class TitleScreenActivity : ThemedActivity() {
 			}
 
 			menuItemAbout -> {
-				showDialog(dialogAbout)
+				val factory = LayoutInflater.from(this)
+				val aboutView = factory.inflate(R.layout.about, null)
+				val versionLabel = aboutView.findViewById<TextView>(R.id.version_label)
+				val versionName = AndroidUtils.getAppVersionName(applicationContext)
+				versionLabel.text = getString(R.string.version, versionName)
+				with(SimpleDialog()) {
+					iconId = R.mipmap.ic_launcher
+					dialogView = aboutView
+					show(supportFragmentManager)
+				}
 				return true
 			}
 		}
 		return super.onOptionsItemSelected(item)
-	}
-
-	@Deprecated("Deprecated in Java")
-	override fun onCreateDialog(id: Int): Dialog {
-		val factory = LayoutInflater.from(this)
-		if (id == dialogAbout) {
-			val aboutView = factory.inflate(R.layout.about, null)
-			val versionLabel = aboutView.findViewById<TextView>(R.id.version_label)
-			val versionName = AndroidUtils.getAppVersionName(applicationContext)
-			versionLabel.text = getString(R.string.version, versionName)
-			return AlertDialog.Builder(this)
-				.setIcon(R.mipmap.ic_launcher)
-				.setTitle(R.string.app_name)
-				.setView(aboutView)
-				.setPositiveButton("OK", null)
-				.create()
-		}
-		throw Exception("Invalid id $id")
 	}
 
 	override fun onResume() {

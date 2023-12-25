@@ -21,6 +21,7 @@ package org.buliasz.opensudoku2.gui.fragments
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
@@ -34,16 +35,19 @@ class SimpleDialog : DialogFragment(), DialogInterface.OnClickListener {
 	@DrawableRes var iconId: Int = 0
 	@StringRes var titleId: Int = R.string.app_name
 	var onOkCallback: (() -> Unit)? = null
+	var dialogView: View? = null
 
 	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 		val builder = AlertDialog.Builder(requireActivity())
 			.setIcon(iconId)
 			.setTitle(titleId)
 
-		if (message == null) {
-			builder.setMessage(messageId)
-		} else {
+		if (dialogView != null) {
+			builder.setView(dialogView)
+		} else if (message != null) {
 			builder.setMessage(message)
+		} else {
+			builder.setMessage(messageId)
 		}
 
 		if (onOkCallback != null) {

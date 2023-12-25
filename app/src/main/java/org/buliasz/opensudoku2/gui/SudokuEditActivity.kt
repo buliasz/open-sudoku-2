@@ -17,7 +17,6 @@
  */
 package org.buliasz.opensudoku2.gui
 
-import android.app.Dialog
 import android.content.ClipData
 import android.content.ClipDescription
 import android.content.ClipboardManager
@@ -32,12 +31,12 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.game.CellCollection
 import org.buliasz.opensudoku2.game.SudokuGame
+import org.buliasz.opensudoku2.gui.fragments.SimpleDialog
 import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanel
 
 /**
@@ -212,9 +211,15 @@ class SudokuEditActivity : ThemedActivity() {
 			MENU_ITEM_CHECK_RESOLVABILITY -> {
 				val solvable = checkResolvability()
 				if (solvable) {
-					showDialog(DIALOG_PUZZLE_SOLVABLE)
+					with(SimpleDialog()) {
+						messageId = R.string.puzzle_solvable
+						show(supportFragmentManager)
+					}
 				} else {
-					showDialog(DIALOG_PUZZLE_NOT_SOLVABLE)
+					with(SimpleDialog()) {
+						messageId = R.string.puzzle_not_solved
+						show(supportFragmentManager)
+					}
 				}
 				return true
 			}
@@ -232,24 +237,6 @@ class SudokuEditActivity : ThemedActivity() {
 			}
 		}
 		return super.onOptionsItemSelected(item)
-	}
-
-	@Deprecated("Deprecated in Java")
-	override fun onCreateDialog(id: Int): Dialog {
-		when (id) {
-			DIALOG_PUZZLE_SOLVABLE -> return AlertDialog.Builder(this)
-				.setTitle(R.string.app_name)
-				.setMessage(R.string.puzzle_solvable)
-				.setPositiveButton(android.R.string.ok, null)
-				.create()
-
-			DIALOG_PUZZLE_NOT_SOLVABLE -> return AlertDialog.Builder(this)
-				.setTitle(R.string.app_name)
-				.setMessage(R.string.puzzle_not_solved)
-				.setPositiveButton(android.R.string.ok, null)
-				.create()
-		}
-		throw Exception("Unknown dialog id $id")
 	}
 
 	private fun checkResolvability(): Boolean {
@@ -324,8 +311,6 @@ class SudokuEditActivity : ThemedActivity() {
 		const val MENU_ITEM_CANCEL = Menu.FIRST + 2
 		const val MENU_ITEM_COPY = Menu.FIRST + 3
 		const val MENU_ITEM_PASTE = Menu.FIRST + 4
-		private const val DIALOG_PUZZLE_SOLVABLE = 1
-		private const val DIALOG_PUZZLE_NOT_SOLVABLE = 2
 
 		// The different distinct states the activity can be run in.
 		private const val STATE_EDIT = 0
