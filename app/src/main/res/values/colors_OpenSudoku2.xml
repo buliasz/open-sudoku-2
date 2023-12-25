@@ -22,7 +22,7 @@
     <color name="OpenSudoku2_md_theme_light_onPrimary">#000000</color>
     <color name="OpenSudoku2_md_theme_light_primaryDark">#009587</color>
     <color name="OpenSudoku2_md_theme_light_primaryContainer">#d1fdf9</color>
-    <color name="OpenSudoku2_md_theme_light_onPrimaryContainer">#000000</color>
+    <color name="OpenSudoku2_md_theme_light_onPrimaryContainer">#416D85</color>
     <color name="OpenSudoku2_md_theme_light_secondary">#006a63</color>
     <color name="OpenSudoku2_md_theme_light_onSecondary">#ffffff</color>
     <color name="OpenSudoku2_md_theme_light_secondaryContainer">#49b7ac</color>

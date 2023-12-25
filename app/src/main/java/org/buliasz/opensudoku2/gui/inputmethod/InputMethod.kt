@@ -153,7 +153,7 @@ abstract class InputMethod {
 		// that are not NumberButton (e.g., the delete and mode switch buttons).
 		fun makeTextColorStateList(boardView: SudokuBoardView): ColorStateList {
 			val states = arrayOf(
-				intArrayOf(R.attr.all_numbers_placed, android.R.attr.state_enabled, -android.R.attr.state_checked),
+				intArrayOf(R.attr.all_numbers_placed, android.R.attr.state_enabled),
 				intArrayOf(android.R.attr.state_enabled, android.R.attr.state_checked),
 				intArrayOf(android.R.attr.state_enabled),
 				intArrayOf()
