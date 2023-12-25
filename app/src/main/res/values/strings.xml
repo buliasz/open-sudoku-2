@@ -380,7 +380,7 @@
     <string name="press_color_to_apply">Press on Color to apply</string>
 
     <string name="dark_mode_key" translatable="false">ui_mode</string>
-    <string name="dark_mode_title">UI Mode</string>
+    <string name="dark_mode_title">Interface Mode</string>
 
     <!-- Options when selecting dark mode -->
     <string name="dark_mode_light">Light mode</string>
