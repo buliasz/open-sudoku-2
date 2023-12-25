@@ -239,5 +239,6 @@
 
     <string name="default_backgroundColor">Primary background</string>
     <string name="solve_puzzle">Resolver jogo</string>
+    <string name="solve_puzzle_confirm">Tem certeza de que deseja ver a solução?</string>
 
 </resources>

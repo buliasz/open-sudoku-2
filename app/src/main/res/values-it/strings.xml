@@ -263,7 +263,6 @@
 
     <!-- Strings added/changed in 3.0.0 -->
     <string name="theme_default">Scuro</string>
-    <string name="theme_amoled">AMOLED</string>
     <string name="theme_latte">Caffè latte</string>
     <string name="theme_espresso">Espresso</string>
     <string name="theme_sunrise">Alva</string>
@@ -322,9 +321,6 @@
     <string name="reset_all_puzzles_confirm">Sei sicuro di voler azzerare tutti i rompicapo di questa cartella?</string>
 
     <string name="fill_all_notes">Compila le note con tutti i valori</string>
-
-    <string name="sort_order_ascending">ASC</string>
-    <string name="sort_order_descending">DESC</string>
 
     <string name="press_color_to_apply">Premi sul colore per applicare</string>
 </resources>

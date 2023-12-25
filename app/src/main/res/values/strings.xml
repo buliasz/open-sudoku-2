@@ -314,7 +314,7 @@
 
     <!-- Strings added/changed in 3.0.0 -->
     <string name="theme_default">Dark</string>
-    <string name="theme_amoled">AMOLED</string>
+    <string name="theme_amoled" translatable="false">AMOLED</string>
     <string name="theme_latte">Caramel Latte</string>
     <string name="theme_espresso">Espresso</string>
     <string name="theme_sunrise">Sunrise</string>
@@ -374,8 +374,8 @@
 
     <string name="fill_all_notes">Fill in notes with all values</string>
 
-    <string name="sort_order_ascending">ASC</string>
-    <string name="sort_order_descending">DESC</string>
+    <string name="sort_order_ascending" translatable="false">ASC</string>
+    <string name="sort_order_descending" translatable="false">DESC</string>
 
     <string name="press_color_to_apply">Press on Color to apply</string>
 

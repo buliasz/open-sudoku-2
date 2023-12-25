@@ -297,7 +297,6 @@
 
     <!-- Strings added/changed in 3.0.0 -->
     <string name="theme_default">Temný</string>
-    <string name="theme_amoled">AMOLED</string>
     <string name="theme_latte">Karamelové latte</string>
     <string name="theme_espresso">Espresso</string>
     <string name="theme_sunrise">Svítání</string>

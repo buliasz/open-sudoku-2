@@ -299,7 +299,6 @@
 
     <!-- Strings added/changed in 3.0.0 -->
     <string name="theme_default">黑暗</string>
-    <string name="theme_amoled">AMOLED</string>
     <string name="theme_latte">焦糖拿铁</string>
     <string name="theme_espresso">浓咖啡</string>
     <string name="theme_sunrise">日出</string>

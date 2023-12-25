@@ -54,6 +54,7 @@
         <item quantity="one">%d Sudoku-Rätsel</item>
         <item quantity="other">%d Sudoku-Rätsel</item>
     </plurals>
+    <string name="all_solved">alles gelöst</string>
     <string name="n_solved">%s gelöst</string>
     <string name="n_unsolved">%d neu</string>
     <string name="n_playing">%d in Bearbeitung</string>
@@ -248,7 +249,6 @@
     <string name="sort_puzzles_by">Puzzles sortieren nach</string>
     <string name="sudoku_lists">Sudokulisten</string>
     <string name="theme_amethyst">Amethyst</string>
-    <string name="theme_amoled">AMOLED</string>
     <string name="theme_crystal">Kristall</string>
     <string name="theme_default">Dunkel</string>
     <string name="theme_espresso">Espresso</string>

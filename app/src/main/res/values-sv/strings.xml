@@ -248,5 +248,6 @@
 
     <string name="default_backgroundColor">Primary background</string>
     <string name="solve_puzzle">Lös pussel</string>
+    <string name="solve_puzzle_confirm">Är du säker på att du vill se lösningen?</string>
 
 </resources>

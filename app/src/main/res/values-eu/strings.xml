@@ -295,7 +295,6 @@
 
     <!-- Strings added/changed in 3.0.0 -->
     <string name="theme_default">Iluna</string>
-    <string name="theme_amoled">AMOLED</string>
     <string name="theme_latte">Latte karamelo</string>
     <string name="theme_espresso">Espresso</string>
     <string name="theme_sunrise">Egunsentia</string>

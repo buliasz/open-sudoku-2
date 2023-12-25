@@ -201,12 +201,12 @@
 
     <!-- Strings added/changed in 2.5.0 -->
 
-    <string name="theme_paper">Paper</string>
-    <string name="theme_graph_paper">Graph Paper</string>
-    <string name="theme_light">Light</string>
-    <string name="theme_paper_light">Paper Light</string>
+    <string name="theme_paper">Kağıt</string>
+    <string name="theme_graph_paper">Grafik kağıdı</string>
+    <string name="theme_light">Işık</string>
+    <string name="theme_paper_light">Kağıt Işığı</string>
     <string name="theme_graph_paper_light">Graph Paper Light</string>
-    <string name="theme_high_contrast">High Contrast</string>
+    <string name="theme_high_contrast">Yüksek kontrast</string>
     <string name="theme_inverted_high_contrast">Inverted High Contrast</string>
     <string name="theme_custom">Custom Theme</string>
 
@@ -223,5 +223,75 @@
 
     <string name="default_backgroundColor">Primary background</string>
     <string name="solve_puzzle">Bulmaca çözmek</string>
+    <string name="solve_puzzle_confirm">Çözümü görmek istediğinizden emin misiniz?</string>
+    <string name="used_solver">Çözümü görmek için çözücüyü kullandınız!</string>
+    <string name="puzzle_not_solved">Bu bulmacanın çözümü yok.</string>
+    <string name="hint_confirm">Bu, seçilen hücre için doğru değeri dolduracaktır. Devam etmek istiyor musun?</string>
+    <string name="cannot_give_hint">O hücreye dair ipucu alamazsınız.</string>
+    <string name="check_solvabitily">Çözülebilirliği Kontrol Edin</string>
+    <string name="puzzle_solvable">Bu bulmacanın bir çözümü var.</string>
+    <string name="copy_from_existing_theme">Mevcut temadan kopyala</string>
+    <string name="theme_default">Karanlık</string>
+    <string name="theme_latte">Karamelli Latte</string>
+    <string name="theme_espresso">Espresso</string>
+    <string name="theme_sunrise">Gündoğumu</string>
+    <string name="theme_honeybee">Balarısı</string>
+    <string name="theme_crystal">Kristal</string>
+    <string name="theme_midnight_blue">Gece yarısı mavisi</string>
+    <string name="theme_emerald">Zümrüt</string>
+    <string name="theme_forest">Orman</string>
+    <string name="theme_amethyst">Ametist</string>
+    <string name="theme_ruby">Yakut</string>
+    <string name="is_light_theme_title">Işık teması</string>
+    <string name="is_light_theme_summary">Uygulama renklerinin açık temaya mı yoksa koyu temaya mı dayalı olduğunu değiştirin.</string>
+    <string name="app_color_primary_title">Birincil uygulama Rengi</string>
+    <string name="app_color_primary_summary">Durum çubuğu, düğmeler, renklendirme</string>
+    <string name="app_color_accent_title">Vurgu Rengi</string>
+    <string name="app_color_accent_summary">Anahtarlar ve diğer widget\'lar</string>
+    <string name="highlight_similar_notes">Benzer notları vurgulayın</string>
+    <string name="highlight_similar_notes_summary">Benzer not değerlerine sahip hücreleri vurgulayın</string>
+    <string name="resume">Sürdürmek</string>
+    <string name="sudoku_lists">Sudoku Listeleri</string>
+    <string name="undo_to_before_mistake">Hatadan önceki işlemi geri al</string>
+    <string name="undo_to_before_mistake_confirm">Son çözülebilir durumdan bu yana yapılan tüm eylemleri geri almak istediğinizden emin misiniz?</string>
+    <string name="remove_notes_title">Numara girişindeki notları kaldırın</string>
+    <string name="remove_notes_summary">Sayı girerken aynı sütun, satır ve kutudaki notları otomatik olarak kaldırın</string>
+    <string name="create_from_single_color">Tek renkten oluştur</string>
+    <string name="show_sudoku_lists_on_startup_title">Başlangıçta sudoku listelerini göster</string>
+    <string name="show_sudoku_lists_on_startup_summary">Başlangıçta sudoku listelerini gösterin ve başlık ekranını atlayın.</string>
+    <string name="app_startup_category">Uygulama Başlatma</string>
+    <string name="sort">Düzenlemek</string>
+    <string name="sort_puzzles_by">Bulmacaları şuna göre sırala:</string>
+    <string name="sort_creation_date">Oluşturulma tarihi</string>
+    <string name="sort_play_time">Oyun zamanı</string>
+    <string name="sort_last_played">Son çalınan</string>
+    <string name="pasted_from_clipboard">Panodan yapıştırıldı</string>
+    <string name="copied_to_clipboard">Panoya kopyalandı</string>
+    <string name="invalid_puzzle_format">Geçersiz bulmaca biçimi</string>
+    <string name="invalid_mime_type">Geçersiz MIME türü, lütfen pano içeriğinizi kontrol edin</string>
+    <string name="reset_all_puzzles">Hepsini sıfırla</string>
+    <string name="reset_all_puzzles_confirm">Bu klasördeki tüm bulmacaları sıfırlamak istediğinizden emin misiniz?</string>
+    <string name="fill_all_notes">Notları tüm değerlerle doldurun</string>
+    <string name="press_color_to_apply">Uygulamak için Renk\'e basın</string>
+    <string name="dark_mode_title">UI de</string>
+    <string name="dark_mode_light">Işık modu</string>
+    <string name="dark_mode_dark">Karanlık mod</string>
+    <string name="dark_mode_system">Sistemin açık/karanlık modunu kullanma</string>
+    <string name="disabled_by_theme">Seçilen tema modu belirler</string>
+    <string name="use_dynamic_color">Use dynamic color</string>
+    <string name="use_dynamic_color_summary">Duvar kağıdınızdaki renkleri kullanın</string>
+    <string name="theme_custom_light">Özel Tema Işığı</string>
+    <string name="pref_border_title">Hücre sınırları</string>
+    <string name="pref_border_summary">Hücrelerin ve 3x3 kutuların etrafındaki kenarlık renkleri</string>
+    <string name="pref_touched_title">Dokunulan hücreler</string>
+    <string name="pref_touched_summary">Seçim çaprazındaki hücreler</string>
+    <string name="pref_selected_title">Seçilen hücre</string>
+    <string name="pref_selected_summary">Seçilen hücrenin odak göstergesi</string>
+    <string name="pref_highlighted_title">Vurgulandı</string>
+    <string name="pref_highlighted_summary">Seçilen hücreyle aynı hücreler</string>
+    <string name="pref_error_title">Geçersiz değerler</string>
+    <string name="pref_error_summary">Geçersiz değerler içeren hücreler</string>
+    <string name="pref_even_title">Çift kutular</string>
+    <string name="pref_even_summary">Çift sayılı 3x3 kutulardaki hücreler</string>
 
 </resources>
