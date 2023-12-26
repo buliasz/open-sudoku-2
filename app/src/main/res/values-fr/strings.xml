@@ -53,11 +53,7 @@
     <string name="rename_folder_title">Renommer %s</string>
     <string name="delete_folder_title">Effacer %s</string>
     <string name="delete_folder_confirm">Voulez-vous vraiment supprimer ce dossier ?</string>
-    <plurals name="n_puzzles">
-        <item quantity="zero">Aucun grille</item>
-        <item quantity="one">%d grille</item>
-        <item quantity="other">%d grilles</item>
-    </plurals>
+    <string name="n_puzzles">%d Sudoku</string>
     <string name="all_solved">toutes résolues</string>
     <string name="n_solved">%s résolues</string>
     <string name="n_unsolved">%d non résolues</string>

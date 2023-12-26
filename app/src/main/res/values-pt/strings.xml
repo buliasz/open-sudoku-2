@@ -47,11 +47,7 @@
     <string name="rename_folder_title">Renomear %s</string>
     <string name="delete_folder_title">Excluir %s</string>
     <string name="delete_folder_confirm">Quer realmente excluir esta pasta?</string>
-    <plurals name="n_puzzles">
-        <item quantity="zero">Nenhum jogo</item>
-        <item quantity="one">%d jogo</item>
-        <item quantity="other">%d jogos</item>
-    </plurals>
+    <string name="n_puzzles">%d Sudoku</string>
     <string name="all_solved">todos Concluídos</string>
     <string name="n_solved">%s Concluídos</string>
     <string name="n_unsolved">%d não Concluídos</string>

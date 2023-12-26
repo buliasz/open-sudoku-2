@@ -59,7 +59,7 @@ class FolderInfo {
 
 	fun getDetail(c: Context): String {
 		val sb = StringBuilder()
-		sb.append(c.resources.getQuantityString(R.plurals.n_puzzles, puzzleCount, puzzleCount))
+		sb.append(c.getString(R.string.n_puzzles, puzzleCount))
 		if (puzzleCount > 0) {
 			// there are some puzzles
 			val unsolvedCount = puzzleCount - solvedCount

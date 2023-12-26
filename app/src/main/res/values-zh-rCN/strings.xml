@@ -62,12 +62,7 @@
     <string name="rename_folder_title">重命名 %s</string>
     <string name="delete_folder_title">删除 %s</string>
     <string name="delete_folder_confirm">你确定想删除这个分类？</string>
-
-    <plurals name="n_puzzles">
-        <item quantity="zero">没有谜题</item>
-        <item quantity="one">1个谜题</item>
-        <item quantity="other">%d个谜题</item>
-    </plurals>
+    <string name="n_puzzles">%d个谜题</string>
     <string name="all_solved">全部已解决</string>
     <string name="n_solved">%s个已解决</string>
     <string name="n_unsolved">%d个未解决</string>

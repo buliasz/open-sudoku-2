@@ -57,11 +57,7 @@
     <string name="rename_folder_title">Přejmenovat %s</string>
     <string name="delete_folder_title">Smazat %s</string>
     <string name="delete_folder_confirm">Opravdu chcete smazat tuto složku?</string>
-    <plurals name="n_puzzles">
-        <item quantity="zero">Žádné sudoku</item>
-        <item quantity="one">%d sudoku</item>
-        <item quantity="other">%d sudoku</item>
-    </plurals>
+    <string name="n_puzzles">%d Sudoku</string>
     <string name="all_solved">všechna vyřešena</string>
     <string name="n_solved">%s vyřešeno</string>
     <string name="n_unsolved">%d nevyřešeno</string>

@@ -48,13 +48,7 @@
     <string name="rename_folder_title">Döp om %s</string>
     <string name="delete_folder_title">Ta bort %s</string>
     <string name="delete_folder_confirm">Är du säker på att du vill ta bort den här mappen?</string>
-
-    <plurals name="n_puzzles">
-        <item quantity="zero">Inga pussel</item>
-        <item quantity="one">Ett pussel</item>
-        <item quantity="other">%d pussel</item>
-    </plurals>
-
+    <string name="n_puzzles">%d Sudoku</string>
     <string name="all_solved">alla lösta</string>
     <string name="n_solved">%s lösta</string>
     <string name="n_unsolved">%d ej lösta</string>

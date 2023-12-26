@@ -72,11 +72,7 @@
     <string name="rename_folder_title">Rename %s</string>
     <string name="delete_folder_title">Delete %s</string>
     <string name="delete_folder_confirm">Are you sure you want to delete this folder?</string>
-    <plurals name="n_puzzles">
-        <item quantity="zero">No puzzles</item>
-        <item quantity="one">%d puzzle</item>
-        <item quantity="other">%d puzzles</item>
-    </plurals>
+    <string name="n_puzzles">Number of Sudoku: %d</string>
     <string name="all_solved">all solved</string>
     <string name="n_solved">%s solved</string>
     <string name="n_unsolved">%d unsolved</string>

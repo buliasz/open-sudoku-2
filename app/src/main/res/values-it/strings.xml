@@ -48,11 +48,7 @@
     <string name="rename_folder_title">Rinomina %s</string>
     <string name="delete_folder_title">Elimina %s</string>
     <string name="delete_folder_confirm">Sei sicuro di voler eliminare questa cartella?</string>
-    <plurals name="n_puzzles">
-        <item quantity="zero">Nessun rompicapo</item>
-        <item quantity="one">%d rompicapo</item>
-        <item quantity="other">%d rompicapi</item>
-    </plurals>
+    <string name="n_puzzles">%d Sudoku</string>
     <string name="all_solved">tutti risolti</string>
     <string name="n_solved">%s risolti</string>
     <string name="n_unsolved">%d non risolti</string>

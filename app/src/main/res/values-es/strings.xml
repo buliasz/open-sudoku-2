@@ -57,11 +57,7 @@
     <string name="rename_folder_title">Renombrar %s</string>
     <string name="delete_folder_title">Borrar %s</string>
     <string name="delete_folder_confirm">¿Estás completamente seguro de que quieres borrar esta carpeta?</string>
-    <plurals name="n_puzzles">
-        <item quantity="zero">Sin puzzles</item>
-        <item quantity="one">%d puzzle</item>
-        <item quantity="other">%d puzzles</item>
-    </plurals>
+    <string name="n_puzzles">%d Sudoku</string>
     <string name="all_solved">todos resueltos</string>
     <string name="n_solved">%s resuelto</string>
     <string name="n_unsolved">%d sin resolver</string>
