@@ -18,6 +18,7 @@
 
 package org.buliasz.opensudoku2.gui
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -25,6 +26,7 @@ import android.provider.OpenableColumns
 import android.text.format.DateFormat
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -75,21 +77,18 @@ class SudokuExportActivity : ThemedActivity() {
 		intent.addCategory(Intent.CATEGORY_OPENABLE)
 		intent.setType("application/x-opensudoku2")
 		intent.putExtra(Intent.EXTRA_TITLE, "$fileName.opensudoku2")
-		startActivityForResult(intent, CREATE_FILE)
-	}
-
-	@Deprecated("Deprecated in Java")
-	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-		if (requestCode == CREATE_FILE && resultCode == RESULT_OK) {
-			if (data != null) {
-				val uri = data.data
-				startExportToFileTask(uri)
+		val someActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+			if (result.resultCode == Activity.RESULT_OK) {
+				val data: Intent? = result.data
+				if (data != null) {
+					val uri = data.data
+					startExportToFileTask(uri)
+				}
+			} else if (result.resultCode == RESULT_CANCELED) {
+				finish()
 			}
-		} else if (requestCode == CREATE_FILE && resultCode == RESULT_CANCELED) {
-			finish()
-		} else {
-			super.onActivityResult(requestCode, resultCode, data)
 		}
+		someActivityResultLauncher.launch(intent)
 	}
 
 	private fun startExportToFileTask(uri: Uri?) {
@@ -138,6 +137,5 @@ class SudokuExportActivity : ThemedActivity() {
 		 */
 		const val ALL_FOLDERS: Long = -1
 		private val TAG = SudokuExportActivity::class.java.simpleName
-		private const val CREATE_FILE = 1
 	}
 }
