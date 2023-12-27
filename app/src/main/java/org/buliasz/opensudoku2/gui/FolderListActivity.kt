@@ -17,6 +17,7 @@
  */
 package org.buliasz.opensudoku2.gui
 
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.DialogInterface
@@ -29,6 +30,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,6 +47,7 @@ import org.buliasz.opensudoku2.gui.fragments.RenameFolderDialogFragment
  * List of puzzle's folder. This activity also serves as root activity of application.
  */
 class FolderListActivity : ThemedActivity() {
+	private lateinit var importLauncher: ActivityResultLauncher<Intent>
 	private lateinit var addFolderDialog: AddFolderDialogFragment
 	private lateinit var renameFolderDialog: RenameFolderDialogFragment
 	private lateinit var aboutDialog: AboutDialogFragment
@@ -93,6 +97,18 @@ class FolderListActivity : ThemedActivity() {
 		addFolderDialog = AddFolderDialogFragment(factory, mDatabase, ::updateList)
 		deleteFolderDialog = DeleteFolderDialogFragment(mDatabase, ::updateList)
 		renameFolderDialog = RenameFolderDialogFragment(factory, mDatabase, ::updateList)
+
+		importLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+			if (result.resultCode == Activity.RESULT_OK) {
+				val data: Intent? = result.data
+				if (data != null) {
+					val uri = data.data
+					val i = Intent(this, SudokuImportActivity::class.java)
+					i.setData(uri)
+					startActivity(i)
+				}
+			}
+		}
 
 		// show changelog on first run
 		val changelog = Changelog(this)
@@ -187,7 +203,7 @@ class FolderListActivity : ThemedActivity() {
 				intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
 				intent.addCategory(Intent.CATEGORY_OPENABLE)
 				intent.setType("*/*")
-				startActivityForResult(intent, OPEN_FILE)
+				importLauncher.launch(intent)
 				return true
 			}
 
@@ -215,21 +231,6 @@ class FolderListActivity : ThemedActivity() {
 			}
 		}
 		return super.onOptionsItemSelected(item)
-	}
-
-	@Deprecated("Deprecated in Java")
-	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-		if (requestCode == OPEN_FILE && resultCode == RESULT_OK) {
-			val uri: Uri?
-			if (data != null) {
-				uri = data.data
-				val i = Intent(this, SudokuImportActivity::class.java)
-				i.setData(uri)
-				startActivity(i)
-			}
-		} else {
-			super.onActivityResult(requestCode, resultCode, data)
-		}
 	}
 
 	override fun onRequestPermissionsResult(
@@ -260,6 +261,5 @@ class FolderListActivity : ThemedActivity() {
 		const val MENU_ITEM_EXPORT_ALL = Menu.FIRST + 5
 		const val MENU_ITEM_IMPORT = Menu.FIRST + 6
 		const val MENU_ITEM_SETTINGS = Menu.FIRST + 7
-		private const val OPEN_FILE = 1
 	}
 }

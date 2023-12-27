@@ -77,7 +77,7 @@ class SudokuExportActivity : ThemedActivity() {
 		intent.addCategory(Intent.CATEGORY_OPENABLE)
 		intent.setType("application/x-opensudoku2")
 		intent.putExtra(Intent.EXTRA_TITLE, "$fileName.opensudoku2")
-		val someActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+		registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 			if (result.resultCode == Activity.RESULT_OK) {
 				val data: Intent? = result.data
 				if (data != null) {
@@ -87,8 +87,7 @@ class SudokuExportActivity : ThemedActivity() {
 			} else if (result.resultCode == RESULT_CANCELED) {
 				finish()
 			}
-		}
-		someActivityResultLauncher.launch(intent)
+		}.launch(intent)
 	}
 
 	private fun startExportToFileTask(uri: Uri?) {
