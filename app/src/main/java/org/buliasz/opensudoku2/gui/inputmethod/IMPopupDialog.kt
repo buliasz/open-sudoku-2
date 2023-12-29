@@ -37,7 +37,7 @@ import org.buliasz.opensudoku2.gui.SudokuBoardView
  */
 class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoardView) : Dialog(mContext) {
 	private val mInflater: LayoutInflater
-	private var mEditMode = MODE_EDIT_VALUE
+	private var mEditMode = InputMethod.MODE_EDIT_VALUE
 	private val mNumberButtons: MutableMap<Int, NumberButton> = HashMap()
 
 	// selected number on "Select number" tab (0 if nothing is selected).
@@ -58,18 +58,18 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 	private val mNumberButtonClicked = View.OnClickListener { v: View ->
 		val number = v.tag as Int
 		when (mEditMode) {
-			MODE_EDIT_VALUE -> {
+			InputMethod.MODE_EDIT_VALUE -> {
 				mSelectedNumber = number
 				syncAndDismiss()
 			}
 
-			MODE_EDIT_CORNER_NOTE -> if ((v as MaterialButton).isChecked) {
+			InputMethod.MODE_EDIT_CORNER_NOTE -> if ((v as MaterialButton).isChecked) {
 				mCornerNoteSelectedNumbers.add(number)
 			} else {
 				mCornerNoteSelectedNumbers.remove(number)
 			}
 
-			MODE_EDIT_CENTER_NOTE -> if ((v as MaterialButton).isChecked) {
+			InputMethod.MODE_EDIT_CENTER_NOTE -> if ((v as MaterialButton).isChecked) {
 				mCenterNoteSelectedNumbers.add(number)
 			} else {
 				mCenterNoteSelectedNumbers.remove(number)
@@ -83,15 +83,15 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 	private val clearButtonListener = View.OnClickListener { v ->
 		(v as MaterialButton).isChecked = false
 		when (mEditMode) {
-			MODE_EDIT_VALUE -> {
+			InputMethod.MODE_EDIT_VALUE -> {
 				mSelectedNumber = 0
 				syncAndDismiss()
 			}
 
-			MODE_EDIT_CORNER_NOTE ->                     // Clear the corner notes. Dialog should stay visible
+			InputMethod.MODE_EDIT_CORNER_NOTE ->                     // Clear the corner notes. Dialog should stay visible
 				setCornerNotes(emptyList())
 
-			MODE_EDIT_CENTER_NOTE ->                     // Clear the center notes. Dialog should stay visible
+			InputMethod.MODE_EDIT_CENTER_NOTE ->                     // Clear the center notes. Dialog should stay visible
 				setCenterNotes(emptyList())
 		}
 		update()
@@ -152,19 +152,19 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 		}
 
 		mEnterNumberButton = keypad.findViewById(R.id.enter_number)
-		mEnterNumberButton.tag = MODE_EDIT_VALUE
+		mEnterNumberButton.tag = InputMethod.MODE_EDIT_VALUE
 		mEnterNumberButton.setOnClickListener(modeButtonClicked)
 		mEnterNumberButton.backgroundTintList = backgroundColor
 		mEnterNumberButton.iconTint = textColor
 
 		mCornerNoteButton = keypad.findViewById(R.id.corner_note)
-		mCornerNoteButton.tag = MODE_EDIT_CORNER_NOTE
+		mCornerNoteButton.tag = InputMethod.MODE_EDIT_CORNER_NOTE
 		mCornerNoteButton.setOnClickListener(modeButtonClicked)
 		mCornerNoteButton.backgroundTintList = backgroundColor
 		mCornerNoteButton.iconTint = textColor
 
 		mCenterNoteButton = keypad.findViewById(R.id.center_note)
-		mCenterNoteButton.tag = MODE_EDIT_CENTER_NOTE
+		mCenterNoteButton.tag = InputMethod.MODE_EDIT_CENTER_NOTE
 		mCenterNoteButton.setOnClickListener(modeButtonClicked)
 		mCenterNoteButton.backgroundTintList = backgroundColor
 		mCenterNoteButton.iconTint = textColor
@@ -178,21 +178,21 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 		// Determine which buttons to check, based on the value / notes in the selected cell
 		val buttonsToCheck: List<Int>
 		when (mEditMode) {
-			MODE_EDIT_VALUE -> {
+			InputMethod.MODE_EDIT_VALUE -> {
 				mEnterNumberButton.isChecked = true
 				mCornerNoteButton.isChecked = false
 				mCenterNoteButton.isChecked = false
 				buttonsToCheck = listOf(mSelectedNumber)
 			}
 
-			MODE_EDIT_CORNER_NOTE -> {
+			InputMethod.MODE_EDIT_CORNER_NOTE -> {
 				mEnterNumberButton.isChecked = false
 				mCornerNoteButton.isChecked = true
 				mCenterNoteButton.isChecked = false
 				buttonsToCheck = ArrayList(mCornerNoteSelectedNumbers)
 			}
 
-			MODE_EDIT_CENTER_NOTE -> {
+			InputMethod.MODE_EDIT_CENTER_NOTE -> {
 				mEnterNumberButton.isChecked = false
 				mCornerNoteButton.isChecked = false
 				mCenterNoteButton.isChecked = true
@@ -307,12 +307,5 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 	interface OnNoteEditListener {
 		fun onCornerNoteEdit(numbers: Array<Int>): Boolean
 		fun onCenterNoteEdit(numbers: Array<Int>): Boolean
-	}
-
-	companion object {
-		// TODO: These are common across all input methods
-		private const val MODE_EDIT_VALUE = 0
-		private const val MODE_EDIT_CORNER_NOTE = 1
-		private const val MODE_EDIT_CENTER_NOTE = 2
 	}
 }

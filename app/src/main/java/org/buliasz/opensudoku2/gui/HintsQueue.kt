@@ -27,7 +27,6 @@ import java.util.LinkedList
 import java.util.Queue
 
 class HintsQueue(private val mContext: Context) {
-	// TODO: should be persisted in activity's state
 	private val mMessages: Queue<Message>
 	private val mHintDialog: AlertDialog?
 	private val mPrefs: SharedPreferences = mContext.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)

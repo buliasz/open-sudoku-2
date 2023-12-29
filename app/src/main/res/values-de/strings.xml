@@ -151,7 +151,7 @@
 
     <string name="puzzles_saved">Die Sudoku-Rätsel wurden im Ordner \'%s\' gespeichert.</string>
     <string name="no_puzzles_found">Keine Sudoku-Rätsel gefunden.</string>
-    <string name="unknown_import_error">Unbekanntes Format, importieren wurde abgebrochen.</string>
+    <string name="unknown_import_error">Beim Importieren von Rätseln ist ein unbekannter Fehler aufgetreten. Import wurde abgebrochen.</string>
     <string name="invalid_format">Unbekanntes Format, importieren wurde abgebrochen.</string>
 
     <!-- Strings added in 0.7.0 -->

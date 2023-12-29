@@ -300,10 +300,4 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 			update()
 		}
 	}
-
-	companion object {
-		private const val MODE_EDIT_VALUE = 0
-		private const val MODE_EDIT_CORNER_NOTE = 1
-		private const val MODE_EDIT_CENTER_NOTE = 2
-	}
 }

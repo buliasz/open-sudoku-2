@@ -25,13 +25,12 @@ import android.graphics.Rect
 import android.util.AttributeSet
 import com.google.android.material.button.MaterialButton
 import org.buliasz.opensudoku2.R
+import org.buliasz.opensudoku2.gui.inputmethod.InputMethod
 
 /**
  * A button that displays a number the user can enter in to the grid.
  *
- *
  * The display of the number on the button varies depending on the current edit mode.
- *
  *
  * Exposes a state, app:all_numbers_placed, that is true if all 9 copies of this number
  * have been entered in to the grid. This can be used in a ColorStateList to adjust
@@ -51,7 +50,7 @@ class NumberButton(context: Context?, attrs: AttributeSet?) : MaterialButton(con
 	private val mNumbersPlacedPaint: Paint = Paint()
 
 	/** Mode used to display numbers  */
-	private var mMode: Int = MODE_EDIT_VALUE
+	private var mMode: Int = InputMethod.MODE_EDIT_VALUE
 
 	/** True if the count of times the number is placed should be shown on the button  */
 	private var mShowNumbersPlaced = false
@@ -94,7 +93,7 @@ class NumberButton(context: Context?, attrs: AttributeSet?) : MaterialButton(con
 		var textWidth: Float
 		var number = "$tag"
 		when (mMode) {
-			MODE_EDIT_VALUE -> {
+			InputMethod.MODE_EDIT_VALUE -> {
 				// Large numbers, vertically/horizontally centered, with optional small number at
 				// the right showing the placed count.
 				mEnterNumberPaint.color = currentTextColor
@@ -127,7 +126,7 @@ class NumberButton(context: Context?, attrs: AttributeSet?) : MaterialButton(con
 				}
 			}
 
-			MODE_EDIT_CORNER_NOTE -> {
+			InputMethod.MODE_EDIT_CORNER_NOTE -> {
 				mCornerNotePaint.color = currentTextColor
 				// Small numbers, vertically/horizontally centered, then offset based on col/row
 				mCornerNotePaint.getTextBounds(number, 0, 1, mTextBounds)
@@ -152,7 +151,7 @@ class NumberButton(context: Context?, attrs: AttributeSet?) : MaterialButton(con
 				)
 			}
 
-			MODE_EDIT_CENTER_NOTE -> {
+			InputMethod.MODE_EDIT_CENTER_NOTE -> {
 				mCenterNotePaint.color = currentTextColor
 				// Small numbers, vertically/horizontally centered.
 				mCenterNotePaint.getTextBounds(number, 0, 1, mTextBounds)
@@ -207,11 +206,6 @@ class NumberButton(context: Context?, attrs: AttributeSet?) : MaterialButton(con
 	}
 
 	companion object {
-		// TODO: Repeats definitions in
-		const val MODE_EDIT_VALUE = 0
-		const val MODE_EDIT_CORNER_NOTE = 1
-		const val MODE_EDIT_CENTER_NOTE = 2
-
 		/** Attribute that corresponds to setting app:all_numbers_placed  */
 		private val ALL_NUMBERS_PLACED_STATE = intArrayOf(R.attr.all_numbers_placed)
 	}

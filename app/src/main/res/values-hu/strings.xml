@@ -45,7 +45,7 @@
     <string name="note">Megjegyzés:</string>
 
     <string name="select_number">Érték</string>
-    <string name="edit_note">Megjegyzés</string>
+    <string name="edit_note">Megjegyzés szerkesztése</string>
 
     <string name="add_folder">Új mappa</string>
     <string name="import_file">Importálás</string>
@@ -68,7 +68,7 @@
     <string name="not_started">Nem elkezdett</string>
     <string name="last_played_at">Utoljára teljesítve: %s</string>
     <string name="created_at">Létrehozva: %s</string>
-    <string name="at_time">%s</string>
+    <string name="at_time">időpont: %s</string>
     <string name="yesterday_at_time">tegnap %s</string>
     <string name="on_date">%s</string>
     <string name="add_sudoku">Új feladvány</string>
@@ -271,7 +271,7 @@
 
     <string name="default_textColor">Szöveg</string>
 
-    <string name="default_textColorNote">Megjegyzés</string>
+    <string name="default_textColorNote">Megjegyzés szövege</string>
 
     <string name="default_backgroundColor">Elsődleges háttérszín</string>
 

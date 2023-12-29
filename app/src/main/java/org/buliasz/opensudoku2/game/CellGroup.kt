@@ -20,7 +20,6 @@ package org.buliasz.opensudoku2.game
 /**
  * Represents group of cells which must each contain unique number.
  *
- *
  * Typical examples of instances are sudoku row, column or sector (3x3 group of cells).
  */
 class CellGroup {

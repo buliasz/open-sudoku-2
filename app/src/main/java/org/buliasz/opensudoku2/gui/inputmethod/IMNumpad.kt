@@ -192,8 +192,6 @@ class IMNumpad(val parent: ViewGroup) : InputMethod() {
 		update()
 	}
 
-	// TODO: Maybe refactor the common code between this an IMSingleNumber.java in to a parent
-	// class. Or re-think how communication between the keyboard and the game state works.
 	private fun update() {
 		val editable = mSelectedCell != null && mSelectedCell!!.isEditable
 		mClearButton!!.isEnabled = editable
@@ -255,11 +253,5 @@ class IMNumpad(val parent: ViewGroup) : InputMethod() {
 		if (isInputMethodViewCreated) {
 			update()
 		}
-	}
-
-	companion object {
-		private const val MODE_EDIT_VALUE = 0
-		private const val MODE_EDIT_CORNER_NOTE = 1
-		private const val MODE_EDIT_CENTER_NOTE = 2
 	}
 }

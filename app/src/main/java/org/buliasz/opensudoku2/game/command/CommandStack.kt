@@ -24,11 +24,10 @@ import org.buliasz.opensudoku2.game.SudokuSolver
 import java.util.Stack
 import java.util.StringTokenizer
 
-class CommandStack(// TODO: I need cells collection, because I have to call validate on it after some
-	//	commands. CellCollection should be able to validate itself on change.
-	private val mCells: CellCollection
-) {
+class CommandStack(private val mCells: CellCollection) {
+
 	private val mCommandStack = Stack<AbstractCommand>()
+
 	fun serialize(): String {
 		val sb = StringBuilder()
 		serialize(sb)
@@ -42,8 +41,6 @@ class CommandStack(// TODO: I need cells collection, because I have to call vali
 			command.serialize(data)
 		}
 	}
-
-	fun empty(): Boolean = mCommandStack.empty()
 
 	fun execute(command: AbstractCommand) {
 		push(command)

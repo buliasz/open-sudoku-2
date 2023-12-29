@@ -34,7 +34,6 @@ import org.buliasz.opensudoku2.utils.Const
 /**
  * To add support for new import source, do following:
  *
- *
  * 1) Subclass this class. Any input parameters specific for your import should be put
  * in constructor of your class.
  * 2) In [.processImport] method process your data source (parse file or maybe download
@@ -44,9 +43,6 @@ import org.buliasz.opensudoku2.utils.Const
  * doesn't know where to put puzzles.
  * 3) Add code to [org.buliasz.opensudoku2.gui.SudokuImportActivity] which creates instance of your new class and
  * passes it input parameters.
- *
- *
- * TODO: add cancel support
  */
 abstract class AbstractImportTask {
 	private var mDatabase: SudokuDatabase? = null

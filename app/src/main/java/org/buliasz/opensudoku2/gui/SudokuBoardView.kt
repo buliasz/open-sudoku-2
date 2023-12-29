@@ -44,7 +44,6 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: A
 	private var mCellHeight = 0f
 	private var mTouchedCell: Cell? = null
 
-	// TODO: should I synchronize access to mSelectedCell?
 	var selectedCell: Cell? = null
 		private set
 	private var mHighlightedValue = 0
@@ -97,7 +96,6 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: A
 	/** Move the cell focus to the right if a number (not note, digit) is entered  */
 	private var mMoveCellSelectionOnPress = false
 
-	// TODO: do I need an defStyle?
 	init {
 		isFocusable = true
 		isFocusableInTouchMode = true
@@ -690,7 +688,6 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: A
 				KeyEvent.KEYCODE_DPAD_LEFT -> return moveCellSelection(-1, 0)
 				KeyEvent.KEYCODE_0, KeyEvent.KEYCODE_SPACE, KeyEvent.KEYCODE_DEL -> {
 					// clear value in selected cell
-					// TODO: I'm not really sure that this is thread-safe
 					if (selectedCell != null) {
 						if (event.isShiftPressed || event.isAltPressed) {
 							setCellNote(selectedCell!!, CellNote.EMPTY)

@@ -28,7 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:srcCompat="@drawable/ic_title_screen_logo" />
+        app:srcCompat="@drawable/ic_title_screen_logo"
+        android:contentDescription="@string/app_name" />
 
     <LinearLayout
         android:layout_width="match_parent"

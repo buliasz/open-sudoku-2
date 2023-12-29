@@ -126,7 +126,6 @@ internal class SudokuListRecyclerAdapter(
 				getDateAndTimeForHumans(game.created)
 			)
 		}
-		// TODO: when GONE, note is not correctly aligned below last_played
 		holder.created.visibility = if (createdString == null) View.GONE else View.VISIBLE
 		holder.created.text = createdString
 

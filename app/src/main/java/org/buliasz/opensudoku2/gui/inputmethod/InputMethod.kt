@@ -37,7 +37,6 @@ import kotlin.math.ceil
 abstract class InputMethod {
 	abstract val switchModeButton: Button
 
-	// TODO: I should not have mPrefix for fields used in subclasses, create proper getters
 	protected var mContext: Context? = null
 	private var mControlPanel: IMControlPanel? = null
 	protected var mGame: SudokuGame? = null
@@ -137,6 +136,10 @@ abstract class InputMethod {
 	open fun onRestoreState(savedState: StateBundle) {}
 
 	companion object {
+		const val MODE_EDIT_VALUE = 0
+		const val MODE_EDIT_CORNER_NOTE = 1
+		const val MODE_EDIT_CENTER_NOTE = 2
+
 		/**
 		 * Generates a [ColorStateList] using colors from boardView suitable
 		 * for use as text colors on a button.

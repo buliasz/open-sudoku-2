@@ -57,6 +57,7 @@
     <string name="get_more_puzzles_online">Get more puzzles online</string>
 
     <string name="name">Name:</string>
+    <string name="folder_name_hint">Folder name</string>
     <string name="note">Note:</string>
 
     <string name="select_number">Select number</string>

@@ -196,10 +196,10 @@
 
     <!-- Strings added/changed in 2.5.0 -->
 
-    <string name="theme_paper">Kağıt</string>
+    <string name="theme_paper">Kâğıt</string>
     <string name="theme_graph_paper">Grafik kağıdı</string>
     <string name="theme_light">Işık</string>
-    <string name="theme_paper_light">Kağıt Işığı</string>
+    <string name="theme_paper_light">Kâğıt Işığı</string>
     <string name="theme_graph_paper_light">Graph Paper Light</string>
     <string name="theme_high_contrast">Yüksek kontrast</string>
     <string name="theme_inverted_high_contrast">Inverted High Contrast</string>

@@ -438,7 +438,6 @@ class CellCollection private constructor(
 		 * earlier.
 		 */
 		fun deserialize(data: String): CellCollection {
-			// TODO: use DATA_PATTERN_VERSION_1 to validate and extract puzzle data
 			val lines = data.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
 			require(lines.isNotEmpty()) { "Cannot deserialize Sudoku, data corrupted." }
 			val line = lines[0]
@@ -458,7 +457,6 @@ class CellCollection private constructor(
 		 * cell value, no other information can be set using this method.
 		 */
 		private fun fromString(data: String): CellCollection {
-			// TODO: validate
 			val cells = Array(SUDOKU_SIZE) { Array(SUDOKU_SIZE) { Cell() } }
 			var pos = 0
 			for (r in 0..<SUDOKU_SIZE) {

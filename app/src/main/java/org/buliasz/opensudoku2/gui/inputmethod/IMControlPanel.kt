@@ -144,7 +144,6 @@ class IMControlPanel : LinearLayout {
 	}
 
 	val inputMethods: List<InputMethod>
-		// TODO: Is this really necessary?
 		get() = Collections.unmodifiableList(mInputMethods)
 
 	/**

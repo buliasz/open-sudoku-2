@@ -70,7 +70,7 @@
     <string name="reset_puzzle">Resetar jogo</string>
     <string name="delete_puzzle">Excluir jogo</string>
     <string name="filter_active">Filtrar: %s</string>
-    <string name="undo">Limpar</string>
+    <string name="undo">Desfazer</string>
     <string name="clear_all_notes">Limpar todas as anotações</string>
     <string name="fill_in_notes">Preencher anotação</string>
     <string name="restart">Reiniciar</string>

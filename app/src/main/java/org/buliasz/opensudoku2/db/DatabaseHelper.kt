@@ -152,7 +152,6 @@ class DatabaseHelper internal constructor(private val mContext: Context) :
 		db.execSQL("INSERT INTO ${Names.FOLDER} VALUES ($folderID, $now, '$folderName');")
 	}
 
-	// TODO: sudokuName is not used
 	private fun insertSudoku(db: SQLiteDatabase, folderID: Long, sudokuID: Long, data: String) {
 		val cv = ContentValues()
 		cv.put(Names.ID, sudokuID)

@@ -182,7 +182,6 @@ class SudokuDatabase(context: Context) : Closeable {
 	 * @param folderID Primary key of folder.
 	 */
 	fun deleteFolder(folderID: Long) {
-		// TODO: should run in transaction
 		mOpenHelper.writableDatabase.use { db ->
 			// delete all puzzles in folder we are going to delete
 			db.delete(Names.GAME, Names.FOLDER_ID + "=" + folderID, null)
