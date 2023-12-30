@@ -92,6 +92,8 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 	private val mBackgroundHighlighted: Paint
 	private val mTextInvalid: Paint
 	private val mBackgroundInvalid: Paint
+	private val bounds = Rect()
+	private val paint = Paint()
 
 	/** Move the cell focus to the right if a number (not note, digit) is entered  */
 	private var mMoveCellSelectionOnPress = false
@@ -558,19 +560,13 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 						}
 					}
 					if (!cell.centerNote.isEmpty) {
-						val sb = StringBuilder()
-						val paint = Paint(mPaints[row][col][2])
+						paint.set(mPaints[row][col][2])
 						paint.textAlign = Paint.Align.CENTER
-						val numbers: Collection<Int?> = cell.centerNote.notedNumbers
-						for (number in numbers) {
-							sb.append(number)
-						}
-						val note = "$sb"
+						val note = cell.centerNote.notedNumbers.joinToString("")
 
 						// Determine the font size (specifically, width) to use. The string
 						// may run out of the cell (typically if it's more than 5 digits long).
 						// If it will exceed the cell width, shrink the font.
-						val bounds = Rect()
 						paint.getTextBounds(note, 0, note.length, bounds)
 
 						// Horizontally align the centre note
@@ -649,28 +645,31 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 	}
 
 	override fun onTouchEvent(event: MotionEvent): Boolean {
-		if (!mReadonly) {
-			val x = event.x.toInt()
-			val y = event.y.toInt()
-			when (event.action) {
-				MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> mTouchedCell = getCellAtPoint(x, y)
-				MotionEvent.ACTION_UP -> {
-					if (mAutoHideTouchedCellHint) {
-						mTouchedCell = null
-					}
-					with(getCellAtPoint(x, y)) {
-						selectedCell = this ?: return@with
-						invalidate() // selected cell has changed, update board as soon as you can
-						onCellTapped(selectedCell)
-						onCellSelected(selectedCell)
-					}
-				}
+		if (mReadonly) return false
 
-				MotionEvent.ACTION_CANCEL -> mTouchedCell = null
+		val x = event.x.toInt()
+		val y = event.y.toInt()
+		when (event.action) {
+			MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> mTouchedCell = getCellAtPoint(x, y)
+			MotionEvent.ACTION_UP -> {
+				selectedCell = getCellAtPoint(x, y)
+				performClick()
 			}
-			postInvalidate()
+
+			MotionEvent.ACTION_CANCEL -> mTouchedCell = null
 		}
-		return !mReadonly
+		postInvalidate()
+		return true
+	}
+
+	override fun performClick(): Boolean {
+		invalidate() // selected cell has changed, update board as soon as you can
+		onCellTapped(selectedCell)
+		onCellSelected(selectedCell)
+		if (mAutoHideTouchedCellHint) {
+			mTouchedCell = null
+		}
+		return super.performClick()
 	}
 
 	override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
