@@ -28,7 +28,7 @@ import java.util.Queue
 
 class HintsQueue(private val mContext: Context) {
 	private val mMessages: Queue<Message>
-	private val mHintDialog: AlertDialog?
+	private val mHintDialog: AlertDialog
 	private val mPrefs: SharedPreferences = mContext.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)
 	private var mOneTimeHintsEnabled: Boolean
 
@@ -48,13 +48,13 @@ class HintsQueue(private val mContext: Context) {
 			.setTitle(R.string.hint)
 			.setMessage("")
 			.setPositiveButton(R.string.close, mHintClosed).create()
-		mHintDialog.setOnDismissListener(DialogInterface.OnDismissListener { processQueue() })
+		mHintDialog.setOnDismissListener { processQueue() }
 		mMessages = LinkedList()
 	}
 
 	private fun addHint(hint: Message) {
 		synchronized(mMessages) { mMessages.add(hint) }
-		synchronized(mHintDialog!!) {
+		synchronized(mHintDialog) {
 			if (!mHintDialog.isShowing) {
 				processQueue()
 			}
@@ -62,15 +62,11 @@ class HintsQueue(private val mContext: Context) {
 	}
 
 	private fun processQueue() {
-		var hint: Message?
-		synchronized(mMessages) { hint = mMessages.poll() }
-		if (hint != null) {
-			showHintDialog(hint!!)
-		}
+		showHintDialog(synchronized(mMessages) { mMessages.poll() ?: return@processQueue })
 	}
 
 	private fun showHintDialog(hint: Message) {
-		synchronized(mHintDialog!!) {
+		synchronized(mHintDialog) {
 			mHintDialog.setTitle(mContext.getString(hint.titleResID))
 			mHintDialog.setMessage(mContext.getText(hint.messageResID))
 			mHintDialog.show()

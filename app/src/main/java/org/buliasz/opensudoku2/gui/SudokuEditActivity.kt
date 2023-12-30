@@ -42,10 +42,10 @@ import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanel
 class SudokuEditActivity : ThemedActivity() {
 	private var mState = 0
 	private var mFolderID: Long = 0
-	private var mDatabase: SudokuDatabase? = null
-	private var mGame: SudokuGame? = null
-	private var mRootLayout: ViewGroup? = null
-	private var mClipboard: ClipboardManager? = null
+	private lateinit var mDatabase: SudokuDatabase
+	private lateinit var mGame: SudokuGame
+	private lateinit var mRootLayout: ViewGroup
+	private lateinit var mClipboard: ClipboardManager
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
@@ -80,17 +80,17 @@ class SudokuEditActivity : ThemedActivity() {
 		}
 		if (savedInstanceState != null) {
 			mGame = SudokuGame()
-			mGame!!.restoreState(savedInstanceState)
+			mGame.restoreState(savedInstanceState)
 		} else {
 			if (mSudokuID != 0L) {
 				// existing sudoku, read it from database
-				mGame = mDatabase!!.getSudoku(mSudokuID)
-				mGame!!.cells.markAllCellsAsEditable()
+				mGame = mDatabase.getSudoku(mSudokuID) ?: SudokuGame.createEmptyGame()
+				mGame.cells.markAllCellsAsEditable()
 			} else {
 				mGame = SudokuGame.createEmptyGame()
 			}
 		}
-		mBoard.setGame(mGame!!)
+		mBoard.setGame(mGame)
 		val mInputMethods = findViewById<IMControlPanel>(R.id.input_methods)
 		mInputMethods.initialize(mBoard, mGame, null)
 
@@ -105,19 +105,19 @@ class SudokuEditActivity : ThemedActivity() {
 
 	override fun onPause() {
 		super.onPause()
-		if (isFinishing && mState != STATE_CANCEL && !mGame!!.cells.isEmpty) {
+		if (isFinishing && mState != STATE_CANCEL && !mGame.cells.isEmpty) {
 			savePuzzle()
 		}
 	}
 
 	override fun onDestroy() {
 		super.onDestroy()
-		mDatabase!!.close()
+		mDatabase.close()
 	}
 
 	override fun onSaveInstanceState(outState: Bundle) {
 		super.onSaveInstanceState(outState)
-		mGame!!.saveState(outState)
+		mGame.saveState(outState)
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -148,14 +148,14 @@ class SudokuEditActivity : ThemedActivity() {
 
 	override fun onPrepareOptionsMenu(menu: Menu): Boolean {
 		super.onPrepareOptionsMenu(menu)
-		if (!mClipboard!!.hasPrimaryClip()) {
+		if (!mClipboard.hasPrimaryClip()) {
 			// If the clipboard doesn't contain data, disable the paste menu item.
 			menu.findItem(MENU_ITEM_PASTE).setEnabled(false)
-		} else if (!(mClipboard!!.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) ||
-					mClipboard!!.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML))
+		} else if (!(mClipboard.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) ||
+					mClipboard.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML))
 		) {
 			// This disables the paste menu item, since the clipboard has data but it is not plain text
-			Toast.makeText(applicationContext, mClipboard!!.primaryClipDescription!!.getMimeType(0), Toast.LENGTH_SHORT).show()
+			Toast.makeText(applicationContext, mClipboard.primaryClipDescription!!.getMimeType(0), Toast.LENGTH_SHORT).show()
 			menu.findItem(MENU_ITEM_PASTE).setEnabled(false)
 		} else {
 			// This enables the paste menu item, since the clipboard contains plain text.
@@ -208,23 +208,23 @@ class SudokuEditActivity : ThemedActivity() {
 	}
 
 	private fun checkResolvability(): Boolean {
-		mGame!!.cells.markFilledCellsAsNotEditable()
-		val solvable = mGame!!.isSolvable
-		mGame!!.cells.markAllCellsAsEditable()
+		mGame.cells.markFilledCellsAsNotEditable()
+		val solvable = mGame.isSolvable
+		mGame.cells.markAllCellsAsEditable()
 		return solvable
 	}
 
 	private fun savePuzzle() {
-		mGame!!.cells.markFilledCellsAsNotEditable()
+		mGame.cells.markFilledCellsAsNotEditable()
 		when (mState) {
 			STATE_EDIT -> {
-				mDatabase!!.updateSudoku(mGame!!)
+				mDatabase.updateSudoku(mGame)
 				Toast.makeText(applicationContext, R.string.puzzle_updated, Toast.LENGTH_SHORT).show()
 			}
 
 			STATE_INSERT -> {
-				mGame!!.created = System.currentTimeMillis()
-				mDatabase!!.insertSudoku(mFolderID, mGame!!)
+				mGame.created = System.currentTimeMillis()
+				mDatabase.insertSudoku(mFolderID, mGame)
 				Toast.makeText(applicationContext, R.string.puzzle_inserted, Toast.LENGTH_SHORT).show()
 			}
 		}
@@ -236,10 +236,10 @@ class SudokuEditActivity : ThemedActivity() {
 	 * @see CellCollection.serialize
 	 */
 	private fun copyToClipboard() {
-		val cells = mGame!!.cells
+		val cells = mGame.cells
 		val serializedCells: String = cells.serialize(CellCollection.DATA_VERSION_PLAIN)
 		val clipData = ClipData.newPlainText("Sudoku Puzzle", serializedCells)
-		mClipboard!!.setPrimaryClip(clipData)
+		mClipboard.setPrimaryClip(clipData)
 		Toast.makeText(applicationContext, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
 	}
 
@@ -249,16 +249,16 @@ class SudokuEditActivity : ThemedActivity() {
 	 * @see CellCollection.serialize
 	 */
 	private fun pasteFromClipboard() {
-		if (mClipboard!!.hasPrimaryClip()) {
-			if (mClipboard!!.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) ||
-				mClipboard!!.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML)
+		if (mClipboard.hasPrimaryClip()) {
+			if (mClipboard.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) ||
+				mClipboard.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML)
 			) {
-				val clipDataItem = mClipboard!!.primaryClip!!.getItemAt(0)
+				val clipDataItem = mClipboard.primaryClip!!.getItemAt(0)
 				val clipDataText = clipDataItem.text.toString()
 				if (CellCollection.isValid(clipDataText)) {
 					val cells: CellCollection = CellCollection.deserialize(clipDataText)
-					mGame!!.cells = cells
-					(mRootLayout!!.getChildAt(0) as SudokuBoardView).cells = cells
+					mGame.cells = cells
+					(mRootLayout.getChildAt(0) as SudokuBoardView).cells = cells
 					Toast.makeText(applicationContext, R.string.pasted_from_clipboard, Toast.LENGTH_SHORT).show()
 				} else {
 					Toast.makeText(applicationContext, R.string.invalid_puzzle_format, Toast.LENGTH_SHORT).show()

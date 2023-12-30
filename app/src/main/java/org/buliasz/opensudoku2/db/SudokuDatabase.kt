@@ -64,7 +64,7 @@ class SudokuDatabase(context: Context) : Closeable {
 						folderInfo.name = cursor.getString(cursor.getColumnIndexOrThrow(Names.FOLDER_NAME))
 						folderInfo.created = cursor.getLong(cursor.getColumnIndexOrThrow(Names.FOLDER_CREATED))
 						if (withCounts) {
-							folderList.add(getFolderInfoWithCounts(folderInfo.id) ?: folderInfo)
+							folderList.add(getFolderInfoWithCounts(folderInfo.id))
 						} else {
 							folderList.add(folderInfo)
 						}
@@ -108,8 +108,8 @@ class SudokuDatabase(context: Context) : Closeable {
 	 * @param folderID Primary key of folder.
 	 * @return folder info
 	 */
-	fun getFolderInfoWithCounts(folderID: Long): FolderInfo? {
-		var folder: FolderInfo? = null
+	fun getFolderInfoWithCounts(folderID: Long): FolderInfo {
+		val folder = FolderInfo(folderID, null)
 		val q = "select f.${Names.ID} as ${Names.ID}, f.${Names.FOLDER_NAME} as ${Names.FOLDER_NAME}, " +
 				"g.${Names.STATE} as ${Names.STATE}, count(g.${Names.STATE}) as ${Names.COUNT} " +
 				"from ${Names.FOLDER} f left join ${Names.GAME} g on f.${Names.ID} = g.${Names.FOLDER_ID} " +
@@ -120,18 +120,16 @@ class SudokuDatabase(context: Context) : Closeable {
 				// selectionArgs: You may include ?s in where clause in the query, which will be replaced by the values from selectionArgs.
 				// The values will be bound as Strings.
 				while (cursor.moveToNext()) {
-					val id = cursor.getLong(cursor.getColumnIndexOrThrow(Names.ID))
-					val name = cursor.getString(cursor.getColumnIndexOrThrow(Names.FOLDER_NAME))
 					val state = cursor.getInt(cursor.getColumnIndexOrThrow(Names.STATE))
 					val count = cursor.getInt(cursor.getColumnIndexOrThrow(Names.COUNT))
-					if (folder == null) {
-						folder = FolderInfo(id, name)
+					if (folder.name == null) {
+						folder.name = cursor.getString(cursor.getColumnIndexOrThrow(Names.FOLDER_NAME))
 					}
-					folder!!.puzzleCount += count
+					folder.puzzleCount += count
 					if (state == SudokuGame.GAME_STATE_COMPLETED) {
-						folder!!.solvedCount += count
+						folder.solvedCount += count
 					} else if (state == SudokuGame.GAME_STATE_PLAYING) {
-						folder!!.playingCount += count
+						folder.playingCount += count
 					}
 				}
 			}
@@ -306,8 +304,8 @@ class SudokuDatabase(context: Context) : Closeable {
 				"insert into ${Names.GAME} (${Names.FOLDER_ID}, ${Names.CREATED}, ${Names.STATE}, ${Names.TIME}, " +
 						"${Names.LAST_PLAYED}, ${Names.CELLS_DATA}, ${Names.USER_NOTE}, ${Names.COMMAND_STACK}) " +
 						"values (?, ?, ?, ?, ?, ?, ?, ?)"
-			)
-			with(mInsertSudokuStatement!!) {
+			)!!
+			with(mInsertSudokuStatement) {
 				bindLong(1, folderID)
 				bindLong(2, importParams.created)
 				bindLong(3, importParams.state)

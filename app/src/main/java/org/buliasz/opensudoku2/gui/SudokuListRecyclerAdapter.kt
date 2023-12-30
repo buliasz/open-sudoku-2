@@ -28,7 +28,6 @@ import androidx.recyclerview.widget.RecyclerView
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.utils.ThemeUtils
-import java.text.DateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -42,7 +41,7 @@ internal class SudokuListRecyclerAdapter(
 ) : RecyclerView.Adapter<SudokuListRecyclerAdapter.ViewHolder?>() {
 	var selectedGameId: Long = 0
 	private val mGameTimeFormatter = GameTimeFormat()
-	private val mDateTimeFormatter = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
+	private val mDateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
 	private val mTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -148,7 +147,7 @@ internal class SudokuListRecyclerAdapter(
 		} else if (dateTime.isAfter(yesterday.atStartOfDay())) {
 			mContext.getString(R.string.yesterday_at_time, dateTime.format(mTimeFormatter))
 		} else {
-			mContext.getString(R.string.on_date, mDateTimeFormatter.format(dateTime))
+			mContext.getString(R.string.on_date, dateTime.format(mDateTimeFormatter))
 		}
 	}
 

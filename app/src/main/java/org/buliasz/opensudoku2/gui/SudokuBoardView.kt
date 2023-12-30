@@ -39,23 +39,23 @@ import kotlin.math.roundToInt
 /**
  * Sudoku board widget.
  */
-open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null) : View(context, attrs) {
+open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
+	var selectedCell: Cell? = null
+		private set
+
 	private var mCellWidth = 0f
 	private var mCellHeight = 0f
 	private var mTouchedCell: Cell? = null
-
-	var selectedCell: Cell? = null
-		private set
 	private var mHighlightedValue = 0
 	private var mReadonly = false
 	private var mHighlightWrongValues = true
 	private var mHighlightTouchedCell = true
 	private var mAutoHideTouchedCellHint = true
 	private var mHighlightSimilarCells = HighlightMode.NONE
-	private var mGame: SudokuGame? = null
+	private lateinit var mGame: SudokuGame
 	private lateinit var mCells: CellCollection
-	private var mOnCellTappedListener: OnCellTappedListener? = null
-	private var mOnCellSelectedListener: OnCellSelectedListener? = null
+	private lateinit var mOnCellTappedListener: OnCellTappedListener
+	private lateinit var mOnCellSelectedListener: OnCellSelectedListener
 	private val mLinePaint = Paint()
 	private val mSectorLinePaint: Paint
 	private val mText: Paint
@@ -134,9 +134,9 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: A
 		setAllColorsFromThemedContext(context)
 	}
 
-	fun setAllColorsFromThemedContext(context: Context?) {
+	fun setAllColorsFromThemedContext(context: Context) {
 		// Grid lines
-		setLineColor(MaterialColors.getColor(context!!, R.attr.lineColor, Color.BLACK))
+		setLineColor(MaterialColors.getColor(context, R.attr.lineColor, Color.BLACK))
 		setSectorLineColor(MaterialColors.getColor(context, R.attr.sectorLineColor, Color.BLACK))
 
 		// Normal cell
@@ -275,10 +275,6 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: A
 		get() = mCells
 		set(cells) {
 			mCells = cells
-			if (!mReadonly) {
-				selectedCell = mCells.getCell(0, 0) // first cell will be selected by default
-				onCellSelected(selectedCell)
-			}
 			mCells.ensureOnChangeListener(this::postInvalidate)
 			postInvalidate()
 		}
@@ -315,14 +311,12 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: A
 	 *
 	 * @param l
 	 */
-	fun setOnCellTappedListener(l: OnCellTappedListener?) {
+	fun setOnCellTappedListener(l: OnCellTappedListener) {
 		mOnCellTappedListener = l
 	}
 
 	private fun onCellTapped(cell: Cell?) {
-		if (mOnCellTappedListener != null) {
-			mOnCellTappedListener!!.onCellTapped(cell)
-		}
+		mOnCellTappedListener.onCellTapped(cell)
 	}
 
 	/**
@@ -331,7 +325,7 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: A
 	 *
 	 * @param l
 	 */
-	fun setOnCellSelectedListener(l: OnCellSelectedListener?) {
+	fun setOnCellSelectedListener(l: OnCellSelectedListener) {
 		mOnCellSelectedListener = l
 	}
 
@@ -341,7 +335,7 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: A
 	}
 
 	private fun onCellSelected(cell: Cell?) {
-		mOnCellSelectedListener?.onCellSelected(cell)
+		mOnCellSelectedListener.onCellSelected(cell)
 	}
 
 	fun invokeOnCellSelected() {
@@ -661,14 +655,14 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: A
 			when (event.action) {
 				MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> mTouchedCell = getCellAtPoint(x, y)
 				MotionEvent.ACTION_UP -> {
-					selectedCell = getCellAtPoint(x, y)
-					invalidate() // selected cell has changed, update board as soon as you can
-					if (selectedCell != null) {
-						onCellTapped(selectedCell)
-						onCellSelected(selectedCell)
-					}
 					if (mAutoHideTouchedCellHint) {
 						mTouchedCell = null
+					}
+					with(getCellAtPoint(x, y)) {
+						selectedCell = this ?: return@with
+						invalidate() // selected cell has changed, update board as soon as you can
+						onCellTapped(selectedCell)
+						onCellSelected(selectedCell)
 					}
 				}
 
@@ -742,21 +736,13 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context?, attrs: A
 
 	private fun setCellValue(cell: Cell, value: Int) {
 		if (cell.isEditable) {
-			if (mGame != null) {
-				mGame!!.setCellValue(cell, value)
-			} else {
-				cell.value = value
-			}
+			mGame.setCellValue(cell, value)
 		}
 	}
 
 	private fun setCellNote(cell: Cell, note: CellNote) {
 		if (cell.isEditable) {
-			if (mGame != null) {
-				mGame!!.setCellCornerNote(cell, note)
-			} else {
-				cell.cornerNote = note
-			}
+			mGame.setCellCornerNote(cell, note)
 		}
 	}
 
