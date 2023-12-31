@@ -25,6 +25,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.preference.PreferenceManager
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.SudokuDatabase
@@ -40,6 +42,7 @@ import org.buliasz.opensudoku2.gui.inputmethod.IMSingleNumber
 import org.buliasz.opensudoku2.utils.ThemeUtils
 
 class SudokuPlayActivity : ThemedActivity() {
+	private lateinit var settingsLauncher: ActivityResultLauncher<Intent>
 	private lateinit var mSudokuGame: SudokuGame
 	private lateinit var mDatabase: SudokuDatabase
 	private lateinit var mRootLayout: ViewGroup
@@ -152,6 +155,8 @@ class SudokuPlayActivity : ThemedActivity() {
 			cell.rowIndex,
 			cell.columnIndex
 		) else mSudokuBoard.moveCellSelectionTo(0, 0)
+
+		settingsLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { restartActivity() }
 	}
 
 	override fun onResume() {
@@ -427,7 +432,7 @@ class SudokuPlayActivity : ThemedActivity() {
 			MENU_ITEM_SETTINGS_ACTION, MENU_ITEM_SETTINGS -> {
 				val i = Intent()
 				i.setClass(this, GameSettingsActivity::class.java)
-				startActivityForResult(i, REQUEST_SETTINGS)
+				settingsLauncher.launch(i)
 				return true
 			}
 
@@ -536,14 +541,6 @@ class SudokuPlayActivity : ThemedActivity() {
 		menuItemUndoAction.setEnabled(true)
 	}
 
-	@Deprecated("Deprecated in Java")
-	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-		super.onActivityResult(requestCode, resultCode, data)
-		if (requestCode == REQUEST_SETTINGS) {
-			restartActivity()
-		}
-	}
-
 	/**
 	 * Restarts whole activity.
 	 */
@@ -600,6 +597,5 @@ class SudokuPlayActivity : ThemedActivity() {
 		const val MENU_ITEM_UNDO_TO_BEFORE_MISTAKE = Menu.FIRST + 11
 		const val MENU_ITEM_SOLVE = Menu.FIRST + 12
 		const val MENU_ITEM_HINT = Menu.FIRST + 13
-		private const val REQUEST_SETTINGS = 1
 	}
 }
