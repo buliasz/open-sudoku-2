@@ -22,9 +22,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.preference.PreferenceManager
@@ -47,7 +45,6 @@ class SudokuPlayActivity : ThemedActivity() {
 	private lateinit var mDatabase: SudokuDatabase
 	private lateinit var mRootLayout: ViewGroup
 	private lateinit var mSudokuBoard: SudokuBoardView
-	private lateinit var mTimeLabel: TextView
 	private lateinit var mOptionsMenu: Menu
 	private lateinit var mIMControlPanel: IMControlPanel
 	private lateinit var mIMControlPanelStatePersister: IMControlPanelStatePersister
@@ -109,10 +106,9 @@ class SudokuPlayActivity : ThemedActivity() {
 		setContentView(R.layout.sudoku_play)
 		mRootLayout = findViewById(R.id.play_root_layout)
 		mSudokuBoard = findViewById(R.id.play_board_view)
-		mTimeLabel = findViewById(R.id.time_label)
 		mDatabase = SudokuDatabase(applicationContext)
 		mHintsQueue = HintsQueue(this)
-		mGameTimer = GameTimer()
+		mGameTimer = GameTimer(this)
 
 		// create sudoku game instance
 		if (savedInstanceState == null) {
@@ -200,7 +196,6 @@ class SudokuPlayActivity : ThemedActivity() {
 				mGameTimer.start()
 			}
 		}
-		mTimeLabel.visibility = if (mShowTime) View.VISIBLE else View.GONE
 		val moveCellSelectionOnPress = gameSettings.getBoolean("im_numpad_move_right", false)
 		mSudokuBoard.setMoveCellSelectionOnPress(moveCellSelectionOnPress)
 		mIMNumpad.isMoveCellSelectionOnPress = (moveCellSelectionOnPress)
@@ -522,7 +517,6 @@ class SudokuPlayActivity : ThemedActivity() {
 	fun updateTime() {
 		if (mShowTime) {
 			title = mGameTimeFormatter.format(mSudokuGame.time)
-			mTimeLabel.text = mGameTimeFormatter.format(mSudokuGame.time)
 		} else {
 			setTitle(R.string.app_name)
 		}
@@ -530,17 +524,6 @@ class SudokuPlayActivity : ThemedActivity() {
 
 	interface OnSelectedNumberChangedListener {
 		fun onSelectedNumberChanged(number: Int)
-	}
-
-	// This class implements the game clock.  All it does is update the
-	// status each tick.
-	private inner class GameTimer : Timer(1000) {
-		override fun step(count: Int, time: Long): Boolean {
-			updateTime()
-
-			// Run until explicitly stopped.
-			return false
-		}
 	}
 
 	companion object {
@@ -559,5 +542,13 @@ class SudokuPlayActivity : ThemedActivity() {
 		const val MENU_ITEM_UNDO_TO_BEFORE_MISTAKE = Menu.FIRST + 11
 		const val MENU_ITEM_SOLVE = Menu.FIRST + 12
 		const val MENU_ITEM_HINT = Menu.FIRST + 13
+
+		// This class implements the game clock.  All it does is update the status each tick.
+		private class GameTimer(private val sudokuPlayActivity: SudokuPlayActivity) : Timer(1000) {
+			override fun step(count: Int, time: Long): Boolean {
+				sudokuPlayActivity.updateTime()
+				return false // Run until explicitly stopped.
+			}
+		}
 	}
 }
