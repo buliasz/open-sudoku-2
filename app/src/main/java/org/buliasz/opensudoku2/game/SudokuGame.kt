@@ -44,6 +44,11 @@ class SudokuGame {
 	private var mUsedSolver = false
 	private var mRemoveNotesOnEntry = false
 	private var mOnPuzzleSolvedListener: OnPuzzleSolvedListener? = null
+	var onHasUndoChangedListener: (isEmpty: Boolean) -> Unit
+		get() = commandStack.onEmptyChangeListener
+		set(value) {
+			commandStack.onEmptyChangeListener = value
+		}
 	lateinit var commandStack: CommandStack
 
 	// Time when current activity has become active.
@@ -78,8 +83,8 @@ class SudokuGame {
 		validate()
 	}
 
-	fun setOnPuzzleSolvedListener(l: OnPuzzleSolvedListener?) {
-		mOnPuzzleSolvedListener = l
+	fun setOnPuzzleSolvedListener(listener: OnPuzzleSolvedListener) {
+		mOnPuzzleSolvedListener = listener
 	}
 
 	/**
@@ -150,7 +155,7 @@ class SudokuGame {
 		commandStack.undo()
 	}
 
-	fun hasSomethingToUndo(): Boolean = commandStack.hasSomethingToUndo()
+	fun hasSomethingToUndo(): Boolean = !commandStack.isEmpty
 
 	fun setUndoCheckpoint() {
 		commandStack.setCheckpoint()

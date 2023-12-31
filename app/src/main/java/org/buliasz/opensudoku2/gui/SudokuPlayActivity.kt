@@ -69,8 +69,6 @@ class SudokuPlayActivity : ThemedActivity() {
 				mGameTimer.stop()
 			}
 			mSudokuBoard.isReadOnly = (true)
-			mOptionsMenu.findItem(MENU_ITEM_UNDO_ACTION)
-				.setEnabled(false)
 			if (mSudokuGame.usedSolver()) {
 				with(SimpleDialog()) {
 					messageId = R.string.used_solver
@@ -143,6 +141,8 @@ class SudokuPlayActivity : ThemedActivity() {
 		}
 		mSudokuBoard.setGame(mSudokuGame)
 		mSudokuGame.setOnPuzzleSolvedListener(onSolvedListener)
+		mSudokuGame.onHasUndoChangedListener =
+			{ isUndoStackEmpty -> mOptionsMenu.findItem(MENU_ITEM_UNDO_ACTION).setEnabled(!isUndoStackEmpty) }
 		mHintsQueue.showOneTimeHint("welcome", R.string.welcome, R.string.first_run_hint)
 		mIMControlPanel = findViewById(R.id.input_methods)
 		mIMControlPanel.initialize(mSudokuBoard, mSudokuGame, mHintsQueue)
@@ -271,62 +271,37 @@ class SudokuPlayActivity : ThemedActivity() {
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
 		super.onCreateOptionsMenu(menu)
+		// action menu
 		menu.add(0, MENU_ITEM_UNDO_ACTION, 0, R.string.undo)
 			.setIcon(R.drawable.ic_undo)
+			.setEnabled(mSudokuGame.hasSomethingToUndo())
 			.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+		menu.add(0, MENU_ITEM_SETTINGS_ACTION, 8, R.string.settings)
+			.setIcon(R.drawable.ic_settings)
+			.setEnabled(true)
+			.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+
+		// drop-down menu
 		menu.add(0, MENU_ITEM_UNDO, 0, R.string.undo)
 			.setShortcut('1', 'u')
 			.setIcon(R.drawable.ic_undo)
 		if (mFillInNotesEnabled) {
-			menu.add(
-				0,
-				MENU_ITEM_FILL_IN_NOTES,
-				1,
-				R.string.fill_in_notes
-			)
+			menu.add(0, MENU_ITEM_FILL_IN_NOTES, 1, R.string.fill_in_notes)
 				.setIcon(R.drawable.ic_edit_grey)
 		}
-		menu.add(
-			0,
-			MENU_ITEM_FILL_IN_NOTES_WITH_ALL_VALUES,
-			1,
-			R.string.fill_all_notes
-		)
+		menu.add(0, MENU_ITEM_FILL_IN_NOTES_WITH_ALL_VALUES, 1, R.string.fill_all_notes)
 			.setIcon(R.drawable.ic_edit_grey)
-		menu.add(
-			0,
-			MENU_ITEM_CLEAR_ALL_NOTES,
-			2,
-			R.string.clear_all_notes
-		)
+		menu.add(0, MENU_ITEM_CLEAR_ALL_NOTES, 2, R.string.clear_all_notes)
 			.setShortcut('3', 'a')
 			.setIcon(R.drawable.ic_delete)
-		menu.add(
-			0,
-			MENU_ITEM_SET_CHECKPOINT,
-			3,
-			R.string.set_checkpoint
-		)
-		menu.add(
-			0,
-			MENU_ITEM_UNDO_TO_CHECKPOINT,
-			4,
-			R.string.undo_to_checkpoint
-		)
-		menu.add(
-			0,
-			MENU_ITEM_UNDO_TO_BEFORE_MISTAKE,
-			4,
-			getString(R.string.undo_to_before_mistake)
-		)
+		menu.add(0, MENU_ITEM_SET_CHECKPOINT, 3, R.string.set_checkpoint)
+		menu.add(0, MENU_ITEM_UNDO_TO_CHECKPOINT, 4, R.string.undo_to_checkpoint)
+		menu.add(0, MENU_ITEM_UNDO_TO_BEFORE_MISTAKE, 4, R.string.undo_to_before_mistake)
 		menu.add(0, MENU_ITEM_HINT, 5, R.string.hint)
 		menu.add(0, MENU_ITEM_SOLVE, 6, R.string.solve_puzzle)
 		menu.add(0, MENU_ITEM_RESTART, 7, R.string.restart)
 			.setShortcut('7', 'r')
 			.setIcon(R.drawable.ic_restore)
-		menu.add(0, MENU_ITEM_SETTINGS_ACTION, 8, R.string.settings)
-			.setIcon(R.drawable.ic_settings)
-			.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
 		menu.add(0, MENU_ITEM_SETTINGS, 8, R.string.settings)
 			.setShortcut('9', 's')
 			.setIcon(R.drawable.ic_settings)
@@ -356,25 +331,18 @@ class SudokuPlayActivity : ThemedActivity() {
 			if (mFillInNotesEnabled) {
 				menu.findItem(MENU_ITEM_FILL_IN_NOTES).setEnabled(true)
 			}
-			menu.findItem(MENU_ITEM_FILL_IN_NOTES_WITH_ALL_VALUES)
-				.setEnabled(true)
-			menu.findItem(MENU_ITEM_UNDO)
-				.setEnabled(mSudokuGame.hasSomethingToUndo())
-			menu.findItem(MENU_ITEM_UNDO_TO_CHECKPOINT)
-				.setEnabled(mSudokuGame.hasUndoCheckpoint())
+			menu.findItem(MENU_ITEM_FILL_IN_NOTES_WITH_ALL_VALUES).setEnabled(true)
+			menu.findItem(MENU_ITEM_UNDO).setEnabled(mSudokuGame.hasSomethingToUndo())
+			menu.findItem(MENU_ITEM_UNDO_TO_CHECKPOINT).setEnabled(mSudokuGame.hasUndoCheckpoint())
 		} else {
 			menu.findItem(MENU_ITEM_CLEAR_ALL_NOTES).setEnabled(false)
 			if (mFillInNotesEnabled) {
-				menu.findItem(MENU_ITEM_FILL_IN_NOTES)
-					.setEnabled(false)
+				menu.findItem(MENU_ITEM_FILL_IN_NOTES).setEnabled(false)
 			}
-			menu.findItem(MENU_ITEM_FILL_IN_NOTES_WITH_ALL_VALUES)
-				.setEnabled(false)
+			menu.findItem(MENU_ITEM_FILL_IN_NOTES_WITH_ALL_VALUES).setEnabled(false)
 			menu.findItem(MENU_ITEM_UNDO).setEnabled(false)
-			menu.findItem(MENU_ITEM_UNDO_TO_CHECKPOINT)
-				.setEnabled(false)
-			menu.findItem(MENU_ITEM_UNDO_TO_BEFORE_MISTAKE)
-				.setEnabled(false)
+			menu.findItem(MENU_ITEM_UNDO_TO_CHECKPOINT).setEnabled(false)
+			menu.findItem(MENU_ITEM_UNDO_TO_BEFORE_MISTAKE).setEnabled(false)
 			menu.findItem(MENU_ITEM_SOLVE).setEnabled(false)
 			menu.findItem(MENU_ITEM_HINT).setEnabled(false)
 		}
@@ -530,15 +498,9 @@ class SudokuPlayActivity : ThemedActivity() {
 		if (mShowTime) {
 			mGameTimer.start()
 		}
-		val menuItemSolve =
-			mOptionsMenu.findItem(MENU_ITEM_SOLVE)
-		menuItemSolve.setEnabled(true)
-		val menuItemHint =
-			mOptionsMenu.findItem(MENU_ITEM_HINT)
-		menuItemHint.setEnabled(true)
-		val menuItemUndoAction =
-			mOptionsMenu.findItem(MENU_ITEM_UNDO_ACTION)
-		menuItemUndoAction.setEnabled(true)
+		mOptionsMenu.findItem(MENU_ITEM_SOLVE).setEnabled(true)
+		mOptionsMenu.findItem(MENU_ITEM_HINT).setEnabled(true)
+		mOptionsMenu.findItem(MENU_ITEM_UNDO_ACTION).setEnabled(mSudokuGame.hasSomethingToUndo())
 	}
 
 	/**

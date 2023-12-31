@@ -311,10 +311,10 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 	/**
 	 * Registers callback which will be invoked when user taps the cell.
 	 *
-	 * @param l
+	 * @param listener
 	 */
-	fun setOnCellTappedListener(l: OnCellTappedListener) {
-		mOnCellTappedListener = l
+	fun setOnCellTappedListener(listener: OnCellTappedListener) {
+		mOnCellTappedListener = listener
 	}
 
 	private fun onCellTapped(cell: Cell?) {

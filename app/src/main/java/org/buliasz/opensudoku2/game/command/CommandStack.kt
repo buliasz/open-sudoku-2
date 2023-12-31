@@ -27,6 +27,14 @@ import java.util.StringTokenizer
 class CommandStack(private val mCells: CellCollection) {
 
 	private val mCommandStack = Stack<AbstractCommand>()
+	var onEmptyChangeListener: (isEmpty: Boolean) -> Unit = {}
+	var isEmpty = true
+		set(value) {
+			if (field != value) {
+				field = value
+				onEmptyChangeListener(value)
+			}
+		}
 
 	fun serialize(): String {
 		val sb = StringBuilder()
@@ -48,15 +56,14 @@ class CommandStack(private val mCells: CellCollection) {
 	}
 
 	fun undo() {
-		if (!mCommandStack.empty()) {
-			val c = pop()
-			c.undo()
+		if (!isEmpty) {
+			pop().undo()
 			validateCells()
 		}
 	}
 
 	fun setCheckpoint() {
-		if (!mCommandStack.empty()) {
+		if (!isEmpty) {
 			val c = mCommandStack.peek()
 			if (c is CheckpointCommand) return
 		}
@@ -71,13 +78,9 @@ class CommandStack(private val mCells: CellCollection) {
 	}
 
 	fun undoToCheckpoint() {
-		/*
-		 * I originally planned to just call undo but this way it doesn't need to
-		 * validateCells() until the run is complete
-		 */
 		var c: AbstractCommand
-		while (!mCommandStack.empty()) {
-			c = mCommandStack.pop()
+		while (!isEmpty) {
+			c = pop()
 			c.undo()
 			if (c is CheckpointCommand) break
 		}
@@ -101,13 +104,11 @@ class CommandStack(private val mCells: CellCollection) {
 		val solver = SudokuSolver()
 		solver.setPuzzle(mCells)
 		val finalValues = solver.solve()
-		while (!mCommandStack.empty() && hasMistakes(finalValues)) {
-			mCommandStack.pop().undo()
+		while (!isEmpty && hasMistakes(finalValues)) {
+			pop().undo()
 		}
 		validateCells()
 	}
-
-	fun hasSomethingToUndo(): Boolean = mCommandStack.size != 0
 
 	val lastChangedCell: Cell?
 		get() {
@@ -128,9 +129,14 @@ class CommandStack(private val mCells: CellCollection) {
 			command.cells = mCells
 		}
 		mCommandStack.push(command)
+		isEmpty = false
 	}
 
-	private fun pop(): AbstractCommand = mCommandStack.pop()
+	private fun pop(): AbstractCommand {
+		val lastCommand = mCommandStack.pop()
+		isEmpty = mCommandStack.isEmpty()
+		return lastCommand
+	}
 
 	private fun validateCells() {
 		mCells.validate()

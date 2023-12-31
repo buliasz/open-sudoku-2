@@ -32,9 +32,9 @@ class CellCollection private constructor(
 
 	// Helper arrays, contains references to the groups of cells, which should contain unique
 	// numbers.
-	private lateinit var mSectors: Array<CellGroup?>
-	private lateinit var mRows: Array<CellGroup?>
-	private lateinit var mColumns: Array<CellGroup?>
+	private lateinit var mSectors: Array<CellGroup>
+	private lateinit var mRows: Array<CellGroup>
+	private lateinit var mColumns: Array<CellGroup>
 	private var mOnChangeEnabled = true
 
 	/**
@@ -99,17 +99,17 @@ class CellCollection private constructor(
 		mOnChangeEnabled = false
 		// run validation in groups
 		for (row in mRows) {
-			if (!row!!.validate()) {
+			if (!row.validate()) {
 				valid = false
 			}
 		}
 		for (column in mColumns) {
-			if (!column!!.validate()) {
+			if (!column.validate()) {
 				valid = false
 			}
 		}
 		for (sector in mSectors) {
-			if (!sector!!.validate()) {
+			if (!sector.validate()) {
 				valid = false
 			}
 		}
@@ -233,14 +233,9 @@ class CellCollection private constructor(
 	 * 2) Row and column index for each cell is set.
 	 */
 	private fun initCollection() {
-		mRows = arrayOfNulls(SUDOKU_SIZE)
-		mColumns = arrayOfNulls(SUDOKU_SIZE)
-		mSectors = arrayOfNulls(SUDOKU_SIZE)
-		for (i in 0..<SUDOKU_SIZE) {
-			mRows[i] = CellGroup()
-			mColumns[i] = CellGroup()
-			mSectors[i] = CellGroup()
-		}
+		mRows = Array(SUDOKU_SIZE) { CellGroup() }
+		mColumns = Array(SUDOKU_SIZE) { CellGroup() }
+		mSectors = Array(SUDOKU_SIZE) { CellGroup() }
 		for (r in 0..<SUDOKU_SIZE) {
 			for (c in 0..<SUDOKU_SIZE) {
 				val cell = cells[r][c]
