@@ -24,12 +24,12 @@ class FileExportTaskParams {
 	/**
 	 * Id of folder to export. Set to -1, if you want to export all folders.
 	 */
-	var folderID: Long? = null
+	var folderId: Long? = null
 
 	/**
 	 * Id of sudoku puzzle to export.
 	 */
-	var sudokuID: Long? = null
+	var gameId: Long? = null
 
 	/**
 	 * File where data should be saved.

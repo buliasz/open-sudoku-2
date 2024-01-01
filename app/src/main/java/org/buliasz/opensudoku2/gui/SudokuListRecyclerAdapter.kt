@@ -66,9 +66,10 @@ internal class SudokuListRecyclerAdapter(
 				setHeaderTitle("Puzzle")
 				add(0, SudokuListActivity.MENU_ITEM_PLAY, 0, R.string.play_puzzle)
 				add(0, SudokuListActivity.MENU_ITEM_EDIT_NOTE, 1, R.string.edit_note)
-				add(0, SudokuListActivity.MENU_ITEM_RESET, 2, R.string.reset_puzzle)
-				add(0, SudokuListActivity.MENU_ITEM_EDIT, 3, R.string.edit_sudoku)
-				add(0, SudokuListActivity.MENU_ITEM_DELETE, 4, R.string.delete_puzzle)
+				add(0, SudokuListActivity.MENU_ITEM_EXPORT_GAME, 2, R.string.export)
+				add(0, SudokuListActivity.MENU_ITEM_RESET, 3, R.string.reset_puzzle)
+				add(0, SudokuListActivity.MENU_ITEM_EDIT, 4, R.string.edit_sudoku)
+				add(0, SudokuListActivity.MENU_ITEM_DELETE, 5, R.string.delete_puzzle)
 			}
 		}
 

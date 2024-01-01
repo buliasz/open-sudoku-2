@@ -229,7 +229,7 @@ class SudokuDatabase(context: Context) : Closeable {
 	 *
 	 * @param gameID Primary key of folder.
 	 */
-	fun getSudoku(gameID: Long): SudokuGame? {
+	fun getGame(gameID: Long): SudokuGame? {
 		val qb = SQLiteQueryBuilder()
 		qb.tables = Names.GAME
 		qb.appendWhere(Names.ID + "=" + gameID)
@@ -238,7 +238,7 @@ class SudokuDatabase(context: Context) : Closeable {
 		mOpenHelper.readableDatabase.use { db ->
 			qb.query(db, null, null, null, null, null, null).use { c ->
 				if (c.moveToFirst()) {
-					return@getSudoku extractSudokuGameFromCursorRow(c)
+					return@getGame extractSudokuGameFromCursorRow(c)
 				}
 			}
 		}
@@ -255,6 +255,7 @@ class SudokuDatabase(context: Context) : Closeable {
 			state = cursor.getInt(cursor.getColumnIndexOrThrow(Names.STATE))
 			time = cursor.getLong(cursor.getColumnIndexOrThrow(Names.TIME))
 			userNote = cursor.getString(cursor.getColumnIndexOrThrow(Names.USER_NOTE))
+			folderId = cursor.getLong(cursor.getColumnIndexOrThrow(Names.FOLDER_ID))
 		}
 		if (game.state == SudokuGame.GAME_STATE_PLAYING) {
 			val commandStack = cursor.getString(cursor.getColumnIndexOrThrow(Names.COMMAND_STACK))

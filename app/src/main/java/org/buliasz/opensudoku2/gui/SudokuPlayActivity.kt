@@ -114,7 +114,7 @@ class SudokuPlayActivity : ThemedActivity() {
 		if (savedInstanceState == null) {
 			// activity runs for the first time, read game from database
 			val mSudokuGameID = intent.getLongExtra(EXTRA_SUDOKU_ID, 0)
-			mSudokuGame = mDatabase.getSudoku(mSudokuGameID) ?: SudokuGame()
+			mSudokuGame = mDatabase.getGame(mSudokuGameID) ?: SudokuGame()
 		} else {
 			// activity has been running before, restore its state
 			mSudokuGame = SudokuGame()

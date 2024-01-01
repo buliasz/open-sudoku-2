@@ -84,7 +84,7 @@ class SudokuEditActivity : ThemedActivity() {
 		} else {
 			if (mSudokuID != 0L) {
 				// existing sudoku, read it from database
-				mGame = mDatabase.getSudoku(mSudokuID) ?: SudokuGame.createEmptyGame()
+				mGame = mDatabase.getGame(mSudokuID) ?: SudokuGame.createEmptyGame()
 				mGame.cells.markAllCellsAsEditable()
 			} else {
 				mGame = SudokuGame.createEmptyGame()

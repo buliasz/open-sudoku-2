@@ -29,6 +29,7 @@ import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.game.FolderInfo
 import org.buliasz.opensudoku2.game.SudokuGame
+import org.buliasz.opensudoku2.gui.SudokuExportActivity.Companion.ALL_IDS
 import org.buliasz.opensudoku2.utils.Const
 import org.xmlpull.v1.XmlSerializer
 import java.io.BufferedWriter
@@ -51,9 +52,8 @@ class FileExportTask {
 	}
 
 	private fun saveToFile(exportParams: FileExportTaskParams, context: Context): FileExportTaskResult {
-		require(!(exportParams.folderID == null && exportParams.sudokuID == null)) { "Exactly one of folderID or sudokuID must be set." }
-		require(!(exportParams.folderID != null && exportParams.sudokuID != null)) { "Only one of folderID or sudokuID must be set." }
-		requireNotNull(exportParams.fileOutputStream) { "Filename must be set." }
+		require(exportParams.folderId != null) { "'folderID' param must be set" }
+		requireNotNull(exportParams.fileOutputStream) { "Output stream cannot be null" }
 		val start = System.currentTimeMillis()
 		val result = FileExportTaskResult()
 		result.isSuccess = true
@@ -68,11 +68,7 @@ class FileExportTask {
 			serializer.attribute("", "version", FILE_EXPORT_VERSION)
 
 			SudokuDatabase(context).use { db ->
-				if (exportParams.folderID != null) {
-					serializeFolders(db, serializer, exportParams.folderID!!)
-				} else {
-					serializeGame(serializer, db.getSudoku(exportParams.sudokuID!!)!!)
-				}
+				serializeFolders(db, serializer, exportParams.folderId!!, exportParams.gameId ?: ALL_IDS)
 			}
 
 			serializer.endTag("", "opensudoku2")
@@ -96,7 +92,7 @@ class FileExportTask {
 		return result
 	}
 
-	private fun serializeFolders(db: SudokuDatabase, serializer: XmlSerializer, folderID: Long) {
+	private fun serializeFolders(db: SudokuDatabase, serializer: XmlSerializer, folderID: Long, gameId: Long = ALL_IDS) {
 		val folderList: List<FolderInfo> = if (folderID == -1L) db.getFolderList() else listOf(db.getFolderInfo(folderID)!!)
 		for (folder in folderList) {
 			serializer.startTag("", Names.FOLDER)
@@ -104,6 +100,9 @@ class FileExportTask {
 			serializer.attribute("", Names.FOLDER_CREATED, folder.created.toString())
 			val sudokuList = db.getSudokuGameList(folder.id, null, null)
 			for (game in sudokuList) {
+				if (gameId != ALL_IDS && gameId != game.id) {
+					continue
+				}
 				serializeGame(serializer, game)
 			}
 			serializer.endTag("", Names.FOLDER)

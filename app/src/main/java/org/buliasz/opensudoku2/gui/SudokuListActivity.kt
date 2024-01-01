@@ -160,19 +160,18 @@ class SudokuListActivity : ThemedActivity() {
 		// new note into the list.
 		menu.add(0, MENU_ITEM_FOLDERS, 0, R.string.folders).setShortcut('1', 'f')
 			.setIcon(R.drawable.ic_folder)
-		menu.add(0, MENU_ITEM_INSERT, 1, R.string.add_sudoku).setShortcut('1', 'a')
+		menu.add(0, MENU_ITEM_INSERT, 1, R.string.add_sudoku).setShortcut('2', 'a')
 			.setIcon(R.drawable.ic_add)
-		menu.add(0, MENU_ITEM_FILTER, 2, R.string.filter).setShortcut('2', 'f')
+		menu.add(0, MENU_ITEM_FILTER, 2, R.string.filter).setShortcut('3', 'f')
 			.setIcon(R.drawable.ic_view)
-		menu.add(0, MENU_ITEM_SORT, 2, R.string.sort).setShortcut('2', 'o')
+		menu.add(0, MENU_ITEM_SORT, 3, R.string.sort).setShortcut('4', 'o')
 			.setIcon(R.drawable.ic_sort)
-		menu.add(0, MENU_ITEM_RESET_ALL, 3, R.string.reset_all_puzzles).setShortcut('3', 'r')
+		menu.add(0, MENU_ITEM_RESET_ALL, 4, R.string.reset_all_puzzles).setShortcut('5', 'r')
 			.setIcon(R.drawable.ic_undo)
-		menu.add(0, MENU_ITEM_SETTINGS, 4, R.string.settings).setShortcut('4', 's')
+		menu.add(0, MENU_ITEM_EXPORT_FOLDER, 5, R.string.export_folder).setShortcut('6', 'e')
+			.setIcon(R.drawable.ic_share)
+		menu.add(0, MENU_ITEM_SETTINGS, 6, R.string.settings).setShortcut('7', 's')
 			.setIcon(R.drawable.ic_settings)
-		// I'm not sure this one is ready for release
-		menu.add(0, MENU_ITEM_GENERATE, 3, R.string.generate_sudoku).setShortcut('4', 'g')
-			.setIcon(R.drawable.ic_add)
 
 		// Generate any additional actions that can be performed on the
 		// overall list. In a normal install, there are no additional
@@ -211,7 +210,7 @@ class SudokuListActivity : ThemedActivity() {
 
 			MENU_ITEM_EDIT_NOTE -> {
 				editUserNoteDialog.puzzleId = mAdapter.selectedGameId
-				editUserNoteDialog.currentValue = mDatabase.getSudoku(editUserNoteDialog.puzzleId)?.userNote ?: ""
+				editUserNoteDialog.currentValue = mDatabase.getGame(editUserNoteDialog.puzzleId)?.userNote ?: ""
 				editUserNoteDialog.show(supportFragmentManager, "EditUserNoteDialog")
 				return true
 			}
@@ -219,6 +218,15 @@ class SudokuListActivity : ThemedActivity() {
 			MENU_ITEM_RESET -> {
 				resetPuzzleDialog.puzzleID = mAdapter.selectedGameId
 				resetPuzzleDialog.show(supportFragmentManager, "ResetPuzzleDialog")
+				return true
+			}
+
+			MENU_ITEM_EXPORT_GAME -> {
+				val intent = Intent()
+				intent.setClass(this, SudokuExportActivity::class.java)
+				intent.putExtra(Names.FOLDER_ID, mFolderID)
+				intent.putExtra(Names.ID, mAdapter.selectedGameId)
+				startActivity(intent)
 				return true
 			}
 		}
@@ -262,6 +270,14 @@ class SudokuListActivity : ThemedActivity() {
 
 			MENU_ITEM_RESET_ALL -> {
 				resetAllDialog.show(supportFragmentManager, "ResetAllDialog")
+				return true
+			}
+
+			MENU_ITEM_EXPORT_FOLDER -> {
+				val intent = Intent()
+				intent.setClass(this, SudokuExportActivity::class.java)
+				intent.putExtra(Names.FOLDER_ID, mFolderID)
+				startActivity(intent)
 				return true
 			}
 		}
@@ -314,7 +330,8 @@ class SudokuListActivity : ThemedActivity() {
 		const val MENU_ITEM_SORT = Menu.FIRST + 8
 		const val MENU_ITEM_FOLDERS = Menu.FIRST + 9
 		const val MENU_ITEM_SETTINGS = Menu.FIRST + 10
-		const val MENU_ITEM_GENERATE = Menu.FIRST + 11
+		const val MENU_ITEM_EXPORT_GAME = Menu.FIRST + 11
+		const val MENU_ITEM_EXPORT_FOLDER = Menu.FIRST + 12
 		const val FILTER_STATE_NOT_STARTED = "filter" + SudokuGame.GAME_STATE_NOT_STARTED
 		const val FILTER_STATE_PLAYING = "filter" + SudokuGame.GAME_STATE_PLAYING
 		const val FILTER_STATE_SOLVED = "filter" + SudokuGame.GAME_STATE_COMPLETED

@@ -210,10 +210,7 @@ class FolderListActivity : ThemedActivity() {
 			MENU_ITEM_EXPORT_ALL -> {
 				intent = Intent()
 				intent.setClass(this, SudokuExportActivity::class.java)
-				intent.putExtra(
-					Names.FOLDER_ID,
-					SudokuExportActivity.ALL_FOLDERS
-				)
+				intent.putExtra(Names.FOLDER_ID, SudokuExportActivity.ALL_IDS)
 				startActivity(intent)
 				return true
 			}

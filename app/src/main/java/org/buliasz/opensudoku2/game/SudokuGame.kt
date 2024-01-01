@@ -34,6 +34,7 @@ import java.time.Instant
 
 class SudokuGame {
 	var id: Long = 0
+	var folderId: Long = 0
 	var created: Long = 0
 	var state: Int
 	private var mTime: Long = 0
