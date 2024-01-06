@@ -63,11 +63,11 @@ class CellCollection private constructor(
 	 */
 	fun getCell(rowIndex: Int, colIndex: Int): Cell = cells[rowIndex][colIndex]
 
-	fun findFirstCell(`val`: Int): Cell? {
+	fun findFirstCell(value: Int): Cell? {
 		for (r in 0..<SUDOKU_SIZE) {
 			for (c in 0..<SUDOKU_SIZE) {
 				val cell = cells[r][c]
-				if (cell.value == `val`) return cell
+				if (cell.value == value) return cell
 			}
 		}
 		return null
@@ -316,27 +316,6 @@ class CellCollection private constructor(
 	}
 
 	/**
-	 * Returns whether change notification is enabled.
-	 *
-	 * If true, change notifications are distributed to the listeners
-	 * registered by [.addOnChangeListener].
-	 */
-	/*
-	public boolean isOnChangeEnabled() {
-		return mOnChangeEnabled;
-	}
-
-	/ ***
-	 * Enables or disables change notifications, that are distributed to the listeners
-	 * registered by {@link #addOnChangeListener(OnChangeListener)}.
-	 *
-	 * @param onChangeEnabled
-	 *\/
-	public void setOnChangeEnabled(boolean onChangeEnabled) {
-	mOnChangeEnabled = onChangeEnabled;
-	}
-*/
-	/**
 	 * Notify all registered listeners that something has changed.
 	 */
 	fun onChange() {
@@ -358,6 +337,12 @@ class CellCollection private constructor(
 
 	companion object {
 		const val SUDOKU_SIZE = 9
+
+		/**
+		 * String is expected to be in format "00002343243202...", where each number represents
+		 * cell value and only the original values (not editable) are stored.
+		 */
+		var DATA_VERSION_ORIGINAL = -1
 
 		/**
 		 * String is expected to be in format "00002343243202...", where each number represents
@@ -428,8 +413,7 @@ class CellCollection private constructor(
 		}
 
 		/**
-		 * Creates instance from given string (string which has been
-		 * created by [.serialize] or [.serialize] method).
+		 * Creates instance from given string created by [serialize] method or simple 81 digit string.
 		 * earlier.
 		 */
 		fun deserialize(data: String): CellCollection {
@@ -447,9 +431,8 @@ class CellCollection private constructor(
 		}
 
 		/**
-		 * Creates collection instance from given string. String is expected
-		 * to be in format "00002343243202...", where each number represents
-		 * cell value, no other information can be set using this method.
+		 * Creates collection instance from given string. String is expected to be in format "00002343243202..." (81 digits),
+		 * where each digit represents cell value, no other information can be set using this method.
 		 */
 		private fun fromString(data: String): CellCollection {
 			val cells = Array(SUDOKU_SIZE) { Array(SUDOKU_SIZE) { Cell() } }

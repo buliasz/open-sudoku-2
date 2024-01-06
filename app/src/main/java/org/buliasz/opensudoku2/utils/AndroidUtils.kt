@@ -24,8 +24,6 @@ import android.content.pm.PackageManager
 object AndroidUtils {
 	/**
 	 * Returns version code of OpenSudoku2.
-	 *
-	 * @return
 	 */
 	fun getAppVersionCode(context: Context): Int {
 		return try {
@@ -37,8 +35,6 @@ object AndroidUtils {
 
 	/**
 	 * Returns version name of OpenSudoku2.
-	 *
-	 * @return
 	 */
 	fun getAppVersionName(context: Context): String {
 		return try {

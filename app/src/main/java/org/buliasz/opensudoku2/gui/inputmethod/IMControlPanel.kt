@@ -87,7 +87,6 @@ class IMControlPanel : LinearLayout {
 	 * not enabled, activates first available method after this method.
 	 *
 	 * @param methodID ID of method input to activate.
-	 * @return
 	 */
 	fun activateInputMethod(methodID: Int) {
 		require(!(methodID < -1 || methodID >= mInputMethods.size)) { "Invalid method id: $methodID." }
@@ -178,8 +177,6 @@ class IMControlPanel : LinearLayout {
 
 	/**
 	 * Ensures that control panel for given input method is created.
-	 *
-	 * @param methodID
 	 */
 	private fun ensureControlPanel(methodID: Int) {
 		val im = mInputMethods[methodID]

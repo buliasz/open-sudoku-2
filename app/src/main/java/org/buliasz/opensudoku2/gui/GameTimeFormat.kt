@@ -31,7 +31,6 @@ class GameTimeFormat {
 	 * never displayed, only total number of minutes.
 	 *
 	 * @param time Time in milliseconds.
-	 * @return
 	 */
 	fun format(time: Long): String {
 		mTimeText.setLength(0)

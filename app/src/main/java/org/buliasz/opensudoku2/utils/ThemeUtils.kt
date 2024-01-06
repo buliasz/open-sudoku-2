@@ -426,8 +426,6 @@ object ThemeUtils {
 
 	/**
 	 * Updates the colors of `board` to use colors defined by the `custom_theme_...` preferences.
-	 * @param context
-	 * @param board
 	 */
 	fun applyCustomThemeToSudokuBoardViewFromSharedPreferences(context: Context?, board: SudokuBoardView) {
 		val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context!!)

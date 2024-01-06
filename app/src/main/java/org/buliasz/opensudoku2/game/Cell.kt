@@ -204,8 +204,6 @@ class Cell private constructor(value: Int, cornerNote: CellNote, centerNote: Cel
 		get() = mValid
 		/**
 		 * Sets whether cell contains valid value according to sudoku rules.
-		 *
-		 * @param valid
 		 */
 		set(valid) {
 			mValid = valid
@@ -221,21 +219,29 @@ class Cell private constructor(value: Int, cornerNote: CellNote, centerNote: Cel
 	 * @param data A `StringBuilder` where to write data.
 	 */
 	fun serialize(data: StringBuilder, dataVersion: Int) {
-		if (dataVersion == CellCollection.DATA_VERSION_PLAIN) {
-			data.append(mValue)
-		} else {
-			data.append(mValue).append("|")
-			if (mCornerNote.isEmpty) {
-				data.append("0").append("|")
-			} else {
-				mCornerNote.serialize(data)
+		when (dataVersion) {
+			CellCollection.DATA_VERSION_ORIGINAL -> {
+				data.append(if (mEditable) "0" else mValue)
 			}
-			if (mCenterNote.isEmpty) {
-				data.append("0").append("|")
-			} else {
-				mCenterNote.serialize(data)
+
+			CellCollection.DATA_VERSION_PLAIN -> {
+				data.append(mValue)
 			}
-			data.append(if (mEditable) "1" else "0").append("|")
+
+			else -> {
+				data.append(mValue).append("|")
+				if (mCornerNote.isEmpty) {
+					data.append("0").append("|")
+				} else {
+					mCornerNote.serialize(data)
+				}
+				if (mCenterNote.isEmpty) {
+					data.append("0").append("|")
+				} else {
+					mCenterNote.serialize(data)
+				}
+				data.append(if (mEditable) "1" else "0").append("|")
+			}
 		}
 	}
 

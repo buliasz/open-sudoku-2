@@ -47,7 +47,7 @@ class RenameFolderDialogFragment(
 			.setTitle(getString(R.string.rename_folder_title, folderName))
 			.setView(renameFolderView)
 			.setPositiveButton(R.string.save) { _: DialogInterface?, _: Int ->
-				mDatabase.updateFolder(
+				mDatabase.renameFolder(
 					mRenameFolderID,
 					renameFolderNameInput.text.toString().trim { it <= ' ' })
 				updateList()

@@ -41,7 +41,7 @@ class DeletePuzzleDialogFragment(val mDatabase: SudokuDatabase, val settings: Sh
 				if (puzzleID == mostRecentId) {
 					settings.edit().remove("most_recently_played_sudoku_id").apply()
 				}
-				mDatabase.deleteSudoku(puzzleID)
+				mDatabase.deletePuzzle(puzzleID)
 				updateList()
 			}
 			.setNegativeButton(android.R.string.cancel, null)

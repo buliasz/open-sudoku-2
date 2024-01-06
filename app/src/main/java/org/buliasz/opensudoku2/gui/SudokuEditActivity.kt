@@ -41,9 +41,8 @@ import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanel
  */
 class SudokuEditActivity : ThemedActivity() {
 	private var mState = 0
-	private var mFolderID: Long = 0
 	private lateinit var mDatabase: SudokuDatabase
-	private lateinit var mGame: SudokuGame
+	private lateinit var newPuzzle: SudokuGame
 	private lateinit var mRootLayout: ViewGroup
 	private lateinit var mClipboard: ClipboardManager
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,11 +66,6 @@ class SudokuEditActivity : ThemedActivity() {
 		} else if (Intent.ACTION_INSERT == action) {
 			mState = STATE_INSERT
 			mSudokuID = 0
-			mFolderID = if (intent.hasExtra(Names.FOLDER_ID)) {
-				intent.getLongExtra(Names.FOLDER_ID, 0)
-			} else {
-				throw IllegalArgumentException("Extra with key '${Names.FOLDER_ID}' is required.")
-			}
 		} else {
 			// Whoops, unknown action!  Bail.
 			Log.e(TAG, "Unknown action, exiting.")
@@ -79,20 +73,25 @@ class SudokuEditActivity : ThemedActivity() {
 			return
 		}
 		if (savedInstanceState != null) {
-			mGame = SudokuGame()
-			mGame.restoreState(savedInstanceState)
+			newPuzzle = SudokuGame()
+			newPuzzle.restoreState(savedInstanceState)
 		} else {
 			if (mSudokuID != 0L) {
 				// existing sudoku, read it from database
-				mGame = mDatabase.getGame(mSudokuID) ?: SudokuGame.createEmptyGame()
-				mGame.cells.markAllCellsAsEditable()
+				newPuzzle = mDatabase.getGame(mSudokuID) ?: SudokuGame.createEmptyGame()
+				newPuzzle.cells.markAllCellsAsEditable()
 			} else {
-				mGame = SudokuGame.createEmptyGame()
+				newPuzzle = SudokuGame.createEmptyGame()
 			}
 		}
-		mBoard.setGame(mGame)
+		newPuzzle.folderId = if (intent.hasExtra(Names.FOLDER_ID)) {
+			intent.getLongExtra(Names.FOLDER_ID, 0)
+		} else {
+			throw IllegalArgumentException("Extra with key '${Names.FOLDER_ID}' is required.")
+		}
+		mBoard.setGame(newPuzzle)
 		val mInputMethods = findViewById<IMControlPanel>(R.id.input_methods)
-		mInputMethods.initialize(mBoard, mGame, null)
+		mInputMethods.initialize(mBoard, newPuzzle, null)
 
 		// only Numpad input method will be enabled
 		for (im in mInputMethods.inputMethods) {
@@ -105,7 +104,7 @@ class SudokuEditActivity : ThemedActivity() {
 
 	override fun onPause() {
 		super.onPause()
-		if (isFinishing && mState != STATE_CANCEL && !mGame.cells.isEmpty) {
+		if (isFinishing && mState != STATE_CANCEL && !newPuzzle.cells.isEmpty) {
 			savePuzzle()
 		}
 	}
@@ -117,7 +116,7 @@ class SudokuEditActivity : ThemedActivity() {
 
 	override fun onSaveInstanceState(outState: Bundle) {
 		super.onSaveInstanceState(outState)
-		mGame.saveState(outState)
+		newPuzzle.saveState(outState)
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -208,26 +207,52 @@ class SudokuEditActivity : ThemedActivity() {
 	}
 
 	private fun checkResolvability(): Boolean {
-		mGame.cells.markFilledCellsAsNotEditable()
-		val solvable = mGame.isSolvable
-		mGame.cells.markAllCellsAsEditable()
+		newPuzzle.cells.markFilledCellsAsNotEditable()
+		val solvable = newPuzzle.isSolvable
+		newPuzzle.cells.markAllCellsAsEditable()
 		return solvable
 	}
 
 	private fun savePuzzle() {
-		mGame.cells.markFilledCellsAsNotEditable()
+		newPuzzle.cells.markFilledCellsAsNotEditable()
+		if (!isNewPuzzleValid()) {
+			return
+		}
 		when (mState) {
 			STATE_EDIT -> {
-				mDatabase.updateSudoku(mGame)
+				mDatabase.updatePuzzle(newPuzzle)
 				Toast.makeText(applicationContext, R.string.puzzle_updated, Toast.LENGTH_SHORT).show()
 			}
 
 			STATE_INSERT -> {
-				mGame.created = System.currentTimeMillis()
-				mDatabase.insertSudoku(mFolderID, mGame)
+				newPuzzle.created = System.currentTimeMillis()
+				mDatabase.insertPuzzle(newPuzzle)
 				Toast.makeText(applicationContext, R.string.puzzle_inserted, Toast.LENGTH_SHORT).show()
 			}
 		}
+	}
+
+	private fun isNewPuzzleValid(): Boolean {
+		if (!newPuzzle.isSolvable) {
+			with(SimpleDialog()) {
+				message = "This puzzle is not solvable"
+				show(supportFragmentManager)
+			}
+			return false
+		}
+		val existingPuzzle = mDatabase.puzzleExists(newPuzzle.cells)
+		if (existingPuzzle != null) {
+			if (newPuzzle.folderId == existingPuzzle.folderId && existingPuzzle.state == SudokuGame.GAME_STATE_NOT_STARTED) {
+				mDatabase.deletePuzzle(existingPuzzle.id)  // delete not started game to insert saved instance
+			} else {
+				with(SimpleDialog()) {
+					message = "This game already exists in the " + mDatabase.getFolderInfo(existingPuzzle.folderId)?.name + " folder"
+					show(supportFragmentManager)
+				}
+				return false
+			}
+		}
+		return true
 	}
 
 	/**
@@ -236,7 +261,7 @@ class SudokuEditActivity : ThemedActivity() {
 	 * @see CellCollection.serialize
 	 */
 	private fun copyToClipboard() {
-		val cells = mGame.cells
+		val cells = newPuzzle.cells
 		val serializedCells: String = cells.serialize(CellCollection.DATA_VERSION_PLAIN)
 		val clipData = ClipData.newPlainText("Sudoku Puzzle", serializedCells)
 		mClipboard.setPrimaryClip(clipData)
@@ -257,7 +282,7 @@ class SudokuEditActivity : ThemedActivity() {
 				val clipDataText = clipDataItem.text.toString()
 				if (CellCollection.isValid(clipDataText)) {
 					val cells: CellCollection = CellCollection.deserialize(clipDataText)
-					mGame.cells = cells
+					newPuzzle.cells = cells
 					(mRootLayout.getChildAt(0) as SudokuBoardView).cells = cells
 					Toast.makeText(applicationContext, R.string.pasted_from_clipboard, Toast.LENGTH_SHORT).show()
 				} else {

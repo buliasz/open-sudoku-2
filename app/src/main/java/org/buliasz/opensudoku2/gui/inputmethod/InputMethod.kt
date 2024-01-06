@@ -47,8 +47,6 @@ abstract class InputMethod {
 
 	/**
 	 * This should be unique name of input method.
-	 *
-	 * @return
 	 */
 	var inputMethodName: String? = null
 		private set
@@ -90,8 +88,6 @@ abstract class InputMethod {
 
 	/**
 	 * Gets abbreviated name of input method, which will be displayed on input method switch button.
-	 *
-	 * @return
 	 */
 	abstract val abbrName: String
 	var isEnabled: Boolean
@@ -121,15 +117,11 @@ abstract class InputMethod {
 	/**
 	 * Called when cell is selected. Please note that cell selection can
 	 * change without direct user interaction.
-	 *
-	 * @param cell
 	 */
 	open fun onCellSelected(cell: Cell?) {}
 
 	/**
 	 * Called when cell is tapped.
-	 *
-	 * @param cell
 	 */
 	open fun onCellTapped(cell: Cell) {}
 	open fun onSaveState(outState: StateBundle) {}

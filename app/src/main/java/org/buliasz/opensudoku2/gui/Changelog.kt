@@ -58,16 +58,16 @@ class Changelog(private val mContext: Context) {
 
 	private val changelogFromResources: String
 		get() {
-			var `is`: InputStream? = null
+			var inputStream: InputStream? = null
 			try {
-				`is` = mContext.resources.openRawResource(R.raw.changelog)
+				inputStream = mContext.resources.openRawResource(R.raw.changelog)
 				val buffer = CharArray(0x10000)
 				val out = StringBuilder()
-				val `in`: Reader
-				`in` = InputStreamReader(`is`, StandardCharsets.UTF_8)
+				val reader: Reader
+				reader = InputStreamReader(inputStream, StandardCharsets.UTF_8)
 				var read: Int
 				do {
-					read = `in`.read(buffer, 0, buffer.size)
+					read = reader.read(buffer, 0, buffer.size)
 					if (read > 0) {
 						out.appendRange(buffer, 0, read)
 					}
@@ -77,9 +77,9 @@ class Changelog(private val mContext: Context) {
 				e.printStackTrace()
 				Log.e(TAG, "Error when reading changelog from raw resources.", e)
 			} finally {
-				if (`is` != null) {
+				if (inputStream != null) {
 					try {
-						`is`.close()
+						inputStream.close()
 					} catch (e: IOException) {
 						e.printStackTrace()
 						Log.e(TAG, "Error when reading changelog from raw resources.", e)

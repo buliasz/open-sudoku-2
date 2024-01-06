@@ -93,8 +93,6 @@ class IMNumpad(val parent: ViewGroup) : InputMethod() {
 	/**
 	 * If set to true, buttons for numbers, which occur in [CellCollection]
 	 * more than [CellCollection.SUDOKU_SIZE]-times, will be highlighted.
-	 *
-	 * @param highlightCompletedValues
 	 */
 	fun setHighlightCompletedValues(highlightCompletedValues: Boolean) {
 		mHighlightCompletedValues = highlightCompletedValues

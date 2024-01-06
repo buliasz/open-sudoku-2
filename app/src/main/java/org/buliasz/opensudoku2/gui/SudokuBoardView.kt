@@ -310,8 +310,6 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 
 	/**
 	 * Registers callback which will be invoked when user taps the cell.
-	 *
-	 * @param listener
 	 */
 	fun setOnCellTappedListener(listener: OnCellTappedListener) {
 		mOnCellTappedListener = listener
@@ -324,8 +322,6 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 	/**
 	 * Registers callback which will be invoked when cell is selected. Cell selection
 	 * can change without user interaction.
-	 *
-	 * @param l
 	 */
 	fun setOnCellSelectedListener(l: OnCellSelectedListener) {
 		mOnCellSelectedListener = l
@@ -787,10 +783,6 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 
 	/**
 	 * Returns cell at given screen coordinates. Returns null if no cell is found.
-	 *
-	 * @param x
-	 * @param y
-	 * @return
 	 */
 	private fun getCellAtPoint(x: Int, y: Int): Cell? {
 		// take into account padding

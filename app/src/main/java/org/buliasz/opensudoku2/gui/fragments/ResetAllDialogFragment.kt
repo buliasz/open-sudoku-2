@@ -41,7 +41,7 @@ class ResetAllDialogFragment(
 				val sudokuGames = mDatabase.getSudokuGameList(mFolderID, null, mListSorter.sortOrder)
 				for (sudokuGame in sudokuGames) {
 					sudokuGame.reset()
-					mDatabase.updateSudoku(sudokuGame)
+					mDatabase.updatePuzzle(sudokuGame)
 				}
 				updateList()
 			}

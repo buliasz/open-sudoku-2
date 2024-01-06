@@ -21,6 +21,8 @@ package org.buliasz.opensudoku2.gui.importing
 import android.content.Context
 import android.net.Uri
 import org.buliasz.opensudoku2.db.SudokuInvalidFormatException
+import org.buliasz.opensudoku2.game.CellCollection
+import org.buliasz.opensudoku2.game.SudokuGame
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -33,7 +35,7 @@ import java.net.URL
 class SdmImportTask(private val mUri: Uri) : AbstractImportTask() {
 	@Throws(SudokuInvalidFormatException::class)
 	override fun processImport(context: Context) {
-		importFolder(mUri.lastPathSegment)
+		importFolder(mUri.lastPathSegment ?: "UNKNOWN")
 		val isr: InputStreamReader
 		try {
 			isr = if (mUri.scheme == "content") {
@@ -50,7 +52,9 @@ class SdmImportTask(private val mUri: Uri) : AbstractImportTask() {
 						if (s.contains(".")) {
 							s = s.replace(".", "0")
 						}
-						importGame(s)
+						val game = SudokuGame()
+						game.cells = CellCollection.deserialize(s)
+						importGame(game)
 					}
 				}
 			}

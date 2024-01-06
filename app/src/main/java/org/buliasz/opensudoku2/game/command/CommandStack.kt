@@ -91,9 +91,9 @@ class CommandStack(private val mCells: CellCollection) {
 		for (rowColVal in finalValues) {
 			val row = rowColVal[0]
 			val col = rowColVal[1]
-			val `val` = rowColVal[2]
+			val value = rowColVal[2]
 			val cell = mCells.getCell(row, col)
-			if (cell.value != `val` && cell.value != 0) {
+			if (cell.value != value && cell.value != 0) {
 				return true
 			}
 		}
@@ -142,21 +142,16 @@ class CommandStack(private val mCells: CellCollection) {
 		mCells.validate()
 	}
 
-	companion object {
-		@JvmStatic
-		fun deserialize(data: String, cells: CellCollection): CommandStack {
-			val st = StringTokenizer(data, "|")
-			return deserialize(st, cells)
+	fun deserialize(data: String?) {
+		if (data == null || data == "") {
+			return
 		}
-
-		fun deserialize(data: StringTokenizer, cells: CellCollection): CommandStack {
-			val result = CommandStack(cells)
-			val stackSize = data.nextToken().toInt()
-			for (i in 0..<stackSize) {
-				val command: AbstractCommand = AbstractCommand.deserialize(data)
-				result.push(command)
-			}
-			return result
+		val st = StringTokenizer(data, "|")
+		val result = CommandStack(mCells)
+		val stackSize = st.nextToken().toInt()
+		for (i in 0..<stackSize) {
+			val command: AbstractCommand = AbstractCommand.deserialize(st)
+			result.push(command)
 		}
 	}
 }

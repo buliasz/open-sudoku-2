@@ -49,7 +49,7 @@ class EditUserNoteDialogFragment(
 			.setPositiveButton(R.string.save) { _: DialogInterface?, _: Int ->
 				val game = mDatabase.getGame(puzzleId)!!
 				game.userNote = mEditNoteInput.text.toString()
-				mDatabase.updateSudoku(game)
+				mDatabase.updatePuzzle(game)
 				updateList()
 			}
 			.setNegativeButton(android.R.string.cancel, null)

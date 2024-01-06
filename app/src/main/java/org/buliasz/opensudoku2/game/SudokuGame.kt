@@ -23,7 +23,6 @@ import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.game.command.AbstractCommand
 import org.buliasz.opensudoku2.game.command.ClearAllNotesCommand
 import org.buliasz.opensudoku2.game.command.CommandStack
-import org.buliasz.opensudoku2.game.command.CommandStack.Companion.deserialize
 import org.buliasz.opensudoku2.game.command.EditCellCenterNoteCommand
 import org.buliasz.opensudoku2.game.command.EditCellCornerNoteCommand
 import org.buliasz.opensudoku2.game.command.FillInNotesCommand
@@ -78,9 +77,9 @@ class SudokuGame {
 		state = inState.getInt(Names.STATE)
 		mTime = inState.getLong(Names.TIME)
 		lastPlayed = inState.getLong(Names.LAST_PLAYED)
-		mCells = CellCollection.deserialize(inState.getString(Names.CELLS_DATA) ?: "")
+		cells = CellCollection.deserialize(inState.getString(Names.CELLS_DATA) ?: "")
 		userNote = inState.getString(Names.USER_NOTE) ?: ""
-		commandStack = deserialize(inState.getString(Names.COMMAND_STACK) ?: "", mCells)
+		commandStack.deserialize(inState.getString(Names.COMMAND_STACK))
 		validate()
 	}
 
@@ -225,9 +224,9 @@ class SudokuGame {
 		for (rowColVal in finalValues) {
 			val row = rowColVal[0]
 			val col = rowColVal[1]
-			val `val` = rowColVal[2]
+			val value = rowColVal[2]
 			val cell = mCells.getCell(row, col)
-			setCellValue(cell, `val`)
+			setCellValue(cell, value)
 		}
 	}
 
@@ -246,8 +245,8 @@ class SudokuGame {
 		val col = cell.columnIndex
 		for (rowColVal in finalValues) {
 			if (rowColVal[0] == row && rowColVal[1] == col) {
-				val `val` = rowColVal[2]
-				setCellValue(cell, `val`)
+				val value = rowColVal[2]
+				setCellValue(cell, value)
 			}
 		}
 	}
@@ -286,8 +285,6 @@ class SudokuGame {
 		/**
 		 * Returns true, if puzzle is solved. In order to know the current state, you have to
 		 * call validate first.
-		 *
-		 * @return
 		 */
 		get() = mCells.isCompleted
 

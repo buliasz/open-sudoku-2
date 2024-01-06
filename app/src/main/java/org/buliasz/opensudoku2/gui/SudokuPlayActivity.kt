@@ -243,7 +243,7 @@ class SudokuPlayActivity : ThemedActivity() {
 		super.onPause()
 
 		// we will save game to the database as we might not be able to get back
-		mDatabase.updateSudoku(mSudokuGame)
+		mDatabase.updatePuzzle(mSudokuGame)
 		mGameTimer.stop()
 		mIMControlPanel.pause()
 		mIMControlPanelStatePersister.saveState(mIMControlPanel)

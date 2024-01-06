@@ -218,8 +218,6 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 
 	/**
 	 * Registers a callback to be invoked when number is selected.
-	 *
-	 * @param l
 	 */
 	fun setOnNumberEditListener(l: OnNumberEditListener?) {
 		mOnNumberEditListener = l
@@ -227,8 +225,6 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 
 	/**
 	 * Register a callback to be invoked when note is edited.
-	 *
-	 * @param l
 	 */
 	fun setOnNoteEditListener(l: OnNoteEditListener?) {
 		onNoteEditListener = l

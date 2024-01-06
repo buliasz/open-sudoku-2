@@ -44,9 +44,9 @@ class SudokuSolver {
 		for (row in 0..8) {
 			for (col in 0..8) {
 				val cell = board[row][col]
-				val `val` = cell.value
+				val value = cell.value
 				if (!cell.isEditable) {
-					val matrixRow = cellToRow(row, col, `val` - 1)
+					val matrixRow = cellToRow(row, col, value - 1)
 					val matrixCol = 9 * row + col // calculates column of node based on cell constraint
 					val rowNode = mLinkedList[matrixRow][matrixCol]
 					var rightNode = rowNode
@@ -86,8 +86,8 @@ class SudokuSolver {
 		var blockColumn = 0
 		for (row in 0..<numRows) {
 			for (col in 0..<numCols) {
-				for (`val` in 0..<numValues) {
-					val matrixRow = cellToRow(row, col, `val`)
+				for (value in 0..<numValues) {
+					val matrixRow = cellToRow(row, col, value)
 
 					// cell constraint
 					mConstraintMatrix[matrixRow][cellColumn] = 1
@@ -232,11 +232,11 @@ class SudokuSolver {
 	 *
 	 * @param row             0-8 index
 	 * @param col             0-8 index
-	 * @param `val`             0-8 index (representing values 1-9)
+	 * @param value           0-8 index (representing values 1-9)
 	 * @return row in mConstraintMatrix corresponding to cell indices and value
 	 */
-	private fun cellToRow(row: Int, col: Int, `val`: Int): Int {
-		var matrixRow = 81 * row + 9 * col + `val`
+	private fun cellToRow(row: Int, col: Int, value: Int): Int {
+		var matrixRow = 81 * row + 9 * col + value
 		matrixRow++
 		return matrixRow
 	}
