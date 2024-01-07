@@ -40,7 +40,6 @@ class SudokuGame {
 	var lastPlayed: Long = 0
 	var userNote: String = ""
 	private lateinit var mCells: CellCollection
-	private var mSolver: SudokuSolver? = null
 	private var mUsedSolver = false
 	private var mRemoveNotesOnEntry = false
 	private var mOnPuzzleSolvedListener: OnPuzzleSolvedListener? = null
@@ -198,18 +197,12 @@ class SudokuGame {
 		lastPlayed = Instant.now().epochSecond
 	}
 
-	val isSolvable: Boolean
-		/**
-		 * Checks if a solution to the puzzle exists
-		 */
-		get() {
-			val finalValues = with(SudokuSolver()) {
-				mSolver = this
-				setPuzzle(mCells)
-				solve()
-			}
-			return finalValues.isNotEmpty()
-		}
+	fun isSolvable(): Boolean {
+		return with(SudokuSolver()) {
+			setPuzzle(mCells)
+			solve()
+		}.isNotEmpty()
+	}
 
 	/**
 	 * Solves puzzle from original state
@@ -217,7 +210,6 @@ class SudokuGame {
 	fun solve() {
 		mUsedSolver = true
 		val finalValues = with(SudokuSolver()) {
-			mSolver = this
 			setPuzzle(mCells)
 			solve()
 		}
@@ -237,7 +229,6 @@ class SudokuGame {
 	 */
 	fun solveCell(cell: Cell) {
 		val finalValues = with(SudokuSolver()) {
-			mSolver = this
 			setPuzzle(mCells)
 			solve()
 		}

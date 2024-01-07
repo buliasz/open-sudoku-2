@@ -21,6 +21,7 @@ package org.buliasz.opensudoku2.gui.importing
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.buliasz.opensudoku2.BuildConfig
@@ -29,6 +30,7 @@ import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.db.SudokuInvalidFormatException
 import org.buliasz.opensudoku2.game.FolderInfo
 import org.buliasz.opensudoku2.game.SudokuGame
+import org.buliasz.opensudoku2.gui.fragments.SimpleDialog
 import org.buliasz.opensudoku2.utils.Const
 
 /**
@@ -51,7 +53,7 @@ abstract class AbstractImportTask {
 	private var mImportError: String? = null
 	private var mImportSuccessful = false
 
-	suspend fun doInBackground(context: Context, onImportFinished: OnImportFinishedListener) {
+	suspend fun doInBackground(context: Context, onImportFinished: OnImportFinishedListener, supportFragmentManager: FragmentManager) {
 		var isSuccess = false
 		withContext(Dispatchers.IO) {
 			try {
@@ -61,12 +63,17 @@ abstract class AbstractImportTask {
 				setError(context.getString(R.string.unknown_import_error))
 			}
 			withContext(Dispatchers.Main) {
-				onPostExecute(context, isSuccess, onImportFinished)
+				onPostExecute(context, isSuccess, onImportFinished, supportFragmentManager)
 			}
 		}
 	}
 
-	private fun onPostExecute(context: Context, isSuccess: Boolean, onImportFinished: OnImportFinishedListener) {
+	private fun onPostExecute(
+		context: Context,
+		isSuccess: Boolean,
+		onImportFinished: OnImportFinishedListener,
+		supportFragmentManager: FragmentManager
+	) {
 		if (isSuccess) {
 			if (mFolderCount == 1) {
 				Toast.makeText(
@@ -80,13 +87,13 @@ abstract class AbstractImportTask {
 				).show()
 			}
 		} else {
-			Toast.makeText(context, mImportError, Toast.LENGTH_LONG).show()
+			with(SimpleDialog()) {
+				message = mImportError
+				show(supportFragmentManager)
+			}
 		}
 
-		var folderId: Long = -1
-		if (mFolderCount == 1) {
-			folderId = mFolder.id
-		}
+		val folderId = if (mFolderCount == 1) mFolder.id else -1
 		onImportFinished.onImportFinished(isSuccess, folderId)
 	}
 
@@ -139,7 +146,7 @@ abstract class AbstractImportTask {
 	}
 
 	private fun isPuzzleValid(newPuzzle: SudokuGame): Boolean {
-		if (!newPuzzle.isSolvable) {
+		if (!newPuzzle.isSolvable()) {
 			setError("This puzzle is not solvable")
 			return false
 		}

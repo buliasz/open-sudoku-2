@@ -156,7 +156,7 @@ class SudokuImportActivity : ThemedActivity() {
 		}
 
 		CoroutineScope(Dispatchers.IO).launch {
-			importTask.doInBackground(applicationContext, mOnImportFinishedListener)
+			importTask.doInBackground(applicationContext, mOnImportFinishedListener, supportFragmentManager)
 		}
 	}
 

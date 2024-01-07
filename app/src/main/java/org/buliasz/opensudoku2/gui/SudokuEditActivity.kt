@@ -176,17 +176,10 @@ class SudokuEditActivity : ThemedActivity() {
 			}
 
 			MENU_ITEM_CHECK_RESOLVABILITY -> {
-				val solvable = checkResolvability()
-				if (solvable) {
-					with(SimpleDialog()) {
-						messageId = R.string.puzzle_solvable
-						show(supportFragmentManager)
-					}
-				} else {
-					with(SimpleDialog()) {
-						messageId = R.string.puzzle_not_solved
-						show(supportFragmentManager)
-					}
+				val solvable = checkSolvability()
+				with(SimpleDialog()) {
+					messageId = if (solvable) R.string.puzzle_solvable else R.string.puzzle_not_solved
+					show(supportFragmentManager)
 				}
 				return true
 			}
@@ -206,9 +199,9 @@ class SudokuEditActivity : ThemedActivity() {
 		return super.onOptionsItemSelected(item)
 	}
 
-	private fun checkResolvability(): Boolean {
+	private fun checkSolvability(): Boolean {
 		newPuzzle.cells.markFilledCellsAsNotEditable()
-		val solvable = newPuzzle.isSolvable
+		val solvable = newPuzzle.isSolvable()
 		newPuzzle.cells.markAllCellsAsEditable()
 		return solvable
 	}
@@ -233,7 +226,7 @@ class SudokuEditActivity : ThemedActivity() {
 	}
 
 	private fun isNewPuzzleValid(): Boolean {
-		if (!newPuzzle.isSolvable) {
+		if (!newPuzzle.isSolvable()) {
 			with(SimpleDialog()) {
 				message = "This puzzle is not solvable"
 				show(supportFragmentManager)

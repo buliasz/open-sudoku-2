@@ -442,7 +442,7 @@ class SudokuPlayActivity : ThemedActivity() {
 					titleId = R.string.app_name
 					messageId = R.string.solve_puzzle_confirm
 					onOkCallback = {
-						if (mSudokuGame.isSolvable) {
+						if (mSudokuGame.isSolvable()) {
 							mSudokuGame.solve()
 						} else {
 							with(SimpleDialog()) {
@@ -462,7 +462,7 @@ class SudokuPlayActivity : ThemedActivity() {
 					onOkCallback = {
 						val cell = mSudokuBoard.selectedCell
 						if (cell != null && cell.isEditable) {
-							if (mSudokuGame.isSolvable) {
+							if (mSudokuGame.isSolvable()) {
 								mSudokuGame.solveCell(cell)
 							} else {
 								with(SimpleDialog()) {
