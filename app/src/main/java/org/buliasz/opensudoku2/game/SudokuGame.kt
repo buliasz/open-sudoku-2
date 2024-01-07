@@ -197,29 +197,24 @@ class SudokuGame {
 		lastPlayed = Instant.now().epochSecond
 	}
 
-	fun isSolvable(): Boolean {
-		return with(SudokuSolver()) {
-			setPuzzle(mCells)
-			solve()
-		}.isNotEmpty()
-	}
+	fun isSolvable(): Boolean = mCells.solution.isNotEmpty()
 
 	/**
 	 * Solves puzzle from original state
 	 */
-	fun solve() {
+	fun solve(): Boolean {
 		mUsedSolver = true
-		val finalValues = with(SudokuSolver()) {
-			setPuzzle(mCells)
-			solve()
+		if (mCells.solution.isEmpty()) {
+			return false
 		}
-		for (rowColVal in finalValues) {
+		for (rowColVal in mCells.solution) {
 			val row = rowColVal[0]
 			val col = rowColVal[1]
 			val value = rowColVal[2]
 			val cell = mCells.getCell(row, col)
 			setCellValue(cell, value)
 		}
+		return true
 	}
 
 	fun usedSolver(): Boolean = mUsedSolver
@@ -228,13 +223,9 @@ class SudokuGame {
 	 * Solves puzzle and fills in correct value for selected cell
 	 */
 	fun solveCell(cell: Cell) {
-		val finalValues = with(SudokuSolver()) {
-			setPuzzle(mCells)
-			solve()
-		}
 		val row = cell.rowIndex
 		val col = cell.columnIndex
-		for (rowColVal in finalValues) {
+		for (rowColVal in mCells.solution) {
 			if (rowColVal[0] == row && rowColVal[1] == col) {
 				val value = rowColVal[2]
 				setCellValue(cell, value)

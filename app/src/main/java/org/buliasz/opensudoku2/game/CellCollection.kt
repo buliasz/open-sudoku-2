@@ -24,10 +24,7 @@ import java.util.regex.Pattern
 /**
  * Collection of sudoku cells. This class in fact represents one sudoku board (9x9).
  */
-class CellCollection private constructor(
-	// Cell's data.
-	val cells: Array<Array<Cell>>
-) {
+class CellCollection private constructor(val cells: Array<Array<Cell>>) {
 	private val mChangeListeners: MutableList<OnChangeListener> = ArrayList()
 
 	// Helper arrays, contains references to the groups of cells, which should contain unique
@@ -36,6 +33,17 @@ class CellCollection private constructor(
 	private lateinit var mRows: Array<CellGroup>
 	private lateinit var mColumns: Array<CellGroup>
 	private var mOnChangeEnabled = true
+	private var mSolution: ArrayList<IntArray>? = null
+	val solution: ArrayList<IntArray>
+		get() {
+			if (mSolution == null) {
+				mSolution = with(SudokuSolver()) {
+					setPuzzle(this@CellCollection)
+					solve()
+				}
+			}
+			return mSolution!!
+		}
 
 	/**
 	 * Wraps given array in this object.
@@ -153,6 +161,7 @@ class CellCollection private constructor(
 				cell.isEditable = cell.value == 0
 			}
 		}
+		mSolution = null
 	}
 
 	/**
@@ -321,8 +330,8 @@ class CellCollection private constructor(
 	fun onChange() {
 		if (mOnChangeEnabled) {
 			synchronized(mChangeListeners) {
-				for (l in mChangeListeners) {
-					l.onChange()
+				for (listener in mChangeListeners) {
+					listener.onChange()
 				}
 			}
 		}

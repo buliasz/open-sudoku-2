@@ -442,9 +442,7 @@ class SudokuPlayActivity : ThemedActivity() {
 					titleId = R.string.app_name
 					messageId = R.string.solve_puzzle_confirm
 					onOkCallback = {
-						if (mSudokuGame.isSolvable()) {
-							mSudokuGame.solve()
-						} else {
+						if (!mSudokuGame.solve()) {
 							with(SimpleDialog()) {
 								messageId = R.string.puzzle_not_solved
 								show(supportFragmentManager)

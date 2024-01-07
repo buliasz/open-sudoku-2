@@ -18,22 +18,20 @@
 
 package org.buliasz.opensudoku2.game
 
-import java.util.Arrays
+private const val numRows = 9
+private const val numCols = 9
+private const val numValues = 9
+private const val numConstraints = 4
+private const val numCells = numRows * numCols
 
 class SudokuSolver {
-	private val numRows = 9
-	private val numCols = 9
-	private val numValues = 9
-	private val numConstraints = 4
-	private val numCells = numRows * numCols
-	private lateinit var mConstraintMatrix: Array<IntArray>
 	private lateinit var mLinkedList: Array<Array<Node?>>
-	private var mHead: Node? = null
-	private var mSolution: ArrayList<Node?> = ArrayList()
+	private lateinit var mHead: Node
+	private var mSolution: ArrayList<Node> = ArrayList()
 
 	init {
-		initializeConstraintMatrix()
-		initializeLinkedList()
+		initializeNodesMatrix()
+		initializeNodesLinks()
 	}
 	/* ---------------PUBLIC FUNCTIONS--------------- */
 	/**
@@ -44,15 +42,14 @@ class SudokuSolver {
 		for (row in 0..8) {
 			for (col in 0..8) {
 				val cell = board[row][col]
-				val value = cell.value
 				if (!cell.isEditable) {
-					val matrixRow = cellToRow(row, col, value - 1)
+					val matrixRow = cellToRow(row, col, cell.value - 1)
 					val matrixCol = 9 * row + col // calculates column of node based on cell constraint
-					val rowNode = mLinkedList[matrixRow][matrixCol]
+					val rowNode = mLinkedList[matrixRow][matrixCol]!!
 					var rightNode = rowNode
 					do {
 						cover(rightNode)
-						rightNode = rightNode!!.right
+						rightNode = rightNode.right
 					} while (rightNode !== rowNode)
 				}
 			}
@@ -63,7 +60,7 @@ class SudokuSolver {
 		mSolution = dlx()
 		val finalValues = ArrayList<IntArray>()
 		for (node in mSolution) {
-			val matrixRow = node!!.rowID
+			val matrixRow = node.rowID
 			val rowColVal = rowToCell(matrixRow)
 			finalValues.add(rowColVal)
 		}
@@ -71,10 +68,11 @@ class SudokuSolver {
 	}
 
 	/* ---------------FUNCTIONS TO IMPLEMENT SOLVER--------------- */
-	private fun initializeConstraintMatrix() {
+	private fun initializeNodesMatrix() {
+		mLinkedList = Array(numRows * numCols * numValues + 1) { arrayOfNulls(numCells * numConstraints) }
+
 		// add row of 1's for column headers
-		mConstraintMatrix = Array(numRows * numCols * numValues + 1) { IntArray(numCells * numConstraints) }
-		Arrays.fill(mConstraintMatrix[0], 1)
+		mLinkedList[0] = Array(numCells * numConstraints) { Node() }
 
 		// calculate column where constraint will go
 		val rowShift = numCells
@@ -82,107 +80,96 @@ class SudokuSolver {
 		val blockShift = numCells * 3
 		var cellColumn = 0
 		var rowColumn = 0
-		var colColumn = 0
 		var blockColumn = 0
 		for (row in 0..<numRows) {
+			var colColumn = 0
 			for (col in 0..<numCols) {
 				for (value in 0..<numValues) {
 					val matrixRow = cellToRow(row, col, value)
 
-					// cell constraint
-					mConstraintMatrix[matrixRow][cellColumn] = 1
+					// cell
+					mLinkedList[matrixRow][cellColumn] = Node()
 
-					// row constraint
-					mConstraintMatrix[matrixRow][rowColumn + rowShift] = 1
+					// row
+					mLinkedList[matrixRow][rowColumn + rowShift] = Node()
 					rowColumn++
 
-					// col constraint
-					mConstraintMatrix[matrixRow][colColumn + colShift] = 1
+					// col
+					mLinkedList[matrixRow][colColumn + colShift] = Node()
 					colColumn++
 
-					// block constraint
-					mConstraintMatrix[matrixRow][blockColumn + blockShift] = 1
+					// block
+					mLinkedList[matrixRow][blockColumn + blockShift] = Node()
 					blockColumn++
 				}
 				cellColumn++
-				rowColumn -= 9
+				rowColumn -= numCols
 				if (col % 3 != 2) {
-					blockColumn -= 9
+					blockColumn -= numCols
 				}
 			}
-			rowColumn += 9
-			colColumn -= 81
+			rowColumn += numCols
 			if (row % 3 != 2) {
-				blockColumn -= 27
+				blockColumn -= numCols * 3
 			}
 		}
 	}
 
-	private fun initializeLinkedList() {
-		mLinkedList = Array(numRows * numCols * numValues + 1) { arrayOfNulls(numCells * numConstraints) }
+	private fun initializeNodesLinks() {
 		mHead = Node()
 		val rows = mLinkedList.size
 		val cols = mLinkedList[0].size
 
-		// create node for each 1 in constraint matrix
-		for (i in 0..<rows) {
-			for (j in 0..<cols) {
-				if (mConstraintMatrix[i][j] == 1) {
-					mLinkedList[i][j] = Node()
-				}
-			}
-		}
-
 		// link nodes in mLinkedList
 		for (i in 0..<rows) {
 			for (j in 0..<cols) {
-				if (mConstraintMatrix[i][j] == 1) {
-					var a: Int
-					var b: Int
+				if (mLinkedList[i][j] == null) continue
 
-					// link left
-					a = i
-					b = j
-					do {
-						b = moveLeft(b, cols)
-					} while (mConstraintMatrix[a][b] != 1)
-					mLinkedList[i][j]!!.left = mLinkedList[a][b]
+				var a: Int
+				var b: Int
 
-					// link right
-					a = i
-					b = j
-					do {
-						b = moveRight(b, cols)
-					} while (mConstraintMatrix[a][b] != 1)
-					mLinkedList[i][j]!!.right = mLinkedList[a][b]
+				// link left
+				a = i
+				b = j
+				do {
+					b = moveLeft(b, cols)
+				} while (mLinkedList[a][b] == null)
+				mLinkedList[i][j]!!.left = mLinkedList[a][b]!!
 
-					// link up
-					a = i
-					b = j
-					do {
-						a = moveUp(a, rows)
-					} while (mConstraintMatrix[a][b] != 1)
-					mLinkedList[i][j]!!.up = mLinkedList[a][b]
+				// link right
+				a = i
+				b = j
+				do {
+					b = moveRight(b, cols)
+				} while (mLinkedList[a][b] == null)
+				mLinkedList[i][j]!!.right = mLinkedList[a][b]!!
 
-					// link up
-					a = i
-					b = j
-					do {
-						a = moveDown(a, rows)
-					} while (mConstraintMatrix[a][b] != 1)
-					mLinkedList[i][j]!!.down = mLinkedList[a][b]
+				// link up
+				a = i
+				b = j
+				do {
+					a = moveUp(a, rows)
+				} while (mLinkedList[a][b] == null)
+				mLinkedList[i][j]!!.up = mLinkedList[a][b]!!
 
-					// initialize remaining node info
-					mLinkedList[i][j]!!.columnHeader = mLinkedList[0][j]
-					mLinkedList[i][j]!!.rowID = i
-					mLinkedList[i][j]!!.colID = j
-				}
+				// link up
+				a = i
+				b = j
+				do {
+					a = moveDown(a, rows)
+				} while (mLinkedList[a][b] == null)
+				mLinkedList[i][j]!!.down = mLinkedList[a][b]!!
+
+				// initialize remaining node info
+				mLinkedList[i][j]!!.columnHeader = mLinkedList[0][j]!!
+				mLinkedList[i][j]!!.rowID = i
+				mLinkedList[i][j]!!.colID = j
 			}
 		}
 
 		// link head node
-		mHead!!.right = mLinkedList[0][0]
-		mHead!!.left = mLinkedList[0][cols - 1]
+		mHead.right = mLinkedList[0][0]!!
+		mHead.left = mLinkedList[0][cols - 1]!!
 		mLinkedList[0][0]!!.left = mHead
 		mLinkedList[0][cols - 1]!!.right = mHead
 	}
@@ -192,20 +179,21 @@ class SudokuSolver {
 	 *
 	 * @return array of solution nodes or empty array if no solution exists
 	 */
-	private fun dlx(): ArrayList<Node?> {
-		if (mHead!!.right === mHead) {
-			return mSolution
+	private fun dlx(): ArrayList<Node> {
+		if (mHead.right === mHead) {
+			return mSolution    // all nodes covered
 		}
-		var colNode = chooseColumn()
+
+		var colNode = chooseLeastCountNode()
 		cover(colNode)
-		var rowNode: Node?
-		rowNode = colNode!!.down
+
+		var rowNode = colNode.down
 		while (rowNode !== colNode) {
 			mSolution.add(rowNode)
-			var rightNode = rowNode!!.right
+			var rightNode = rowNode.right
 			while (rightNode !== rowNode) {
 				cover(rightNode)
-				rightNode = rightNode!!.right
+				rightNode = rightNode.right
 			}
 			val tempSolution = dlx()
 			if (tempSolution.isNotEmpty()) {
@@ -215,11 +203,10 @@ class SudokuSolver {
 			// undo operations and try the next row
 			mSolution.removeAt(mSolution.size - 1)
 			colNode = rowNode.columnHeader
-			var leftNode: Node?
-			leftNode = rowNode.left
+			var leftNode = rowNode.left
 			while (leftNode !== rowNode) {
 				uncover(leftNode)
-				leftNode = leftNode!!.left
+				leftNode = leftNode.left
 			}
 			rowNode = rowNode.down
 		}
@@ -264,55 +251,49 @@ class SudokuSolver {
 	/**
 	 * Unlinks node from linked list
 	 */
-	private fun cover(node: Node?) {
-		val colNode = node!!.columnHeader
-		colNode!!.left!!.right = colNode.right
-		colNode.right!!.left = colNode.left
-		var rowNode: Node?
-		rowNode = colNode.down
+	private fun cover(node: Node) {
+		val colNode = node.columnHeader
+		colNode.left.right = colNode.right
+		colNode.right.left = colNode.left
+		var rowNode = colNode.down
 		while (rowNode !== colNode) {
-			var rightNode: Node?
-			rightNode = rowNode!!.right
+			var rightNode = rowNode.right
 			while (rightNode !== rowNode) {
-				rightNode!!.up!!.down = rightNode.down
-				rightNode.down!!.up = rightNode.up
-				rightNode.columnHeader!!.count--
+				rightNode.up.down = rightNode.down
+				rightNode.down.up = rightNode.up
+				rightNode.columnHeader.count--
 				rightNode = rightNode.right
 			}
 			rowNode = rowNode.down
 		}
 	}
 
-	private fun uncover(node: Node?) {
-		val colNode = node!!.columnHeader
-		var upNode: Node?
-		upNode = colNode!!.up
+	private fun uncover(node: Node) {
+		val colNode = node.columnHeader
+		var upNode = colNode.up
 		while (upNode !== colNode) {
-			var leftNode: Node?
-			leftNode = upNode!!.left
+			var leftNode = upNode.left
 			while (leftNode !== upNode) {
-				leftNode!!.up!!.down = leftNode
-				leftNode.down!!.up = leftNode
-				leftNode.columnHeader!!.count++
+				leftNode.up.down = leftNode
+				leftNode.down.up = leftNode
+				leftNode.columnHeader.count++
 				leftNode = leftNode.left
 			}
 			upNode = upNode.up
 		}
-		colNode.left!!.right = colNode
-		colNode.right!!.left = colNode
+		colNode.left.right = colNode
+		colNode.right.left = colNode
 	}
 
 	/**
 	 * Returns column node with lowest # of nodes
 	 */
-	private fun chooseColumn(): Node? {
-		var bestNode: Node? = null
-		var lowestNum = 100000
-		var currentNode = mHead!!.right
+	private fun chooseLeastCountNode(): Node {
+		var bestNode = mHead.right
+		var currentNode = bestNode.right
 		while (currentNode !== mHead) {
-			if (currentNode!!.count < lowestNum) {
+			if (currentNode.count < bestNode.count) {
 				bestNode = currentNode
-				lowestNum = currentNode.count
 			}
 			currentNode = currentNode.right
 		}

@@ -19,21 +19,12 @@
 package org.buliasz.opensudoku2.game
 
 class Node {
-	var left: Node?
-	var right: Node?
-	var up: Node?
-	var down: Node? = null
-	var columnHeader: Node? = null
-	var rowID: Int
-	var colID: Int
-	var count: Int
-
-	init {
-		up = down
-		right = up
-		left = right
-		colID = -1
-		rowID = colID
-		count = 0
-	}
+	lateinit var left: Node
+	lateinit var right: Node
+	lateinit var up: Node
+	lateinit var down: Node
+	lateinit var columnHeader: Node
+	var rowID: Int = -1
+	var colID: Int = -1
+	var count: Int = 0
 }

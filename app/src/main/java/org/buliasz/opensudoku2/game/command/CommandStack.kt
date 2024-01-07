@@ -20,7 +20,6 @@ package org.buliasz.opensudoku2.game.command
 
 import org.buliasz.opensudoku2.game.Cell
 import org.buliasz.opensudoku2.game.CellCollection
-import org.buliasz.opensudoku2.game.SudokuSolver
 import java.util.Stack
 import java.util.StringTokenizer
 
@@ -28,7 +27,7 @@ class CommandStack(private val mCells: CellCollection) {
 
 	private val mCommandStack = Stack<AbstractCommand>()
 	var onEmptyChangeListener: (isEmpty: Boolean) -> Unit = {}
-	var isEmpty = true
+	var isEmpty = true // true if no commands are recorded on this CommandStack
 		set(value) {
 			if (field != value) {
 				field = value
@@ -101,10 +100,7 @@ class CommandStack(private val mCells: CellCollection) {
 	}
 
 	fun undoToSolvableState() {
-		val solver = SudokuSolver()
-		solver.setPuzzle(mCells)
-		val finalValues = solver.solve()
-		while (!isEmpty && hasMistakes(finalValues)) {
+		while (!isEmpty && hasMistakes(mCells.solution)) {
 			pop().undo()
 		}
 		validateCells()
