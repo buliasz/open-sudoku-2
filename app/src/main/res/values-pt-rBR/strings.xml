@@ -19,7 +19,7 @@
 
 <resources>
     <string name="app_name">Open Sudoku 2</string>
-    <string name="edit_sudoku">Editar Sudoku</string>
+    <string name="edit_puzzle">Editar Sudoku</string>
     <string name="puzzle_folders">Pastas de jogos OpenSudoku2</string>
     <string name="version">Versão %s</string>
     <string name="send_me_bugs">
@@ -34,6 +34,7 @@
     <string name="save">Salvar</string>
     <string name="get_more_puzzles_online">Obtenha mais jogos online</string>
     <string name="name">Nome:</string>
+    <string name="folder_name_hint">Nome da pasta</string>
     <string name="note">Anotação:</string>
     <string name="select_number">Selecionar número</string>
     <string name="edit_note">Editar anotação</string>
@@ -60,7 +61,7 @@
     <string name="at_time">às %s</string>
     <string name="yesterday_at_time">ontem às %s</string>
     <string name="on_date">em %s</string>
-    <string name="add_sudoku">Adicionar sudoku</string>
+    <string name="add_puzzle">Adicionar sudoku</string>
     <string name="filter">Filtros</string>
     <string name="filter_by_game_state">Filtrar pelo status do jogo</string>
     <string name="folders">Pastas</string>
@@ -81,8 +82,10 @@
     <string name="settings">Configurações</string>
     <string name="game_settings">Configurações do jogo</string>
     <string name="game_helpers">Ajudantes de Jogo</string>
-    <string name="highlight_wrong_values">Destacar valores errados</string>
-    <string name="highlight_wrong_values_summary">Destaca valores em desacordo com as regras.</string>
+    <string name="highlight_directly_wrong_values">Destacar valores errados</string>
+    <string name="highlight_directly_wrong_values_summary">Destaca valores em desacordo com as regras.</string>
+	<string name="highlight_indirectly_wrong_values">Realçar valores indiretamente errados</string>
+    <string name="highlight_indirectly_wrong_values_summary">Realce valores que não correspondem à solução final do quebra-cabeça (as notas são ignoradas).</string>
     <string name="input_methods">Modos de Entrada</string>
     <string name="popup">Popup</string>
     <string name="popup_summary">Edite o valor e a anotação numa janela popup.</string>
@@ -186,7 +189,7 @@
     <string name="difficulty_easy">Fácil</string>
 
     <!-- Strings added/changed in 1.1.0 -->
-    <string name="generate_sudoku">Gerar novo jogo</string>
+    <string name="generate_puzzle">Gerar novo jogo</string>
     <string name="select_difficulty">Selecionar dificuldade</string>
     <string name="generating">Gerando jogo…</string>
     <string name="show_number_totals">Mostrar totais dos números</string>
@@ -237,10 +240,12 @@
     <string name="solve_puzzle">Resolver jogo</string>
     <string name="solve_puzzle_confirm">Tem certeza de que deseja ver a solução?</string>
     <string name="used_solver">Você usou o solucionador para ver a solução!</string>
-    <string name="puzzle_not_solved">Este quebra-cabeça não tem solução.</string>
+    <string name="puzzle_has_no_solution">Este quebra-cabeça não tem solução.</string>
+	<string name="puzzle_has_multiple_solutions">Este é um quebra-cabeça inválido porque tem várias soluções.</string>
+    <string name="puzzle_already_exists">Este quebra-cabeça é válido, mas já existe na pasta %s.</string>
     <string name="hint_confirm">Isso preencherá o valor correto para a célula selecionada. Você quer continuar?</string>
     <string name="cannot_give_hint">Você não pode obter uma dica para essa célula.</string>
-    <string name="check_solvability">Verifique a solubilidade</string>
+    <string name="check_validity">Verifique a solubilidade</string>
     <string name="puzzle_solvable">Este quebra-cabeça tem solução.</string>
     <string name="copy_from_existing_theme">Copiar do tema existente</string>
     <string name="theme_default">Escuro</string>
@@ -263,14 +268,14 @@
     <string name="highlight_similar_notes">Destacar notas semelhantes</string>
     <string name="highlight_similar_notes_summary">Destacar células com valores de notas semelhantes</string>
     <string name="resume">Retomar</string>
-    <string name="sudoku_lists">Listas de Sudoku</string>
+    <string name="puzzle_lists">Listas de Sudoku</string>
     <string name="undo_to_before_mistake">Desfazer antes do erro</string>
     <string name="undo_to_before_mistake_confirm">Tem certeza de que deseja desfazer todas as ações desde o último estado solucionável?</string>
     <string name="remove_notes_title">Remover notas na entrada de números</string>
     <string name="remove_notes_summary">Remova automaticamente notas da mesma coluna, linha e caixa ao inserir um número</string>
     <string name="create_from_single_color">Crie a partir de uma única cor</string>
-    <string name="show_sudoku_lists_on_startup_title">Mostrar listas de sudoku na inicialização</string>
-    <string name="show_sudoku_lists_on_startup_summary">Mostre as listas de sudoku na inicialização e pule a tela de título.</string>
+    <string name="show_puzzle_lists_on_startup_title">Mostrar listas de sudoku na inicialização</string>
+    <string name="show_puzzle_lists_on_startup_summary">Mostre as listas de sudoku na inicialização e pule a tela de título.</string>
     <string name="app_startup_category">Inicialização do aplicativo</string>
     <string name="sort">Organizar</string>
     <string name="sort_puzzles_by">Classifique os quebra-cabeças por</string>

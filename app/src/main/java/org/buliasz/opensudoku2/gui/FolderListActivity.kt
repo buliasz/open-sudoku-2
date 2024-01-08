@@ -82,7 +82,7 @@ class FolderListActivity : ThemedActivity() {
 		}
 		mDatabase = SudokuDatabase(applicationContext)
 		mAdapter = FolderListRecyclerAdapter(this, mDatabase.getFolderList()) { id: Long ->
-			val i = Intent(applicationContext, SudokuListActivity::class.java)
+			val i = Intent(applicationContext, PuzzleListActivity::class.java)
 			i.putExtra(Names.FOLDER_ID, id)
 			startActivity(i)
 		}
@@ -103,7 +103,7 @@ class FolderListActivity : ThemedActivity() {
 				val data: Intent? = result.data
 				if (data != null) {
 					val uri = data.data
-					val i = Intent(this, SudokuImportActivity::class.java)
+					val i = Intent(this, PuzzleImportActivity::class.java)
 					i.setData(uri)
 					startActivity(i)
 				}
@@ -170,7 +170,7 @@ class FolderListActivity : ThemedActivity() {
 		when (item.itemId) {
 			MENU_ITEM_EXPORT -> {
 				val intent = Intent()
-				intent.setClass(this, SudokuExportActivity::class.java)
+				intent.setClass(this, PuzzleExportActivity::class.java)
 				intent.putExtra(Names.FOLDER_ID, mAdapter.selectedFolderId)
 				startActivity(intent)
 				return true
@@ -209,8 +209,8 @@ class FolderListActivity : ThemedActivity() {
 
 			MENU_ITEM_EXPORT_ALL -> {
 				intent = Intent()
-				intent.setClass(this, SudokuExportActivity::class.java)
-				intent.putExtra(Names.FOLDER_ID, SudokuExportActivity.ALL_IDS)
+				intent.setClass(this, PuzzleExportActivity::class.java)
+				intent.putExtra(Names.FOLDER_ID, PuzzleExportActivity.ALL_IDS)
 				startActivity(intent)
 				return true
 			}

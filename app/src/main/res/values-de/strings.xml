@@ -19,7 +19,7 @@
 
 <resources>
     <string name="app_name">Open Sudoku 2</string>
-    <string name="edit_sudoku">Sudoku-Rätsel bearbeiten</string>
+    <string name="edit_puzzle">Sudoku-Rätsel bearbeiten</string>
 
     <string name="puzzle_folders">OpenSudoku2 Rätsel-Ordner</string>
 
@@ -36,6 +36,7 @@
     <string name="get_more_puzzles_online">Mehr Sudoku-Rätsel herunterladen</string>
 
     <string name="name">Name:</string>
+    <string name="folder_name_hint">Name des Ordners</string>
     <string name="note">Notiz:</string>
 
     <string name="select_number">Zahl auswählen</string>
@@ -63,7 +64,7 @@
     <string name="at_time">um %s</string>
     <string name="yesterday_at_time">gestern um %s</string>
     <string name="on_date">am %s</string>
-    <string name="add_sudoku">Sudoku-Rätsel hinzufügen</string>
+    <string name="add_puzzle">Sudoku-Rätsel hinzufügen</string>
     <string name="filter">Filtern</string>
     <string name="filter_by_game_state">Filtern nach Spiel-Status</string>
     <string name="folders">Ordner</string>
@@ -86,8 +87,10 @@
     <string name="game_settings">Spiel-Einstellungen</string>
 
     <string name="game_helpers">Spiel-Hilfen</string>
-    <string name="highlight_wrong_values">Falsche Zahlen hervorheben</string>
-    <string name="highlight_wrong_values_summary">Zahlen, die gegen die Sudoku-Regeln verstoßen, hervorheben.</string>
+    <string name="highlight_directly_wrong_values">Falsche Zahlen hervorheben</string>
+    <string name="highlight_directly_wrong_values_summary">Zahlen, die gegen die Sudoku-Regeln verstoßen, hervorheben.</string>
+	<string name="highlight_indirectly_wrong_values">Indirekt falsche Werte hervorheben</string>
+    <string name="highlight_indirectly_wrong_values_summary">Markieren Sie Werte, die nicht mit der endgültigen Lösung des Rätsels übereinstimmen (Notizen werden ignoriert).</string>
     <string name="input_methods">Eingabe-Methoden</string>
     <string name="popup">Popup</string>
     <string name="popup_summary">Zahlen in einem Popup-Dialog bearbeiten.</string>
@@ -188,7 +191,7 @@
     <string name="difficulty_easy">Leicht</string>
 
     <!-- Strings added/changed in 1.1.0 -->
-    <string name="generate_sudoku">Generiere neues Sudoku</string>
+    <string name="generate_puzzle">Generiere neues Sudoku</string>
     <string name="select_difficulty">Schwierigkeit auswählen</string>
     <string name="generating">Generiere Sudoku-Rätsel…</string>
     <string name="current_developers_label">Aktive Entwickler</string>
@@ -234,8 +237,8 @@
     <string name="default_backgroundColor">Hintergrund ungerader Block</string>
 
     <string name="resume">Fortsetzen</string>
-    <string name="show_sudoku_lists_on_startup_summary">Sudoku-Liste zum Start anzeigen und Titelbildschirm überspringen.</string>
-    <string name="show_sudoku_lists_on_startup_title">Sudoku-Liste zum Start anzeigen</string>
+    <string name="show_puzzle_lists_on_startup_summary">Sudoku-Liste zum Start anzeigen und Titelbildschirm überspringen.</string>
+    <string name="show_puzzle_lists_on_startup_title">Sudoku-Liste zum Start anzeigen</string>
     <string name="solve_puzzle">Puzzle lösen</string>
     <string name="solve_puzzle_confirm">Möchten Sie die Lösung wirklich sehen?</string>
     <string name="sort">Sortieren</string>
@@ -243,7 +246,7 @@
     <string name="sort_last_played">Zuletzt gespiele</string>
     <string name="sort_play_time">Spielzeit</string>
     <string name="sort_puzzles_by">Puzzles sortieren nach</string>
-    <string name="sudoku_lists">Sudokulisten</string>
+    <string name="puzzle_lists">Sudokulisten</string>
     <string name="theme_amethyst">Amethyst</string>
     <string name="theme_crystal">Kristall</string>
     <string name="theme_default">Dunkel</string>
@@ -260,14 +263,16 @@
     <string name="undo_to_before_mistake_confirm">Möchten Sie wirklich alle Aktionen seitdem letzten lösbaren Zustand zurücksetzen?</string>
     <string name="used_solver">Sie haben die Hilfe genutzt, um die Lösung zu sehen!</string>
     <string name="cannot_give_hint">Es gibt keinen Hinweis für dieses Feld</string>
-    <string name="check_solvability">Lösbarkeit prüfen</string>
+    <string name="check_validity">Lösbarkeit prüfen</string>
     <string name="copy_from_existing_theme">Von existierendem Schema kopieren</string>
     <string name="create_from_single_color">Aus einzelner Farbe erstellen</string>
     <string name="highlight_similar_notes">Gleiche Notizen hervorheben</string>
     <string name="highlight_similar_notes_summary">Hebt Felder mit gleichen Notizwerten hervor</string>
+    <string name="puzzle_has_multiple_solutions">Dies ist ein ungültiges Rätsel, da es mehrere Lösungen gibt.</string>
+    <string name="puzzle_already_exists">Dieses Rätsel ist gültig, aber es existiert bereits im Ordner %s.</string>
     <string name="hint_confirm">Dies wird den richtigen Wert in das gewählte Feld eintragen. Möchten Sie das?</string>
     <string name="is_light_theme_title">Helles Schema</string>
-    <string name="puzzle_not_solved">Dieses Puzzle hat keine Lösung.</string>
+    <string name="puzzle_has_no_solution">Dieses Puzzle hat keine Lösung.</string>
     <string name="puzzle_solvable">Dieses Puzzle hat eine Lösung.</string>
     <string name="remove_notes_summary">Entfernt die Notiz automatisch aus der gleichen Spalte, Zeile und Quadrat wenn eine Zahl eingegeben wird</string>
     <string name="remove_notes_title">Notizen bei Eingabe entfernen</string>

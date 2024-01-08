@@ -41,7 +41,7 @@ import org.buliasz.opensudoku2.gui.exporting.FileExportTaskResult
 import java.io.FileNotFoundException
 import java.util.Date
 
-class SudokuExportActivity : ThemedActivity() {
+class PuzzleExportActivity : ThemedActivity() {
 	private lateinit var mFileExportTask: FileExportTask
 	private lateinit var mExportParams: FileExportTaskParams
 
@@ -57,14 +57,14 @@ class SudokuExportActivity : ThemedActivity() {
 			return
 		}
 		mExportParams.folderId = intent.getLongExtra(Names.FOLDER_ID, ALL_IDS)
-		mExportParams.gameId = intent.getLongExtra(Names.ID, ALL_IDS)
+		mExportParams.puzzleId = intent.getLongExtra(Names.ID, ALL_IDS)
 		val timestamp = DateFormat.format("yyyy-MM-dd-HH-mm-ss", Date()).toString()
 
 		val fileName = if (mExportParams.folderId == -1L) {
 			"all-folders-$timestamp"
 		} else {
 			val folderName = SudokuDatabase(applicationContext).use { database ->
-				val folderId = mExportParams.folderId ?: database.getGame(mExportParams.gameId!!)!!.folderId
+				val folderId = mExportParams.folderId ?: database.getGame(mExportParams.puzzleId!!)!!.folderId
 				val folder = database.getFolderInfo(folderId)
 				if (folder == null) {
 					Log.e(TAG, "Folder with id ${mExportParams.folderId} not found, exiting.")
@@ -73,7 +73,7 @@ class SudokuExportActivity : ThemedActivity() {
 				}
 				folder.name
 			}
-			if (mExportParams.gameId != null) "$folderName-${mExportParams.gameId}-$timestamp" else "$folderName-$timestamp"
+			if (mExportParams.puzzleId != null) "$folderName-${mExportParams.puzzleId}-$timestamp" else "$folderName-$timestamp"
 		}
 
 		intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
@@ -99,13 +99,13 @@ class SudokuExportActivity : ThemedActivity() {
 				withContext(Dispatchers.Main) {
 					if (result!!.isSuccess) {
 						Toast.makeText(
-							this@SudokuExportActivity,
+							this@PuzzleExportActivity,
 							getString(R.string.puzzles_have_been_exported, result.filename),
 							Toast.LENGTH_SHORT
 						).show()
 					} else {
 						Toast.makeText(
-							this@SudokuExportActivity, getString(R.string.unknown_export_error), Toast.LENGTH_LONG
+							this@PuzzleExportActivity, getString(R.string.unknown_export_error), Toast.LENGTH_LONG
 						).show()
 					}
 				}
@@ -120,10 +120,10 @@ class SudokuExportActivity : ThemedActivity() {
 				}
 			}
 		} catch (e: FileNotFoundException) {
-			Toast.makeText(this@SudokuExportActivity, getString(R.string.unknown_export_error), Toast.LENGTH_LONG).show()
+			Toast.makeText(this@PuzzleExportActivity, getString(R.string.unknown_export_error), Toast.LENGTH_LONG).show()
 		}
 		CoroutineScope(Dispatchers.IO).launch {
-			mFileExportTask.exportToFile(this@SudokuExportActivity, mExportParams)
+			mFileExportTask.exportToFile(this@PuzzleExportActivity, mExportParams)
 		}
 	}
 
@@ -132,6 +132,6 @@ class SudokuExportActivity : ThemedActivity() {
 		 * Id of folder to export. If -1, all folders will be exported.
 		 */
 		const val ALL_IDS: Long = -1
-		private val TAG = SudokuExportActivity::class.java.simpleName
+		private val TAG = PuzzleExportActivity::class.java.simpleName
 	}
 }

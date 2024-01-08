@@ -32,7 +32,7 @@ import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanelStatePersister.Stat
 import kotlin.math.ceil
 
 /**
- * Base class for several input methods used to edit sudoku contents.
+ * Base class for several input methods used to edit puzzle contents.
  */
 abstract class InputMethod {
 	abstract val switchModeButton: Button
@@ -154,7 +154,7 @@ abstract class InputMethod {
 				intArrayOf()
 			)
 
-			// No more of this number should be entered, so use the same color as given digits
+			// No more of this number should be entered, use the same color as given digits
 			val allNumbersPlacedColor = boardView.textColorReadOnly
 
 			// The number being entered, or highlighted, so use the same colour as highlighted digits

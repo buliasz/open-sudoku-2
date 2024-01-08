@@ -290,7 +290,7 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 
 	/**
 	 * Interface definition for a callback to be invoked, when user selects a number, which
-	 * should be entered in the sudoku cell.
+	 * should be entered in the Sudoku cell.
 	 */
 	fun interface OnNumberEditListener {
 		fun onNumberEdit(number: Int): Boolean

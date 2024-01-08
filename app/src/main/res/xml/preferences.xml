@@ -25,9 +25,9 @@
         <SwitchPreference
             app:iconSpaceReserved="false"
             android:defaultValue="false"
-            android:key="show_sudoku_lists_on_startup"
-            android:summary="@string/show_sudoku_lists_on_startup_summary"
-            android:title="@string/show_sudoku_lists_on_startup_title" />
+            android:key="show_puzzle_lists_on_startup"
+            android:summary="@string/show_puzzle_lists_on_startup_summary"
+            android:title="@string/show_puzzle_lists_on_startup_title" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/game_helpers"
@@ -35,9 +35,15 @@
         <SwitchPreference
             app:iconSpaceReserved="false"
             android:defaultValue="true"
-            android:key="highlight_wrong_values"
-            android:summary="@string/highlight_wrong_values_summary"
-            android:title="@string/highlight_wrong_values" />
+            android:key="highlight_directly_wrong_values"
+            android:summary="@string/highlight_directly_wrong_values_summary"
+            android:title="@string/highlight_directly_wrong_values" />
+        <SwitchPreference
+            app:iconSpaceReserved="false"
+            android:defaultValue="true"
+            android:key="highlight_indirectly_wrong_values"
+            android:summary="@string/highlight_indirectly_wrong_values_summary"
+            android:title="@string/highlight_indirectly_wrong_values" />
         <SwitchPreference
             app:iconSpaceReserved="false"
             android:defaultValue="true"

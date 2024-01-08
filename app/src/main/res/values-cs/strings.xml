@@ -19,7 +19,7 @@
 
 <resources>
     <string name="app_name">Open Sudoku 2</string>
-    <string name="edit_sudoku">Upravit sudoku</string>
+    <string name="edit_puzzle">Upravit sudoku</string>
 
     <string name="puzzle_folders">OpenSudoku2 - složky se sudoku</string>
 
@@ -42,6 +42,7 @@
     <string name="get_more_puzzles_online">Získejte více sudoku online.</string>
 
     <string name="name">Jméno:</string>
+    <string name="folder_name_hint">Název složky</string>
     <string name="note">Poznámka:</string>
 
     <string name="select_number">Vyberte číslo</string>
@@ -71,7 +72,7 @@
     <string name="at_time">v %s</string>
     <string name="yesterday_at_time">včera v %s</string>
     <string name="on_date">%s</string>
-    <string name="add_sudoku">Přidat sudoku</string>
+    <string name="add_puzzle">Přidat sudoku</string>
     <string name="filter">Filtr</string>
     <string name="filter_by_game_state">Filtruj podle stavu hry</string>
     <string name="folders">Složky</string>
@@ -94,8 +95,10 @@
     <string name="game_settings">Nastavení hry</string>
 
     <string name="game_helpers">Pomocníci</string>
-    <string name="highlight_wrong_values">Chybné hodnoty</string>
-    <string name="highlight_wrong_values_summary">Zvýrazní hodnoty, které porušují pravidla sudoku.</string>
+    <string name="highlight_directly_wrong_values">Chybné hodnoty</string>
+    <string name="highlight_directly_wrong_values_summary">Zvýrazní hodnoty, které porušují pravidla sudoku.</string>
+	<string name="highlight_indirectly_wrong_values">Zvýrazněte nepřímo nesprávné hodnoty</string>
+    <string name="highlight_indirectly_wrong_values_summary">Zvýrazněte hodnoty, které neodpovídají konečnému řešení křížovky (poznámky jsou ignorovány).</string>
     <string name="input_methods">Vstupní módy</string>
     <string name="popup">Popup</string>
     <string name="popup_summary">Zadáte číslo a poznámku v popup okně.</string>
@@ -224,7 +227,7 @@
     <string name="difficulty_easy">Snadné</string>
 
     <!-- Strings added/changed in 1.1.0 -->
-    <string name="generate_sudoku">Vygeneruj nové sudoku</string>
+    <string name="generate_puzzle">Vygeneruj nové sudoku</string>
     <string name="select_difficulty">Vyber obtížnost</string>
     <string name="generating">Generuji sudoku…</string>
     <string name="show_number_totals">Zobrazit počet zadaných čísel</string>
@@ -281,12 +284,14 @@
     <string name="solve_puzzle">Ukázat řešení</string>
     <string name="solve_puzzle_confirm">Opravdu chcete vidět řešení?</string>
     <string name="used_solver">Použil jste řešící algoritmus pro zobrazení řešení!</string>
-    <string name="puzzle_not_solved">Toto sudoku nemá řešení.</string>
+    <string name="puzzle_has_no_solution">Toto sudoku nemá řešení.</string>
 
-    <string name="hint_confirm">Tato možnost vyplní do vybrané buňky správnou hodnotu. Přejete si pokračovat?</string>
+    <string name="puzzle_has_multiple_solutions">Toto je neplatná hádanka, protože má více řešení.</string>
+	<string name="puzzle_already_exists">Tato křížovka je platná, ale již existuje ve složce %s.</string>
+	<string name="hint_confirm">Tato možnost vyplní do vybrané buňky správnou hodnotu. Přejete si pokračovat?</string>
     <string name="cannot_give_hint">Pro tuto buňku není možné získat tip.</string>
 
-    <string name="check_solvability">Kontrola řešitelnosti</string>
+    <string name="check_validity">Kontrola řešitelnosti</string>
     <string name="puzzle_solvable">Toto sudoku má řešení.</string>
 
     <string name="copy_from_existing_theme">Zkopírovat z existujícího motivu</string>
@@ -316,7 +321,7 @@
     <string name="highlight_similar_notes_summary">Zvýrazní buňky s podobnými poznámkami</string>
 
     <string name="resume">Pokračovat</string>
-    <string name="sudoku_lists">Seznam sudoku</string>
+    <string name="puzzle_lists">Seznam sudoku</string>
 
     <!-- Strings added/changed in 3.1.0 -->
     <string name="undo_to_before_mistake">Vrátit do stavu bez chyby</string>
@@ -329,8 +334,8 @@
     <string name="create_from_single_color">Vytvořit z jednolité barvy</string>
 
     <!-- Strings added/changed in 3.3.0 -->
-    <string name="show_sudoku_lists_on_startup_title">Po zapnutí zobrazit seznam sudoku</string>
-    <string name="show_sudoku_lists_on_startup_summary">Po zapnutí přeskočí titulní obrazovku a rovnou zobrazí seznam sudoku.</string>
+    <string name="show_puzzle_lists_on_startup_title">Po zapnutí zobrazit seznam sudoku</string>
+    <string name="show_puzzle_lists_on_startup_summary">Po zapnutí přeskočí titulní obrazovku a rovnou zobrazí seznam sudoku.</string>
     <string name="app_startup_category">Spuštění aplikace</string>
 
     <!-- Strings added/changed in 3.4.0 -->

@@ -37,7 +37,7 @@ import org.buliasz.opensudoku2.gui.fragments.ThemePreferenceDialogFragment.Theme
 import org.buliasz.opensudoku2.utils.ThemeUtils
 
 /**
- * Dialog fragment that displays a list of themes and a sudoku board to
+ * Dialog fragment that displays a list of themes and a game board to
  * preview the theme.
  *
  * Necessary because although an AlertDialog allows you to display a list of
@@ -108,7 +108,7 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
 		mAdapter = ThemeAdapter(mEntries)
 		recyclerView.adapter = mAdapter
 		mAdapter.setOnItemClickListener(mOnItemClickListener)
-		prepareSudokuPreviewView("${mEntryValues[mClickedDialogEntryIndex]}")
+		prepareBoardPreviewView("${mEntryValues[mClickedDialogEntryIndex]}")
 		builder.setView(preferenceView)
 		builder.setTitle("")
 	}
@@ -167,11 +167,11 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
 		override fun getItemCount(): Int = mEntries?.size ?: 0
 	}
 
-	private fun prepareSudokuPreviewView(initialTheme: String) {
+	private fun prepareBoardPreviewView(initialTheme: String) {
 		mBoard!!.setOnCellSelectedListener { cell: Cell? ->
 			mBoard!!.setHighlightedValue(cell?.value ?: 0)
 		}
-		ThemeUtils.prepareSudokuPreviewView(mBoard!!)
+		ThemeUtils.prepareBoardPreviewView(mBoard!!)
 		applyThemePreview(initialTheme)
 	}
 

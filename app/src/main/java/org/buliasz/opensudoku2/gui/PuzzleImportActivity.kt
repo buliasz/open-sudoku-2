@@ -42,7 +42,7 @@ import java.net.URISyntaxException
  * This activity is responsible for importing puzzles from various sources
  * (web, file, .opensudoku2, .sdm, extras).
  */
-class SudokuImportActivity : ThemedActivity() {
+class PuzzleImportActivity : ThemedActivity() {
 	private val mOnImportFinishedListener = object : AbstractImportTask.OnImportFinishedListener {
 		override fun onImportFinished(importSuccessful: Boolean, folderId: Long) {
 			if (importSuccessful) {
@@ -50,14 +50,14 @@ class SudokuImportActivity : ThemedActivity() {
 				if (folderId == -1L) {
 					// multiple folders were imported, go to folder list
 					i = Intent(
-						this@SudokuImportActivity,
+						this@PuzzleImportActivity,
 						FolderListActivity::class.java
 					)
 				} else {
 					// one folder was imported, go to this folder
 					i = Intent(
-						this@SudokuImportActivity,
-						SudokuListActivity::class.java
+						this@PuzzleImportActivity,
+						PuzzleListActivity::class.java
 					)
 					i.putExtra(Names.FOLDER_ID, folderId)
 				}
@@ -72,7 +72,7 @@ class SudokuImportActivity : ThemedActivity() {
 		super.onCreate(savedInstanceState)
 
 		supportRequestWindowFeature(Window.FEATURE_LEFT_ICON)
-		setContentView(R.layout.import_sudoku)
+		setContentView(R.layout.import_puzzle)
 		window.setFeatureDrawableResource(
 			Window.FEATURE_LEFT_ICON,
 			R.mipmap.ic_launcher
@@ -161,6 +161,6 @@ class SudokuImportActivity : ThemedActivity() {
 	}
 
 	companion object {
-		private const val TAG = "ImportSudokuActivity"
+		private const val TAG = "ImportPuzzleActivity"
 	}
 }

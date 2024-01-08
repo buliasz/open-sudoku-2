@@ -25,9 +25,12 @@ private const val numConstraints = 4
 private const val numCells = numRows * numCols
 
 class SudokuSolver {
+	var validSolution = ArrayList<Array<Int>>()
+		private set
 	private lateinit var mLinkedList: Array<Array<Node?>>
 	private lateinit var mHead: Node
 	private var mSolution: ArrayList<Node> = ArrayList()
+	private var solutionCounter: Int = 0
 
 	init {
 		initializeNodesMatrix()
@@ -56,15 +59,19 @@ class SudokuSolver {
 		}
 	}
 
-	fun solve(): ArrayList<IntArray> {
-		mSolution = dlx()
-		val finalValues = ArrayList<IntArray>()
-		for (node in mSolution) {
-			val matrixRow = node.rowID
-			val rowColVal = rowToCell(matrixRow)
-			finalValues.add(rowColVal)
+	fun solve(): Int {
+		solutionCounter = 0
+		dlx()
+		return solutionCounter
+	}
+
+	private fun saveSolution() {
+		if (solutionCounter == 1) {
+			for (node in mSolution) {
+				val rowColVal = matrixRowToRowColumnValue(node.rowID)
+				validSolution.add(rowColVal)
+			}
 		}
-		return finalValues
 	}
 
 	/* ---------------FUNCTIONS TO IMPLEMENT SOLVER--------------- */
@@ -179,9 +186,11 @@ class SudokuSolver {
 	 *
 	 * @return array of solution nodes or empty array if no solution exists
 	 */
-	private fun dlx(): ArrayList<Node> {
+	private fun dlx() {
 		if (mHead.right === mHead) {
-			return mSolution    // all nodes covered
+			solutionCounter += 1
+			saveSolution()
+			return    // all nodes covered
 		}
 
 		var colNode = chooseLeastCountNode()
@@ -195,9 +204,10 @@ class SudokuSolver {
 				cover(rightNode)
 				rightNode = rightNode.right
 			}
-			val tempSolution = dlx()
-			if (tempSolution.isNotEmpty()) {
-				return tempSolution
+
+			dlx()
+			if (solutionCounter > 1) {
+				return  // if found 2 solutions, no need to check more, otherwise check if there's more
 			}
 
 			// undo operations and try the next row
@@ -211,7 +221,6 @@ class SudokuSolver {
 			rowNode = rowNode.down
 		}
 		uncover(colNode)
-		return ArrayList()
 	}
 	/* ---------------UTILITY FUNCTIONS--------------- */
 	/**
@@ -228,13 +237,9 @@ class SudokuSolver {
 		return matrixRow
 	}
 
-	private fun rowToCell(matrixRow: Int): IntArray {
+	private fun matrixRowToRowColumnValue(matrixRow: Int): Array<Int> {
 		val matrixRowVal = matrixRow - 1
-		val rowColVal = IntArray(3)
-		rowColVal[0] = matrixRowVal / 81
-		rowColVal[1] = matrixRowVal % 81 / 9
-		rowColVal[2] = matrixRowVal % 9 + 1
-		return rowColVal
+		return arrayOf(matrixRowVal / 81, matrixRowVal % 81 / 9, matrixRowVal % 9 + 1)
 	}
 
 	/**

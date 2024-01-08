@@ -28,7 +28,7 @@ import org.buliasz.opensudoku2.game.CellCollection
 import org.buliasz.opensudoku2.game.CellCollection.Companion.DATA_VERSION_ORIGINAL
 import org.buliasz.opensudoku2.game.FolderInfo
 import org.buliasz.opensudoku2.game.SudokuGame
-import org.buliasz.opensudoku2.gui.SudokuListFilter
+import org.buliasz.opensudoku2.gui.PuzzleListFilter
 import java.io.Closeable
 import java.util.LinkedList
 
@@ -218,7 +218,7 @@ class SudokuDatabase(context: Context) : Closeable {
 	 *
 	 * @param folderID Primary key of folder.
 	 */
-	fun getSudokuGameList(folderID: Long, filter: SudokuListFilter?, sortOrder: String?): List<SudokuGame> {
+	fun getSudokuGameList(folderID: Long, filter: PuzzleListFilter?, sortOrder: String?): List<SudokuGame> {
 		val qb = SQLiteQueryBuilder()
 		qb.tables = Names.GAME
 		//qb.setProjectionMap(sPlacesProjectionMap);
@@ -237,12 +237,12 @@ class SudokuDatabase(context: Context) : Closeable {
 		mOpenHelper.readableDatabase.use { db ->
 			qb.query(db, null, null, null, null, null, sortOrder).use { cursor ->
 				if (cursor.moveToFirst()) {
-					val sudokuList: MutableList<SudokuGame> = LinkedList()
+					val puzzleList: MutableList<SudokuGame> = LinkedList()
 					while (!cursor.isAfterLast) {
-						sudokuList.add(extractSudokuGameFromCursorRow(cursor))
+						puzzleList.add(extractSudokuGameFromCursorRow(cursor))
 						cursor.moveToNext()
 					}
-					return@getSudokuGameList sudokuList
+					return@getSudokuGameList puzzleList
 				}
 			}
 		}
@@ -334,35 +334,35 @@ class SudokuDatabase(context: Context) : Closeable {
 				return@insertPuzzle rowId
 			}
 		}
-		throw SQLException("Failed to insert sudoku.")
+		throw SQLException("Failed to insert puzzle.")
 	}
 
 	/**
 	 * Updates sudoku game in the database.
 	 */
-	fun updatePuzzle(sudoku: SudokuGame) {
+	fun updatePuzzle(game: SudokuGame) {
 		val values = ContentValues()
-		values.put(Names.CELLS_DATA, sudoku.cells.serialize())
-		values.put(Names.LAST_PLAYED, sudoku.lastPlayed)
-		values.put(Names.STATE, sudoku.state)
-		values.put(Names.TIME, sudoku.time)
-		values.put(Names.USER_NOTE, sudoku.userNote)
+		values.put(Names.CELLS_DATA, game.cells.serialize())
+		values.put(Names.LAST_PLAYED, game.lastPlayed)
+		values.put(Names.STATE, game.state)
+		values.put(Names.TIME, game.time)
+		values.put(Names.USER_NOTE, game.userNote)
 		var commandStack = ""
-		if (sudoku.state == SudokuGame.GAME_STATE_PLAYING) {
-			commandStack = sudoku.commandStack.serialize()
+		if (game.state == SudokuGame.GAME_STATE_PLAYING) {
+			commandStack = game.commandStack.serialize()
 		}
 		values.put(Names.COMMAND_STACK, commandStack)
 		mOpenHelper.writableDatabase.use { db ->
-			db.update(Names.GAME, values, Names.ID + "=" + sudoku.id, null)
+			db.update(Names.GAME, values, Names.ID + "=" + game.id, null)
 		}
 	}
 
 	/**
-	 * Deletes given sudoku from the database.
+	 * Deletes given puzzle from the database.
 	 */
-	fun deletePuzzle(sudokuID: Long) {
+	fun deletePuzzle(puzzleID: Long) {
 		mOpenHelper.writableDatabase.use { db ->
-			db.delete(Names.GAME, Names.ID + "=" + sudokuID, null)
+			db.delete(Names.GAME, Names.ID + "=" + puzzleID, null)
 		}
 	}
 

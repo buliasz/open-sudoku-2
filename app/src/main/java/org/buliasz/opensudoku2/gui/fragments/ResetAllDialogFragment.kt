@@ -25,12 +25,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.SudokuDatabase
-import org.buliasz.opensudoku2.gui.SudokuListSorter
+import org.buliasz.opensudoku2.gui.PuzzleListSorter
 
 class ResetAllDialogFragment(
 	private val mDatabase: SudokuDatabase,
 	private val mFolderID: Long,
-	private val mListSorter: SudokuListSorter,
+	private val mListSorter: PuzzleListSorter,
 	val updateList: () -> Unit
 ) : DialogFragment() {
 	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

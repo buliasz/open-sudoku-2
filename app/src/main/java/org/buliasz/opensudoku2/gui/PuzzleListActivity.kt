@@ -42,7 +42,7 @@ import org.buliasz.opensudoku2.gui.fragments.ResetAllDialogFragment
 import org.buliasz.opensudoku2.gui.fragments.ResetPuzzleDialogFragment
 import org.buliasz.opensudoku2.gui.fragments.SortDialogFragment
 
-class SudokuListActivity : ThemedActivity() {
+class PuzzleListActivity : ThemedActivity() {
 	private lateinit var editUserNoteDialog: EditUserNoteDialogFragment
 	private lateinit var resetPuzzleDialog: ResetPuzzleDialogFragment
 	private lateinit var deletePuzzleDialog: DeletePuzzleDialogFragment
@@ -52,12 +52,12 @@ class SudokuListActivity : ThemedActivity() {
 	private var mFolderID: Long = 0
 
 	// input parameters for dialogs
-	private lateinit var mListFilter: SudokuListFilter
-	private lateinit var mListSorter: SudokuListSorter
+	private lateinit var mListFilter: PuzzleListFilter
+	private lateinit var mListSorter: PuzzleListSorter
 
 	private lateinit var mFilterStatus: TextView
 	private lateinit var recyclerView: RecyclerView
-	private lateinit var mAdapter: SudokuListRecyclerAdapter
+	private lateinit var mAdapter: PuzzleListRecyclerAdapter
 
 	private lateinit var mDatabase: SudokuDatabase
 	private lateinit var mFolderDetailLoader: FolderDetailLoader
@@ -80,15 +80,15 @@ class SudokuListActivity : ThemedActivity() {
 		}
 
 		val settings = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-		with(SudokuListFilter(applicationContext)) {
+		with(PuzzleListFilter(applicationContext)) {
 			showStateNotStarted = settings.getBoolean(FILTER_STATE_NOT_STARTED, true)
 			showStatePlaying = settings.getBoolean(FILTER_STATE_PLAYING, true)
 			showStateCompleted = settings.getBoolean(FILTER_STATE_SOLVED, true)
 			mListFilter = this
 		}
 
-		with(SudokuListSorter()) {
-			sortType = settings.getInt(SORT_TYPE, SudokuListSorter.SORT_BY_CREATED)
+		with(PuzzleListSorter()) {
+			sortType = settings.getInt(SORT_TYPE, PuzzleListSorter.SORT_BY_CREATED)
 			isAscending = (settings.getBoolean(SORT_ORDER, false))
 			mListSorter = this
 		}
@@ -97,9 +97,9 @@ class SudokuListActivity : ThemedActivity() {
 		updateFilterStatus()
 
 		val games = mDatabase.getSudokuGameList(mFolderID, mListFilter, mListSorter.sortOrder)
-		mAdapter = SudokuListRecyclerAdapter(this, games, ::playSudoku)
+		mAdapter = PuzzleListRecyclerAdapter(this, games, ::playSudoku)
 
-		recyclerView = findViewById(R.id.sudoku_list_recycler)
+		recyclerView = findViewById(R.id.puzzle_list_recycler)
 		recyclerView.adapter = mAdapter
 		recyclerView.layoutManager = LinearLayoutManager(this)
 		registerForContextMenu(recyclerView)
@@ -160,7 +160,7 @@ class SudokuListActivity : ThemedActivity() {
 		// new note into the list.
 		menu.add(0, MENU_ITEM_FOLDERS, 0, R.string.folders).setShortcut('1', 'f')
 			.setIcon(R.drawable.ic_folder)
-		menu.add(0, MENU_ITEM_INSERT, 1, R.string.add_sudoku).setShortcut('2', 'a')
+		menu.add(0, MENU_ITEM_INSERT, 1, R.string.add_puzzle).setShortcut('2', 'a')
 			.setIcon(R.drawable.ic_add)
 		menu.add(0, MENU_ITEM_FILTER, 2, R.string.filter).setShortcut('3', 'f')
 			.setIcon(R.drawable.ic_view)
@@ -181,7 +181,7 @@ class SudokuListActivity : ThemedActivity() {
 		intent.addCategory(Intent.CATEGORY_ALTERNATIVE)
 		menu.addIntentOptions(
 			Menu.CATEGORY_ALTERNATIVE, 0, 0,
-			ComponentName(this, SudokuListActivity::class.java), null,
+			ComponentName(this, PuzzleListActivity::class.java), null,
 			intent, 0, null
 		)
 		return true
@@ -195,9 +195,9 @@ class SudokuListActivity : ThemedActivity() {
 			}
 
 			MENU_ITEM_EDIT -> {
-				val i = Intent(this, SudokuEditActivity::class.java)
+				val i = Intent(this, PuzzleEditActivity::class.java)
 				i.setAction(Intent.ACTION_EDIT)
-				i.putExtra(SudokuEditActivity.EXTRA_SUDOKU_ID, mAdapter.selectedGameId)
+				i.putExtra(PuzzleEditActivity.EXTRA_PUZZLE_ID, mAdapter.selectedGameId)
 				startActivity(i)
 				return true
 			}
@@ -223,7 +223,7 @@ class SudokuListActivity : ThemedActivity() {
 
 			MENU_ITEM_EXPORT_GAME -> {
 				val intent = Intent()
-				intent.setClass(this, SudokuExportActivity::class.java)
+				intent.setClass(this, PuzzleExportActivity::class.java)
 				intent.putExtra(Names.FOLDER_ID, mFolderID)
 				intent.putExtra(Names.ID, mAdapter.selectedGameId)
 				startActivity(intent)
@@ -238,7 +238,7 @@ class SudokuListActivity : ThemedActivity() {
 		when (item.itemId) {
 			MENU_ITEM_INSERT -> {
 				// Launch activity to insert a new item
-				i = Intent(this, SudokuEditActivity::class.java)
+				i = Intent(this, PuzzleEditActivity::class.java)
 				i.setAction(Intent.ACTION_INSERT)
 				i.putExtra(Names.FOLDER_ID, mFolderID)
 				startActivity(i)
@@ -275,7 +275,7 @@ class SudokuListActivity : ThemedActivity() {
 
 			MENU_ITEM_EXPORT_FOLDER -> {
 				val intent = Intent()
-				intent.setClass(this, SudokuExportActivity::class.java)
+				intent.setClass(this, PuzzleExportActivity::class.java)
 				intent.putExtra(Names.FOLDER_ID, mFolderID)
 				startActivity(intent)
 				return true
@@ -304,17 +304,19 @@ class SudokuListActivity : ThemedActivity() {
 
 	private fun updateTitle() {
 		val folder = mDatabase.getFolderInfo(mFolderID)
-		title = folder?.name ?: "NO FOLDER NAME"
+		title = folder?.name ?: ""
 		mFolderDetailLoader.loadDetailAsync(mFolderID, object : FolderDetailLoader.FolderDetailCallback {
 			override fun onLoaded(folderInfo: FolderInfo?) {
-				if (folderInfo != null) title = folderInfo.name + " - " + folderInfo.getDetail(applicationContext)
+				runOnUiThread {
+					if (folderInfo != null) title = folderInfo.name + ": " + folderInfo.getDetail(applicationContext)
+				}
 			}
 		})
 	}
 
-	private fun playSudoku(sudokuID: Long) {
-		val i = Intent(this@SudokuListActivity, SudokuPlayActivity::class.java)
-		i.putExtra(SudokuPlayActivity.EXTRA_SUDOKU_ID, sudokuID)
+	private fun playSudoku(puzzleID: Long) {
+		val i = Intent(this@PuzzleListActivity, SudokuPlayActivity::class.java)
+		i.putExtra(SudokuPlayActivity.EXTRA_PUZZLE_ID, puzzleID)
 		startActivity(i)
 	}
 
@@ -337,6 +339,6 @@ class SudokuListActivity : ThemedActivity() {
 		const val FILTER_STATE_SOLVED = "filter" + SudokuGame.GAME_STATE_COMPLETED
 		const val SORT_TYPE = "sort_type"
 		const val SORT_ORDER = "sort_order"
-		private const val TAG = "SudokuListActivity"
+		private const val TAG = "PuzzleListActivity"
 	}
 }

@@ -19,7 +19,7 @@
 
 <resources>
     <string name="app_name">Open Sudoku 2</string>
-    <string name="edit_sudoku">Modifica sudoku</string>
+    <string name="edit_puzzle">Modifica sudoku</string>
 
     <string name="puzzle_folders">Cartelle rompicapo OpenSudoku2</string>
 
@@ -35,6 +35,7 @@
     <string name="get_more_puzzles_online">Scarica altri rompicapi online</string>
 
     <string name="name">Nome:</string>
+    <string name="folder_name_hint">Nome della cartella</string>
     <string name="note">Nota:</string>
 
     <string name="select_number">Seleziona numero</string>
@@ -62,7 +63,7 @@
     <string name="at_time">alle %s</string>
     <string name="yesterday_at_time">ieri alle %s</string>
     <string name="on_date">il %s</string>
-    <string name="add_sudoku">Aggiungi sudoku</string>
+    <string name="add_puzzle">Aggiungi sudoku</string>
     <string name="filter">Filtro</string>
     <string name="filter_by_game_state">Filtra per stato gioco</string>
     <string name="folders">Cartelle</string>
@@ -85,8 +86,10 @@
     <string name="game_settings">Impostazioni di gioco</string>
 
     <string name="game_helpers">Aiuti di gioco</string>
-    <string name="highlight_wrong_values">Evidenzia valori errati</string>
-    <string name="highlight_wrong_values_summary">Evidenzia valori che non rispettano le regole di sudoku.</string>
+    <string name="highlight_directly_wrong_values">Evidenzia valori errati</string>
+    <string name="highlight_directly_wrong_values_summary">Evidenzia valori che non rispettano le regole di sudoku.</string>
+	<string name="highlight_indirectly_wrong_values">Evidenzia i valori indirettamente errati</string>
+    <string name="highlight_indirectly_wrong_values_summary">Evidenzia i valori che non corrispondono alla soluzione finale del puzzle (le note vengono ignorate).</string>
     <string name="input_methods">Modalità inserimento</string>
     <string name="popup">Popup</string>
     <string name="popup_summary">Modifica valore cella e note nel popup.</string>
@@ -198,7 +201,7 @@
     <string name="difficulty_easy">Facile</string>
 
     <!-- Strings added/changed in 1.1.0 -->
-    <string name="generate_sudoku">Genera nuovo gioco</string>
+    <string name="generate_puzzle">Genera nuovo gioco</string>
     <string name="select_difficulty">Seleziona difficoltà</string>
     <string name="generating">Generazione rompicapo…</string>
     <string name="current_developers_label">Sviluppatore attuale</string>
@@ -247,12 +250,14 @@
     <string name="solve_puzzle">Risolvi rompicapo</string>
     <string name="solve_puzzle_confirm">Sei sicuro di voler vedere la soluzione?</string>
     <string name="used_solver">Hai usato il risolutore per vedere la soluzione!</string>
-    <string name="puzzle_not_solved">Questo rompicapo non ha nessuna soluzione.</string>
+    <string name="puzzle_has_no_solution">Questo rompicapo non ha nessuna soluzione.</string>
 
+    <string name="puzzle_has_multiple_solutions">Questo è un puzzle non valido perché ha più soluzioni.</string>
+    <string name="puzzle_already_exists">Questo puzzle è valido ma esiste già nella cartella %s.</string>
     <string name="hint_confirm">Verrà inserito il valore corretto nella cella selezionata. Vuoi continuare?</string>
     <string name="cannot_give_hint">Non puoi ricevere aiuto per quella cella.</string>
 
-    <string name="check_solvability">Verifica risolvibilità</string>
+    <string name="check_validity">Verifica risolvibilità</string>
     <string name="puzzle_solvable">Questo rompicapo ha una soluzione.</string>
 
     <string name="copy_from_existing_theme">Copia da tema esistente</string>
@@ -282,7 +287,7 @@
     <string name="highlight_similar_notes_summary">Evidenzia celle contenenti note simili</string>
 
     <string name="resume">Riprendi</string>
-    <string name="sudoku_lists">Lista Sudoku</string>
+    <string name="puzzle_lists">Lista Sudoku</string>
 
     <!-- Strings added/changed in 3.1.0 -->
     <string name="undo_to_before_mistake">Annulla fino al precedente errore</string>
@@ -295,8 +300,8 @@
     <string name="create_from_single_color">Crea da colore singolo</string>
 
     <!-- Strings added/changed in 3.3.0 -->
-    <string name="show_sudoku_lists_on_startup_title">Mosta la lista dei Sudoku all\'avvio</string>
-    <string name="show_sudoku_lists_on_startup_summary">Mosta la lista dei Sudoku all\'avvio e salta la schermata principale.</string>
+    <string name="show_puzzle_lists_on_startup_title">Mosta la lista dei Sudoku all\'avvio</string>
+    <string name="show_puzzle_lists_on_startup_summary">Mosta la lista dei Sudoku all\'avvio e salta la schermata principale.</string>
     <string name="app_startup_category">Avvio applicazione</string>
 
     <!-- Strings added/changed in 3.4.0 -->

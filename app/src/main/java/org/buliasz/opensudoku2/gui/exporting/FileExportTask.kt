@@ -29,7 +29,7 @@ import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.game.FolderInfo
 import org.buliasz.opensudoku2.game.SudokuGame
-import org.buliasz.opensudoku2.gui.SudokuExportActivity.Companion.ALL_IDS
+import org.buliasz.opensudoku2.gui.PuzzleExportActivity.Companion.ALL_IDS
 import org.buliasz.opensudoku2.utils.Const
 import org.xmlpull.v1.XmlSerializer
 import java.io.BufferedWriter
@@ -68,7 +68,7 @@ class FileExportTask {
 			serializer.attribute("", "version", FILE_EXPORT_VERSION)
 
 			SudokuDatabase(context).use { db ->
-				serializeFolders(db, serializer, exportParams.folderId!!, exportParams.gameId ?: ALL_IDS)
+				serializeFolders(db, serializer, exportParams.folderId!!, exportParams.puzzleId ?: ALL_IDS)
 			}
 
 			serializer.endTag("", "opensudoku2")
@@ -98,8 +98,8 @@ class FileExportTask {
 			serializer.startTag("", Names.FOLDER)
 			serializer.attribute("", Names.FOLDER_NAME, folder.name ?: "")
 			serializer.attribute("", Names.FOLDER_CREATED, folder.created.toString())
-			val sudokuList = db.getSudokuGameList(folder.id, null, null)
-			for (game in sudokuList) {
+			val puzzleList = db.getSudokuGameList(folder.id, null, null)
+			for (game in puzzleList) {
 				if (gameId != ALL_IDS && gameId != game.id) {
 					continue
 				}

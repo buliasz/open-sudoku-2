@@ -41,17 +41,17 @@ class TitleScreenActivity : ThemedActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_title_screen)
 		mResumeButton = findViewById(R.id.resume_button)
-		val mSudokuListButton = findViewById<Button>(R.id.sudoku_lists_button)
+		val mPuzzleListButton = findViewById<Button>(R.id.puzzle_lists_button)
 		val mSettingsButton = findViewById<Button>(R.id.settings_button)
 		setupResumeButton()
-		mSudokuListButton.setOnClickListener { startActivity(Intent(this, FolderListActivity::class.java)) }
+		mPuzzleListButton.setOnClickListener { startActivity(Intent(this, FolderListActivity::class.java)) }
 		mSettingsButton.setOnClickListener { startActivity(Intent(this, GameSettingsActivity::class.java)) }
 
 		// check the preference to skip the title screen and launch the folder list activity
 		// directly
 		val gameSettings = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-		val showSudokuFolderListOnStartup = gameSettings.getBoolean("show_sudoku_lists_on_startup", false)
-		if (showSudokuFolderListOnStartup) {
+		val showPuzzleFolderListOnStartup = gameSettings.getBoolean("show_puzzle_lists_on_startup", false)
+		if (showPuzzleFolderListOnStartup) {
 			startActivity(Intent(this, FolderListActivity::class.java))
 		} else {
 			// show changelog on first run
@@ -70,12 +70,12 @@ class TitleScreenActivity : ThemedActivity() {
 
 	private fun setupResumeButton() {
 		val gameSettings = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-		val mSudokuGameID = gameSettings.getLong("most_recently_played_sudoku_id", 0)
-		if (canResume(mSudokuGameID)) {
+		val mPuzzleID = gameSettings.getLong("most_recently_played_puzzle_id", 0)
+		if (canResume(mPuzzleID)) {
 			mResumeButton!!.visibility = View.VISIBLE
 			mResumeButton!!.setOnClickListener {
 				val intentToPlay = Intent(this@TitleScreenActivity, SudokuPlayActivity::class.java)
-				intentToPlay.putExtra(SudokuPlayActivity.EXTRA_SUDOKU_ID, mSudokuGameID)
+				intentToPlay.putExtra(SudokuPlayActivity.EXTRA_PUZZLE_ID, mPuzzleID)
 				startActivity(intentToPlay)
 			}
 		} else {

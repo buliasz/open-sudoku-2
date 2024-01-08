@@ -22,7 +22,7 @@ import java.util.StringTokenizer
 import java.util.regex.Pattern
 
 /**
- * Collection of sudoku cells. This class in fact represents one sudoku board (9x9).
+ * Collection of Sudoku cells. This class in fact represents one Sudoku board (9x9).
  */
 class CellCollection private constructor(val cells: Array<Array<Cell>>) {
 	private val mChangeListeners: MutableList<OnChangeListener> = ArrayList()
@@ -33,17 +33,31 @@ class CellCollection private constructor(val cells: Array<Array<Cell>>) {
 	private lateinit var mRows: Array<CellGroup>
 	private lateinit var mColumns: Array<CellGroup>
 	private var mOnChangeEnabled = true
-	private var mSolution: ArrayList<IntArray>? = null
-	val solution: ArrayList<IntArray>
+
+	var solutionCount: Int = -1
 		get() {
-			if (mSolution == null) {
-				mSolution = with(SudokuSolver()) {
+			if (field == -1) {
+				with(SudokuSolver()) {
 					setPuzzle(this@CellCollection)
-					solve()
+					field = solve()
+					if (field == 1) {
+						setSolution(validSolution)
+					}
 				}
 			}
-			return mSolution!!
+			return field
 		}
+		private set
+
+	private fun setSolution(validSolution: java.util.ArrayList<Array<Int>>) {
+		for (rowColumnValue in validSolution) {
+			val row = rowColumnValue[0]
+			val column = rowColumnValue[1]
+			val value = rowColumnValue[2]
+			val cell = getCell(row, column)
+			cell.solution = value
+		}
+	}
 
 	/**
 	 * Wraps given array in this object.
@@ -52,18 +66,28 @@ class CellCollection private constructor(val cells: Array<Array<Cell>>) {
 		initCollection()
 	}
 
+	/**
+	 * True if no value is entered to any of cells.
+	 */
 	val isEmpty: Boolean
-		/**
-		 * Return true, if no value is entered in any of cells.
-		 */
 		get() {
-			for (r in 0..<SUDOKU_SIZE) {
-				for (c in 0..<SUDOKU_SIZE) {
-					val cell = cells[r][c]
+			for (row in 0..<SUDOKU_SIZE) {
+				for (col in 0..<SUDOKU_SIZE) {
+					val cell = cells[row][col]
 					if (cell.value != 0) return false
 				}
 			}
 			return true
+		}
+
+	val hasMistakes: Boolean
+		get() {
+			for (row in 0..<SUDOKU_SIZE) {
+				for (col in 0..<SUDOKU_SIZE) {
+					if (!cells[row][col].matchesSolution) return true
+				}
+			}
+			return false
 		}
 
 	/**
@@ -93,7 +117,7 @@ class CellCollection private constructor(val cells: Array<Array<Cell>>) {
 	}
 
 	/**
-	 * Validates numbers in collection according to the sudoku rules. Cells with invalid
+	 * Validates numbers in collection according to the Sudoku rules. Cells with invalid
 	 * values are marked - you can use getInvalid method of cell to find out whether cell
 	 * contains valid value.
 	 *
@@ -161,7 +185,7 @@ class CellCollection private constructor(val cells: Array<Array<Cell>>) {
 				cell.isEditable = cell.value == 0
 			}
 		}
-		mSolution = null
+		solutionCount = -1 // find new solution on next get
 	}
 
 	/**
@@ -388,7 +412,7 @@ class CellCollection private constructor(val cells: Array<Array<Cell>>) {
 		)
 
 		/**
-		 * Creates empty sudoku.
+		 * Creates empty Sudoku board cell collection.
 		 */
 		fun createEmpty(): CellCollection {
 			val cells = Array(SUDOKU_SIZE) { Array(SUDOKU_SIZE) { Cell() } }

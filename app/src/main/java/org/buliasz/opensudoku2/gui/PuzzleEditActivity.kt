@@ -29,7 +29,6 @@ import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.Toast
 import org.buliasz.opensudoku2.R
-import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.game.CellCollection
 import org.buliasz.opensudoku2.game.SudokuGame
@@ -39,7 +38,7 @@ import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanel
 /**
  * Activity for editing content of puzzle.
  */
-class SudokuEditActivity : ThemedActivity() {
+class PuzzleEditActivity : ThemedActivity() {
 	private var mState = 0
 	private lateinit var mDatabase: SudokuDatabase
 	private lateinit var newPuzzle: SudokuGame
@@ -54,18 +53,18 @@ class SudokuEditActivity : ThemedActivity() {
 		mDatabase = SudokuDatabase(applicationContext)
 		val intent = intent
 		val action = intent.action
-		val mSudokuID: Long
+		val mPuzzleID: Long
 		if (Intent.ACTION_EDIT == action) {
 			// Requested to edit: set that state, and the data being edited.
 			mState = STATE_EDIT
-			mSudokuID = if (intent.hasExtra(EXTRA_SUDOKU_ID)) {
-				intent.getLongExtra(EXTRA_SUDOKU_ID, 0)
+			mPuzzleID = if (intent.hasExtra(EXTRA_PUZZLE_ID)) {
+				intent.getLongExtra(EXTRA_PUZZLE_ID, 0)
 			} else {
-				throw IllegalArgumentException("Extra with key '$EXTRA_SUDOKU_ID' is required.")
+				throw IllegalArgumentException("Extra with key '$EXTRA_PUZZLE_ID' is required.")
 			}
 		} else if (Intent.ACTION_INSERT == action) {
 			mState = STATE_INSERT
-			mSudokuID = 0
+			mPuzzleID = 0
 		} else {
 			// Whoops, unknown action!  Bail.
 			Log.e(TAG, "Unknown action, exiting.")
@@ -76,18 +75,13 @@ class SudokuEditActivity : ThemedActivity() {
 			newPuzzle = SudokuGame()
 			newPuzzle.restoreState(savedInstanceState)
 		} else {
-			if (mSudokuID != 0L) {
-				// existing sudoku, read it from database
-				newPuzzle = mDatabase.getGame(mSudokuID) ?: SudokuGame.createEmptyGame()
+			if (mPuzzleID != 0L) {
+				// existing puzzle, read it from database
+				newPuzzle = mDatabase.getGame(mPuzzleID) ?: SudokuGame.createEmptyGame()
 				newPuzzle.cells.markAllCellsAsEditable()
 			} else {
 				newPuzzle = SudokuGame.createEmptyGame()
 			}
-		}
-		newPuzzle.folderId = if (intent.hasExtra(Names.FOLDER_ID)) {
-			intent.getLongExtra(Names.FOLDER_ID, 0)
-		} else {
-			throw IllegalArgumentException("Extra with key '${Names.FOLDER_ID}' is required.")
 		}
 		mBoard.setGame(newPuzzle)
 		val mInputMethods = findViewById<IMControlPanel>(R.id.input_methods)
@@ -124,7 +118,7 @@ class SudokuEditActivity : ThemedActivity() {
 		// new note into the list.
 		menu.add(0, MENU_ITEM_COPY, 0, android.R.string.copy)
 		menu.add(0, MENU_ITEM_PASTE, 1, android.R.string.paste)
-		menu.add(0, MENU_ITEM_CHECK_RESOLVABILITY, 2, R.string.check_solvability)
+		menu.add(0, MENU_ITEM_CHECK_VALIDITY, 2, R.string.check_validity)
 		menu.add(0, MENU_ITEM_SAVE, 3, R.string.save)
 			.setShortcut('1', 's')
 			.setIcon(R.drawable.ic_save)
@@ -140,7 +134,7 @@ class SudokuEditActivity : ThemedActivity() {
 		intent.addCategory(Intent.CATEGORY_ALTERNATIVE)
 		menu.addIntentOptions(
 			Menu.CATEGORY_ALTERNATIVE, 0, 0,
-			ComponentName(this, SudokuEditActivity::class.java), null, intent, 0, null
+			ComponentName(this, PuzzleEditActivity::class.java), null, intent, 0, null
 		)
 		return true
 	}
@@ -175,18 +169,36 @@ class SudokuEditActivity : ThemedActivity() {
 				return true
 			}
 
-			MENU_ITEM_CHECK_RESOLVABILITY -> {
-				val solvable = checkSolvability()
-				with(SimpleDialog()) {
-					messageId = if (solvable) R.string.puzzle_solvable else R.string.puzzle_not_solved
-					show(supportFragmentManager)
+			MENU_ITEM_CHECK_VALIDITY -> {
+				when (getNumberOfSolutions()) {
+					1 -> {
+						with(SimpleDialog()) {
+							messageId = R.string.puzzle_solvable
+							show(supportFragmentManager)
+						}
+					}
+
+					0 -> {
+						with(SimpleDialog()) {
+							messageId = R.string.puzzle_has_no_solution
+							show(supportFragmentManager)
+						}
+					}
+
+					else -> {
+						with(SimpleDialog()) {
+							messageId = R.string.puzzle_has_multiple_solutions
+							show(supportFragmentManager)
+						}
+					}
 				}
 				return true
 			}
 
 			MENU_ITEM_SAVE -> {
-				// do nothing, puzzle will be saved automatically in onPause
-				finish()
+				if (isNewPuzzleValidAndUnique()) {
+					finish()  // puzzle will be saved automatically in onPause
+				}
 				return true
 			}
 
@@ -199,18 +211,15 @@ class SudokuEditActivity : ThemedActivity() {
 		return super.onOptionsItemSelected(item)
 	}
 
-	private fun checkSolvability(): Boolean {
+	private fun getNumberOfSolutions(): Int {
 		newPuzzle.cells.markFilledCellsAsNotEditable()
-		val solvable = newPuzzle.isSolvable()
+		val numberOfSolutions = newPuzzle.solutionCount
 		newPuzzle.cells.markAllCellsAsEditable()
-		return solvable
+		return numberOfSolutions
 	}
 
 	private fun savePuzzle() {
 		newPuzzle.cells.markFilledCellsAsNotEditable()
-		if (!isNewPuzzleValid()) {
-			return
-		}
 		when (mState) {
 			STATE_EDIT -> {
 				mDatabase.updatePuzzle(newPuzzle)
@@ -225,26 +234,37 @@ class SudokuEditActivity : ThemedActivity() {
 		}
 	}
 
-	private fun isNewPuzzleValid(): Boolean {
-		if (!newPuzzle.isSolvable()) {
+	private fun isNewPuzzleValidAndUnique(): Boolean {
+		// check number of solutions
+		val numberOfSolutions = getNumberOfSolutions()
+		if (numberOfSolutions == 0) {
 			with(SimpleDialog()) {
-				message = "This puzzle is not solvable"
+				messageId = R.string.puzzle_has_no_solution
+				onOkCallback = ::finish
+				show(supportFragmentManager)
+			}
+			return false
+		} else if (numberOfSolutions > 1) {
+			with(SimpleDialog()) {
+				messageId = R.string.puzzle_has_multiple_solutions
+				onOkCallback = ::finish
 				show(supportFragmentManager)
 			}
 			return false
 		}
+
+		// check already existing puzzles
 		val existingPuzzle = mDatabase.puzzleExists(newPuzzle.cells)
 		if (existingPuzzle != null) {
-			if (newPuzzle.folderId == existingPuzzle.folderId && existingPuzzle.state == SudokuGame.GAME_STATE_NOT_STARTED) {
-				mDatabase.deletePuzzle(existingPuzzle.id)  // delete not started game to insert saved instance
-			} else {
-				with(SimpleDialog()) {
-					message = "This game already exists in the " + mDatabase.getFolderInfo(existingPuzzle.folderId)?.name + " folder"
-					show(supportFragmentManager)
-				}
-				return false
+			with(SimpleDialog()) {
+				message =
+					applicationContext.getString(R.string.puzzle_already_exists, mDatabase.getFolderInfo(existingPuzzle.folderId)?.name)
+				onOkCallback = ::finish
+				show(supportFragmentManager)
 			}
+			return false
 		}
+
 		return true
 	}
 
@@ -268,8 +288,8 @@ class SudokuEditActivity : ThemedActivity() {
 	 */
 	private fun pasteFromClipboard() {
 		if (mClipboard.hasPrimaryClip()) {
-			if (mClipboard.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) ||
-				mClipboard.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML)
+			if (mClipboard.primaryClipDescription?.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) == true ||
+				mClipboard.primaryClipDescription?.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML) == true
 			) {
 				val clipDataItem = mClipboard.primaryClip!!.getItemAt(0)
 				val clipDataText = clipDataItem.text.toString()
@@ -289,19 +309,19 @@ class SudokuEditActivity : ThemedActivity() {
 
 	companion object {
 		/**
-		 * When inserting new data, I need to know folder in which will new sudoku be stored.
+		 * When inserting new data, we need to know folder in which the new puzzle will be stored.
 		 */
-		const val EXTRA_SUDOKU_ID = "sudoku_id"
-		const val MENU_ITEM_CHECK_RESOLVABILITY = Menu.FIRST
+		const val EXTRA_PUZZLE_ID = "puzzle_id"
+		const val MENU_ITEM_CHECK_VALIDITY = Menu.FIRST
 		const val MENU_ITEM_SAVE = Menu.FIRST + 1
 		const val MENU_ITEM_CANCEL = Menu.FIRST + 2
 		const val MENU_ITEM_COPY = Menu.FIRST + 3
 		const val MENU_ITEM_PASTE = Menu.FIRST + 4
 
-		// The different distinct states the activity can be run in.
+		// The distinct states that the activity can be run in.
 		private const val STATE_EDIT = 0
 		private const val STATE_INSERT = 1
 		private const val STATE_CANCEL = 2
-		private const val TAG = "SudokuEditActivity"
+		private const val TAG = "PuzzleEditActivity"
 	}
 }

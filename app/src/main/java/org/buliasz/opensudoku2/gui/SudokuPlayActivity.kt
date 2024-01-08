@@ -113,7 +113,7 @@ class SudokuPlayActivity : ThemedActivity() {
 		// create sudoku game instance
 		if (savedInstanceState == null) {
 			// activity runs for the first time, read game from database
-			val mSudokuGameID = intent.getLongExtra(EXTRA_SUDOKU_ID, 0)
+			val mSudokuGameID = intent.getLongExtra(EXTRA_PUZZLE_ID, 0)
 			mSudokuGame = mDatabase.getGame(mSudokuGameID) ?: SudokuGame()
 		} else {
 			// activity has been running before, restore its state
@@ -122,10 +122,10 @@ class SudokuPlayActivity : ThemedActivity() {
 			mGameTimer.restoreState(savedInstanceState)
 		}
 
-		// save our most recently played sudoku
+		// save our most recently played puzzle
 		val gameSettings = PreferenceManager.getDefaultSharedPreferences(applicationContext)
 		val editor = gameSettings.edit()
-		editor.putLong("most_recently_played_sudoku_id", mSudokuGame.id)
+		editor.putLong("most_recently_played_puzzle_id", mSudokuGame.id)
 		editor.apply()
 		if (mSudokuGame.state == SudokuGame.GAME_STATE_NOT_STARTED) {
 			mSudokuGame.start()
@@ -169,18 +169,9 @@ class SudokuPlayActivity : ThemedActivity() {
 		} else {
 			mSudokuBoard.setAllColorsFromThemedContext(this)
 		}
-		mSudokuBoard.setHighlightWrongValues(
-			gameSettings.getBoolean(
-				"highlight_wrong_values",
-				true
-			)
-		)
-		mSudokuBoard.setHighlightTouchedCell(
-			gameSettings.getBoolean(
-				"highlight_touched_cell",
-				true
-			)
-		)
+		mSudokuBoard.setHighlightDirectlyWrongValues(gameSettings.getBoolean("highlight_directly_wrong_values", true))
+		mSudokuBoard.setHighlightIndirectlyWrongValues(gameSettings.getBoolean("highlight_indirectly_wrong_values", true))
+		mSudokuBoard.setHighlightTouchedCell(gameSettings.getBoolean("highlight_touched_cell", true))
 		val highlightSimilarCells = gameSettings.getBoolean("highlight_similar_cells", true)
 		val highlightSimilarNotes = gameSettings.getBoolean("highlight_similar_notes", true)
 		if (highlightSimilarCells) {
@@ -442,9 +433,15 @@ class SudokuPlayActivity : ThemedActivity() {
 					titleId = R.string.app_name
 					messageId = R.string.solve_puzzle_confirm
 					onOkCallback = {
-						if (!mSudokuGame.solve()) {
+						val numberOfSolutions = mSudokuGame.solve()
+						if (numberOfSolutions == 0) {
 							with(SimpleDialog()) {
-								messageId = R.string.puzzle_not_solved
+								messageId = R.string.puzzle_has_no_solution
+								show(supportFragmentManager)
+							}
+						} else if (numberOfSolutions > 1) {
+							with(SimpleDialog()) {
+								messageId = R.string.puzzle_has_multiple_solutions
 								show(supportFragmentManager)
 							}
 						}
@@ -460,12 +457,23 @@ class SudokuPlayActivity : ThemedActivity() {
 					onOkCallback = {
 						val cell = mSudokuBoard.selectedCell
 						if (cell != null && cell.isEditable) {
-							if (mSudokuGame.isSolvable()) {
-								mSudokuGame.solveCell(cell)
-							} else {
-								with(SimpleDialog()) {
-									messageId = R.string.puzzle_not_solved
-									show(supportFragmentManager)
+							when (mSudokuGame.solutionCount) {
+								1 -> {
+									mSudokuGame.solveCell(cell)
+								}
+
+								0 -> {
+									with(SimpleDialog()) {
+										messageId = R.string.puzzle_has_no_solution
+										show(supportFragmentManager)
+									}
+								}
+
+								else -> {
+									with(SimpleDialog()) {
+										messageId = R.string.puzzle_has_multiple_solutions
+										show(supportFragmentManager)
+									}
 								}
 							}
 						} else {
@@ -525,7 +533,7 @@ class SudokuPlayActivity : ThemedActivity() {
 	}
 
 	companion object {
-		const val EXTRA_SUDOKU_ID = "sudoku_id"
+		const val EXTRA_PUZZLE_ID = "puzzle_id"
 		const val MENU_ITEM_RESTART = Menu.FIRST
 		const val MENU_ITEM_CLEAR_ALL_NOTES = Menu.FIRST + 1
 		const val MENU_ITEM_FILL_IN_NOTES = Menu.FIRST + 2

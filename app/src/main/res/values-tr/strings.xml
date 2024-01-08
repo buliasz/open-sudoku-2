@@ -19,7 +19,7 @@
 
 <resources>
     <string name="app_name">Open Sudoku 2</string>
-    <string name="edit_sudoku">Sudoku\'yu düzenle</string>
+    <string name="edit_puzzle">Sudoku\'yu düzenle</string>
 
     <string name="puzzle_folders">OpenSudoku2 bulmaca dosyaları</string>
 
@@ -43,6 +43,7 @@
     <string name="get_more_puzzles_online">Daha fazla puzzle edin</string>
 
     <string name="name">İsim:</string>
+    <string name="folder_name_hint">Klasör adı</string>
     <string name="note">Not:</string>
 
     <string name="select_number">Rakam Seç</string>
@@ -72,7 +73,7 @@
     <string name="at_time">%s</string>
     <string name="yesterday_at_time">Dün %s</string>
     <string name="on_date">%s</string>
-    <string name="add_sudoku">Sudoku Ekle</string>
+    <string name="add_puzzle">Sudoku Ekle</string>
     <string name="filter">Filtre</string>
     <string name="filter_by_game_state">Seçeneklere göre filtrele</string>
     <string name="folders">Klasörler</string>
@@ -95,8 +96,10 @@
     <string name="game_settings">Oyun Seçenekleri</string>
 
     <string name="game_helpers">Oyun Yardımcısı</string>
-    <string name="highlight_wrong_values">Hatalı Rakamlar</string>
-    <string name="highlight_wrong_values_summary">Sudoku kurallarına uymayan rakamları gösterir.</string>
+    <string name="highlight_directly_wrong_values">Hatalı Rakamlar</string>
+    <string name="highlight_directly_wrong_values_summary">Sudoku kurallarına uymayan rakamları gösterir.</string>
+	<string name="highlight_indirectly_wrong_values">Dolaylı olarak yanlış değerleri vurgulama</string>
+    <string name="highlight_indirectly_wrong_values_summary">Son bulmaca çözümüyle eşleşmeyen değerleri vurgulayın (notlar dikkate alınmaz).</string>
     <string name="input_methods">Doldurma Seçenekleri</string>
     <string name="popup">Açılır Pencere</string>
     <string name="popup_summary">Rakamları açılır pencere ile gir.</string>
@@ -174,7 +177,7 @@
     <string name="difficulty_easy">Kolay</string>
 
     <!-- Strings added/changed in 1.1.0 -->
-    <string name="generate_sudoku">Sudodu Oluştur</string>
+    <string name="generate_puzzle">Sudodu Oluştur</string>
     <string name="select_difficulty">Zorluk Seç</string>
     <string name="generating">Bulmaca oluşturuluyor…</string>
     <string name="show_number_totals">Yerleştirilen Rakam Sayısı</string>
@@ -220,10 +223,12 @@
     <string name="solve_puzzle">Bulmaca çözmek</string>
     <string name="solve_puzzle_confirm">Çözümü görmek istediğinizden emin misiniz?</string>
     <string name="used_solver">Çözümü görmek için çözücüyü kullandınız!</string>
-    <string name="puzzle_not_solved">Bu bulmacanın çözümü yok.</string>
+    <string name="puzzle_has_no_solution">Bu bulmacanın çözümü yok.</string>
+	<string name="puzzle_has_multiple_solutions">Bu geçersiz bir bulmaca çünkü birden fazla çözümü var.</string>
+    <string name="puzzle_already_exists">Bu bulmaca geçerlidir, ancak %s klasöründe zaten var.</string>
     <string name="hint_confirm">Bu, seçilen hücre için doğru değeri dolduracaktır. Devam etmek istiyor musun?</string>
     <string name="cannot_give_hint">O hücreye dair ipucu alamazsınız.</string>
-    <string name="check_solvability">Çözülebilirliği Kontrol Edin</string>
+    <string name="check_validity">Çözülebilirliği Kontrol Edin</string>
     <string name="puzzle_solvable">Bu bulmacanın bir çözümü var.</string>
     <string name="copy_from_existing_theme">Mevcut temadan kopyala</string>
     <string name="theme_default">Karanlık</string>
@@ -246,14 +251,14 @@
     <string name="highlight_similar_notes">Benzer notları vurgulayın</string>
     <string name="highlight_similar_notes_summary">Benzer not değerlerine sahip hücreleri vurgulayın</string>
     <string name="resume">Sürdürmek</string>
-    <string name="sudoku_lists">Sudoku Listeleri</string>
+    <string name="puzzle_lists">Sudoku Listeleri</string>
     <string name="undo_to_before_mistake">Hatadan önceki işlemi geri al</string>
     <string name="undo_to_before_mistake_confirm">Son çözülebilir durumdan bu yana yapılan tüm eylemleri geri almak istediğinizden emin misiniz?</string>
     <string name="remove_notes_title">Numara girişindeki notları kaldırın</string>
     <string name="remove_notes_summary">Sayı girerken aynı sütun, satır ve kutudaki notları otomatik olarak kaldırın</string>
     <string name="create_from_single_color">Tek renkten oluştur</string>
-    <string name="show_sudoku_lists_on_startup_title">Başlangıçta sudoku listelerini göster</string>
-    <string name="show_sudoku_lists_on_startup_summary">Başlangıçta sudoku listelerini gösterin ve başlık ekranını atlayın.</string>
+    <string name="show_puzzle_lists_on_startup_title">Başlangıçta sudoku listelerini göster</string>
+    <string name="show_puzzle_lists_on_startup_summary">Başlangıçta sudoku listelerini gösterin ve başlık ekranını atlayın.</string>
     <string name="app_startup_category">Uygulama Başlatma</string>
     <string name="sort">Düzenlemek</string>
     <string name="sort_puzzles_by">Bulmacaları şuna göre sırala:</string>

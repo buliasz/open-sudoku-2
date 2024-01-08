@@ -24,7 +24,7 @@
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/sudoku_list_recycler"
+        android:id="@+id/puzzle_list_recycler"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 

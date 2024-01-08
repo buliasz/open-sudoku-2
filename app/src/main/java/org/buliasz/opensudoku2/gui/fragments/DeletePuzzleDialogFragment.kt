@@ -37,9 +37,9 @@ class DeletePuzzleDialogFragment(val mDatabase: SudokuDatabase, val settings: Sh
 			.setTitle("Puzzle")
 			.setMessage(R.string.delete_puzzle_confirm)
 			.setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
-				val mostRecentId = settings.getLong("most_recently_played_sudoku_id", 0)
+				val mostRecentId = settings.getLong("most_recently_played_puzzle_id", 0)
 				if (puzzleID == mostRecentId) {
-					settings.edit().remove("most_recently_played_sudoku_id").apply()
+					settings.edit().remove("most_recently_played_puzzle_id").apply()
 				}
 				mDatabase.deletePuzzle(puzzleID)
 				updateList()

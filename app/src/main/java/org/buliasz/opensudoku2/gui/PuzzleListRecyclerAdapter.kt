@@ -34,11 +34,11 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
-internal class SudokuListRecyclerAdapter(
+internal class PuzzleListRecyclerAdapter(
 	private val mContext: Context,
 	private var games: List<SudokuGame>,
 	private val onClickListener: (Long) -> Unit
-) : RecyclerView.Adapter<SudokuListRecyclerAdapter.ViewHolder?>() {
+) : RecyclerView.Adapter<PuzzleListRecyclerAdapter.ViewHolder?>() {
 	var selectedGameId: Long = 0
 	private val mGameTimeFormatter = GameTimeFormat()
 	private val mDateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
@@ -64,12 +64,12 @@ internal class SudokuListRecyclerAdapter(
 			selectedGameId = game.id
 			with(menu ?: return@setOnCreateContextMenuListener) {
 				setHeaderTitle("Puzzle")
-				add(0, SudokuListActivity.MENU_ITEM_PLAY, 0, R.string.play_puzzle)
-				add(0, SudokuListActivity.MENU_ITEM_EDIT_NOTE, 1, R.string.edit_note)
-				add(0, SudokuListActivity.MENU_ITEM_EXPORT_GAME, 2, R.string.export)
-				add(0, SudokuListActivity.MENU_ITEM_RESET, 3, R.string.reset_puzzle)
-				add(0, SudokuListActivity.MENU_ITEM_EDIT, 4, R.string.edit_sudoku)
-				add(0, SudokuListActivity.MENU_ITEM_DELETE, 5, R.string.delete_puzzle)
+				add(0, PuzzleListActivity.MENU_ITEM_PLAY, 0, R.string.play_puzzle)
+				add(0, PuzzleListActivity.MENU_ITEM_EDIT_NOTE, 1, R.string.edit_note)
+				add(0, PuzzleListActivity.MENU_ITEM_EXPORT_GAME, 2, R.string.export)
+				add(0, PuzzleListActivity.MENU_ITEM_RESET, 3, R.string.reset_puzzle)
+				add(0, PuzzleListActivity.MENU_ITEM_EDIT, 4, R.string.edit_puzzle)
+				add(0, PuzzleListActivity.MENU_ITEM_DELETE, 5, R.string.delete_puzzle)
 			}
 		}
 

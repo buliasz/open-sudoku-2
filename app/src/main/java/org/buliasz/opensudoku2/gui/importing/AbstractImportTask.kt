@@ -43,33 +43,34 @@ import org.buliasz.opensudoku2.utils.Const
  * [.importFolder] and [.importGame] methods. Note
  * that `importFolder` must be called first, otherwise `importGame`
  * doesn't know where to put puzzles.
- * 3) Add code to [org.buliasz.opensudoku2.gui.SudokuImportActivity] which creates instance of your new class and
+ * 3) Add code to [org.buliasz.opensudoku2.gui.PuzzleImportActivity] which creates instance of your new class and
  * passes it input parameters.
  */
 abstract class AbstractImportTask {
 	private lateinit var mDatabase: SudokuDatabase
 	private lateinit var mFolder: FolderInfo // currently processed folder
+	private lateinit var mContext: Context
 	private var mFolderCount = 0 // count of processed folders
 	private var mImportError: String? = null
 	private var mImportSuccessful = false
 
 	suspend fun doInBackground(context: Context, onImportFinished: OnImportFinishedListener, supportFragmentManager: FragmentManager) {
+		mContext = context
 		var isSuccess = false
 		withContext(Dispatchers.IO) {
 			try {
-				isSuccess = processImportInternal(context)
+				isSuccess = processImportInternal()
 			} catch (e: Exception) {
 				Log.e(Const.TAG, "Exception occurred during import.", e)
 				setError(context.getString(R.string.unknown_import_error))
 			}
 			withContext(Dispatchers.Main) {
-				onPostExecute(context, isSuccess, onImportFinished, supportFragmentManager)
+				onPostExecute(isSuccess, onImportFinished, supportFragmentManager)
 			}
 		}
 	}
 
 	private fun onPostExecute(
-		context: Context,
 		isSuccess: Boolean,
 		onImportFinished: OnImportFinishedListener,
 		supportFragmentManager: FragmentManager
@@ -77,12 +78,12 @@ abstract class AbstractImportTask {
 		if (isSuccess) {
 			if (mFolderCount == 1) {
 				Toast.makeText(
-					context, context.getString(R.string.puzzles_saved, mFolder.name),
+					mContext, mContext.getString(R.string.puzzles_saved, mFolder.name),
 					Toast.LENGTH_LONG
 				).show()
 			} else if (mFolderCount > 1) {
 				Toast.makeText(
-					context, context.getString(R.string.folders_created, mFolderCount),
+					mContext, mContext.getString(R.string.folders_created, mFolderCount),
 					Toast.LENGTH_LONG
 				).show()
 			}
@@ -97,21 +98,21 @@ abstract class AbstractImportTask {
 		onImportFinished.onImportFinished(isSuccess, folderId)
 	}
 
-	private fun processImportInternal(context: Context): Boolean {
+	private fun processImportInternal(): Boolean {
 		mImportSuccessful = true
 		val start = System.currentTimeMillis()
-		SudokuDatabase(context).use { database ->
+		SudokuDatabase(mContext).use { database ->
 			try {
 				mDatabase = database
-				processImport(context)  // let subclass handle the import
+				processImport(mContext)  // let subclass handle the import
 			} catch (e: SudokuInvalidFormatException) {
 				Log.e(this.javaClass.name, "Invalid format", e)
-				setError(context.getString(R.string.invalid_format))
+				setError(mContext.getString(R.string.invalid_format))
 			}
 		}
 
 		if (mFolderCount == 0) {
-			setError(context.getString(R.string.no_puzzles_found))
+			setError(mContext.getString(R.string.no_puzzles_found))
 			return false
 		}
 
@@ -146,16 +147,20 @@ abstract class AbstractImportTask {
 	}
 
 	private fun isPuzzleValid(newPuzzle: SudokuGame): Boolean {
-		if (!newPuzzle.isSolvable()) {
-			setError("This puzzle is not solvable")
+		if (newPuzzle.solutionCount == 0) {
+			setError(mContext.getString(R.string.puzzle_has_no_solution))
+			return false
+		}
+		if (newPuzzle.solutionCount > 1) {
+			setError(mContext.getString(R.string.puzzle_has_multiple_solutions))
 			return false
 		}
 		val existingPuzzle = mDatabase.puzzleExists(newPuzzle.cells)
 		if (existingPuzzle != null) {
 			if (newPuzzle.folderId == existingPuzzle.folderId && existingPuzzle.state == SudokuGame.GAME_STATE_NOT_STARTED) {
-				mDatabase.deletePuzzle(existingPuzzle.id)  // delete not started game to insert saved instance
+				mDatabase.deletePuzzle(existingPuzzle.id)  // delete not started game to insert the imported instance
 			} else {
-				setError("This game already exists in the " + mDatabase.getFolderInfo(existingPuzzle.folderId)?.name + " folder")
+				setError(mContext.getString(R.string.puzzle_already_exists, mDatabase.getFolderInfo(existingPuzzle.folderId)?.name))
 				return false
 			}
 		}

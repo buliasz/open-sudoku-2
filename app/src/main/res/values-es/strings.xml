@@ -19,7 +19,7 @@
 
 <resources>
     <string name="app_name">Open Sudoku 2</string>
-    <string name="edit_sudoku">Editar sudoku</string>
+    <string name="edit_puzzle">Editar sudoku</string>
 
     <string name="puzzle_folders">Carpetas de los puzzles de Open Sudoku 2</string>
 
@@ -42,6 +42,7 @@
     <string name="get_more_puzzles_online">Obtener mas puzzles en línea</string>
 
     <string name="name">Nombre:</string>
+    <string name="folder_name_hint">Nombre de la carpeta</string>
     <string name="note">Notas:</string>
 
     <string name="select_number">Seleccionar número</string>
@@ -71,7 +72,7 @@
     <string name="at_time">a las %s</string>
     <string name="yesterday_at_time">ayer a las %s</string>
     <string name="on_date">en %s</string>
-    <string name="add_sudoku">Añadir sudoku</string>
+    <string name="add_puzzle">Añadir sudoku</string>
     <string name="filter">Filtrar</string>
     <string name="filter_by_game_state">Filtrar por estado</string>
     <string name="folders">Carpetas</string>
@@ -94,8 +95,10 @@
     <string name="game_settings">Ajustes del juego</string>
 
     <string name="game_helpers">Ayudas en el juego</string>
-    <string name="highlight_wrong_values">Resaltar valores erroneos</string>
-    <string name="highlight_wrong_values_summary">Resalta los valores que rompen las reglas del sudoku.</string>
+    <string name="highlight_directly_wrong_values">Resaltar valores erroneos</string>
+    <string name="highlight_directly_wrong_values_summary">Resalta los valores que rompen las reglas del sudoku.</string>
+	<string name="highlight_indirectly_wrong_values">Resaltar valores indirectamente erróneos</string>
+    <string name="highlight_indirectly_wrong_values_summary">Resalte los valores que no coincidan con la solución final del rompecabezas (se ignoran las notas).</string>
     <string name="input_methods">Métodos de entrada</string>
     <string name="popup">Ventana emergente</string>
     <string name="popup_summary">Editar el valor y las anotaciones de cada celda en una ventana emergente.</string>
@@ -219,7 +222,7 @@
     <string name="undo_to_checkpoint_confirm">¿Estás seguro de querer deshacer todas las acciones
         desde el último punto de control?</string>
     <string name="select_difficulty">Seleccionar dificultad</string>
-    <string name="generate_sudoku">Generate new game</string>
+    <string name="generate_puzzle">Generate new game</string>
     <string name="generating">Generating puzzle…</string>
     <string name="highlight_similar_cells">Resaltar celdas similares</string>
     <string name="highlight_similar_cells_summary">Resaltar celdas con valores similares</string>
@@ -255,12 +258,14 @@
     <string name="solve_puzzle">Resolver puzzle</string>
     <string name="solve_puzzle_confirm">¿Estás seguro de que quieres ver la solución?</string>
     <string name="used_solver">¡Has usado el solucionador para resolver el puzzle!</string>
-    <string name="puzzle_not_solved">Este puzzle no tiene solución.</string>
+    <string name="puzzle_has_no_solution">Este puzzle no tiene solución.</string>
 
+	<string name="puzzle_has_multiple_solutions">Este es un rompecabezas no válido porque tiene múltiples soluciones.</string>
+    <string name="puzzle_already_exists">Este rompecabezas es válido pero ya existe en la carpeta %s.</string>
     <string name="hint_confirm">Esto introducirá el valor correcto en la celda seleccionada. ¿Quieres continuar?</string>
     <string name="cannot_give_hint">No puedes obtener una pista para esa celda.</string>
 
-    <string name="check_solvability">Comprobar si tiene solución</string>
+    <string name="check_validity">Comprobar si tiene solución</string>
     <string name="puzzle_solvable">Este puzzle tiene solución.</string>
 
     <string name="copy_from_existing_theme">Copiar del tema existente…</string>
@@ -291,7 +296,7 @@
     <string name="highlight_similar_notes_summary">Resaltar celdas con valores de notas similares</string>
 
     <string name="resume">Continuar</string>
-    <string name="sudoku_lists">Lista de Sudokus</string>
+    <string name="puzzle_lists">Lista de Sudokus</string>
 
     <!-- Strings added/changed in 3.1.0 -->
     <string name="undo_to_before_mistake">Deshacer a antes del error</string>
@@ -304,8 +309,8 @@
     <string name="create_from_single_color">Crear desde un solo color</string>
 
     <!-- Strings added/changed in 3.3.0 -->
-    <string name="show_sudoku_lists_on_startup_title">Mostrar la lista de Sudokus al inicio</string>
-    <string name="show_sudoku_lists_on_startup_summary">Mostrar la lista de Sudokus al inicio y omitir la pantalla de título.</string>
+    <string name="show_puzzle_lists_on_startup_title">Mostrar la lista de Sudokus al inicio</string>
+    <string name="show_puzzle_lists_on_startup_summary">Mostrar la lista de Sudokus al inicio y omitir la pantalla de título.</string>
     <string name="app_startup_category">Inicio de la aplicación</string>
 
     <!-- Strings added/changed in 3.4.0 -->

@@ -562,7 +562,7 @@ object ThemeUtils {
 		board.invalidate()
 	}
 
-	fun prepareSudokuPreviewView(board: SudokuBoardView) {
+	fun prepareBoardPreviewView(board: SudokuBoardView) {
 		board.isFocusable = false
 
 		// Create a sample game by starting with the debug game, removing an extra box (sector),
@@ -585,7 +585,7 @@ object ThemeUtils {
 		cells.fillInCenterNotes()
 		cells.validate()
 		board.cells = cells
-		board.setHighlightWrongValues(true)
+		board.setHighlightDirectlyWrongValues(true)
 	}
 
 	fun findClosestMaterialColor(color: Int): Int {

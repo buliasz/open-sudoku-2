@@ -77,7 +77,7 @@ class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
 	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-		// Customise the view to include the sudoku board preview. Do this by inflating the
+		// Customise the view to include the game board preview. Do this by inflating the
 		// default view and the desired view (as a ViewGroup), and then adding the default view
 		// to the view group.
 		val defaultView = super.onCreateView(inflater, container, savedInstanceState)
@@ -102,19 +102,19 @@ class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		mBoard = view.findViewById(R.id.board_view)
-		prepareSudokuPreviewView(mBoard)
+		prepareGamePreviewView(mBoard)
 		val menuHost: MenuHost = requireActivity()
 		menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 	}
 
-	private fun prepareSudokuPreviewView(board: SudokuBoardView?) {
+	private fun prepareGamePreviewView(board: SudokuBoardView?) {
 		val highlightSimilarCells = mSharedPreferences!!.getBoolean("highlight_similar_cells", true)
 		val highlightSimilarNotes = mSharedPreferences!!.getBoolean("highlight_similar_notes", true)
 		if (highlightSimilarCells) {
 			board!!.setHighlightSimilarCell(if (highlightSimilarNotes) HighlightMode.NUMBERS_AND_NOTES else HighlightMode.NUMBERS)
 		}
 		board!!.setOnCellSelectedListener { cell: Cell? -> board.setHighlightedValue(cell?.value ?: 0) }
-		ThemeUtils.prepareSudokuPreviewView(board)
+		ThemeUtils.prepareBoardPreviewView(board)
 		updateThemePreview()
 	}
 

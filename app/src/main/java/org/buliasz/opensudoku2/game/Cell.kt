@@ -21,10 +21,16 @@ package org.buliasz.opensudoku2.game
 import java.util.StringTokenizer
 
 /**
- * Sudoku cell. Every cell has value, some notes attached to it and some basic
- * state (whether it is editable and valid).
+ * Sudoku cell. Every cell has value, some notes attached to it and some basic state (whether it is editable and valid).
  */
 class Cell private constructor(value: Int, cornerNote: CellNote, centerNote: CellNote, editable: Boolean, valid: Boolean) {
+	// final solution of this cell
+	var solution: Int = 0
+
+	// true if current value matches final solution (if exists)
+	val matchesSolution: Boolean
+		get() = solution == 0 || value == solution
+
 	private val mCellCollectionLock = Any()
 
 	// if cell is included in collection, here are some additional information
@@ -32,41 +38,31 @@ class Cell private constructor(value: Int, cornerNote: CellNote, centerNote: Cel
 	private var mCellCollection: CellCollection? = null
 
 	/**
-	 * Gets cell's row index within [CellCollection].
-	 *
-	 * @return Cell's row index within CellCollection.
+	 * Cell's row index within [CellCollection].
 	 */
 	var rowIndex = -1
 		private set
 
 	/**
-	 * Gets cell's column index within [CellCollection].
-	 *
-	 * @return Cell's column index within CellCollection.
+	 * Cell's column index within [CellCollection].
 	 */
 	var columnIndex = -1
 		private set
 
 	/**
-	 * Returns sector containing this cell. Sector is 3x3 group of cells.
-	 *
-	 * @return Sector containing this cell.
+	 * Sector containing this cell. Sector is 3x3 group of cells.
 	 */
 	var sector: CellGroup? = null // sector containing this cell
 		private set
 
 	/**
 	 * Returns row containing this cell.
-	 *
-	 * @return Row containing this cell.
 	 */
 	var row: CellGroup? = null // row containing this cell
 		private set
 
 	/**
 	 * Returns column containing this cell.
-	 *
-	 * @return Column containing this cell.
 	 */
 	var column: CellGroup? = null // column containing this cell
 		private set
@@ -83,8 +79,6 @@ class Cell private constructor(value: Int, cornerNote: CellNote, centerNote: Cel
 
 	/**
 	 * Creates empty editable cell containing given value.
-	 *
-	 * @param value Value of the cell.
 	 */
 	constructor(value: Int) : this(value, CellNote(), CellNote(), true, true)
 
@@ -106,105 +100,74 @@ class Cell private constructor(value: Int, cornerNote: CellNote, centerNote: Cel
 	 * @param row      Reference to row group in which cell is included.
 	 * @param column   Reference to column group in which cell is included.
 	 */
-	fun initCollection(
-		cellCollection: CellCollection?, rowIndex: Int, colIndex: Int, sector: CellGroup?, row: CellGroup?, column: CellGroup?
-	) {
+	fun initCollection(cellCollection: CellCollection, rowIndex: Int, colIndex: Int, sector: CellGroup, row: CellGroup, column: CellGroup) {
 		synchronized(mCellCollectionLock) { mCellCollection = cellCollection }
 		this.rowIndex = rowIndex
 		columnIndex = colIndex
 		this.sector = sector
 		this.row = row
 		this.column = column
-		sector!!.addCell(this)
-		row!!.addCell(this)
-		column!!.addCell(this)
+		sector.addCell(this)
+		row.addCell(this)
+		column.addCell(this)
 	}
 
+	/**
+	 * Cell's value. Value can be 1-9 or 0 if cell is empty.
+	 */
 	var value: Int
-		/**
-		 * Gets cell's value. Value can be 1-9 or 0 if cell is empty.
-		 *
-		 * @return Cell's value. Value can be 1-9 or 0 if cell is empty.
-		 */
 		get() = mValue
-		/**
-		 * Sets cell's value. Value can be 1-9 or 0 if cell should be empty.
-		 *
-		 * @param value 1-9 or 0 if cell should be empty.
-		 */
 		set(value) {
 			require(!(value < 0 || value > 9)) { "Value must be between 0-9." }
 			mValue = value
 			onChange()
 		}
+
+	/**
+	 * Corner note attached to the cell
+	 */
 	var cornerNote: CellNote
-		/**
-		 * Gets corner note attached to the cell.
-		 *
-		 * @return Note attached to the cell.
-		 */
 		get() = mCornerNote
-		/**
-		 * Sets corner note attached to the cell
-		 *
-		 * @param note Corner note attached to the cell
-		 */
 		set(note) {
 			mCornerNote = note
 			onChange()
 		}
+
+	/**
+	 * Center note attached to the cell.
+	 */
 	var centerNote: CellNote
-		/**
-		 * Gets center note attached to the cell.
-		 *
-		 * @return Center note attached to the cell.
-		 */
 		get() = mCenterNote
-		/**
-		 * Sets center note attached to the cell
-		 *
-		 * @param note Center note attached to the cell
-		 */
 		set(note) {
 			mCenterNote = note
 			onChange()
 		}
+
+	/**
+	 * All notes associated with the cell, irrespective of whether they are corner notes or center notes.
+	 */
 	val notedNumbers: List<Int?>
-		/**
-		 * @return All notes associated with the cell, irrespective of whether
-		 * they are corner notes or center notes.
-		 */
 		get() {
 			val notes = cornerNote.notedNumbers
 			notes.addAll(centerNote.notedNumbers)
 			return notes
 		}
+
+	/**
+	 * True if cell can be edited.
+	 */
 	var isEditable: Boolean
-		/**
-		 * Returns whether cell can be edited.
-		 *
-		 * @return True if cell can be edited.
-		 */
 		get() = mEditable
-		/**
-		 * Sets whether cell can be edited.
-		 *
-		 * @param editable True, if cell should allow editing.
-		 */
 		set(editable) {
 			mEditable = editable
 			onChange()
 		}
+
+	/**
+	 * Returns true, if cell contains valid value according to Sudoku rules.
+	 */
 	var isValid: Boolean
-		/**
-		 * Returns true, if cell contains valid value according to sudoku rules.
-		 *
-		 * @return True, if cell contains valid value according to sudoku rules.
-		 */
 		get() = mValid
-		/**
-		 * Sets whether cell contains valid value according to sudoku rules.
-		 */
 		set(valid) {
 			mValid = valid
 			onChange()
@@ -215,7 +178,6 @@ class Cell private constructor(value: Int, cornerNote: CellNote, centerNote: Cel
 	 * in a given data format version.
 	 * You can later recreate object from this string by calling [.deserialize].
 	 *
-	 * @see CellCollection.serialize
 	 * @param data A `StringBuilder` where to write data.
 	 */
 	fun serialize(data: StringBuilder, dataVersion: Int) {
@@ -247,9 +209,6 @@ class Cell private constructor(value: Int, cornerNote: CellNote, centerNote: Cel
 
 	/**
 	 * Returns a string representation of this object in a default data format version.
-	 *
-	 * @see .serialize
-	 * @return A string representation of this object.
 	 */
 	fun serialize(): String {
 		val sb = StringBuilder()
@@ -297,9 +256,7 @@ class Cell private constructor(value: Int, cornerNote: CellNote, centerNote: Cel
 		}
 
 		/**
-		 * Creates instance from given string (string which has been
-		 * created by [.serialize] or [.serialize] method).
-		 * earlier.
+		 * Creates instance from given string (string which has been created by [serialize] method).
 		 */
 		fun deserialize(cellData: String?): Cell {
 			val data = StringTokenizer(cellData, "|")

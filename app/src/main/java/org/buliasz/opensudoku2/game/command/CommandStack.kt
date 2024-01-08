@@ -86,21 +86,9 @@ class CommandStack(private val mCells: CellCollection) {
 		validateCells()
 	}
 
-	private fun hasMistakes(finalValues: ArrayList<IntArray>): Boolean {
-		for (rowColVal in finalValues) {
-			val row = rowColVal[0]
-			val col = rowColVal[1]
-			val value = rowColVal[2]
-			val cell = mCells.getCell(row, col)
-			if (cell.value != value && cell.value != 0) {
-				return true
-			}
-		}
-		return false
-	}
-
 	fun undoToSolvableState() {
-		while (!isEmpty && hasMistakes(mCells.solution)) {
+		require(mCells.solutionCount == 1) { "This puzzle has " + mCells.solutionCount + " solutions" }
+		while (!isEmpty && mCells.hasMistakes) {
 			pop().undo()
 		}
 		validateCells()

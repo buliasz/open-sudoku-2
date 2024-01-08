@@ -69,7 +69,7 @@ class GameSettingsFragment : PreferenceFragmentCompat(), TargetFragment, OnShare
 		//
 		// Note: Using dynamic color is a separate preference because it's not possible to
 		// determine what the actual colors are, so it's impossible to create a preview of the
-		// sudoku board if this was enabled.
+		// game board if this was enabled.
 		val dynamicColorPref = findPreference<SwitchPreference>("use_dynamic_color")!!
 		val dynamicColorsAvailable = DynamicColors.isDynamicColorAvailable()
 		dynamicColorPref.isVisible = dynamicColorsAvailable

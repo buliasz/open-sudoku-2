@@ -25,10 +25,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.buliasz.opensudoku2.R
-import org.buliasz.opensudoku2.gui.SudokuListActivity
-import org.buliasz.opensudoku2.gui.SudokuListFilter
+import org.buliasz.opensudoku2.gui.PuzzleListActivity
+import org.buliasz.opensudoku2.gui.PuzzleListFilter
 
-class FilterDialogFragment(private val mListFilter: SudokuListFilter, val settings: SharedPreferences, val updateList: () -> Unit) :
+class FilterDialogFragment(private val mListFilter: PuzzleListFilter, val settings: SharedPreferences, val updateList: () -> Unit) :
 	DialogFragment() {
 	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 		val builder = AlertDialog.Builder(requireActivity())
@@ -49,9 +49,9 @@ class FilterDialogFragment(private val mListFilter: SudokuListFilter, val settin
 			}
 			.setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
 				settings.edit()
-					.putBoolean(SudokuListActivity.FILTER_STATE_NOT_STARTED, mListFilter.showStateNotStarted)
-					.putBoolean(SudokuListActivity.FILTER_STATE_PLAYING, mListFilter.showStatePlaying)
-					.putBoolean(SudokuListActivity.FILTER_STATE_SOLVED, mListFilter.showStateCompleted)
+					.putBoolean(PuzzleListActivity.FILTER_STATE_NOT_STARTED, mListFilter.showStateNotStarted)
+					.putBoolean(PuzzleListActivity.FILTER_STATE_PLAYING, mListFilter.showStatePlaying)
+					.putBoolean(PuzzleListActivity.FILTER_STATE_SOLVED, mListFilter.showStateCompleted)
 					.apply()
 				updateList()
 			}

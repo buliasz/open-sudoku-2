@@ -48,7 +48,8 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 	private var mTouchedCell: Cell? = null
 	private var mHighlightedValue = 0
 	private var mReadonly = false
-	private var mHighlightWrongValues = true
+	private var mHighlightDirectlyWrongValues = true
+	private var mHighlightIndirectlyWrongValues = true
 	private var mHighlightTouchedCell = true
 	private var mAutoHideTouchedCellHint = true
 	private var mHighlightSimilarCells = HighlightMode.NONE
@@ -287,8 +288,13 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 			postInvalidate()
 		}
 
-	fun setHighlightWrongValues(highlightWrongValues: Boolean) {
-		mHighlightWrongValues = highlightWrongValues
+	fun setHighlightDirectlyWrongValues(newValue: Boolean) {
+		mHighlightDirectlyWrongValues = newValue
+		postInvalidate()
+	}
+
+	fun setHighlightIndirectlyWrongValues(newValue: Boolean) {
+		mHighlightIndirectlyWrongValues = newValue
 		postInvalidate()
 	}
 
@@ -442,6 +448,9 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 		val numberAscent = mText.ascent()
 		val noteAscent = mTextNote.ascent()
 		val noteWidth = mCellWidth / (notesPerRow + 1)
+		if (mHighlightIndirectlyWrongValues) {
+			mCells.solutionCount // make sure solution is filled in cells for highlighting
+		}
 		for (row in 0..8) {
 			for (col in 0..8) {
 				// Default colours for ordinary cells
@@ -497,7 +506,12 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 				// marking a given cell with an error (partly because the user can't
 				// change it, and partly because then the user can't easily see which
 				// of the cells containing the error are editable).
-				if (mHighlightWrongValues && !cell.isValid && cell.value != 0 && cell.isEditable) {
+				if (mHighlightDirectlyWrongValues && cell.value != 0 && cell.isEditable && !cell.isValid) {
+					mPaints[row][col][0] = mBackgroundInvalid
+					mPaints[row][col][1] = mTextInvalid
+					mPaints[row][col][2] = mTextNote // Not read, set to avoid risk of NPEs
+				}
+				if (mHighlightIndirectlyWrongValues && cell.value != 0 && !cell.matchesSolution) {
 					mPaints[row][col][0] = mBackgroundInvalid
 					mPaints[row][col][1] = mTextInvalid
 					mPaints[row][col][2] = mTextNote // Not read, set to avoid risk of NPEs

@@ -50,12 +50,12 @@
             android:text="@string/resume" />
 
         <Button
-            android:id="@+id/sudoku_lists_button"
+            android:id="@+id/puzzle_lists_button"
             style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/sudoku_lists" />
+            android:text="@string/puzzle_lists" />
 
         <Button
             android:id="@+id/settings_button"

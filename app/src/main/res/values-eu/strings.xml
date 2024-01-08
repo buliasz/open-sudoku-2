@@ -19,7 +19,7 @@
 
 <resources>
     <string name="app_name">Open Sudoku 2</string>
-    <string name="edit_sudoku">Editatu sudokua</string>
+    <string name="edit_puzzle">Editatu sudokua</string>
 
     <string name="puzzle_folders">Open Sudokuko 2 sudokuen karpetak</string>
 
@@ -42,6 +42,7 @@
     <string name="get_more_puzzles_online">Lortu sudoku gehiago linean</string>
 
     <string name="name">Izena:</string>
+    <string name="folder_name_hint">Karpetaren izena</string>
     <string name="note">Oharra:</string>
 
     <string name="select_number">Aukeratu zenbakia</string>
@@ -71,7 +72,7 @@
     <string name="at_time">%s(e)tan</string>
     <string name="yesterday_at_time">atzo %s(e)tan</string>
     <string name="on_date">%s(e)an</string>
-    <string name="add_sudoku">Gehitu sudokua</string>
+    <string name="add_puzzle">Gehitu sudokua</string>
     <string name="filter">Iragazi</string>
     <string name="filter_by_game_state">Iragazi egoeraren arabera</string>
     <string name="folders">Karpetak</string>
@@ -94,8 +95,10 @@
     <string name="game_settings">Jolasaren ezarpenak</string>
 
     <string name="game_helpers">Laguntzak jolasean</string>
-    <string name="highlight_wrong_values">Nabarmendu balio okerrak</string>
-    <string name="highlight_wrong_values_summary">Nabarmendu sudokuaren arauak apurtzen dituzten balioak.</string>
+    <string name="highlight_directly_wrong_values">Nabarmendu balio okerrak</string>
+    <string name="highlight_directly_wrong_values_summary">Nabarmendu sudokuaren arauak apurtzen dituzten balioak.</string>
+	<string name="highlight_indirectly_wrong_values">Zeharkako balio okerrak nabarmentzea</string>
+    <string name="highlight_indirectly_wrong_values_summary">Azpimarratu buru-hausletzaren azken konponbidearekin bat ez datozen balioak (ez dira ezagutzen notak).</string>
     <string name="input_methods">Sarrera moduak</string>
     <string name="popup">Leihotxoa</string>
     <string name="popup_summary">Editatu gelaxkaren balioa eta oharrak leihotxo batean.</string>
@@ -222,7 +225,7 @@
     <string name="difficulty_easy">Errazak</string>
 
     <!-- Strings added/changed in 1.1.0 -->
-    <string name="generate_sudoku">Sortu sudoku berria</string>
+    <string name="generate_puzzle">Sortu sudoku berria</string>
     <string name="select_difficulty">Hautatu zailtasuna</string>
     <string name="generating">Sudokua sortzen…</string>
     <string name="show_number_totals">Erakutsi guztizko zenbakiak</string>
@@ -279,12 +282,14 @@
     <string name="solve_puzzle">Ebatzi sudokua</string>
     <string name="solve_puzzle_confirm">Ziur soluzioa ikusi nahi duzula?</string>
     <string name="used_solver">Ebaztailea erabili duzu soluzioa ikusteko!</string>
-    <string name="puzzle_not_solved">Sudoku honek ez du soluziorik.</string>
+    <string name="puzzle_has_no_solution">Sudoku honek ez du soluziorik.</string>
 
-    <string name="hint_confirm">Honek hautatutako gelaxka balio zuzenarekin osatuko du. Jarraitu nahi al duzu?</string>
+    <string name="puzzle_has_multiple_solutions">Hau buru-hausgarriak ez dira baliozkoak, irtenbide ugari dituelako.</string>
+	<string name="puzzle_already_exists">Buru-hausgarriak baliozkoak dira, baina dagoeneko %s karpetan.</string>
+	<string name="hint_confirm">Honek hautatutako gelaxka balio zuzenarekin osatuko du. Jarraitu nahi al duzu?</string>
     <string name="cannot_give_hint">Ezin duzu gelaxka horrentzat pistarik lortu.</string>
 
-    <string name="check_solvability">Egiaztatu ebazgarritasuna</string>
+    <string name="check_validity">Egiaztatu ebazgarritasuna</string>
     <string name="puzzle_solvable">Sudoku honek badu soluzioa.</string>
 
     <string name="copy_from_existing_theme">Kopiatu jada badagoen itxuratik</string>
@@ -314,7 +319,7 @@
     <string name="highlight_similar_notes_summary">Nabarmendu ohar berbera duten gelaxkak</string>
 
     <string name="resume">Berrekin</string>
-    <string name="sudoku_lists">Sudoku zerrenda</string>
+    <string name="puzzle_lists">Sudoku zerrenda</string>
 
     <!-- Strings added/changed in 3.1.0 -->
     <string name="undo_to_before_mistake">Desegin aurreko akatsera</string>
@@ -327,8 +332,8 @@
     <string name="create_from_single_color">Sortu kolore bakarretik</string>
 
     <!-- Strings added/changed in 3.3.0 -->
-    <string name="show_sudoku_lists_on_startup_title">Erakutsi sudoku zerrenda aplikazio hasieran</string>
-    <string name="show_sudoku_lists_on_startup_summary">Erakutsi sudoku zerrenda aplikazio hasieran eta saltatu hasiera-pantaila.</string>
+    <string name="show_puzzle_lists_on_startup_title">Erakutsi sudoku zerrenda aplikazio hasieran</string>
+    <string name="show_puzzle_lists_on_startup_summary">Erakutsi sudoku zerrenda aplikazio hasieran eta saltatu hasiera-pantaila.</string>
     <string name="app_startup_category">Aplikazio hasiera</string>
 
     <!-- Strings added/changed in 3.4.0 -->

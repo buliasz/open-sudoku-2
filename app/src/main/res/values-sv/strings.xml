@@ -19,7 +19,7 @@
 
 <resources>
     <string name="app_name">Open Sudoku 2</string>
-    <string name="edit_sudoku">Redigera sudoku</string>
+    <string name="edit_puzzle">Redigera sudoku</string>
 
     <string name="puzzle_folders">OpenSudoku2 - mappar</string>
 
@@ -35,6 +35,7 @@
     <string name="get_more_puzzles_online">Hämta fler pussel online</string>
 
     <string name="name">Namn:</string>
+    <string name="folder_name_hint">Mappens namn</string>
     <string name="note">Notering:</string>
 
     <string name="select_number">Välj nummer</string>
@@ -63,7 +64,7 @@
 
     <string name="yesterday_at_time">igår, klockan %s</string>
     <string name="on_date">%s</string>
-    <string name="add_sudoku">Lägg till pussel</string>
+    <string name="add_puzzle">Lägg till pussel</string>
     <string name="filter">Filtrera</string>
     <string name="filter_by_game_state">Filtrera på spelstatus</string>
     <string name="folders">Mappar</string>
@@ -86,8 +87,10 @@
     <string name="game_settings">Spelinställningar</string>
 
     <string name="game_helpers">Spelhjälp</string>
-    <string name="highlight_wrong_values">Markera felaktiga nummer</string>
-    <string name="highlight_wrong_values_summary">Markera värden som bryter mot sudokureglerna.</string>
+    <string name="highlight_directly_wrong_values">Markera felaktiga nummer</string>
+    <string name="highlight_directly_wrong_values_summary">Markera värden som bryter mot sudokureglerna.</string>
+	<string name="highlight_indirectly_wrong_values">Markera indirekt felaktiga värden</string>
+    <string name="highlight_indirectly_wrong_values_summary">Markera värden som inte stämmer överens med den slutliga pussellösningen (anteckningar ignoreras).</string>
     <string name="input_methods">Inmatningsläge</string>
     <string name="popup">Popup</string>
     <string name="popup_summary">Redigera nummer och anteckning i en popup.</string>
@@ -197,7 +200,7 @@
     <string name="difficulty_easy">Enkel</string>
 
     <!-- Strings added/changed in 1.1.0 -->
-    <string name="generate_sudoku">Generiere neues Sudoku</string>
+    <string name="generate_puzzle">Generiere neues Sudoku</string>
     <string name="select_difficulty">Schwierigkeit auswählen</string>
     <string name="generating">Generiere Sudoku-Rätsel…</string>
     <string name="current_developers_label">Current Developer</string>
@@ -244,10 +247,12 @@
     <string name="solve_puzzle">Lös pussel</string>
     <string name="solve_puzzle_confirm">Är du säker på att du vill se lösningen?</string>
     <string name="used_solver">Du har använt lösaren för att se lösningen!</string>
-    <string name="puzzle_not_solved">Det här pusslet har ingen lösning.</string>
+    <string name="puzzle_has_no_solution">Det här pusslet har ingen lösning.</string>
+	<string name="puzzle_has_multiple_solutions">Detta är ett ogiltigt pussel eftersom det har flera lösningar.</string>
+    <string name="puzzle_already_exists">Detta pussel är giltigt, men det finns redan i %s-mappen.</string>
     <string name="hint_confirm">Detta kommer att fylla i rätt värde för den valda cellen. Vill du fortsätta?</string>
     <string name="cannot_give_hint">Du kan inte få en ledtråd för den cellen.</string>
-    <string name="check_solvability">Kontrollera lösbarhet</string>
+    <string name="check_validity">Kontrollera lösbarhet</string>
     <string name="puzzle_solvable">Detta pussel har en lösning.</string>
     <string name="copy_from_existing_theme">Kopiera från befintligt tema</string>
     <string name="theme_default">Mörk</string>
@@ -271,14 +276,14 @@
     <string name="highlight_similar_notes">Markera liknande anteckningar</string>
     <string name="highlight_similar_notes_summary">Markera celler med liknande notvärden</string>
     <string name="resume">Återuppta</string>
-    <string name="sudoku_lists">Sudoku listor</string>
+    <string name="puzzle_lists">Sudoku listor</string>
     <string name="undo_to_before_mistake">Ångra till före misstag</string>
     <string name="undo_to_before_mistake_confirm">Är du säker på att du vill ångra alla åtgärder sedan det senaste lösbara tillståndet?</string>
     <string name="remove_notes_title">Ta bort anteckningar vid nummerinmatning</string>
     <string name="remove_notes_summary">Ta automatiskt bort anteckningar från samma kolumn, rad och ruta när du anger ett nummer</string>
     <string name="create_from_single_color">Skapa från enfärgad</string>
-    <string name="show_sudoku_lists_on_startup_title">Visa sudokulistor vid start</string>
-    <string name="show_sudoku_lists_on_startup_summary">Visa sudoku-listorna vid start och hoppa över titelskärmen.</string>
+    <string name="show_puzzle_lists_on_startup_title">Visa sudokulistor vid start</string>
+    <string name="show_puzzle_lists_on_startup_summary">Visa sudoku-listorna vid start och hoppa över titelskärmen.</string>
     <string name="app_startup_category">Appstart</string>
     <string name="sort">Sortera</string>
     <string name="sort_puzzles_by">Sortera pussel efter</string>

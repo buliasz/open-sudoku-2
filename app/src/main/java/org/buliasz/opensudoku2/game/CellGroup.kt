@@ -19,8 +19,7 @@ package org.buliasz.opensudoku2.game
 
 /**
  * Represents group of cells which must each contain unique number.
- *
- * Typical examples of instances are sudoku row, column or sector (3x3 group of cells).
+ * Typical examples of instances are Sudoku row, column or sector (3x3 group of cells).
  */
 class CellGroup {
 	val cells = Array(CellCollection.SUDOKU_SIZE) { Cell() }
@@ -31,12 +30,8 @@ class CellGroup {
 	}
 
 	/**
-	 * Validates numbers in given sudoku group - numbers must be unique. Cells with invalid
-	 * numbers are marked (see [Cell.isValid]).
-	 *
-	 *
-	 * Method expects that cell's invalid properties has been set to false
-	 * ([CellCollection.validate] does this).
+	 * Validates numbers in given Sudoku group - numbers must be unique. Cells with invalid numbers are marked (see [Cell.isValid]).
+	 * Method expects that cell's invalid properties has been set to false ([CellCollection.validate] does this).
 	 *
 	 * @return True if validation is successful.
 	 */

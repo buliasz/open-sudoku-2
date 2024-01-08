@@ -20,6 +20,7 @@ package org.buliasz.opensudoku2.game
 import android.os.Bundle
 import android.os.SystemClock
 import org.buliasz.opensudoku2.db.Names
+import org.buliasz.opensudoku2.game.CellCollection.Companion.SUDOKU_SIZE
 import org.buliasz.opensudoku2.game.command.AbstractCommand
 import org.buliasz.opensudoku2.game.command.ClearAllNotesCommand
 import org.buliasz.opensudoku2.game.command.CommandStack
@@ -197,24 +198,24 @@ class SudokuGame {
 		lastPlayed = Instant.now().epochSecond
 	}
 
-	fun isSolvable(): Boolean = mCells.solution.isNotEmpty()
+	val solutionCount: Int
+		get() = mCells.solutionCount
 
 	/**
 	 * Solves puzzle from original state
 	 */
-	fun solve(): Boolean {
+	fun solve(): Int {
 		mUsedSolver = true
-		if (mCells.solution.isEmpty()) {
-			return false
+		if (mCells.solutionCount != 1) {
+			return mCells.solutionCount
 		}
-		for (rowColVal in mCells.solution) {
-			val row = rowColVal[0]
-			val col = rowColVal[1]
-			val value = rowColVal[2]
-			val cell = mCells.getCell(row, col)
-			setCellValue(cell, value)
+		for (row in 0..<SUDOKU_SIZE) {
+			for (col in 0..<SUDOKU_SIZE) {
+				val cell = mCells.getCell(row, col)
+				setCellValue(cell, cell.solution)
+			}
 		}
-		return true
+		return 1
 	}
 
 	fun usedSolver(): Boolean = mUsedSolver
@@ -223,14 +224,8 @@ class SudokuGame {
 	 * Solves puzzle and fills in correct value for selected cell
 	 */
 	fun solveCell(cell: Cell) {
-		val row = cell.rowIndex
-		val col = cell.columnIndex
-		for (rowColVal in mCells.solution) {
-			if (rowColVal[0] == row && rowColVal[1] == col) {
-				val value = rowColVal[2]
-				setCellValue(cell, value)
-			}
-		}
+		require(mCells.solutionCount == 1) { "This puzzle has " + mCells.solutionCount + " solutions" }
+		setCellValue(cell, cell.solution)
 	}
 
 	/**
@@ -245,8 +240,8 @@ class SudokuGame {
 	 * Resets game.
 	 */
 	fun reset() {
-		for (r in 0..<CellCollection.SUDOKU_SIZE) {
-			for (c in 0..<CellCollection.SUDOKU_SIZE) {
+		for (r in 0..<SUDOKU_SIZE) {
+			for (c in 0..<SUDOKU_SIZE) {
 				val cell = mCells.getCell(r, c)
 				if (cell.isEditable) {
 					cell.value = 0

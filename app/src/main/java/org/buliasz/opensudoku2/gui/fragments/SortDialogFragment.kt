@@ -25,11 +25,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.buliasz.opensudoku2.R
-import org.buliasz.opensudoku2.gui.SudokuListActivity
-import org.buliasz.opensudoku2.gui.SudokuListSorter
+import org.buliasz.opensudoku2.gui.PuzzleListActivity
+import org.buliasz.opensudoku2.gui.PuzzleListSorter
 
 class SortDialogFragment(
-	private var mListSorter: SudokuListSorter,
+	private var mListSorter: PuzzleListSorter,
 	private val settings: SharedPreferences,
 	private val updateList: () -> Unit
 ) :
@@ -45,16 +45,16 @@ class SortDialogFragment(
 			.setPositiveButton(R.string.sort_order_ascending) { _: DialogInterface?, _: Int ->
 				mListSorter.isAscending = (true)
 				settings.edit()
-					.putInt(SudokuListActivity.SORT_TYPE, mListSorter.sortType)
-					.putBoolean(SudokuListActivity.SORT_ORDER, true)
+					.putInt(PuzzleListActivity.SORT_TYPE, mListSorter.sortType)
+					.putBoolean(PuzzleListActivity.SORT_ORDER, true)
 					.apply()
 				updateList()
 			}
 			.setNegativeButton(R.string.sort_order_descending) { _: DialogInterface?, _: Int ->
 				mListSorter.isAscending = (false)
 				settings.edit()
-					.putInt(SudokuListActivity.SORT_TYPE, mListSorter.sortType)
-					.putBoolean(SudokuListActivity.SORT_ORDER, false)
+					.putInt(PuzzleListActivity.SORT_TYPE, mListSorter.sortType)
+					.putBoolean(PuzzleListActivity.SORT_ORDER, false)
 					.apply()
 				updateList()
 			}

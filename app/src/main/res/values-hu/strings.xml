@@ -19,7 +19,7 @@
 
 <resources>
     <string name="app_name">Open Sudoku 2</string>
-    <string name="edit_sudoku">Sudoku szerkesztése</string>
+    <string name="edit_puzzle">Sudoku szerkesztése</string>
 
     <string name="puzzle_folders">OpenSudoku2 feladvány mappák</string>
 
@@ -42,6 +42,7 @@
     <string name="get_more_puzzles_online">Új feladványok letöltése</string>
 
     <string name="name">Név:</string>
+    <string name="folder_name_hint">Mappa neve</string>
     <string name="note">Megjegyzés:</string>
 
     <string name="select_number">Érték</string>
@@ -71,7 +72,7 @@
     <string name="at_time">időpont: %s</string>
     <string name="yesterday_at_time">tegnap %s</string>
     <string name="on_date">%s</string>
-    <string name="add_sudoku">Új feladvány</string>
+    <string name="add_puzzle">Új feladvány</string>
     <string name="filter">Szűrő</string>
     <string name="filter_by_game_state">Állapot szerinti szűrés</string>
     <string name="folders">Mappák</string>
@@ -94,8 +95,10 @@
     <string name="game_settings">Játék beállítások</string>
 
     <string name="game_helpers">Segédletek</string>
-    <string name="highlight_wrong_values">Hibás értékek kiemelése</string>
-    <string name="highlight_wrong_values_summary">A sudoku szabályainak ellentmondó értékek kiemelése.</string>
+    <string name="highlight_directly_wrong_values">Hibás értékek kiemelése</string>
+    <string name="highlight_directly_wrong_values_summary">A sudoku szabályainak ellentmondó értékek kiemelése.</string>
+	<string name="highlight_indirectly_wrong_values">Közvetetten hibás értékek kiemelése</string>
+    <string name="highlight_indirectly_wrong_values_summary">Jelölje ki azokat az értékeket, amelyek nem felelnek meg a végső rejtvénymegoldásnak (a jegyzeteket figyelmen kívül hagyja).</string>
     <string name="input_methods">Beviteli módok</string>
     <string name="popup">Felugró ablak</string>
     <string name="popup_summary">Cella érték és megjegyzés szerkesztése felugró ablakban.</string>
@@ -222,7 +225,7 @@
     <string name="difficulty_easy">Könnyű</string>
 
     <!-- Strings added/changed in 1.1.0 -->
-    <string name="generate_sudoku">Új játék generálása</string>
+    <string name="generate_puzzle">Új játék generálása</string>
     <string name="select_difficulty">Nehézség kiválasztása</string>
     <string name="generating">Játék generálása…</string>
     <string name="show_number_totals">Darabszámok kijelzése</string>
@@ -279,12 +282,14 @@
     <string name="solve_puzzle">Megfejtés</string>
     <string name="solve_puzzle_confirm">Az app megoldja helyetted a feladványt. Biztosan ezt szeretnéd?</string>
     <string name="used_solver">Feladvány megfejtve</string>
-    <string name="puzzle_not_solved">A feladvány nem oldható meg!</string>
+    <string name="puzzle_has_no_solution">A feladvány nem oldható meg!</string>
 
+    <string name="puzzle_has_multiple_solutions">Ez érvénytelen rejtvény, mert több megoldása van.</string>
+    <string name="puzzle_already_exists">Ez a rejtvény érvényes, de már létezik az %s mappában.</string>
     <string name="hint_confirm">A kiválasztott cellában megjelenik a helyes érték. Biztosan ezt szeretnéd?</string>
     <string name="cannot_give_hint">A kiválasztott cellához nem adható segítség.</string>
 
-    <string name="check_solvability">Megoldhatóság tesztelése</string>
+    <string name="check_validity">Megoldhatóság tesztelése</string>
     <string name="puzzle_solvable">A feladvány megoldható!</string>
     <string name="copy_from_existing_theme">Másolás meglévő témából</string>
 
@@ -313,7 +318,7 @@
     <string name="highlight_similar_notes_summary">A kijelöléssel azonos értékű megjegyzéseket (is) tartalmazó cellák kiemelése</string>
 
     <string name="resume">Folytatás</string>
-    <string name="sudoku_lists">Sudoku feladványok</string>
+    <string name="puzzle_lists">Sudoku feladványok</string>
 
     <!-- Strings added/changed in 3.1.0 -->
     <string name="undo_to_before_mistake">Vissza a hiba előtti állapotra</string>
@@ -326,8 +331,8 @@
     <string name="create_from_single_color">Létrehozás egyetlen kiválasztott színből</string>
 
     <!-- Strings added/changed in 3.3.0 -->
-    <string name="show_sudoku_lists_on_startup_title">Sudoku feladvány-lista megjelenítése</string>
-    <string name="show_sudoku_lists_on_startup_summary">Kezdőképernyő átugrása, a feladvány-lista mutatása</string>
+    <string name="show_puzzle_lists_on_startup_title">Sudoku feladvány-lista megjelenítése</string>
+    <string name="show_puzzle_lists_on_startup_summary">Kezdőképernyő átugrása, a feladvány-lista mutatása</string>
     <string name="app_startup_category">Kezdőképernyő</string>
 
     <!-- Strings added/changed in 3.4.0 -->

@@ -19,7 +19,7 @@
 
 <resources>
     <string name="app_name">开源数独</string>
-    <string name="edit_sudoku">编辑数独</string>
+    <string name="edit_puzzle">编辑数独</string>
 
     <string name="puzzle_folders">开源数独谜题集</string>
 
@@ -47,6 +47,7 @@
     <string name="get_more_puzzles_online">从线上获取更多谜题</string>
 
     <string name="name">名称：</string>
+    <string name="folder_name_hint">文件夹名称</string>
     <string name="note">笔记：</string>
 
     <string name="select_number">选择数字</string>
@@ -76,7 +77,7 @@
     <string name="at_time">"%s"</string>
     <string name="yesterday_at_time">昨天 %s</string>
     <string name="on_date">"%s"</string>
-    <string name="add_sudoku">添加数独</string>
+    <string name="add_puzzle">添加数独</string>
     <string name="filter">过滤</string>
     <string name="filter_by_game_state">按游戏状态过滤</string>
     <string name="folders">分类</string>
@@ -99,8 +100,10 @@
     <string name="game_settings">游戏设置</string>
 
     <string name="game_helpers">游戏帮助</string>
-    <string name="highlight_wrong_values">高亮错误值</string>
-    <string name="highlight_wrong_values_summary">高亮违反数独规则的值。</string>
+    <string name="highlight_directly_wrong_values">高亮错误值</string>
+    <string name="highlight_directly_wrong_values_summary">高亮违反数独规则的值。</string>
+	<string name="highlight_indirectly_wrong_values">突出显示间接错误的值</string>
+    <string name="highlight_indirectly_wrong_values_summary">突出显示与最终谜题解决方案不匹配的值（忽略注释）。</string>
     <string name="input_methods">输入模式</string>
     <string name="popup">弹框</string>
     <string name="popup_summary">在弹框编辑格子的值和笔记。</string>
@@ -225,7 +228,7 @@
     <string name="difficulty_easy">简单</string>
 
     <!-- Strings added/changed in 1.1.0 -->
-    <string name="generate_sudoku">生成新游戏</string>
+    <string name="generate_puzzle">生成新游戏</string>
     <string name="select_difficulty">选择难度</string>
     <string name="generating">生成谜题…</string>
     <string name="show_number_totals">显示数字总数</string>
@@ -282,12 +285,14 @@
     <string name="solve_puzzle">解决谜题</string>
     <string name="solve_puzzle_confirm">你确定想看这个解法？</string>
     <string name="used_solver">你使用了求解器看这个解法！</string>
-    <string name="puzzle_not_solved">这个谜题没有解法。</string>
+    <string name="puzzle_has_no_solution">这个谜题没有解法。</string>
 
-    <string name="hint_confirm">将为所选格子填写正确的值。你想继续吗？</string>
+    <string name="puzzle_has_multiple_solutions">这是无效的谜题，因为它有多种解决方案。</string>
+	<string name="puzzle_already_exists">这个谜题是有效的，但它已经存在于 %s 文件夹中。</string>
+	<string name="hint_confirm">将为所选格子填写正确的值。你想继续吗？</string>
     <string name="cannot_give_hint">无法获得这个格子的提示。</string>
 
-    <string name="check_solvability">检查可解性</string>
+    <string name="check_validity">检查可解性</string>
     <string name="puzzle_solvable">这个谜题有一个解法。</string>
 
     <string name="copy_from_existing_theme">从已存在的主题复制</string>
@@ -317,7 +322,7 @@
     <string name="highlight_similar_notes_summary">高亮相似笔记值的</string>
 
     <string name="resume">恢复</string>
-    <string name="sudoku_lists">数独列表</string>
+    <string name="puzzle_lists">数独列表</string>
 
     <!-- Strings added/changed in 3.1.0 -->
     <string name="undo_to_before_mistake">撤销到错误之前</string>
@@ -330,8 +335,8 @@
     <string name="create_from_single_color">从单色创建</string>
 
     <!-- Strings added/changed in 3.3.0 -->
-    <string name="show_sudoku_lists_on_startup_summary">在启动时显示数独列表，并跳过标题屏幕。</string>
-    <string name="show_sudoku_lists_on_startup_title">在启动时显示数独列表</string>
+    <string name="show_puzzle_lists_on_startup_summary">在启动时显示数独列表，并跳过标题屏幕。</string>
+    <string name="show_puzzle_lists_on_startup_title">在启动时显示数独列表</string>
     <string name="app_startup_category">应用启动</string>
 
     <!-- Strings added/changed in 3.4.0 -->

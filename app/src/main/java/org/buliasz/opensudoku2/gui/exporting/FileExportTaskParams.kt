@@ -27,9 +27,9 @@ class FileExportTaskParams {
 	var folderId: Long? = null
 
 	/**
-	 * Id of sudoku puzzle to export.
+	 * Id of the puzzle to export.
 	 */
-	var gameId: Long? = null
+	var puzzleId: Long? = null
 
 	/**
 	 * File where data should be saved.
