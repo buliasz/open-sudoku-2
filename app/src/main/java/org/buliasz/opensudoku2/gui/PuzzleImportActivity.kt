@@ -20,6 +20,7 @@ package org.buliasz.opensudoku2.gui
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
@@ -84,7 +85,12 @@ class PuzzleImportActivity : ThemedActivity() {
 		val dataUri: Uri? = if (action == null) {
 			intent.data
 		} else if (action.equals("android.intent.action.SEND", ignoreCase = true)) {
-			intent.extras!![Intent.EXTRA_STREAM] as Uri?
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+				intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
+			} else {
+				@Suppress("DEPRECATION")
+				intent.extras!![Intent.EXTRA_STREAM] as Uri?
+			}
 		} else if (action.equals("android.intent.action.VIEW", ignoreCase = true)) {
 			intent.data
 		} else {

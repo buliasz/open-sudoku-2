@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ This file is part of Open Sudoku 2 - an open-source Sudoku game.
   ~ Copyright (C) 2009-2023 by original authors.
   ~
@@ -18,280 +17,277 @@
   -->
 
 <resources>
-    <string name="app_name">Open Sudoku 2</string>
-    <string name="edit_puzzle">Sudoku\'yu düzenle</string>
+	<string name="app_name">Open Sudoku 2</string>
+	<string name="edit_puzzle">Sudoku\'yu düzenle</string>
 
-    <string name="puzzle_folders">OpenSudoku2 bulmaca dosyaları</string>
+	<string name="version">Versiyon %s</string>
 
-    <string name="version">Versiyon %s</string>
+	<string name="send_me_bugs">
+		Eğer bir hata ile karşılaşırsan, bu hatayı bana bildirmek veya gidermek için benimle iletişime geçmekten çekinme. Bunun için mail atabilir veya proje
+		sayfasını kullanabilirsin.
+	</string>
 
-    <string name="send_me_bugs">
-        Eğer bir hata ile karşılaşırsan, bu hatayı bana bildirmek veya gidermek için benimle iletişime geçmekten çekinme. Bunun için mail atabilir veya proje sayfasını kullanabilirsin.
-    </string>
-
-    <string name="current_developers_label">Şimdiki Geliştirici</string>
+	<string name="current_developers_label">Şimdiki Geliştirici</string>
 
 
-    <string name="old_developers_label">Eski Geliştirici</string>
+	<string name="old_developers_label">Eski Geliştirici</string>
 
-    <string name="localization_contributors_label">Çeviri İçin Katkı Yapanlar</string>
+	<string name="localization_contributors_label">Çeviri İçin Katkı Yapanlar</string>
 
-    <string name="close">Kapat</string>
-    <string name="clear">Temizle</string>
-    <string name="save">Kaydet</string>
+	<string name="close">Kapat</string>
+	<string name="clear">Temizle</string>
+	<string name="save">Kaydet</string>
 
-    <string name="get_more_puzzles_online">Daha fazla puzzle edin</string>
+	<string name="get_more_puzzles_online">Daha fazla puzzle edin</string>
 
-    <string name="name">İsim:</string>
-    <string name="folder_name_hint">Klasör adı</string>
-    <string name="note">Not:</string>
+	<string name="name">İsim:</string>
+	<string name="note">Not:</string>
 
-    <string name="select_number">Rakam Seç</string>
-    <string name="edit_note">Notu Düzenle</string>
+	<string name="edit_note">Notu Düzenle</string>
 
-    <string name="add_folder">Klasör Ekle</string>
-    <string name="import_file">İçeri Aktar</string>
-    <string name="import_file_title">Dosyayı İçeri Aktar %s</string>
-    <string name="about">Hakkında</string>
-    <string name="error">Hata</string>
-    <string name="rename_folder">Klasörün İsmini Değiştir</string>
-    <string name="delete_folder">Klasörü Sil</string>
-    <string name="rename_folder_title">Yeni İsim Ver %s</string>
-    <string name="delete_folder_title">Sil %s</string>
-    <string name="delete_folder_confirm">Klasörü silmek istediğinize emin misiniz?</string>
-    <string name="n_puzzles">%d Sudoku</string>
-    <string name="all_solved">Hepsi çözüldü</string>
-    <string name="n_solved">%s çözüldü</string>
-    <string name="n_unsolved">%d çözülmedi</string>
-    <string name="n_playing">%d oynanıyor</string>
+	<string name="add_folder">Klasör Ekle</string>
+	<string name="import_file">İçeri Aktar</string>
+	<string name="about">Hakkında</string>
+	<string name="error">Hata</string>
+	<string name="rename_folder">Klasörün İsmini Değiştir</string>
+	<string name="delete_folder">Klasörü Sil</string>
+	<string name="rename_folder_title">Yeni İsim Ver %s</string>
+	<string name="delete_folder_title">Sil %s</string>
+	<string name="delete_folder_confirm">Klasörü silmek istediğinize emin misiniz?</string>
+	<string name="n_puzzles">%d Sudoku</string>
+	<string name="all_solved">Hepsi çözüldü</string>
+	<string name="n_unsolved">%d çözülmedi</string>
+	<string name="n_playing">%d oynanıyor</string>
 
-    <string name="solved">Çözüldü</string>
-    <string name="playing">Oynanıyor</string>
-    <string name="not_started">Başlamadı</string>
-    <string name="last_played_at">Son oynanma %s</string>
-    <string name="created_at">Oluşturuldu %s</string>
-    <string name="at_time">%s</string>
-    <string name="yesterday_at_time">Dün %s</string>
-    <string name="on_date">%s</string>
-    <string name="add_puzzle">Sudoku Ekle</string>
-    <string name="filter">Filtre</string>
-    <string name="filter_by_game_state">Seçeneklere göre filtrele</string>
-    <string name="folders">Klasörler</string>
-    <string name="delete_puzzle_confirm">Bulmacayı silmek istediğine emin misin?</string>
-    <string name="reset_puzzle_confirm">Bulmacayı yeniden başlatmak istediğine emin misin?</string>
-    <string name="play_puzzle">Bulmacayı Oyna</string>
-    <string name="reset_puzzle">Bulmacayı Sıfırla</string>
-    <string name="delete_puzzle">Bulmacayı Sil</string>
-    <string name="filter_active">Filtrelendi: %s</string>
+	<string name="solved">Çözüldü</string>
+	<string name="playing">Oynanıyor</string>
+	<string name="not_started">Başlamadı</string>
+	<string name="last_played_at">Son oynanma %s</string>
+	<string name="created_at">Oluşturuldu %s</string>
+	<string name="at_time">%s</string>
+	<string name="yesterday_at_time">Dün %s</string>
+	<string name="on_date">%s</string>
+	<string name="add_puzzle">Sudoku Ekle</string>
+	<string name="filter">Filtre</string>
+	<string name="filter_by_game_state">Seçeneklere göre filtrele</string>
+	<string name="folders">Klasörler</string>
+	<string name="delete_puzzle_confirm">Bulmacayı silmek istediğine emin misin?</string>
+	<string name="reset_puzzle_confirm">Bulmacayı yeniden başlatmak istediğine emin misin?</string>
+	<string name="play_puzzle">Bulmacayı Oyna</string>
+	<string name="reset_puzzle">Bulmacayı Sıfırla</string>
+	<string name="delete_puzzle">Bulmacayı Sil</string>
+	<string name="filter_active">Filtrelendi: %s</string>
 
-    <string name="undo">Geri Al</string>
-    <string name="clear_all_notes">Tüm Notları Sil</string>
-    <string name="fill_in_notes">Not İle Doldur</string>
-    <string name="restart">Baştan Başla</string>
-    <string name="congrats">Tebrikler, bulmacayı çözdüğün süre %s</string>
-    <string name="restart_confirm">Bulmacayı sıfırlamak istediğine emin misin?</string>
-    <string name="well_done">Tebrikler!</string>
-    <string name="clear_all_notes_confirm">Tüm notları silmek istediğine emin misin?</string>
-    <string name="settings">Seçenekler</string>
-    <string name="game_settings">Oyun Seçenekleri</string>
+	<string name="undo">Geri Al</string>
+	<string name="clear_all_notes">Tüm Notları Sil</string>
+	<string name="fill_in_notes">Not İle Doldur</string>
+	<string name="restart">Baştan Başla</string>
+	<string name="congrats">Tebrikler, bulmacayı çözdüğün süre %s</string>
+	<string name="restart_confirm">Bulmacayı sıfırlamak istediğine emin misin?</string>
+	<string name="well_done">Tebrikler!</string>
+	<string name="clear_all_notes_confirm">Tüm notları silmek istediğine emin misin?</string>
+	<string name="settings">Seçenekler</string>
+	<string name="game_settings">Oyun Seçenekleri</string>
 
-    <string name="game_helpers">Oyun Yardımcısı</string>
-    <string name="highlight_directly_wrong_values">Hatalı Rakamlar</string>
-    <string name="highlight_directly_wrong_values_summary">Sudoku kurallarına uymayan rakamları gösterir.</string>
+	<string name="game_helpers">Oyun Yardımcısı</string>
+	<string name="highlight_directly_wrong_values">Hatalı Rakamlar</string>
+	<string name="highlight_directly_wrong_values_summary">Sudoku kurallarına uymayan rakamları gösterir.</string>
 	<string name="highlight_indirectly_wrong_values">Dolaylı olarak yanlış değerleri vurgulama</string>
-    <string name="highlight_indirectly_wrong_values_summary">Son bulmaca çözümüyle eşleşmeyen değerleri vurgulayın (notlar dikkate alınmaz).</string>
-    <string name="input_methods">Doldurma Seçenekleri</string>
-    <string name="popup">Açılır Pencere</string>
-    <string name="popup_summary">Rakamları açılır pencere ile gir.</string>
-    <string name="single_number">Seçili Rakam</string>
-    <string name="single_number_summary">Bir rakam seçin ve yerleştirmek istediğiniz kutuları tıklayın.</string>
-    <string name="numpad">Rakam Tablosu</string>
-    <string name="numpad_summary">Kutuyu seçin ve yerleştirmek istediğiniz rakamı seçin.</string>
-    <string name="numpad_move_right">Sağ Tarafa Kaydır</string>
-    <string name="numpad_move_right_summary">Bir rakam girdikten sonra seçili hücreyi sağa kaydırır.
-    </string>
+	<string name="highlight_indirectly_wrong_values_summary">Son bulmaca çözümüyle eşleşmeyen değerleri vurgulayın (notlar dikkate alınmaz).</string>
+	<string name="input_methods">Doldurma Seçenekleri</string>
+	<string name="popup">Açılır Pencere</string>
+	<string name="popup_summary">Rakamları açılır pencere ile gir.</string>
+	<string name="single_number">Seçili Rakam</string>
+	<string name="single_number_summary">Bir rakam seçin ve yerleştirmek istediğiniz kutuları tıklayın.</string>
+	<string name="numpad">Rakam Tablosu</string>
+	<string name="numpad_summary">Kutuyu seçin ve yerleştirmek istediğiniz rakamı seçin.</string>
+	<string name="numpad_move_right">Sağ Tarafa Kaydır</string>
+	<string name="numpad_move_right_summary">Bir rakam girdikten sonra seçili hücreyi sağa kaydırır.
+	</string>
 
-    <string name="numpad_abbr">Rak\nTab</string>
-    <string name="popup_abbr">AP</string>
-    <string name="single_number_abbr">SR</string>
-    <string name="welcome">Hoşgeldin</string>
-    <string name="hint">İpucu</string>
-    <string name="help">Yardım</string>
-    <string name="that_is_all">Hazırsın!</string>
-
-
-    <string name="first_run_hint">Bulmacaları doldurmak için kullanabileceğin birkaç seçeneğin mevcut. Bunlara aşina olman için bazı ipuçları var. \n\nİstersen oyun ayarlarından ipuçlarını kapatabilirsin.\n</string>
-    <string name="im_popup_hint">Şuan <i>Açılır Pencere</i> seçeneğini kullanıyorsun. Bir kutu seç ve düzenle.\n\nSağ altta bulunan butona tıklayarak farklı bir seçenek kullanabilirsin.\n</string>
-    <string name="im_single_number_hint">Şuan <i>Seçili Rakam</i> seçeneğini kullanıyorsun. Bir rakam seç ve yerleştirmek istediğin kutulara tıkla.\n\n<i>Kalem</i> butonuna tıklayarak seçili rakamı istediğin kutuya not olarak girebilirsin.\n</string>
-    <string name="im_numpad_hint">Şuan <i>Rakam Tablosu</i> seçeneğini kullanıyorsun. Rakam girmek istediğin kutuyu seç ve sonra istediğin rakamı seç.\n\n<i>Kalem</i> butonuna tıklayarak seçtiğin kutuya not olarak rakam ekleyebilirsin.\n</string>
-    <string name="im_disable_modes_hint">Bütün doldurma seçeneklerini kullanmak zorunda değilsin. İstediğin zaman oyun ayarlarından bunları açıp kapatabileceğini unutma.\n\nAyrıca klavye ve trackball kullanarak rakam girebilirsin. Eğer klavye ile not ekleyeceksen alt veya shift tuşu ile birlikte istediğin rakama bas.\n
-    </string>
-    <string name="help_text"><b>Klavye Kontrolü</b>\n\nTrackball yardımı ile değiştirmek istediğin kutunun üstüne gel ve klavyeden rakamı gir. Eğer not girmek istersen kutunun üzerine gelip alt veya shift tuşuyla birlikte rakama basarak not girebilirsin.\n\n<b>Doldurma Seçenekleri</b>\n\nEkranın sağ alt köşesinde bulunan buton yardımıyla kullanmak istediğin seçeneği seçebilirsin. Ayrıca oyun ayarlarından kullanmak istemedikleri kaldırabilirsin.\n\n<b>Açılır Pencere Seçeneği</b>\n\nAçılır pencere yardımı ile kutuları doldurabilir, ayrıca bu pencere yardımı ile notlarını da girebilirsin.\n\n<b>Seçili Rakam Seçeneği</b>\n\nBir rakam seç ve eklemek istediğin kutulara tıklayarak buralara rakamı ekle.\n\n<i>Kalem</i> butonunu kullanarak not ekleme özelliğini açıp kapatabilirsin\n\n<b>Rakam Tablosu Seçeneği</b>\n\nKutuyu seç ve eklemek istediğin rakama tıkla.\n\n <i>Kalem</i> butonunu kullanarak not ekleme özelliğini açıp kapatabilirsin.\n
-    </string>
+	<string name="numpad_abbr">Rak\nTab</string>
+	<string name="popup_abbr">AP</string>
+	<string name="single_number_abbr">SR</string>
+	<string name="welcome">Hoşgeldin</string>
+	<string name="hint">İpucu</string>
+	<string name="help">Yardım</string>
+	<string name="that_is_all">Hazırsın!</string>
 
 
-    <string name="game">Oyun</string>
-    <string name="show_hints">İlk Başlangıç İpuçları</string>
-    <string name="show_hints_summary">Öğretici ipuçlarını gösterir.</string>
-    <string name="show_time">Oyun Süresi</string>
-    <string name="show_time_summary">Oyun süresini göster.</string>
+	<string name="first_run_hint">Bulmacaları doldurmak için kullanabileceğin birkaç seçeneğin mevcut. Bunlara aşina olman için bazı ipuçları var. \n\nİstersen
+		oyun ayarlarından ipuçlarını kapatabilirsin.\n
+	</string>
+	<string name="im_popup_hint">Şuan <i>Açılır Pencere</i> seçeneğini kullanıyorsun. Bir kutu seç ve düzenle.\n\nSağ altta bulunan butona tıklayarak farklı bir
+		seçenek kullanabilirsin.\n
+	</string>
+	<string name="im_single_number_hint">Şuan <i>Seçili Rakam</i> seçeneğini kullanıyorsun. Bir rakam seç ve yerleştirmek istediğin kutulara tıkla.\n\n<i>
+		Kalem
+	</i> butonuna tıklayarak seçili rakamı istediğin kutuya not olarak girebilirsin.\n
+	</string>
+	<string name="im_numpad_hint">Şuan <i>Rakam Tablosu</i> seçeneğini kullanıyorsun. Rakam girmek istediğin kutuyu seç ve sonra istediğin rakamı seç.\n\n<i>
+		Kalem
+	</i> butonuna tıklayarak seçtiğin kutuya not olarak rakam ekleyebilirsin.\n
+	</string>
+	<string name="im_disable_modes_hint">Bütün doldurma seçeneklerini kullanmak zorunda değilsin. İstediğin zaman oyun ayarlarından bunları açıp
+		kapatabileceğini unutma.\n\nAyrıca klavye ve trackball kullanarak rakam girebilirsin. Eğer klavye ile not ekleyeceksen alt veya shift tuşu ile birlikte
+		istediğin rakama bas.\n
+	</string>
+	<string name="help_text"><b>Klavye Kontrolü</b>\n\nTrackball yardımı ile değiştirmek istediğin kutunun üstüne gel ve klavyeden rakamı gir. Eğer not girmek
+		istersen kutunun üzerine gelip alt veya shift tuşuyla birlikte rakama basarak not girebilirsin.\n\n<b>Doldurma Seçenekleri</b>\n\nEkranın sağ alt
+		köşesinde bulunan buton yardımıyla kullanmak istediğin seçeneği seçebilirsin. Ayrıca oyun ayarlarından kullanmak istemedikleri kaldırabilirsin.\n\n<b>
+			Açılır Pencere Seçeneği</b>\n\nAçılır pencere yardımı ile kutuları doldurabilir, ayrıca bu pencere yardımı ile notlarını da girebilirsin.\n\n<b>
+			Seçili Rakam Seçeneği</b>\n\nBir rakam seç ve eklemek istediğin kutulara tıklayarak buralara rakamı ekle.\n\n<i>Kalem</i> butonunu kullanarak not
+		ekleme özelliğini açıp kapatabilirsin\n\n<b>Rakam Tablosu Seçeneği</b>\n\nKutuyu seç ve eklemek istediğin rakama tıkla.\n\n <i>Kalem</i> butonunu
+		kullanarak not ekleme özelliğini açıp kapatabilirsin.\n
+	</string>
 
-    <string name="puzzle_inserted">Yeni bulmaca kaydedildi.</string>
-    <string name="puzzle_updated">Bulmaca güncellendi.</string>
 
-    <string name="puzzles_saved">Bulmacalar %s klasörüne kaydedildi.</string>
-    <string name="no_puzzles_found">Bulmaca bulunamadı.</string>
-    <string name="unknown_import_error">Bulmacalar içeri aktarılırken bilinmeyen bir hata oluştu. Aktarım iptal edildi.</string>
-    <string name="invalid_format">Bilinmeyen format. İçeri aktarma iptal edildi.</string>
+	<string name="game">Oyun</string>
+	<string name="show_hints">İlk Başlangıç İpuçları</string>
+	<string name="show_hints_summary">Öğretici ipuçlarını gösterir.</string>
+	<string name="show_time">Oyun Süresi</string>
+	<string name="show_time_summary">Oyun süresini göster.</string>
 
-    <!-- Strings added in 0.7.0 -->
-    <string name="loading">Yükleniyor…</string>
+	<string name="puzzle_inserted">Yeni bulmaca kaydedildi.</string>
+	<string name="puzzle_updated">Bulmaca güncellendi.</string>
 
-    <!-- Strings added/changed in 0.7.1 -->
-    <string name="more_settings">Daha Fazla Seçenek</string>
-    <string name="screen_border_size">Oyun Genişliği</string>
-    <string name="screen_border_size_summary">Bazı ekranlarda kenarlar tepki vermeyebiliyor. Bu seçenek bu soruna yardımcı olabilir.
-    </string>
-    <string name="highlight_touched_cell">Seçilen Kutuyu Göster</string>
-    <string name="highlight_touched_cell_summary">Seçilen kutunun satır ve sutunu belirginleşir.</string>
-    <string name="export">Dışarı Aktar</string>
-    <string name="export_folder">Klasörü Dışarı Aktar</string>
-    <string name="export_all_folders">Klasörleri Dışarı Aktar</string>
-    <string name="folders_created">%d klasör içeri aktarıldı.</string>
-    <string name="importing">Bulmacalar içeri aktarılıyor…</string>
-    <string name="exporting">Bulmacalar dışarı aktarılıyor…</string>
-    <string name="unknown_export_error">Bulmacalar dışarı aktarılırken bilinmeyen bir hata oluştu.</string>
-    <string name="highlight_completed_values">Tamamlanan Rakamları Göster</string>
-    <string name="highlight_completed_values_summary">9 defa kullanılan rakamları gösterir.</string>
-    <string name="theme">Tema</string>
-    <string name="theme_summary">Bulmaca tahtası için bir tema seçin.</string>
-    <string name="select_theme">Tema Seç</string>
-    <string name="filename">Dosya Adı</string>
-    <string name="directory">Hedef</string>
-    <string name="sdcard_not_found">SD kart bulunamadı.</string>
-    <string name="puzzles_have_been_exported">Bulmacalar dışarı aktarıldı: %s</string>
-    <string name="file_exists">Dosya zaten mevcut, üzerine yazılsın mı?</string>
-    <!-- localization of default folder names -->
-    <string name="difficulty_hard">Zor</string>
-    <string name="difficulty_medium">Orta</string>
-    <string name="difficulty_easy">Kolay</string>
+	<string name="puzzles_saved">Bulmacalar %s klasörüne kaydedildi.</string>
+	<string name="no_puzzles_found">Bulmaca bulunamadı.</string>
+	<string name="unknown_import_error">Bulmacalar içeri aktarılırken bilinmeyen bir hata oluştu. Aktarım iptal edildi.</string>
+	<string name="invalid_format">Bilinmeyen format. İçeri aktarma iptal edildi.</string>
 
-    <!-- Strings added/changed in 1.1.0 -->
-    <string name="generate_puzzle">Sudodu Oluştur</string>
-    <string name="select_difficulty">Zorluk Seç</string>
-    <string name="generating">Bulmaca oluşturuluyor…</string>
-    <string name="show_number_totals">Yerleştirilen Rakam Sayısı</string>
-    <string name="show_number_totals_summary">Rakamların kaçar defa yerleştirildiğini gösterir.</string>
-    <string name="what_is_new">Yenilikler</string>
 
-    <!-- Strings added/changed in 1.1.1 -->
-    <string name="fill_in_notes_summary">Menüye \'Not İle Doldur\' seçeneği ekler.</string>
+	<string name="screen_border_size">Oyun Genişliği</string>
+	<string name="screen_border_size_summary">Bazı ekranlarda kenarlar tepki vermeyebiliyor. Bu seçenek bu soruna yardımcı olabilir.
+	</string>
+	<string name="highlight_touched_cell">Seçilen Kutuyu Göster</string>
+	<string name="highlight_touched_cell_summary">Seçilen kutunun satır ve sutunu belirginleşir.</string>
+	<string name="export">Dışarı Aktar</string>
+	<string name="export_folder">Klasörü Dışarı Aktar</string>
+	<string name="export_all_folders">Klasörleri Dışarı Aktar</string>
+	<string name="folders_created">%d klasör içeri aktarıldı.</string>
+	<string name="importing">Bulmacalar içeri aktarılıyor…</string>
+	<string name="exporting">Bulmacalar dışarı aktarılıyor…</string>
+	<string name="unknown_export_error">Bulmacalar dışarı aktarılırken bilinmeyen bir hata oluştu.</string>
+	<string name="highlight_completed_values">Tamamlanan Rakamları Göster</string>
+	<string name="highlight_completed_values_summary">9 defa kullanılan rakamları gösterir.</string>
+	<string name="theme">Tema</string>
+	<string name="select_theme">Tema Seç</string>
+	<string name="puzzles_have_been_exported">Bulmacalar dışarı aktarıldı: %s</string>
+	<!-- localization of default folder names -->
+	<string name="difficulty_hard">Zor</string>
+	<string name="difficulty_medium">Orta</string>
+	<string name="difficulty_easy">Kolay</string>
 
-    <!-- Strings added/changed in 1.1.2 -->
-    <string name="set_checkpoint">Kayıt Noktası Oluştur</string>
-    <string name="undo_to_checkpoint">Kayıt Noktasına Dön</string>
-    <string name="undo_to_checkpoint_confirm">Kayıt noktasına kadar yaptığın hamleleri geri almak istediğine emin misin?</string>
-    <string name="highlight_similar_cells">Highlight similar cells</string>
-    <string name="highlight_similar_cells_summary">Highlight cells with similar values</string>
-    <string name="contributors_label">Contributors</string>
-    <string name="bidirectional_selection">Bidirectional selection</string>
-    <string name="bidirectional_selection_summary">In single number input panel, the selection of a non editable cell automatically selects the corresponding button and vice versa.</string>
+	<string name="show_number_totals">Yerleştirilen Rakam Sayısı</string>
+	<string name="show_number_totals_summary">Rakamların kaçar defa yerleştirildiğini gösterir.</string>
+	<string name="what_is_new">Yenilikler</string>
 
-    <!-- Strings added/changed in 2.5.0 -->
+	<string name="fill_in_notes_summary">Menüye \'Not İle Doldur\' seçeneği ekler.</string>
 
-    <string name="theme_paper">Kâğıt</string>
-    <string name="theme_graph_paper">Grafik kağıdı</string>
-    <string name="theme_light">Işık</string>
-    <string name="theme_paper_light">Kâğıt Işığı</string>
-    <string name="theme_graph_paper_light">Graph Paper Light</string>
-    <string name="theme_high_contrast">Yüksek kontrast</string>
-    <string name="theme_inverted_high_contrast">Inverted High Contrast</string>
-    <string name="theme_custom">Custom Theme</string>
+	<string name="set_checkpoint">Kayıt Noktası Oluştur</string>
+	<string name="undo_to_checkpoint">Kayıt Noktasına Dön</string>
+	<string name="undo_to_checkpoint_confirm">Kayıt noktasına kadar yaptığın hamleleri geri almak istediğine emin misin?</string>
+	<string name="highlight_similar_cells">Highlight similar cells</string>
+	<string name="highlight_similar_cells_summary">Highlight cells with similar values</string>
+	<string name="contributors_label">Contributors</string>
+	<string name="bidirectional_selection">Bidirectional selection</string>
+	<string name="bidirectional_selection_summary">In single number input panel, the selection of a non editable cell automatically selects the corresponding
+		button and vice versa.
+	</string>
 
-    <string name="screen_custom_theme">Custom Theme colors</string>
-    <string name="screen_custom_theme_summary_disabled">Choose \"Custom Theme\" in \"Theme\" setting above to enable this section.</string>
 
-    <string name="default_lineColor">Line</string>
+	<string name="theme_paper">Kâğıt</string>
+	<string name="theme_graph_paper">Grafik kağıdı</string>
+	<string name="theme_light">Işık</string>
+	<string name="theme_paper_light">Kâğıt Işığı</string>
+	<string name="theme_graph_paper_light">Graph Paper Light</string>
+	<string name="theme_high_contrast">Yüksek kontrast</string>
+	<string name="theme_inverted_high_contrast">Inverted High Contrast</string>
+	<string name="theme_custom">Custom Theme</string>
 
-    <string name="default_sectorLineColor">Sector line</string>
+	<string name="screen_custom_theme">Custom Theme colors</string>
+	<string name="screen_custom_theme_summary_disabled">Choose \"Custom Theme\" in \"Theme\" setting above to enable this section.</string>
 
-    <string name="default_textColor">Text</string>
+	<string name="default_lineColor">Line</string>
 
-    <string name="default_textColorNote">Note text</string>
+	<string name="default_sectorLineColor">Sector line</string>
 
-    <string name="default_backgroundColor">Primary background</string>
-    <string name="solve_puzzle">Bulmaca çözmek</string>
-    <string name="solve_puzzle_confirm">Çözümü görmek istediğinizden emin misiniz?</string>
-    <string name="used_solver">Çözümü görmek için çözücüyü kullandınız!</string>
-    <string name="puzzle_has_no_solution">Bu bulmacanın çözümü yok.</string>
+	<string name="default_textColor">Text</string>
+
+	<string name="default_textColorNote">Note text</string>
+
+	<string name="default_backgroundColor">Primary background</string>
+	<string name="solve_puzzle">Bulmaca çözmek</string>
+	<string name="solve_puzzle_confirm">Çözümü görmek istediğinizden emin misiniz?</string>
+	<string name="used_solver">Çözümü görmek için çözücüyü kullandınız!</string>
+	<string name="puzzle_has_no_solution">Bu bulmacanın çözümü yok.</string>
 	<string name="puzzle_has_multiple_solutions">Bu geçersiz bir bulmaca çünkü birden fazla çözümü var.</string>
-    <string name="puzzle_already_exists">Bu bulmaca geçerlidir, ancak %s klasöründe zaten var.</string>
-    <string name="hint_confirm">Bu, seçilen hücre için doğru değeri dolduracaktır. Devam etmek istiyor musun?</string>
-    <string name="cannot_give_hint">O hücreye dair ipucu alamazsınız.</string>
-    <string name="check_validity">Çözülebilirliği Kontrol Edin</string>
-    <string name="puzzle_solvable">Bu bulmacanın bir çözümü var.</string>
-    <string name="copy_from_existing_theme">Mevcut temadan kopyala</string>
-    <string name="theme_default">Karanlık</string>
-    <string name="theme_latte">Karamelli Latte</string>
-    <string name="theme_espresso">Espresso</string>
-    <string name="theme_sunrise">Gündoğumu</string>
-    <string name="theme_honeybee">Balarısı</string>
-    <string name="theme_crystal">Kristal</string>
-    <string name="theme_midnight_blue">Gece yarısı mavisi</string>
-    <string name="theme_emerald">Zümrüt</string>
-    <string name="theme_forest">Orman</string>
-    <string name="theme_amethyst">Ametist</string>
-    <string name="theme_ruby">Yakut</string>
-    <string name="is_light_theme_title">Işık teması</string>
-    <string name="is_light_theme_summary">Uygulama renklerinin açık temaya mı yoksa koyu temaya mı dayalı olduğunu değiştirin.</string>
-    <string name="app_color_primary_title">Birincil uygulama Rengi</string>
-    <string name="app_color_primary_summary">Durum çubuğu, düğmeler, renklendirme</string>
-    <string name="app_color_accent_title">Vurgu Rengi</string>
-    <string name="app_color_accent_summary">Anahtarlar ve diğer widget\'lar</string>
-    <string name="highlight_similar_notes">Benzer notları vurgulayın</string>
-    <string name="highlight_similar_notes_summary">Benzer not değerlerine sahip hücreleri vurgulayın</string>
-    <string name="resume">Sürdürmek</string>
-    <string name="puzzle_lists">Sudoku Listeleri</string>
-    <string name="undo_to_before_mistake">Hatadan önceki işlemi geri al</string>
-    <string name="undo_to_before_mistake_confirm">Son çözülebilir durumdan bu yana yapılan tüm eylemleri geri almak istediğinizden emin misiniz?</string>
-    <string name="remove_notes_title">Numara girişindeki notları kaldırın</string>
-    <string name="remove_notes_summary">Sayı girerken aynı sütun, satır ve kutudaki notları otomatik olarak kaldırın</string>
-    <string name="create_from_single_color">Tek renkten oluştur</string>
-    <string name="show_puzzle_lists_on_startup_title">Başlangıçta sudoku listelerini göster</string>
-    <string name="show_puzzle_lists_on_startup_summary">Başlangıçta sudoku listelerini gösterin ve başlık ekranını atlayın.</string>
-    <string name="app_startup_category">Uygulama Başlatma</string>
-    <string name="sort">Düzenlemek</string>
-    <string name="sort_puzzles_by">Bulmacaları şuna göre sırala:</string>
-    <string name="sort_creation_date">Oluşturulma tarihi</string>
-    <string name="sort_play_time">Oyun zamanı</string>
-    <string name="sort_last_played">Son çalınan</string>
-    <string name="pasted_from_clipboard">Panodan yapıştırıldı</string>
-    <string name="copied_to_clipboard">Panoya kopyalandı</string>
-    <string name="invalid_puzzle_format">Geçersiz bulmaca biçimi</string>
-    <string name="invalid_mime_type">Geçersiz MIME türü, lütfen pano içeriğinizi kontrol edin</string>
-    <string name="reset_all_puzzles">Hepsini sıfırla</string>
-    <string name="reset_all_puzzles_confirm">Bu klasördeki tüm bulmacaları sıfırlamak istediğinizden emin misiniz?</string>
-    <string name="fill_all_notes">Notları tüm değerlerle doldurun</string>
-    <string name="press_color_to_apply">Uygulamak için Renk\'e basın</string>
-    <string name="dark_mode_title">Arayüz Modu</string>
-    <string name="dark_mode_light">Işık modu</string>
-    <string name="dark_mode_dark">Karanlık mod</string>
-    <string name="dark_mode_system">Sistemin açık/karanlık modunu kullanma</string>
-    <string name="disabled_by_theme">Seçilen tema modu belirler</string>
-    <string name="use_dynamic_color">Dinamik renk kullan</string>
-    <string name="use_dynamic_color_summary">Duvar kağıdınızdaki renkleri kullanın</string>
-    <string name="theme_custom_light">Özel Tema Işığı</string>
-    <string name="pref_border_title">Hücre sınırları</string>
-    <string name="pref_border_summary">Hücrelerin ve 3x3 kutuların etrafındaki kenarlık renkleri</string>
-    <string name="pref_touched_title">Dokunulan hücreler</string>
-    <string name="pref_touched_summary">Seçim çaprazındaki hücreler</string>
-    <string name="pref_selected_title">Seçilen hücre</string>
-    <string name="pref_selected_summary">Seçilen hücrenin odak göstergesi</string>
-    <string name="pref_highlighted_title">Vurgulandı</string>
-    <string name="pref_highlighted_summary">Seçilen hücreyle aynı hücreler</string>
-    <string name="pref_error_title">Geçersiz değerler</string>
-    <string name="pref_error_summary">Geçersiz değerler içeren hücreler</string>
-    <string name="pref_even_title">Çift kutular</string>
-    <string name="pref_even_summary">Çift sayılı 3x3 kutulardaki hücreler</string>
+	<string name="puzzle_already_exists">Bu bulmaca geçerlidir, ancak %s klasöründe zaten var.</string>
+	<string name="hint_confirm">Bu, seçilen hücre için doğru değeri dolduracaktır. Devam etmek istiyor musun?</string>
+	<string name="cannot_give_hint">O hücreye dair ipucu alamazsınız.</string>
+	<string name="check_validity">Çözülebilirliği Kontrol Edin</string>
+	<string name="puzzle_solvable">Bu bulmacanın bir çözümü var.</string>
+	<string name="copy_from_existing_theme">Mevcut temadan kopyala</string>
+	<string name="theme_default">Karanlık</string>
+	<string name="theme_latte">Karamelli Latte</string>
+	<string name="theme_espresso">Espresso</string>
+	<string name="theme_sunrise">Gündoğumu</string>
+	<string name="theme_honeybee">Balarısı</string>
+	<string name="theme_crystal">Kristal</string>
+	<string name="theme_midnight_blue">Gece yarısı mavisi</string>
+	<string name="theme_emerald">Zümrüt</string>
+	<string name="theme_forest">Orman</string>
+	<string name="theme_amethyst">Ametist</string>
+	<string name="theme_ruby">Yakut</string>
+	<string name="app_color_primary_title">Birincil uygulama Rengi</string>
+	<string name="app_color_primary_summary">Durum çubuğu, düğmeler, renklendirme</string>
+	<string name="app_color_accent_title">Vurgu Rengi</string>
+	<string name="app_color_accent_summary">Anahtarlar ve diğer widget\'lar</string>
+	<string name="highlight_similar_notes">Benzer notları vurgulayın</string>
+	<string name="highlight_similar_notes_summary">Benzer not değerlerine sahip hücreleri vurgulayın</string>
+	<string name="resume">Sürdürmek</string>
+	<string name="puzzle_lists">Sudoku Listeleri</string>
+	<string name="undo_to_before_mistake">Hatadan önceki işlemi geri al</string>
+	<string name="undo_to_before_mistake_confirm">Son çözülebilir durumdan bu yana yapılan tüm eylemleri geri almak istediğinizden emin misiniz?</string>
+	<string name="remove_notes_title">Numara girişindeki notları kaldırın</string>
+	<string name="remove_notes_summary">Sayı girerken aynı sütun, satır ve kutudaki notları otomatik olarak kaldırın</string>
+	<string name="create_from_single_color">Tek renkten oluştur</string>
+	<string name="show_puzzle_lists_on_startup_title">Başlangıçta sudoku listelerini göster</string>
+	<string name="show_puzzle_lists_on_startup_summary">Başlangıçta sudoku listelerini gösterin ve başlık ekranını atlayın.</string>
+	<string name="app_startup_category">Uygulama Başlatma</string>
+	<string name="sort">Düzenlemek</string>
+	<string name="sort_puzzles_by">Bulmacaları şuna göre sırala:</string>
+	<string name="sort_creation_date">Oluşturulma tarihi</string>
+	<string name="sort_play_time">Oyun zamanı</string>
+	<string name="sort_last_played">Son çalınan</string>
+	<string name="pasted_from_clipboard">Panodan yapıştırıldı</string>
+	<string name="copied_to_clipboard">Panoya kopyalandı</string>
+	<string name="invalid_puzzle_format">Geçersiz bulmaca biçimi</string>
+	<string name="invalid_mime_type">Geçersiz MIME türü, lütfen pano içeriğinizi kontrol edin</string>
+	<string name="reset_all_puzzles">Hepsini sıfırla</string>
+	<string name="reset_all_puzzles_confirm">Bu klasördeki tüm bulmacaları sıfırlamak istediğinizden emin misiniz?</string>
+	<string name="fill_all_notes">Notları tüm değerlerle doldurun</string>
+	<string name="press_color_to_apply">Uygulamak için Renk\'e basın</string>
+	<string name="dark_mode_title">Arayüz Modu</string>
+	<string name="dark_mode_light">Işık modu</string>
+	<string name="dark_mode_dark">Karanlık mod</string>
+	<string name="dark_mode_system">Sistemin açık/karanlık modunu kullanma</string>
+	<string name="disabled_by_theme">Seçilen tema modu belirler</string>
+	<string name="use_dynamic_color">Dinamik renk kullan</string>
+	<string name="use_dynamic_color_summary">Duvar kağıdınızdaki renkleri kullanın</string>
+	<string name="theme_custom_light">Özel Tema Işığı</string>
+	<string name="pref_border_title">Hücre sınırları</string>
+	<string name="pref_border_summary">Hücrelerin ve 3x3 kutuların etrafındaki kenarlık renkleri</string>
+	<string name="pref_touched_title">Dokunulan hücreler</string>
+	<string name="pref_touched_summary">Seçim çaprazındaki hücreler</string>
+	<string name="pref_selected_title">Seçilen hücre</string>
+	<string name="pref_selected_summary">Seçilen hücrenin odak göstergesi</string>
+	<string name="pref_highlighted_title">Vurgulandı</string>
+	<string name="pref_highlighted_summary">Seçilen hücreyle aynı hücreler</string>
+	<string name="pref_error_title">Geçersiz değerler</string>
+	<string name="pref_error_summary">Geçersiz değerler içeren hücreler</string>
+	<string name="pref_even_title">Çift kutular</string>
+	<string name="pref_even_summary">Çift sayılı 3x3 kutulardaki hücreler</string>
 
 </resources>

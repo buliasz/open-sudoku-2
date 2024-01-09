@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ This file is part of Open Sudoku 2 - an open-source Sudoku game.
   ~ Copyright (C) 2009-2023 by original authors.
   ~
@@ -18,122 +17,119 @@
   -->
 
 <resources>
-    <string name="app_name">Open Sudoku 2</string>
-    <string name="edit_puzzle">Redigera sudoku</string>
+	<string name="app_name">Open Sudoku 2</string>
+	<string name="edit_puzzle">Redigera sudoku</string>
 
-    <string name="puzzle_folders">OpenSudoku2 - mappar</string>
-
-    <string name="version">Version: %s</string>
-    <string name="send_me_bugs">Om du stöter på en bugg du vill ha fixad eller har några förslag, tveka inte att
+	<string name="version">Version: %s</string>
+	<string name="send_me_bugs">Om du stöter på en bugg du vill ha fixad eller har några förslag, tveka inte att
 		kontakta oss via e-post eller använd ärendehanteringssystemet på projektets hemsida.
 	</string>
 
-    <string name="close">Stäng</string>
-    <string name="clear">Töm</string>
-    <string name="save">Spara</string>
+	<string name="close">Stäng</string>
+	<string name="clear">Töm</string>
+	<string name="save">Spara</string>
 
-    <string name="get_more_puzzles_online">Hämta fler pussel online</string>
+	<string name="get_more_puzzles_online">Hämta fler pussel online</string>
 
-    <string name="name">Namn:</string>
-    <string name="folder_name_hint">Mappens namn</string>
-    <string name="note">Notering:</string>
+	<string name="name">Namn:</string>
+	<string name="note">Notering:</string>
 
-    <string name="select_number">Välj nummer</string>
-    <string name="edit_note">Välj notering</string>
+	<string name="edit_note">Välj notering</string>
 
-    <string name="add_folder">Lägg till mapp</string>
-    <string name="about">Om</string>
-    <string name="error">Fel</string>
-    <string name="rename_folder">Döp om mapp</string>
-    <string name="delete_folder">Ta bort mapp</string>
-    <string name="rename_folder_title">Döp om %s</string>
-    <string name="delete_folder_title">Ta bort %s</string>
-    <string name="delete_folder_confirm">Är du säker på att du vill ta bort den här mappen?</string>
-    <string name="n_puzzles">%d Sudoku</string>
-    <string name="all_solved">alla lösta</string>
-    <string name="n_solved">%s lösta</string>
-    <string name="n_unsolved">%d ej lösta</string>
-    <string name="n_playing">%d påbörjade</string>
+	<string name="add_folder">Lägg till mapp</string>
+	<string name="about">Om</string>
+	<string name="error">Fel</string>
+	<string name="rename_folder">Döp om mapp</string>
+	<string name="delete_folder">Ta bort mapp</string>
+	<string name="rename_folder_title">Döp om %s</string>
+	<string name="delete_folder_title">Ta bort %s</string>
+	<string name="delete_folder_confirm">Är du säker på att du vill ta bort den här mappen?</string>
+	<string name="n_puzzles">%d Sudoku</string>
+	<string name="all_solved">alla lösta</string>
+	<string name="n_unsolved">%d ej lösta</string>
+	<string name="n_playing">%d påbörjade</string>
 
-    <string name="solved">Löst</string>
-    <string name="playing">Påbörjad</string>
-    <string name="not_started">Ej påbörjad</string>
-    <string name="last_played_at">Senast spelad %s</string>
-    <string name="created_at">Skapad %s</string>
-    <string name="at_time">klockan %s</string>
+	<string name="solved">Löst</string>
+	<string name="playing">Påbörjad</string>
+	<string name="not_started">Ej påbörjad</string>
+	<string name="last_played_at">Senast spelad %s</string>
+	<string name="created_at">Skapad %s</string>
+	<string name="at_time">klockan %s</string>
 
-    <string name="yesterday_at_time">igår, klockan %s</string>
-    <string name="on_date">%s</string>
-    <string name="add_puzzle">Lägg till pussel</string>
-    <string name="filter">Filtrera</string>
-    <string name="filter_by_game_state">Filtrera på spelstatus</string>
-    <string name="folders">Mappar</string>
-    <string name="delete_puzzle_confirm">Är du säker på att du vill ta bort det markerade pusslet?</string>
-    <string name="reset_puzzle_confirm">Är du säker på att du vill återställa det markerade pusslet?</string>
-    <string name="play_puzzle">Påbörja det här pusslet</string>
-    <string name="reset_puzzle">Återställ pussel</string>
-    <string name="delete_puzzle">Ta bort pussel</string>
-    <string name="filter_active">Filtrerade: %s</string>
+	<string name="yesterday_at_time">igår, klockan %s</string>
+	<string name="on_date">%s</string>
+	<string name="add_puzzle">Lägg till pussel</string>
+	<string name="filter">Filtrera</string>
+	<string name="filter_by_game_state">Filtrera på spelstatus</string>
+	<string name="folders">Mappar</string>
+	<string name="delete_puzzle_confirm">Är du säker på att du vill ta bort det markerade pusslet?</string>
+	<string name="reset_puzzle_confirm">Är du säker på att du vill återställa det markerade pusslet?</string>
+	<string name="play_puzzle">Påbörja det här pusslet</string>
+	<string name="reset_puzzle">Återställ pussel</string>
+	<string name="delete_puzzle">Ta bort pussel</string>
+	<string name="filter_active">Filtrerade: %s</string>
 
-    <string name="undo">Ångra</string>
-    <string name="clear_all_notes">Ta bort alla anteckningar</string>
-    <string name="fill_in_notes">Fyll i anteckningar</string>
-    <string name="restart">Starta om</string>
-    <string name="congrats">Grattis, du har löst pusslet på %s.</string>
-    <string name="restart_confirm">Är du säker på att du vill starta om det här spelet?</string>
-    <string name="well_done">Bra gjort!</string>
-    <string name="clear_all_notes_confirm">Är du säker på att du vill ta bort alla anteckningar?</string>
-    <string name="settings">Inställningar</string>
-    <string name="game_settings">Spelinställningar</string>
+	<string name="undo">Ångra</string>
+	<string name="clear_all_notes">Ta bort alla anteckningar</string>
+	<string name="fill_in_notes">Fyll i anteckningar</string>
+	<string name="restart">Starta om</string>
+	<string name="congrats">Grattis, du har löst pusslet på %s.</string>
+	<string name="restart_confirm">Är du säker på att du vill starta om det här spelet?</string>
+	<string name="well_done">Bra gjort!</string>
+	<string name="clear_all_notes_confirm">Är du säker på att du vill ta bort alla anteckningar?</string>
+	<string name="settings">Inställningar</string>
+	<string name="game_settings">Spelinställningar</string>
 
-    <string name="game_helpers">Spelhjälp</string>
-    <string name="highlight_directly_wrong_values">Markera felaktiga nummer</string>
-    <string name="highlight_directly_wrong_values_summary">Markera värden som bryter mot sudokureglerna.</string>
+	<string name="game_helpers">Spelhjälp</string>
+	<string name="highlight_directly_wrong_values">Markera felaktiga nummer</string>
+	<string name="highlight_directly_wrong_values_summary">Markera värden som bryter mot sudokureglerna.</string>
 	<string name="highlight_indirectly_wrong_values">Markera indirekt felaktiga värden</string>
-    <string name="highlight_indirectly_wrong_values_summary">Markera värden som inte stämmer överens med den slutliga pussellösningen (anteckningar ignoreras).</string>
-    <string name="input_methods">Inmatningsläge</string>
-    <string name="popup">Popup</string>
-    <string name="popup_summary">Redigera nummer och anteckning i en popup.</string>
-    <string name="single_number">Enkelt nummer</string>
-    <string name="single_number_summary">Välj nummer, sen klickar du på en ruta för att sätta nummret eller
+	<string name="highlight_indirectly_wrong_values_summary">Markera värden som inte stämmer överens med den slutliga pussellösningen (anteckningar
+		ignoreras).
+	</string>
+	<string name="input_methods">Inmatningsläge</string>
+	<string name="popup">Popup</string>
+	<string name="popup_summary">Redigera nummer och anteckning i en popup.</string>
+	<string name="single_number">Enkelt nummer</string>
+	<string name="single_number_summary">Välj nummer, sen klickar du på en ruta för att sätta nummret eller
 		anteckningen.
 	</string>
-    <string name="numpad">Numeriskt tangentbord</string>
-    <string name="numpad_summary">Visa det numeriska tangentbordet.</string>
-    <string name="numpad_move_right">Flytta automatiskt</string>
-    <string name="numpad_move_right_summary">Flytta till nästa nummer automatiskt.</string>
+	<string name="numpad">Numeriskt tangentbord</string>
+	<string name="numpad_summary">Visa det numeriska tangentbordet.</string>
+	<string name="numpad_move_right">Flytta automatiskt</string>
+	<string name="numpad_move_right_summary">Flytta till nästa nummer automatiskt.</string>
 
-    <string name="numpad_abbr">Num\ntgb</string>
-    <string name="popup_abbr">Pop</string>
-    <string name="single_number_abbr">Enk\nnum</string>
-    <string name="welcome">Välkommen</string>
-    <string name="hint">Antydan</string>
-    <string name="help">Hjälp</string>
-    <string name="that_is_all">Det är allt!</string>
+	<string name="numpad_abbr">Num\ntgb</string>
+	<string name="popup_abbr">Pop</string>
+	<string name="single_number_abbr">Enk\nnum</string>
+	<string name="welcome">Välkommen</string>
+	<string name="hint">Antydan</string>
+	<string name="help">Hjälp</string>
+	<string name="that_is_all">Det är allt!</string>
 
 
-    <string name="first_run_hint">Det finns fler sätt att mata in nummer, för att hjälpa dig komma igång kommer vi visa
+	<string name="first_run_hint">Det finns fler sätt att mata in nummer, för att hjälpa dig komma igång kommer vi visa
 		hjälptexter medans du går igenom alla sätten.\n\nDu kan stänga av dessa hjälptexter i spelinställningarna.\n
 	</string>
-    <string name="im_popup_hint">Du är nu i läget<i>Popup</i>. Klicka på en av rutorna för att välja nummer.\n\nNotera
+	<string name="im_popup_hint">Du är nu i läget<i>Popup</i>. Klicka på en av rutorna för att välja nummer.\n\nNotera
 		knappen nere i högra hörnet, den används för att växla till nästa inmatningssätt.\n
 	</string>
-    <string name="im_single_number_hint">Du är nu i läget<i>Enkelt nummer</i>. Först väljer du nummer genom att klicka
+	<string name="im_single_number_hint">Du är nu i läget<i>Enkelt nummer</i>. Först väljer du nummer genom att klicka
 		på respektive knapp nedan, sen klickar du på den ruta du vill använda nummret.\n\nTryck på
 		<i>Penn-knappen</i>
 		för att växla mellan anteckningsläge och skrivläge.\n
 	</string>
-    <string name="im_numpad_hint">Du är nu i läget<i>Numeriskt tangentbord</i>. Knapparna fungerar som ett vanligt
+	<string name="im_numpad_hint">Du är nu i läget<i>Numeriskt tangentbord</i>. Knapparna fungerar som ett vanligt
 		numeriskt tangentbord. \n\nTryck på
 		<i>Penn-knappen</i>
 		för att växla mellan anteckningsläge och skrivläge.\n
 	</string>
-    <string name="im_disable_modes_hint">Kom ihåg att du inte behöver använda alla inmatningssätt, du kan stänga av de
+	<string name="im_disable_modes_hint">Kom ihåg att du inte behöver använda alla inmatningssätt, du kan stänga av de
 		du inte vill använda i spelinställningarna.\n\nDu kan också använda tangentbordet och rullhjulet för att styra
 		spelet, om du vill anteckna nummer håller du nere shift- eller alt-knappen samtidigt som du trycker på
 		nummerknappen.\n
 	</string>
-    <string name="help_text"><b>Tangentbordsinmatning</b>\n\nAnvänd rull-hjulet för att navigera till den önskade rutan
+	<string name="help_text"><b>Tangentbordsinmatning</b>\n\nAnvänd rull-hjulet för att navigera till den önskade rutan
 		och klicka på nummret på tangentbordet för att fylla i värdet. Om du vill anteckna ett nummer håller du nere
 		shift eller alt samtidigt som du matar in nummret.\n\n<b>Inmatningssätt</b>\n\nDu kan välja mellan fler olika
 		inmatningssätt genom att klicka på knappen längst ner till höger på skärmen. Du kan också stänga av de
@@ -149,173 +145,158 @@
 	</string>
 
 
-    <string name="game">Spelomgång</string>
-    <string name="show_hints">Kom igång</string>
-    <string name="show_hints_summary">Visa hjälp som guidar dig igenom spelet.</string>
-    <string name="show_time">Visa tid</string>
-    <string name="show_time_summary">Visa förbrukad tid i spelet.</string>
+	<string name="game">Spelomgång</string>
+	<string name="show_hints">Kom igång</string>
+	<string name="show_hints_summary">Visa hjälp som guidar dig igenom spelet.</string>
+	<string name="show_time">Visa tid</string>
+	<string name="show_time_summary">Visa förbrukad tid i spelet.</string>
 
-    <string name="puzzle_inserted">Nya pussel har sparats.</string>
-    <string name="puzzle_updated">Pusslet har uppdaterats.</string>
+	<string name="puzzle_inserted">Nya pussel har sparats.</string>
+	<string name="puzzle_updated">Pusslet har uppdaterats.</string>
 
-    <string name="puzzles_saved">Pusslen har sparats till mappen \'%s\'.</string>
+	<string name="puzzles_saved">Pusslen har sparats till mappen \'%s\'.</string>
 
-    <string name="no_puzzles_found">Inga pussel hittades.</string>
-    <string name="unknown_import_error">Ett okänt fel inträffade under inläsningen av pussel, inläsningen avbröts.
+	<string name="no_puzzles_found">Inga pussel hittades.</string>
+	<string name="unknown_import_error">Ett okänt fel inträffade under inläsningen av pussel, inläsningen avbröts.
 	</string>
-    <string name="invalid_format">Felaktigt format, inläsningen avbröts.</string>
+	<string name="invalid_format">Felaktigt format, inläsningen avbröts.</string>
 
-    <!-- Strings added in 0.7.0 -->
-    <string name="loading">Laddar…</string>
 
-    <!-- Strings added/changed in 0.7.1 -->
-    <string name="more_settings">Fler inställningar</string>
-    <string name="screen_border_size">Storlek på skärmkant</string>
-    <string name="screen_border_size_summary">Vissa pekskärmar reagerar inte närmast kanterna, Den här inställningen kan
+	<string name="screen_border_size">Storlek på skärmkant</string>
+	<string name="screen_border_size_summary">Vissa pekskärmar reagerar inte närmast kanterna, Den här inställningen kan
 		hjälpa till att motverka detta.
 	</string>
-    <string name="highlight_touched_cell">Markera ruta vid tryck</string>
-    <string name="highlight_touched_cell_summary">Indikera raden och kolumnen för den ruta som precis tryckts ner.
+	<string name="highlight_touched_cell">Markera ruta vid tryck</string>
+	<string name="highlight_touched_cell_summary">Indikera raden och kolumnen för den ruta som precis tryckts ner.
 	</string>
-    <string name="export">Exportera</string>
-    <string name="export_folder">Exportera mapp</string>
-    <string name="export_all_folders">Exportera alla mappar</string>
-    <string name="folders_created">%d mappar har importerats.</string>
-    <string name="importing">Importerar pussel…</string>
-    <string name="exporting">Exporterar pussel…</string>
-    <string name="unknown_export_error">Okänt fel uppstod vid pusselexport.</string>
-    <string name="highlight_completed_values">Markera färdiga nummer</string>
-    <string name="highlight_completed_values_summary">Markera de nummer som använts 9 gånger.</string>
-    <string name="theme">Tema</string>
-    <string name="theme_summary">Välj färgschema för spelplanen/pusslet.</string>
-    <string name="select_theme">Välj tema</string>
-    <string name="filename">Filnamn</string>
-    <string name="directory">Mapp</string>
-    <string name="sdcard_not_found">SD-kort kunde inte hittas.</string>
-    <string name="puzzles_have_been_exported">Pusslen har exporterats till %s.</string>
-    <string name="file_exists">Filen finns redan, vill du skriva över den?</string>
-    <!-- localization of default folder names -->
-    <string name="difficulty_hard">Svår</string>
-    <string name="difficulty_medium">Mellan</string>
-    <string name="difficulty_easy">Enkel</string>
+	<string name="export">Exportera</string>
+	<string name="export_folder">Exportera mapp</string>
+	<string name="export_all_folders">Exportera alla mappar</string>
+	<string name="folders_created">%d mappar har importerats.</string>
+	<string name="importing">Importerar pussel…</string>
+	<string name="exporting">Exporterar pussel…</string>
+	<string name="unknown_export_error">Okänt fel uppstod vid pusselexport.</string>
+	<string name="highlight_completed_values">Markera färdiga nummer</string>
+	<string name="highlight_completed_values_summary">Markera de nummer som använts 9 gånger.</string>
+	<string name="theme">Tema</string>
+	<string name="select_theme">Välj tema</string>
+	<string name="puzzles_have_been_exported">Pusslen har exporterats till %s.</string>
+	<!-- localization of default folder names -->
+	<string name="difficulty_hard">Svår</string>
+	<string name="difficulty_medium">Mellan</string>
+	<string name="difficulty_easy">Enkel</string>
 
-    <!-- Strings added/changed in 1.1.0 -->
-    <string name="generate_puzzle">Generiere neues Sudoku</string>
-    <string name="select_difficulty">Schwierigkeit auswählen</string>
-    <string name="generating">Generiere Sudoku-Rätsel…</string>
-    <string name="current_developers_label">Current Developer</string>
-    <string name="fill_in_notes_summary">Enable "Fill in notes" menu item.</string>
-    <string name="import_file">Import</string>
-    <string name="import_file_title">Import file %s</string>
-    <string name="localization_contributors_label">Localization Contributors</string>
-    <string name="old_developers_label">Old Developers</string>
-    <string name="set_checkpoint">Set checkpoint</string>
-    <string name="show_number_totals">Show Number Totals</string>
-    <string name="show_number_totals_summary">Displays count of each number placed.</string>
-    <string name="undo_to_checkpoint">Undo to checkpoint</string>
-    <string name="undo_to_checkpoint_confirm">Are you sure you want to undo all actions since last checkpoint?</string>
-    <string name="what_is_new">What\'s new</string>
-    <string name="highlight_similar_cells">Highlight similar cells</string>
-    <string name="highlight_similar_cells_summary">Highlight cells with similar values</string>
-    <string name="contributors_label">Contributors</string>
-    <string name="bidirectional_selection">Bidirectional selection</string>
-    <string name="bidirectional_selection_summary">In single number input panel, the selection of a non editable cell automatically selects the corresponding button and vice versa.</string>
+	<string name="current_developers_label">Current Developer</string>
+	<string name="fill_in_notes_summary">Enable "Fill in notes" menu item.</string>
+	<string name="import_file">Import</string>
+	<string name="localization_contributors_label">Localization Contributors</string>
+	<string name="old_developers_label">Old Developers</string>
+	<string name="set_checkpoint">Set checkpoint</string>
+	<string name="show_number_totals">Show Number Totals</string>
+	<string name="show_number_totals_summary">Displays count of each number placed.</string>
+	<string name="undo_to_checkpoint">Undo to checkpoint</string>
+	<string name="undo_to_checkpoint_confirm">Are you sure you want to undo all actions since last checkpoint?</string>
+	<string name="what_is_new">What\'s new</string>
+	<string name="highlight_similar_cells">Highlight similar cells</string>
+	<string name="highlight_similar_cells_summary">Highlight cells with similar values</string>
+	<string name="contributors_label">Contributors</string>
+	<string name="bidirectional_selection">Bidirectional selection</string>
+	<string name="bidirectional_selection_summary">In single number input panel, the selection of a non editable cell automatically selects the corresponding
+		button and vice versa.
+	</string>
 
-    <!-- Strings added/changed in 2.5.0 -->
 
-    <string name="theme_paper">Paper</string>
-    <string name="theme_graph_paper">Graph Paper</string>
-    <string name="theme_light">Light</string>
-    <string name="theme_paper_light">Paper Light</string>
-    <string name="theme_graph_paper_light">Graph Paper Light</string>
-    <string name="theme_high_contrast">High Contrast</string>
-    <string name="theme_inverted_high_contrast">Inverted High Contrast</string>
-    <string name="theme_custom">Custom Theme</string>
+	<string name="theme_paper">Paper</string>
+	<string name="theme_graph_paper">Graph Paper</string>
+	<string name="theme_light">Light</string>
+	<string name="theme_paper_light">Paper Light</string>
+	<string name="theme_graph_paper_light">Graph Paper Light</string>
+	<string name="theme_high_contrast">High Contrast</string>
+	<string name="theme_inverted_high_contrast">Inverted High Contrast</string>
+	<string name="theme_custom">Custom Theme</string>
 
-    <string name="screen_custom_theme">Custom Theme colors</string>
-    <string name="screen_custom_theme_summary_disabled">Choose \"Custom Theme\" in \"Theme\" setting above to enable this section.</string>
+	<string name="screen_custom_theme">Custom Theme colors</string>
+	<string name="screen_custom_theme_summary_disabled">Choose \"Custom Theme\" in \"Theme\" setting above to enable this section.</string>
 
-    <string name="default_lineColor">Line</string>
+	<string name="default_lineColor">Line</string>
 
-    <string name="default_sectorLineColor">Sector line</string>
+	<string name="default_sectorLineColor">Sector line</string>
 
-    <string name="default_textColor">Text</string>
+	<string name="default_textColor">Text</string>
 
-    <string name="default_textColorNote">Note text</string>
+	<string name="default_textColorNote">Note text</string>
 
-    <string name="default_backgroundColor">Primary background</string>
-    <string name="solve_puzzle">Lös pussel</string>
-    <string name="solve_puzzle_confirm">Är du säker på att du vill se lösningen?</string>
-    <string name="used_solver">Du har använt lösaren för att se lösningen!</string>
-    <string name="puzzle_has_no_solution">Det här pusslet har ingen lösning.</string>
+	<string name="default_backgroundColor">Primary background</string>
+	<string name="solve_puzzle">Lös pussel</string>
+	<string name="solve_puzzle_confirm">Är du säker på att du vill se lösningen?</string>
+	<string name="used_solver">Du har använt lösaren för att se lösningen!</string>
+	<string name="puzzle_has_no_solution">Det här pusslet har ingen lösning.</string>
 	<string name="puzzle_has_multiple_solutions">Detta är ett ogiltigt pussel eftersom det har flera lösningar.</string>
-    <string name="puzzle_already_exists">Detta pussel är giltigt, men det finns redan i %s-mappen.</string>
-    <string name="hint_confirm">Detta kommer att fylla i rätt värde för den valda cellen. Vill du fortsätta?</string>
-    <string name="cannot_give_hint">Du kan inte få en ledtråd för den cellen.</string>
-    <string name="check_validity">Kontrollera lösbarhet</string>
-    <string name="puzzle_solvable">Detta pussel har en lösning.</string>
-    <string name="copy_from_existing_theme">Kopiera från befintligt tema</string>
-    <string name="theme_default">Mörk</string>
-    <string name="theme_latte">Caramel Latte</string>
-    <string name="theme_espresso">Espresso</string>
-    <string name="theme_sunrise">Soluppgång</string>
-    <string name="theme_honeybee">Honungsbi</string>
-    <string name="theme_crystal">Kristall</string>
-    <string name="theme_midnight_blue">Midnattsblå</string>
-    <string name="dark_mode_title">Gränssnittsläge</string>
-    <string name="theme_emerald">Smaragd</string>
-    <string name="theme_forest">Skog</string>
-    <string name="theme_amethyst">Ametist</string>
-    <string name="theme_ruby">Rubin</string>
-    <string name="is_light_theme_title">Lätt tema</string>
-    <string name="is_light_theme_summary">Ändra om appens färger är baserade på det ljusa eller mörka temat.</string>
-    <string name="app_color_primary_title">Primär app Färg</string>
-    <string name="app_color_primary_summary">Statusfält, knappar, toning</string>
-    <string name="app_color_accent_title">Accentfärg</string>
-    <string name="app_color_accent_summary">Switchar och andra widgets</string>
-    <string name="highlight_similar_notes">Markera liknande anteckningar</string>
-    <string name="highlight_similar_notes_summary">Markera celler med liknande notvärden</string>
-    <string name="resume">Återuppta</string>
-    <string name="puzzle_lists">Sudoku listor</string>
-    <string name="undo_to_before_mistake">Ångra till före misstag</string>
-    <string name="undo_to_before_mistake_confirm">Är du säker på att du vill ångra alla åtgärder sedan det senaste lösbara tillståndet?</string>
-    <string name="remove_notes_title">Ta bort anteckningar vid nummerinmatning</string>
-    <string name="remove_notes_summary">Ta automatiskt bort anteckningar från samma kolumn, rad och ruta när du anger ett nummer</string>
-    <string name="create_from_single_color">Skapa från enfärgad</string>
-    <string name="show_puzzle_lists_on_startup_title">Visa sudokulistor vid start</string>
-    <string name="show_puzzle_lists_on_startup_summary">Visa sudoku-listorna vid start och hoppa över titelskärmen.</string>
-    <string name="app_startup_category">Appstart</string>
-    <string name="sort">Sortera</string>
-    <string name="sort_puzzles_by">Sortera pussel efter</string>
-    <string name="sort_creation_date">Skapelsedagen</string>
-    <string name="sort_play_time">Speltid</string>
-    <string name="sort_last_played">Senast spelade</string>
-    <string name="pasted_from_clipboard">Klistras in från urklipp</string>
-    <string name="copied_to_clipboard">Kopierade till urklipp</string>
-    <string name="invalid_puzzle_format">Ogiltigt pusselformat</string>
-    <string name="invalid_mime_type">Ogiltig MIME-typ, kontrollera innehållet i ditt urklipp</string>
-    <string name="reset_all_puzzles">Återställ allt</string>
-    <string name="reset_all_puzzles_confirm">Är du säker på att du vill återställa alla pussel i den här mappen?</string>
-    <string name="fill_all_notes">Fyll i anteckningar med alla värden</string>
-    <string name="press_color_to_apply">Tryck på Färg för att tillämpa</string>
-    <string name="dark_mode_light">Ljust läge</string>
-    <string name="dark_mode_dark">Mörkt läge</string>
-    <string name="dark_mode_system">Använd systemets ljusa/mörka läge</string>
-    <string name="disabled_by_theme">Valt tema ställer in läget</string>
-    <string name="use_dynamic_color">Använd dynamisk färg</string>
-    <string name="use_dynamic_color_summary">Använd färger från din tapet</string>
-    <string name="theme_custom_light">Anpassat ljustema</string>
-    <string name="pref_border_title">Cellkantlinjer</string>
-    <string name="pref_border_summary">Kantfärger runt celler och 3x3-rutor</string>
-    <string name="pref_touched_title">Vidrörda celler</string>
-    <string name="pref_touched_summary">Celler i markeringen korsar</string>
-    <string name="pref_selected_title">Markerad cell</string>
-    <string name="pref_selected_summary">Den markerade cellens fokusindikator</string>
-    <string name="pref_highlighted_title">Markerat</string>
-    <string name="pref_highlighted_summary">Celler som är identiska med den markerade cellen</string>
-    <string name="pref_error_title">Ogiltiga värden</string>
-    <string name="pref_error_summary">Celler som innehåller ogiltiga värden</string>
-    <string name="pref_even_title">Jämna celler</string>
-    <string name="pref_even_summary">Celler i jämna 3x3-rutor</string>
+	<string name="puzzle_already_exists">Detta pussel är giltigt, men det finns redan i %s-mappen.</string>
+	<string name="hint_confirm">Detta kommer att fylla i rätt värde för den valda cellen. Vill du fortsätta?</string>
+	<string name="cannot_give_hint">Du kan inte få en ledtråd för den cellen.</string>
+	<string name="check_validity">Kontrollera lösbarhet</string>
+	<string name="puzzle_solvable">Detta pussel har en lösning.</string>
+	<string name="copy_from_existing_theme">Kopiera från befintligt tema</string>
+	<string name="theme_default">Mörk</string>
+	<string name="theme_latte">Caramel Latte</string>
+	<string name="theme_espresso">Espresso</string>
+	<string name="theme_sunrise">Soluppgång</string>
+	<string name="theme_honeybee">Honungsbi</string>
+	<string name="theme_crystal">Kristall</string>
+	<string name="theme_midnight_blue">Midnattsblå</string>
+	<string name="dark_mode_title">Gränssnittsläge</string>
+	<string name="theme_emerald">Smaragd</string>
+	<string name="theme_forest">Skog</string>
+	<string name="theme_amethyst">Ametist</string>
+	<string name="theme_ruby">Rubin</string>
+	<string name="app_color_primary_title">Primär app Färg</string>
+	<string name="app_color_primary_summary">Statusfält, knappar, toning</string>
+	<string name="app_color_accent_title">Accentfärg</string>
+	<string name="app_color_accent_summary">Switchar och andra widgets</string>
+	<string name="highlight_similar_notes">Markera liknande anteckningar</string>
+	<string name="highlight_similar_notes_summary">Markera celler med liknande notvärden</string>
+	<string name="resume">Återuppta</string>
+	<string name="puzzle_lists">Sudoku listor</string>
+	<string name="undo_to_before_mistake">Ångra till före misstag</string>
+	<string name="undo_to_before_mistake_confirm">Är du säker på att du vill ångra alla åtgärder sedan det senaste lösbara tillståndet?</string>
+	<string name="remove_notes_title">Ta bort anteckningar vid nummerinmatning</string>
+	<string name="remove_notes_summary">Ta automatiskt bort anteckningar från samma kolumn, rad och ruta när du anger ett nummer</string>
+	<string name="create_from_single_color">Skapa från enfärgad</string>
+	<string name="show_puzzle_lists_on_startup_title">Visa sudokulistor vid start</string>
+	<string name="show_puzzle_lists_on_startup_summary">Visa sudoku-listorna vid start och hoppa över titelskärmen.</string>
+	<string name="app_startup_category">Appstart</string>
+	<string name="sort">Sortera</string>
+	<string name="sort_puzzles_by">Sortera pussel efter</string>
+	<string name="sort_creation_date">Skapelsedagen</string>
+	<string name="sort_play_time">Speltid</string>
+	<string name="sort_last_played">Senast spelade</string>
+	<string name="pasted_from_clipboard">Klistras in från urklipp</string>
+	<string name="copied_to_clipboard">Kopierade till urklipp</string>
+	<string name="invalid_puzzle_format">Ogiltigt pusselformat</string>
+	<string name="invalid_mime_type">Ogiltig MIME-typ, kontrollera innehållet i ditt urklipp</string>
+	<string name="reset_all_puzzles">Återställ allt</string>
+	<string name="reset_all_puzzles_confirm">Är du säker på att du vill återställa alla pussel i den här mappen?</string>
+	<string name="fill_all_notes">Fyll i anteckningar med alla värden</string>
+	<string name="press_color_to_apply">Tryck på Färg för att tillämpa</string>
+	<string name="dark_mode_light">Ljust läge</string>
+	<string name="dark_mode_dark">Mörkt läge</string>
+	<string name="dark_mode_system">Använd systemets ljusa/mörka läge</string>
+	<string name="disabled_by_theme">Valt tema ställer in läget</string>
+	<string name="use_dynamic_color">Använd dynamisk färg</string>
+	<string name="use_dynamic_color_summary">Använd färger från din tapet</string>
+	<string name="theme_custom_light">Anpassat ljustema</string>
+	<string name="pref_border_title">Cellkantlinjer</string>
+	<string name="pref_border_summary">Kantfärger runt celler och 3x3-rutor</string>
+	<string name="pref_touched_title">Vidrörda celler</string>
+	<string name="pref_touched_summary">Celler i markeringen korsar</string>
+	<string name="pref_selected_title">Markerad cell</string>
+	<string name="pref_selected_summary">Den markerade cellens fokusindikator</string>
+	<string name="pref_highlighted_title">Markerat</string>
+	<string name="pref_highlighted_summary">Celler som är identiska med den markerade cellen</string>
+	<string name="pref_error_title">Ogiltiga värden</string>
+	<string name="pref_error_summary">Celler som innehåller ogiltiga värden</string>
+	<string name="pref_even_title">Jämna celler</string>
+	<string name="pref_even_summary">Celler i jämna 3x3-rutor</string>
 
 </resources>

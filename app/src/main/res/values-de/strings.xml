@@ -21,9 +21,7 @@
     <string name="app_name">Open Sudoku 2</string>
     <string name="edit_puzzle">Sudoku-Rätsel bearbeiten</string>
 
-    <string name="puzzle_folders">OpenSudoku2 Rätsel-Ordner</string>
-
-    <string name="version">Version: %s</string>
+	<string name="version">Version: %s</string>
     <string name="send_me_bugs">Falls Sie einen Fehler finden, den Sie gerne behoben haben möchten oder falls Sie
 		Verbesserungsvorschläge haben, zögern Sie nicht uns per E-Mail zu kontaktieren oder nutzen Sie den Issue-Tracker
 		auf der Projekt-Homepage. Alle Anfragen bitte nur in englischer Sprache, vielen Dank!
@@ -36,10 +34,8 @@
     <string name="get_more_puzzles_online">Mehr Sudoku-Rätsel herunterladen</string>
 
     <string name="name">Name:</string>
-    <string name="folder_name_hint">Name des Ordners</string>
     <string name="note">Notiz:</string>
 
-    <string name="select_number">Zahl auswählen</string>
     <string name="edit_note">Notiz bearbeiten</string>
 
     <string name="add_folder">Ordner hinzufügen</string>
@@ -52,7 +48,6 @@
     <string name="delete_folder_confirm">Möchten Sie diesen Ordner wirklich löschen?</string>
     <string name="n_puzzles">%d Sudoku-Rätsel</string>
     <string name="all_solved">alles gelöst</string>
-    <string name="n_solved">%s gelöst</string>
     <string name="n_unsolved">%d neu</string>
     <string name="n_playing">%d in Bearbeitung</string>
 
@@ -157,11 +152,6 @@
     <string name="unknown_import_error">Beim Importieren von Rätseln ist ein unbekannter Fehler aufgetreten. Import wurde abgebrochen.</string>
     <string name="invalid_format">Unbekanntes Format, importieren wurde abgebrochen.</string>
 
-    <!-- Strings added in 0.7.0 -->
-    <string name="loading">Lade…</string>
-
-    <!-- Strings added/changed in 0.7.1 -->
-    <string name="more_settings">Mehr Einstellungen</string>
     <string name="screen_border_size">Breite des Bildschirmrandes</string>
     <string name="screen_border_size_summary">Spielfeld verkleinern, falls Ihr Bildschirm nicht auf Berührungen am
 		Bildschirmrand reagiert.
@@ -178,26 +168,16 @@
     <string name="highlight_completed_values">Markiere vollständige Zahlen</string>
     <string name="highlight_completed_values_summary">Markiere Zahlen, die bereits vollständig eingegeben wurden.</string>
     <string name="theme">Farbschema</string>
-    <string name="theme_summary">Farbschema für das Spielfeld auswählen.</string>
     <string name="select_theme">Farbschema auswählen</string>
-    <string name="filename">Dateiname</string>
-    <string name="directory">Verzeichnis</string>
-    <string name="sdcard_not_found">SD-Karte nicht eingelegt.</string>
     <string name="puzzles_have_been_exported">Sudoku-Rätsel wurden nach %s exportiert.</string>
-    <string name="file_exists">Die Datei existiert bereits, möchten Sie diese überschreiben?</string>
     <!-- localization of default folder names -->
     <string name="difficulty_hard">Schwer</string>
     <string name="difficulty_medium">Mittel</string>
     <string name="difficulty_easy">Leicht</string>
 
-    <!-- Strings added/changed in 1.1.0 -->
-    <string name="generate_puzzle">Generiere neues Sudoku</string>
-    <string name="select_difficulty">Schwierigkeit auswählen</string>
-    <string name="generating">Generiere Sudoku-Rätsel…</string>
     <string name="current_developers_label">Aktive Entwickler</string>
     <string name="fill_in_notes_summary">Aktiviere den Menüpunkt \"Notizen eintragen\" im Spielmenü.</string>
     <string name="import_file">Import</string>
-    <string name="import_file_title">Importiere Datei %s file</string>
     <string name="localization_contributors_label">Mitwirkende Lokalisierung</string>
     <string name="old_developers_label">Ehemalige Entwickler</string>
     <string name="set_checkpoint">Setze Sicherungspunkt</string>
@@ -212,7 +192,6 @@
     <string name="bidirectional_selection">Bidirektionale Auswahl</string>
     <string name="bidirectional_selection_summary">Im EZ-Modus übernimmt die Auswahl einer festen Zahl die Zahl als nächste Eingabe.</string>
 
-    <!-- Strings added/changed in 2.5.0 -->
 
     <string name="theme_paper">Papier</string>
     <string name="theme_graph_paper">Karopapier</string>
@@ -271,7 +250,6 @@
     <string name="puzzle_has_multiple_solutions">Dies ist ein ungültiges Rätsel, da es mehrere Lösungen gibt.</string>
     <string name="puzzle_already_exists">Dieses Rätsel ist gültig, aber es existiert bereits im Ordner %s.</string>
     <string name="hint_confirm">Dies wird den richtigen Wert in das gewählte Feld eintragen. Möchten Sie das?</string>
-    <string name="is_light_theme_title">Helles Schema</string>
     <string name="puzzle_has_no_solution">Dieses Puzzle hat keine Lösung.</string>
     <string name="puzzle_solvable">Dieses Puzzle hat eine Lösung.</string>
     <string name="remove_notes_summary">Entfernt die Notiz automatisch aus der gleichen Spalte, Zeile und Quadrat wenn eine Zahl eingegeben wird</string>
@@ -281,7 +259,6 @@
     <string name="app_color_accent_title">Akzentfarbe</string>
     <string name="app_color_accent_summary">Diese Farbe wird benutzt, um verschiedene Elemente zu akzentuieren</string>
     <string name="app_color_primary_summary">Diese Farbe wird für den Hintergrund der Titelzeile genutzt</string>
-    <string name="is_light_theme_summary">Ändert die Appfarben basierend auf dem hellen oder dunklen Schema</string>
     <string name="pasted_from_clipboard">Aus der Zwischenablage eingefügt</string>
     <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
     <string name="invalid_puzzle_format">Ungültiges Puzzleformat</string>
