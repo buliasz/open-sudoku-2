@@ -23,13 +23,13 @@ import android.util.Log
 import androidx.fragment.app.FragmentManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.buliasz.opensudoku2.BuildConfig
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.db.SudokuInvalidFormatException
 import org.buliasz.opensudoku2.game.FolderInfo
 import org.buliasz.opensudoku2.gui.fragments.SimpleDialog
 import org.buliasz.opensudoku2.utils.Const
+import java.time.Instant
 import kotlin.reflect.KSuspendFunction2
 
 /**
@@ -110,7 +110,6 @@ abstract class AbstractImportTask {
 	}
 
 	private suspend fun processImportInternal(): Boolean {
-		val start = System.currentTimeMillis()
 		SudokuDatabase(mContext).use { database ->
 			try {
 				mDatabase = database
@@ -126,8 +125,6 @@ abstract class AbstractImportTask {
 			return false
 		}
 
-		val end = System.currentTimeMillis()
-		if (BuildConfig.DEBUG) Log.i(Const.TAG, String.format("Imported in %f seconds.", (end - start) / 1000f))
 		return true
 	}
 
@@ -142,9 +139,9 @@ abstract class AbstractImportTask {
 	 *
 	 * @return folder ID
 	 */
-	protected fun importFolder(name: String, created: Long = System.currentTimeMillis()): Long {
+	protected fun importFolder(name: String, created: Long = 0): Long {
 		mFolderCount++
-		mFolder = mDatabase.insertFolder(name, created)
+		mFolder = mDatabase.insertFolder(name, if (created > 0) created else Instant.now().epochSecond)
 		return mFolder.id
 	}
 

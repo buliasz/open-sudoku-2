@@ -17,53 +17,45 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="30dp"
-    android:layout_marginBottom="30dp">
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layout_marginTop="30dp"
+	android:layout_marginBottom="30dp">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:srcCompat="@mipmap/ic_launcher_icon_foreground"
-        android:contentDescription="@string/app_name" />
+	<ImageView android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		app:srcCompat="@mipmap/ic_launcher_icon_foreground"
+		android:contentDescription="@string/app_name" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="30dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+	<LinearLayout android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginLeft="50dp"
+		android:layout_marginTop="30dp"
+		android:layout_marginRight="50dp"
+		android:layout_marginBottom="30dp"
+		android:layout_weight="1"
+		android:orientation="vertical">
 
-        <Button
-            android:id="@+id/resume_button"
-            style="@style/Widget.Material3.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/resume" />
+		<Button android:id="@+id/resume_button"
+			style="@style/Widget.Material3.Button"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/resume" />
 
-        <Button
-            android:id="@+id/puzzle_lists_button"
-            style="@style/Widget.Material3.Button.TonalButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/puzzle_lists" />
+		<Button android:id="@+id/puzzle_lists_button"
+			style="@style/Widget.Material3.Button.TonalButton"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/puzzle_lists" />
 
-        <Button
-            android:id="@+id/settings_button"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/settings" />
+		<Button android:id="@+id/settings_button"
+			style="@style/Widget.Material3.Button.TextButton"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/settings" />
 
-    </LinearLayout>
+	</LinearLayout>
 
 </LinearLayout>

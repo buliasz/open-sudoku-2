@@ -18,6 +18,7 @@
 
 package org.buliasz.opensudoku2.gui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -49,7 +50,7 @@ import java.net.URISyntaxException
  * (web, file, .opensudoku2, .sdm, extras).
  */
 class PuzzleImportActivity : ThemedActivity() {
-	private var lastProgressUpdate: Long = 0
+	private var lastProgressUpdateMs: Long = 0
 	private lateinit var progressText: TextView
 	private lateinit var progressBar: ProgressBar
 	private val mOnImportFinishedListener = object : AbstractImportTask.OnImportFinishedListener {
@@ -84,7 +85,7 @@ class PuzzleImportActivity : ThemedActivity() {
 		setContentView(R.layout.import_puzzle)
 		window.setFeatureDrawableResource(
 			Window.FEATURE_LEFT_ICON,
-			R.mipmap.ic_launcher
+			R.mipmap.ic_launcher_icon
 		)
 		val importTask: AbstractImportTask
 		val intent = intent
@@ -180,8 +181,9 @@ class PuzzleImportActivity : ThemedActivity() {
 		}
 	}
 
+	@SuppressLint("SetTextI18n")
 	private suspend fun progressUpdate(currentValue: Int, maxValue: Int) {
-		if (currentValue < maxValue && System.currentTimeMillis() - lastProgressUpdate < 300) {
+		if (currentValue < maxValue && System.currentTimeMillis() - lastProgressUpdateMs < 200) {
 			return
 		}
 		withContext(Dispatchers.Main) {
@@ -193,7 +195,7 @@ class PuzzleImportActivity : ThemedActivity() {
 				progressText.text = "$currentValue/$maxValue"
 			}
 		}
-		lastProgressUpdate = System.currentTimeMillis()
+		lastProgressUpdateMs = System.currentTimeMillis()
 	}
 
 	companion object {

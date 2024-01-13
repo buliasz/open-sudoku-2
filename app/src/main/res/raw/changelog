@@ -3,7 +3,21 @@
 <body>
   <b>1.0</b>
   <ul>
-    <li>Initial Open Sudoku 2 ported from Open Sudoku converted to Kotlin with fixes</li>
+    <li>Open Sudoku 2 ported from Open Sudoku code.</li>
+    <li>Code rewritten in Kotlin programming language.</li>
+    <li>Added support for Sudoku Exchange "Puzzle Bank" format import.</li>
+    <li>Added option to highlight value if entry doesn't match final solution value.</li>
+    <li>Added verification if the puzzle is invalid (has more than one solution).</li>
+    <li>Added single puzzle export functionality.</li>
+    <li>Added verification if the imported puzzle(s) already exists.</li>
+    <li>Set "Get more puzzles online" link to point to the Sudoku Exchange "Puzzle Bank".</li>
+    <li>Modified keyboard behavior.</li>
+    <li>Fixed numerous existing code bugs.</li>
+    <li>Changed some visual effects and icons.</li>
+    <li>Improved functionality and performance of many features in the game.</li>
+    <li>Filled missing translation entries for existing translations with automatic translator. Please let me know if you notice incorrect translations.</li>
+    <li>Replaced deprecated libraries/calls usage with an up to date code and libraries.</li>
+    <li>A lot of "under the hood" refactors and cleanups for code maintainability and performance.</li>
   </ul>
 </body>
 </html>

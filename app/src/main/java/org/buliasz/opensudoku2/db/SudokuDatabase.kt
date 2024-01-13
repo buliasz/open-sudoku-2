@@ -30,6 +30,7 @@ import org.buliasz.opensudoku2.game.FolderInfo
 import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.gui.PuzzleListFilter
 import java.io.Closeable
+import java.time.Instant
 import java.util.LinkedList
 
 /**
@@ -293,7 +294,7 @@ internal fun SQLiteDatabase.puzzleExists(originalValues: String): Boolean {
 internal fun SQLiteDatabase.insertPuzzle(originalValues: String, folderId: Long): Boolean {
 	with(ContentValues()) {
 		put(Names.ORIGINAL_VALUES, originalValues)
-		put(Names.CREATED, System.currentTimeMillis())
+		put(Names.CREATED, Instant.now().epochSecond)
 		put(Names.LAST_PLAYED, 0)
 		put(Names.STATE, SudokuGame.GAME_STATE_NOT_STARTED)
 		put(Names.TIME, 0)

@@ -35,7 +35,7 @@ class AboutDialogFragment(private val factory: LayoutInflater) : DialogFragment(
 		versionLabel.text = getString(R.string.version, versionName)
 
 		val builder = AlertDialog.Builder(requireActivity())
-			.setIcon(R.mipmap.ic_launcher)
+			.setIcon(R.mipmap.ic_launcher_icon)
 			.setTitle(R.string.app_name)
 			.setView(aboutView)
 			.setPositiveButton("OK", null)

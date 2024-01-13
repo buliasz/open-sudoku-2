@@ -106,7 +106,7 @@ class TitleScreenActivity : ThemedActivity() {
 				val versionName = AndroidUtils.getAppVersionName(applicationContext)
 				versionLabel.text = getString(R.string.version, versionName)
 				with(SimpleDialog(supportFragmentManager)) {
-					iconId = R.mipmap.ic_launcher
+					iconId = R.mipmap.ic_launcher_icon
 					dialogView = aboutView
 					show()
 				}

@@ -27,6 +27,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.SudokuDatabase
+import java.time.Instant
 
 class AddFolderDialogFragment(
 	private val factory: LayoutInflater,
@@ -43,7 +44,7 @@ class AddFolderDialogFragment(
 			.setPositiveButton(R.string.save) { _: DialogInterface?, _: Int ->
 				mDatabase.insertFolder(
 					addFolderNameInput.text.toString().trim { it <= ' ' },
-					System.currentTimeMillis()
+					Instant.now().epochSecond
 				)
 				updateList()
 			}

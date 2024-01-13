@@ -24,7 +24,6 @@ import android.util.Xml
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.buliasz.opensudoku2.BuildConfig
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.db.extractSudokuGameFromCursorRow
@@ -58,7 +57,6 @@ class FileExportTask {
 	private fun saveToFile(exportParams: FileExportTaskParams, context: Context): FileExportTaskResult {
 		require(exportParams.folderId != null) { "'folderId' param must be set" }
 		requireNotNull(exportParams.fileOutputStream) { "Output stream cannot be null" }
-		val start = System.currentTimeMillis()
 		val result = FileExportTaskResult()
 		result.isSuccess = true
 		result.filename = exportParams.filename
@@ -91,8 +89,6 @@ class FileExportTask {
 				}
 			}
 		}
-		val end = System.currentTimeMillis()
-		if (BuildConfig.DEBUG) Log.i(Const.TAG, String.format("Exported in %f seconds.", (end - start) / 1000f))
 		return result
 	}
 

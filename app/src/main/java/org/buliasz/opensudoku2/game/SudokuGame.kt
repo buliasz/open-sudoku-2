@@ -296,7 +296,7 @@ class SudokuGame {
 			val game = SudokuGame()
 			game.cells = CellCollection.createEmpty()
 			// set creation time
-			game.created = System.currentTimeMillis()
+			game.created = Instant.now().epochSecond
 			return game
 		}
 	}

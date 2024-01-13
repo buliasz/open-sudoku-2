@@ -26,6 +26,7 @@ import android.util.Log
 import org.buliasz.opensudoku2.BuildConfig
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.game.SudokuGame
+import java.time.Instant
 
 /**
  * This class helps open, create, and upgrade the database file.
@@ -149,7 +150,7 @@ class DatabaseHelper internal constructor(private val mContext: Context) :
 	}
 
 	private fun insertFolder(db: SQLiteDatabase, folderId: Long, folderName: String) {
-		val now = System.currentTimeMillis()
+		val now = Instant.now().epochSecond
 		db.execSQL("INSERT INTO ${Names.FOLDER} VALUES ($folderId, $now, '$folderName');")
 	}
 

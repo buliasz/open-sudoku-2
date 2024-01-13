@@ -34,6 +34,7 @@ import org.buliasz.opensudoku2.game.CellCollection
 import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.gui.fragments.SimpleDialog
 import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanel
+import java.time.Instant
 
 /**
  * Activity for editing content of puzzle.
@@ -216,7 +217,7 @@ class PuzzleEditActivity : ThemedActivity() {
 			}
 
 			STATE_INSERT -> {
-				newPuzzle.created = System.currentTimeMillis()
+				newPuzzle.created = Instant.now().epochSecond
 				mDatabase.insertPuzzle(newPuzzle)
 				SimpleDialog(supportFragmentManager).show(R.string.puzzle_inserted)
 			}

@@ -126,10 +126,7 @@ internal class PuzzleListRecyclerAdapter(
 //          R.id.created
 		var createdString: String? = null
 		if (game.created != 0L) {
-			createdString = mContext.getString(
-				R.string.created_at,
-				getDateAndTimeForHumans(game.created)
-			)
+			createdString = mContext.getString(R.string.created_at, getDateAndTimeForHumans(game.created))
 		}
 		holder.created.visibility = if (createdString == null) View.GONE else View.VISIBLE
 		holder.created.text = createdString
