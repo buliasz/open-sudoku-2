@@ -27,8 +27,6 @@ import org.buliasz.opensudoku2.game.Cell
 import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.gui.HintsQueue
 import org.buliasz.opensudoku2.gui.SudokuBoardView
-import org.buliasz.opensudoku2.gui.SudokuBoardView.OnCellSelectedListener
-import org.buliasz.opensudoku2.gui.SudokuBoardView.OnCellTappedListener
 import java.util.Collections
 
 class IMControlPanel : LinearLayout {
@@ -42,12 +40,12 @@ class IMControlPanel : LinearLayout {
 	private val mInputMethods: MutableList<InputMethod> = ArrayList()
 	var activeMethodIndex = -1
 		private set
-	private val mOnCellTapListener = OnCellTappedListener { cell: Cell? ->
+	private val mOnCellTapListener = { cell: Cell? ->
 		if (activeMethodIndex != -1) {
 			mInputMethods[activeMethodIndex].onCellTapped(cell!!)
 		}
 	}
-	private val mOnCellSelected = OnCellSelectedListener { cell: Cell? ->
+	private val mOnCellSelected = { cell: Cell? ->
 		if (activeMethodIndex != -1) {
 			mInputMethods[activeMethodIndex].onCellSelected(cell)
 		}
@@ -63,8 +61,8 @@ class IMControlPanel : LinearLayout {
 	}
 
 	fun initialize(board: SudokuBoardView, game: SudokuGame?, hintsQueue: HintsQueue?) {
-		board.setOnCellTappedListener(mOnCellTapListener)
-		board.setOnCellSelectedListener(mOnCellSelected)
+		board.onCellTappedListener = mOnCellTapListener
+		board.onCellSelectedListener = mOnCellSelected
 		mBoard = board
 		mGame = game
 		mHintsQueue = hintsQueue

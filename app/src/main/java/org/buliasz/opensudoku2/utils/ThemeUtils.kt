@@ -585,7 +585,7 @@ object ThemeUtils {
 		cells.fillInCenterNotes()
 		cells.validate()
 		board.cells = cells
-		board.setHighlightDirectlyWrongValues(true)
+		board.highlightDirectlyWrongValues = true
 	}
 
 	fun findClosestMaterialColor(color: Int): Int {

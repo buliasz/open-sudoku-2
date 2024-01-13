@@ -78,11 +78,11 @@ class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
 						}
 
 						else -> {
-							setError("Unknown version of data.")
+							importError = "Unknown version of data."
 						}
 					}
 				} else {
-					setError(context.getString(R.string.invalid_format))
+					importError = context.getString(R.string.invalid_format)
 					return
 				}
 			}

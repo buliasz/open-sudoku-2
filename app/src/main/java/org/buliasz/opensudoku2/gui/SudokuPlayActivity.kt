@@ -30,7 +30,6 @@ import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.game.Cell
 import org.buliasz.opensudoku2.game.SudokuGame
-import org.buliasz.opensudoku2.game.SudokuGame.OnPuzzleSolvedListener
 import org.buliasz.opensudoku2.gui.SudokuBoardView.HighlightMode
 import org.buliasz.opensudoku2.gui.fragments.SimpleDialog
 import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanel
@@ -61,33 +60,28 @@ class SudokuPlayActivity : ThemedActivity() {
 	/**
 	 * Occurs when puzzle is solved.
 	 */
-	private val onSolvedListener = object : OnPuzzleSolvedListener {
-		override fun onPuzzleSolved() {
-			if (mShowTime) {
-				mGameTimer.stop()
-			}
-			mSudokuBoard.isReadOnly = (true)
-			if (mSudokuGame.usedSolver()) {
-				SimpleDialog(supportFragmentManager).show(R.string.used_solver)
+	private val onSolvedListener = {
+		if (mShowTime) {
+			mGameTimer.stop()
+		}
+		mSudokuBoard.isReadOnly = (true)
+		if (mSudokuGame.usedSolver()) {
+			SimpleDialog(supportFragmentManager).show(R.string.used_solver)
 
-			} else {
-				with(SimpleDialog(supportFragmentManager)) {
-					iconId = R.drawable.ic_info
-					titleId = R.string.well_done
-					message = this@SudokuPlayActivity.getString(R.string.congrats, mGameTimeFormatter.format(mSudokuGame.time))
-					show()
-				}
+		} else {
+			with(SimpleDialog(supportFragmentManager)) {
+				iconId = R.drawable.ic_info
+				titleId = R.string.well_done
+				message = this@SudokuPlayActivity.getString(R.string.congrats, mGameTimeFormatter.format(mSudokuGame.time))
+				show()
 			}
 		}
 	}
 
-	private val onSelectedNumberChangedListener: OnSelectedNumberChangedListener =
-		object : OnSelectedNumberChangedListener {
-			override fun onSelectedNumberChanged(number: Int) {
-				mSudokuBoard.setHighlightedValue(number)
-				mSudokuBoard.postInvalidate()
-			}
-		}
+	private val onSelectedNumberChangedListener: (Int) -> Unit = {
+		mSudokuBoard.highlightedValue = it
+		mSudokuBoard.postInvalidate()
+	}
 
 	public override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -125,7 +119,7 @@ class SudokuPlayActivity : ThemedActivity() {
 			mSudokuBoard.isReadOnly = (true)
 		}
 		mSudokuBoard.setGame(mSudokuGame)
-		mSudokuGame.setOnPuzzleSolvedListener(onSolvedListener)
+		mSudokuGame.onPuzzleSolvedListener = onSolvedListener
 		mSudokuGame.onHasUndoChangedListener =
 			{ isUndoStackEmpty -> mOptionsMenu.findItem(MENU_ITEM_UNDO_ACTION).setEnabled(!isUndoStackEmpty) }
 		mHintsQueue.showOneTimeHint("welcome", R.string.welcome, R.string.first_run_hint)
@@ -154,17 +148,17 @@ class SudokuPlayActivity : ThemedActivity() {
 		} else {
 			mSudokuBoard.setAllColorsFromThemedContext(this)
 		}
-		mSudokuBoard.setHighlightDirectlyWrongValues(gameSettings.getBoolean("highlight_directly_wrong_values", true))
-		mSudokuBoard.setHighlightIndirectlyWrongValues(gameSettings.getBoolean("highlight_indirectly_wrong_values", true))
-		mSudokuBoard.setHighlightTouchedCell(gameSettings.getBoolean("highlight_touched_cell", true))
+		mSudokuBoard.highlightDirectlyWrongValues = gameSettings.getBoolean("highlight_directly_wrong_values", true)
+		mSudokuBoard.highlightIndirectlyWrongValues = gameSettings.getBoolean("highlight_indirectly_wrong_values", true)
+		mSudokuBoard.highlightTouchedCell = gameSettings.getBoolean("highlight_touched_cell", true)
 		val highlightSimilarCells = gameSettings.getBoolean("highlight_similar_cells", true)
 		val highlightSimilarNotes = gameSettings.getBoolean("highlight_similar_notes", true)
 		if (highlightSimilarCells) {
-			mSudokuBoard.setHighlightSimilarCell(if (highlightSimilarNotes) HighlightMode.NUMBERS_AND_NOTES else HighlightMode.NUMBERS)
+			mSudokuBoard.highlightSimilarCells = if (highlightSimilarNotes) HighlightMode.NUMBERS_AND_NOTES else HighlightMode.NUMBERS
 		} else {
-			mSudokuBoard.setHighlightSimilarCell(HighlightMode.NONE)
+			mSudokuBoard.highlightSimilarCells = HighlightMode.NONE
 		}
-		mSudokuGame.setRemoveNotesOnEntry(gameSettings.getBoolean("remove_notes_on_input", false))
+		mSudokuGame.removeNotesOnEntry = gameSettings.getBoolean("remove_notes_on_input", false)
 		mShowTime = gameSettings.getBoolean("show_time", true)
 		if (mSudokuGame.state == SudokuGame.GAME_STATE_PLAYING) {
 			mSudokuGame.resume()
@@ -173,40 +167,20 @@ class SudokuPlayActivity : ThemedActivity() {
 			}
 		}
 		val moveCellSelectionOnPress = gameSettings.getBoolean("im_numpad_move_right", false)
-		mSudokuBoard.setMoveCellSelectionOnPress(moveCellSelectionOnPress)
+		mSudokuBoard.moveCellSelectionOnPress = moveCellSelectionOnPress
 		mIMNumpad.isMoveCellSelectionOnPress = (moveCellSelectionOnPress)
 		mIMPopup.isEnabled = (gameSettings.getBoolean("im_popup", true))
 		mIMSingleNumber.isEnabled = (gameSettings.getBoolean("im_single_number", true))
 		mIMNumpad.isEnabled = (gameSettings.getBoolean("im_numpad", true))
-		mIMPopup.setHighlightCompletedValues(
-			gameSettings.getBoolean(
-				"highlight_completed_values",
-				true
-			)
-		)
-		mIMPopup.setShowNumberTotals(gameSettings.getBoolean("show_number_totals", false))
-		mIMSingleNumber.setHighlightCompletedValues(
-			gameSettings.getBoolean(
-				"highlight_completed_values",
-				true
-			)
-		)
-		mIMSingleNumber.setShowNumberTotals(gameSettings.getBoolean("show_number_totals", false))
-		mIMSingleNumber.setBidirectionalSelection(
-			gameSettings.getBoolean(
-				"bidirectional_selection",
-				true
-			)
-		)
-		mIMSingleNumber.setHighlightSimilar(gameSettings.getBoolean("highlight_similar", true))
-		mIMSingleNumber.setOnSelectedNumberChangedListener(onSelectedNumberChangedListener)
-		mIMNumpad.setHighlightCompletedValues(
-			gameSettings.getBoolean(
-				"highlight_completed_values",
-				true
-			)
-		)
-		mIMNumpad.setShowNumberTotals(gameSettings.getBoolean("show_number_totals", false))
+		mIMPopup.highlightCompletedValues = gameSettings.getBoolean("highlight_completed_values", true)
+		mIMPopup.showNumberTotals = gameSettings.getBoolean("show_number_totals", false)
+		mIMSingleNumber.highlightCompletedValues = gameSettings.getBoolean("highlight_completed_values", true)
+		mIMSingleNumber.showNumberTotals = gameSettings.getBoolean("show_number_totals", false)
+		mIMSingleNumber.bidirectionalSelection = gameSettings.getBoolean("bidirectional_selection", true)
+		mIMSingleNumber.highlightSimilar = gameSettings.getBoolean("highlight_similar", true)
+		mIMSingleNumber.onSelectedNumberChangedListener = onSelectedNumberChangedListener
+		mIMNumpad.highlightCompletedValues = gameSettings.getBoolean("highlight_completed_values", true)
+		mIMNumpad.showNumberTotals = gameSettings.getBoolean("show_number_totals", false)
 		mIMControlPanel.activateFirstInputMethod() // make sure that some input method is activated
 		mIMControlPanelStatePersister.restoreState(mIMControlPanel)
 		if (!mSudokuBoard.isReadOnly) {
@@ -493,10 +467,6 @@ class SudokuPlayActivity : ThemedActivity() {
 		} else {
 			setTitle(R.string.app_name)
 		}
-	}
-
-	interface OnSelectedNumberChangedListener {
-		fun onSelectedNumberChanged(number: Int)
 	}
 
 	companion object {

@@ -51,8 +51,16 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 	private val mEnterNumberButton: MaterialButton
 	private val mCornerNoteButton: MaterialButton
 	private val mCenterNoteButton: MaterialButton
-	private var mOnNumberEditListener: OnNumberEditListener? = null
-	private var onNoteEditListener: OnNoteEditListener? = null
+
+	/**
+	 * Registers a callback to be invoked when number is selected.
+	 */
+	internal var onNumberEditListener: OnNumberEditListener? = null
+
+	/**
+	 * Register a callback to be invoked when note is edited.
+	 */
+	internal var onNoteEditListener: OnNoteEditListener? = null
 	private val mValueCount: MutableMap<Int, Int> = HashMap()
 
 	private val mNumberButtonClicked = View.OnClickListener { v: View ->
@@ -104,8 +112,8 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 
 	/** Synchronises state with the hosting activity and dismisses the dialog  */
 	private fun syncAndDismiss() {
-		if (mOnNumberEditListener != null) {
-			mOnNumberEditListener!!.onNumberEdit(mSelectedNumber)
+		if (onNumberEditListener != null) {
+			onNumberEditListener!!.onNumberEdit(mSelectedNumber)
 		}
 		if (onNoteEditListener != null) {
 			onNoteEditListener!!.onCornerNoteEdit(mCornerNoteSelectedNumbers.toTypedArray())
@@ -134,7 +142,7 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 		for ((key, b) in mNumberButtons) {
 			b.tag = key
 			b.setOnClickListener(mNumberButtonClicked)
-			b.setEnableAllNumbersPlaced(mHighlightCompletedValues)
+			b.enableAllNumbersPlaced = mHighlightCompletedValues
 			b.backgroundTintList = backgroundColor
 			b.setTextColor(textColor)
 		}
@@ -204,7 +212,7 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 		}
 		for (button in mNumberButtons.values) {
 			val tag = button.tag as Int
-			button.setMode(mEditMode)
+			button.mode = mEditMode
 
 			// Check the button if necessary
 			button.isChecked = buttonsToCheck.contains(tag)
@@ -216,27 +224,13 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 		}
 	}
 
-	/**
-	 * Registers a callback to be invoked when number is selected.
-	 */
-	fun setOnNumberEditListener(l: OnNumberEditListener?) {
-		mOnNumberEditListener = l
-	}
-
-	/**
-	 * Register a callback to be invoked when note is edited.
-	 */
-	fun setOnNoteEditListener(l: OnNoteEditListener?) {
-		onNoteEditListener = l
-	}
-
 	fun setShowNumberTotals(showNumberTotals: Boolean) {
 		if (mShowNumberTotals == showNumberTotals) {
 			return
 		}
 		mShowNumberTotals = showNumberTotals
 		for (b in mNumberButtons.values) {
-			b.setShowNumbersPlaced(mShowNumberTotals)
+			b.showNumbersPlaced = mShowNumberTotals
 		}
 	}
 
@@ -246,7 +240,7 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 		}
 		mHighlightCompletedValues = highlightCompletedValues
 		for (b in mNumberButtons.values) {
-			b.setEnableAllNumbersPlaced(mHighlightCompletedValues)
+			b.enableAllNumbersPlaced = mHighlightCompletedValues
 		}
 	}
 

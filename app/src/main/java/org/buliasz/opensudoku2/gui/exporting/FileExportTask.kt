@@ -39,14 +39,17 @@ import java.io.OutputStreamWriter
 import java.io.Writer
 
 class FileExportTask {
-	var onExportFinishedListener: OnExportFinishedListener? = null
+	/**
+	 * Occurs when export is finished.
+	 */
+	var onExportFinishedListener: (suspend (FileExportTaskResult?) -> Unit)? = null
 
 	internal suspend fun exportToFile(context: Context, vararg params: FileExportTaskParams?) {
 		withContext(Dispatchers.IO) {
 			for (param in params) {
 				val result = saveToFile(param!!, context)
 				launch {
-					onExportFinishedListener?.onExportFinished(result)
+					onExportFinishedListener?.invoke(result)
 				}
 			}
 		}
@@ -127,15 +130,6 @@ class FileExportTask {
 		serializer.attribute("", Names.USER_NOTE, game.userNote)
 		serializer.attribute("", Names.COMMAND_STACK, game.commandStack.serialize())
 		serializer.endTag("", Names.GAME)
-	}
-
-	interface OnExportFinishedListener {
-		/**
-		 * Occurs when export is finished.
-		 *
-		 * @param result The result of the export
-		 */
-		suspend fun onExportFinished(result: FileExportTaskResult?)
 	}
 
 	companion object {

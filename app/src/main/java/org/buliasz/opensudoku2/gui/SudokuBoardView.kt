@@ -46,17 +46,33 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 	private var mCellWidth = 0f
 	private var mCellHeight = 0f
 	private var mTouchedCell: Cell? = null
-	private var mHighlightedValue = 0
+	internal var highlightedValue = 0
 	private var mReadonly = false
-	private var mHighlightDirectlyWrongValues = true
-	private var mHighlightIndirectlyWrongValues = true
-	private var mHighlightTouchedCell = true
-	private var mAutoHideTouchedCellHint = true
-	private var mHighlightSimilarCells = HighlightMode.NONE
+	internal var highlightDirectlyWrongValues = true
+		set(value) {
+			field = value
+			postInvalidate()
+		}
+	internal var highlightIndirectlyWrongValues = true
+		set(value) {
+			field = value
+			postInvalidate()
+		}
+	internal var highlightTouchedCell = true
+	internal var autoHideTouchedCellHint = true
+	internal var highlightSimilarCells = HighlightMode.NONE
 	private lateinit var mGame: SudokuGame
 	private lateinit var mCells: CellCollection
-	private lateinit var mOnCellTappedListener: OnCellTappedListener
-	private lateinit var mOnCellSelectedListener: OnCellSelectedListener
+
+	/**
+	 * Registers callback which will be invoked when user taps the cell.
+	 */
+	internal lateinit var onCellTappedListener: (Cell?) -> Unit
+
+	/**
+	 * Callback invoked when cell is selected. Cell selection can change without user interaction.
+	 */
+	internal lateinit var onCellSelectedListener: (Cell?) -> Unit
 	private val mLinePaint = Paint()
 	private val mSectorLinePaint: Paint
 	private val mText: Paint
@@ -97,7 +113,7 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 	private val paint = Paint()
 
 	/** Move the cell focus to the right if a number (not note, digit) is entered  */
-	private var mMoveCellSelectionOnPress = false
+	internal var moveCellSelectionOnPress = false
 
 	init {
 		isFocusable = true
@@ -288,67 +304,13 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 			postInvalidate()
 		}
 
-	// TODO: remove all those unnecessary setters
-	fun setHighlightDirectlyWrongValues(newValue: Boolean) {
-		mHighlightDirectlyWrongValues = newValue
-		postInvalidate()
-	}
-
-	fun setHighlightIndirectlyWrongValues(newValue: Boolean) {
-		mHighlightIndirectlyWrongValues = newValue
-		postInvalidate()
-	}
-
-	fun setHighlightTouchedCell(highlightTouchedCell: Boolean) {
-		mHighlightTouchedCell = highlightTouchedCell
-	}
-
-	fun setAutoHideTouchedCellHint(autoHideTouchedCellHint: Boolean) {
-		mAutoHideTouchedCellHint = autoHideTouchedCellHint
-	}
-
-	fun setHighlightSimilarCell(highlightSimilarCell: HighlightMode) {
-		mHighlightSimilarCells = highlightSimilarCell
-	}
-
-	fun setHighlightedValue(value: Int) {
-		mHighlightedValue = value
-	}
-
-	/**
-	 * Registers callback which will be invoked when user taps the cell.
-	 */
-	fun setOnCellTappedListener(listener: OnCellTappedListener) {
-		mOnCellTappedListener = listener
-	}
-
-	private fun onCellTapped(cell: Cell?) {
-		mOnCellTappedListener.onCellTapped(cell)
-	}
-
-	/**
-	 * Registers callback which will be invoked when cell is selected. Cell selection
-	 * can change without user interaction.
-	 */
-	fun setOnCellSelectedListener(l: OnCellSelectedListener) {
-		mOnCellSelectedListener = l
-	}
-
 	fun hideTouchedCellHint() {
 		mTouchedCell = null
 		postInvalidate()
 	}
 
-	private fun onCellSelected(cell: Cell?) {
-		mOnCellSelectedListener.onCellSelected(cell)
-	}
-
 	fun invokeOnCellSelected() {
-		onCellSelected(selectedCell)
-	}
-
-	fun setMoveCellSelectionOnPress(moveCellSelectionOnPress: Boolean) {
-		mMoveCellSelectionOnPress = moveCellSelectionOnPress
+		onCellSelectedListener(selectedCell)
 	}
 
 	override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -449,7 +411,7 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 		val numberAscent = mText.ascent()
 		val noteAscent = mTextNote.ascent()
 		val noteWidth = mCellWidth / (notesPerRow + 1)
-		if (mHighlightIndirectlyWrongValues) {
+		if (highlightIndirectlyWrongValues) {
 			mCells.solutionCount // make sure solution is filled in cells for highlighting
 		}
 		for (row in 0..8) {
@@ -483,17 +445,17 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 				// Possibly highlight this cell if it contains the same digit (or, optionally,
 				// note) as the selected cell.
 				val cellIsNotAlreadySelected = selectedCell == null || selectedCell !== cell
-				val highlightedValueIsValid = mHighlightedValue != 0
+				val highlightedValueIsValid = highlightedValue != 0
 				var shouldHighlightCell = false
-				when (mHighlightSimilarCells) {
+				when (highlightSimilarCells) {
 					HighlightMode.NONE -> {}
 					HighlightMode.NUMBERS -> {
-						shouldHighlightCell = cellIsNotAlreadySelected && highlightedValueIsValid && mHighlightedValue == cell.value
+						shouldHighlightCell = cellIsNotAlreadySelected && highlightedValueIsValid && highlightedValue == cell.value
 					}
 
 					HighlightMode.NUMBERS_AND_NOTES -> {
 						shouldHighlightCell = highlightedValueIsValid &&
-								(mHighlightedValue == cell.value || cell.notedNumbers.contains(mHighlightedValue) && cell.value == 0)
+								(highlightedValue == cell.value || cell.notedNumbers.contains(highlightedValue) && cell.value == 0)
 					}
 				}
 				if (shouldHighlightCell) {
@@ -507,12 +469,12 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 				// marking a given cell with an error (partly because the user can't
 				// change it, and partly because then the user can't easily see which
 				// of the cells containing the error are editable).
-				if (mHighlightDirectlyWrongValues && cell.value != 0 && cell.isEditable && !cell.isValid) {
+				if (highlightDirectlyWrongValues && cell.value != 0 && cell.isEditable && !cell.isValid) {
 					mPaints[row][col][0] = mBackgroundInvalid
 					mPaints[row][col][1] = mTextInvalid
 					mPaints[row][col][2] = mTextNote // Not read, set to avoid risk of NPEs
 				}
-				if (mHighlightIndirectlyWrongValues && cell.value != 0 && !cell.matchesSolution) {
+				if (highlightIndirectlyWrongValues && cell.value != 0 && !cell.matchesSolution) {
 					mPaints[row][col][0] = mBackgroundInvalid
 					mPaints[row][col][1] = mTextInvalid
 					mPaints[row][col][2] = mTextNote // Not read, set to avoid risk of NPEs
@@ -520,7 +482,7 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 
 				// Highlight this cell if (a) we're highlighting cells in the same row/column
 				// as the touched cell, and (b) this cell is in that row or column.
-				if (mHighlightTouchedCell && mTouchedCell != null) {
+				if (highlightTouchedCell && mTouchedCell != null) {
 					val touchedRow = mTouchedCell!!.rowIndex
 					val touchedCol = mTouchedCell!!.columnIndex
 					if (row == touchedRow || col == touchedCol) {
@@ -675,9 +637,9 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 
 	override fun performClick(): Boolean {
 		invalidate() // selected cell has changed, update board as soon as you can
-		onCellTapped(selectedCell)
-		onCellSelected(selectedCell)
-		if (mAutoHideTouchedCellHint) {
+		onCellTappedListener(selectedCell)
+		onCellSelectedListener(selectedCell)
+		if (autoHideTouchedCellHint) {
 			mTouchedCell = null
 		}
 		return super.performClick()
@@ -705,7 +667,7 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 
 				KeyEvent.KEYCODE_DPAD_CENTER -> {
 					if (selectedCell != null) {
-						onCellTapped(selectedCell)
+						onCellTappedListener(selectedCell)
 					}
 					return true
 				}
@@ -719,7 +681,7 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 				} else {
 					// enter number in cell
 					setCellValue(cell, selNumber)
-					if (mMoveCellSelectionOnPress) {
+					if (moveCellSelectionOnPress) {
 						moveCellSelectionRight()
 					}
 				}
@@ -783,7 +745,7 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 	fun moveCellSelectionTo(row: Int, col: Int): Boolean {
 		if (col >= 0 && col < CellCollection.SUDOKU_SIZE && row >= 0 && row < CellCollection.SUDOKU_SIZE) {
 			selectedCell = mCells.getCell(row, col)
-			onCellSelected(selectedCell)
+			onCellSelectedListener(selectedCell)
 			postInvalidate()
 			return true
 		}
@@ -792,7 +754,7 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 
 	fun clearCellSelection() {
 		selectedCell = null
-		onCellSelected(selectedCell)
+		onCellSelectedListener(selectedCell)
 		postInvalidate()
 	}
 
@@ -816,21 +778,6 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 		NONE,
 		NUMBERS,
 		NUMBERS_AND_NOTES
-	}
-
-	/**
-	 * Occurs when user tap the cell.
-	 */
-	fun interface OnCellTappedListener {
-		fun onCellTapped(cell: Cell?)
-	}
-
-	/**
-	 * Occurs when user selects the cell.
-	 * TODO: remove all those unnecessary interfaces
-	 */
-	fun interface OnCellSelectedListener {
-		fun onCellSelected(cell: Cell?)
 	}
 
 	companion object {

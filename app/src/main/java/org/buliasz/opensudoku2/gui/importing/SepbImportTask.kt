@@ -47,8 +47,8 @@ class SepbImportTask(private val mUri: Uri) : AbstractImportTask() {
 		}
 
 		val newPuzzleMap = HashMap<String, Boolean>()
-		BufferedReader(isr).useLines {
-			it.forEach { inputLine ->
+		BufferedReader(isr).useLines { lineSequence ->
+			lineSequence.forEach { inputLine ->
 				SepbRegex.find(inputLine)?.also { newPuzzleMap[it.groups["cellValues"]?.value!!] = true }
 				mProgressUpdate(0, newPuzzleMap.size)
 			}

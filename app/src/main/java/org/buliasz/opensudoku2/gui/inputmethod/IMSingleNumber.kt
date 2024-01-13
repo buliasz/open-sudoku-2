@@ -34,7 +34,6 @@ import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.gui.HintsQueue
 import org.buliasz.opensudoku2.gui.NumberButton
 import org.buliasz.opensudoku2.gui.SudokuBoardView
-import org.buliasz.opensudoku2.gui.SudokuPlayActivity.OnSelectedNumberChangedListener
 import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanelStatePersister.StateBundle
 
 /**
@@ -42,10 +41,14 @@ import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanelStatePersister.Stat
  * in the sidebar, user selects one number and then fill values by tapping the cells.
  */
 class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
-	private var mHighlightCompletedValues = true
-	private var mShowNumberTotals = false
-	private var mBidirectionalSelection = true
-	private var mHighlightSimilar = true
+	/**
+	 * If set to true, buttons for numbers, which occur in [CellCollection]
+	 * more than [CellCollection.SUDOKU_SIZE]-times, will be highlighted.
+	 */
+	internal var highlightCompletedValues = true
+	internal var showNumberTotals = false
+	internal var bidirectionalSelection = true
+	internal var highlightSimilar = true
 	private var mSelectedNumber = 1
 	private var mEditMode: Int = MODE_EDIT_VALUE
 	private var mNumberButtons: MutableMap<Int, NumberButton>? = null
@@ -58,7 +61,7 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 	private var mCornerNoteButton: MaterialButton? = null
 	private var mCenterNoteButton: MaterialButton? = null
 	private lateinit var mSwitchModeButton: Button
-	private var mOnSelectedNumberChangedListener: OnSelectedNumberChangedListener? = null
+	internal var onSelectedNumberChangedListener: ((Int) -> Unit)? = null
 	private val mNumberButtonTouched = OnTouchListener { view: View, _: MotionEvent? ->
 		view.performClick()
 		mSelectedNumber = view.tag as Int
@@ -73,7 +76,7 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 		update()
 	}
 
-	private val mOnCellsChangeListener = CellCollection.OnChangeListener {
+	private val mOnCellsChangeListener = {
 		if (mActive) {
 			update()
 		}
@@ -82,30 +85,6 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 	private val mModeButtonClicked = View.OnClickListener { v: View ->
 		mEditMode = v.tag as Int
 		update()
-	}
-
-	/**
-	 * If set to true, buttons for numbers, which occur in [CellCollection]
-	 * more than [CellCollection.SUDOKU_SIZE]-times, will be highlighted.
-	 */
-	fun setHighlightCompletedValues(highlightCompletedValues: Boolean) {
-		mHighlightCompletedValues = highlightCompletedValues
-	}
-
-	fun setShowNumberTotals(showNumberTotals: Boolean) {
-		mShowNumberTotals = showNumberTotals
-	}
-
-	fun setBidirectionalSelection(bidirectionalSelection: Boolean) {
-		mBidirectionalSelection = bidirectionalSelection
-	}
-
-	fun setHighlightSimilar(highlightSimilar: Boolean) {
-		mHighlightSimilar = highlightSimilar
-	}
-
-	fun setOnSelectedNumberChangedListener(l: OnSelectedNumberChangedListener?) {
-		mOnSelectedNumberChangedListener = l
 	}
 
 	override fun initialize(
@@ -145,8 +124,8 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 				tag = key
 				setOnClickListener(mNumberButtonClicked)
 				setOnTouchListener(mNumberButtonTouched)
-				setShowNumbersPlaced(mShowNumberTotals)
-				setEnableAllNumbersPlaced(mHighlightCompletedValues)
+				showNumbersPlaced = showNumberTotals
+				enableAllNumbersPlaced = highlightCompletedValues
 				backgroundTintList = backgroundColor
 				setTextColor(textColor)
 			}
@@ -214,7 +193,7 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 		val valuesUseCount = mGame!!.cells.valuesUseCount
 		for (button in mNumberButtons!!.values) {
 			val tag = button.tag as Int
-			button.setMode(mEditMode)
+			button.mode = mEditMode
 			if (mSelectedNumber == tag) {
 				button.isChecked = true
 				button.requestFocus()
@@ -225,7 +204,7 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 			// Update the count of numbers placed
 			button.setNumbersPlaced(valuesUseCount[tag] ?: 0)
 		}
-		mBoard.setHighlightedValue(if (mBoard.isReadOnly) 0 else mSelectedNumber)
+		mBoard.highlightedValue = if (mBoard.isReadOnly) 0 else mSelectedNumber
 	}
 
 	override fun onActivated() {
@@ -234,20 +213,20 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 
 	override fun onCellSelected(cell: Cell?) {
 		super.onCellSelected(cell)
-		if (mBidirectionalSelection && cell != null) {
+		if (bidirectionalSelection && cell != null) {
 			val v = cell.value
 			if (v != 0 && v != mSelectedNumber) {
 				mSelectedNumber = cell.value
 				update()
 			}
 		}
-		mBoard.setHighlightedValue(mSelectedNumber)
+		mBoard.highlightedValue = mSelectedNumber
 	}
 
 	private fun onSelectedNumberChanged() {
-		if (mBidirectionalSelection && mHighlightSimilar && mOnSelectedNumberChangedListener != null && !mBoard.isReadOnly) {
-			mOnSelectedNumberChangedListener!!.onSelectedNumberChanged(mSelectedNumber)
-			mBoard.setHighlightedValue(mSelectedNumber)
+		if (bidirectionalSelection && highlightSimilar && onSelectedNumberChangedListener != null && !mBoard.isReadOnly) {
+			onSelectedNumberChangedListener!!(mSelectedNumber)
+			mBoard.highlightedValue = mSelectedNumber
 		}
 	}
 

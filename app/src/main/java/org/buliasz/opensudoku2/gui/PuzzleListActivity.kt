@@ -33,7 +33,6 @@ import androidx.recyclerview.widget.RecyclerView
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuDatabase
-import org.buliasz.opensudoku2.game.FolderInfo
 import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.gui.fragments.DeletePuzzleDialogFragment
 import org.buliasz.opensudoku2.gui.fragments.EditUserNoteDialogFragment
@@ -306,13 +305,9 @@ class PuzzleListActivity : ThemedActivity() {
 	private fun updateTitle() {
 		val folder = mDatabase.getFolderInfo(mFolderID)
 		title = folder?.name ?: ""
-		mFolderDetailLoader.loadDetailAsync(mFolderID, object : FolderDetailLoader.FolderDetailCallback {
-			override fun onLoaded(folderInfo: FolderInfo?) {
-				runOnUiThread {
-					if (folderInfo != null) title = folderInfo.name + ": " + folderInfo.getDetail(applicationContext)
-				}
-			}
-		})
+		mFolderDetailLoader.loadDetailAsync(mFolderID) { folderInfo ->
+			runOnUiThread { title = folderInfo.name + ": " + folderInfo.getDetail(applicationContext) }
+		}
 	}
 
 	private fun playSudoku(puzzleID: Long) {

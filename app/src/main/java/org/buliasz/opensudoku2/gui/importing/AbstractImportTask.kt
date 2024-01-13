@@ -50,7 +50,7 @@ abstract class AbstractImportTask {
 	protected lateinit var mDatabase: SudokuDatabase
 	private lateinit var mFolder: FolderInfo // currently processed folder
 	private var mFolderCount = 0 // count of processed folders
-	private lateinit var mImportError: String
+	protected lateinit var importError: String
 	protected var importedCount = 0
 	protected var duplicatesCount = 0
 	protected var updatedCount = 0
@@ -71,7 +71,7 @@ abstract class AbstractImportTask {
 				isSuccess = processImportInternal()
 			} catch (e: Exception) {
 				Log.e(Const.TAG, "Exception occurred during import.", e)
-				setError(context.getString(R.string.unknown_import_error))
+				importError = context.getString(R.string.unknown_import_error)
 			}
 			withContext(Dispatchers.Main) {
 				onPostExecute(isSuccess, onImportFinished, supportFragmentManager)
@@ -95,7 +95,7 @@ abstract class AbstractImportTask {
 			if (duplicatesCount > 0) resultMessage += "\nSkipped $duplicatesCount already existing puzzles."
 			if (updatedCount > 0) resultMessage += "\nUpdated $updatedCount existing puzzles."
 		} else {
-			resultMessage = mImportError
+			resultMessage = importError
 		}
 
 		val folderId = if (mFolderCount == 1) mFolder.id else -1
@@ -117,12 +117,12 @@ abstract class AbstractImportTask {
 				processImport(mContext)  // let subclass handle the import
 			} catch (e: SudokuInvalidFormatException) {
 				Log.e(this.javaClass.name, "Invalid format", e)
-				setError(mContext.getString(R.string.invalid_format))
+				importError = mContext.getString(R.string.invalid_format)
 			}
 		}
 
 		if (mFolderCount == 0) {
-			setError(mContext.getString(R.string.no_puzzles_found))
+			importError = mContext.getString(R.string.no_puzzles_found)
 			return false
 		}
 
@@ -146,10 +146,6 @@ abstract class AbstractImportTask {
 		mFolderCount++
 		mFolder = mDatabase.insertFolder(name, created)
 		return mFolder.id
-	}
-
-	protected fun setError(error: String) {
-		mImportError = error
 	}
 
 	interface OnImportFinishedListener {

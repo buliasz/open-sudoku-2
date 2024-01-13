@@ -107,7 +107,7 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
 		layoutManager.scrollToPosition(mClickedDialogEntryIndex)
 		mAdapter = ThemeAdapter(mEntries)
 		recyclerView.adapter = mAdapter
-		mAdapter.setOnItemClickListener(mOnItemClickListener)
+		mAdapter.onItemClickListener = mOnItemClickListener
 		prepareBoardPreviewView("${mEntryValues[mClickedDialogEntryIndex]}")
 		builder.setView(preferenceView)
 		builder.setTitle("")
@@ -125,7 +125,7 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
 	}
 
 	internal inner class ThemeAdapter(private val mEntries: Array<CharSequence?>?) : RecyclerView.Adapter<ViewHolder?>() {
-		private var mOnItemClickListener: View.OnClickListener? = null
+		internal var onItemClickListener: View.OnClickListener? = null
 
 		/** Drawable for icon that indicates this theme enforces dark mode  */
 		private val mDarkModeIcon: Drawable? =
@@ -136,13 +136,9 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
 
 			init {
 				itemView.tag = this
-				itemView.setOnClickListener(mOnItemClickListener)
+				itemView.setOnClickListener(onItemClickListener)
 				radioButton = itemView.findViewById(android.R.id.text1)
 			}
-		}
-
-		fun setOnItemClickListener(itemClickListener: View.OnClickListener?) {
-			mOnItemClickListener = itemClickListener
 		}
 
 		override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -168,9 +164,7 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
 	}
 
 	private fun prepareBoardPreviewView(initialTheme: String) {
-		mBoard.setOnCellSelectedListener { cell: Cell? ->
-			mBoard.setHighlightedValue(cell?.value ?: 0)
-		}
+		mBoard.onCellSelectedListener = { cell: Cell? -> mBoard.highlightedValue = cell?.value ?: 0 }
 		ThemeUtils.prepareBoardPreviewView(mBoard)
 		applyThemePreview(initialTheme)
 	}

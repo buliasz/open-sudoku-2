@@ -25,7 +25,7 @@ import java.util.regex.Pattern
  * Collection of Sudoku cells. This class in fact represents one Sudoku board (9x9).
  */
 class CellCollection private constructor(val cells: Array<Array<Cell>>) {
-	private val mChangeListeners: MutableList<OnChangeListener> = ArrayList()
+	private val mChangeListeners: MutableList<() -> Unit> = ArrayList()
 
 	// Helper arrays, contains references to the groups of cells, which should contain unique
 	// numbers.
@@ -94,16 +94,6 @@ class CellCollection private constructor(val cells: Array<Array<Cell>>) {
 	 * Gets cell at given position.
 	 */
 	fun getCell(rowIndex: Int, colIndex: Int): Cell = cells[rowIndex][colIndex]
-
-	fun findFirstCell(value: Int): Cell? {
-		for (r in 0..<SUDOKU_SIZE) {
-			for (c in 0..<SUDOKU_SIZE) {
-				val cell = cells[r][c]
-				if (cell.value == value) return cell
-			}
-		}
-		return null
-	}
 
 	private fun markAllCellsAsValid() {
 		mOnChangeEnabled = false
@@ -339,7 +329,7 @@ class CellCollection private constructor(val cells: Array<Array<Cell>>) {
 		}
 	}
 
-	fun ensureOnChangeListener(listener: OnChangeListener?) {
+	fun ensureOnChangeListener(listener: (() -> Unit)?) {
 		requireNotNull(listener) { "The listener is null." }
 		synchronized(mChangeListeners) {
 			if (!mChangeListeners.contains(listener)) {
@@ -355,17 +345,10 @@ class CellCollection private constructor(val cells: Array<Array<Cell>>) {
 		if (mOnChangeEnabled) {
 			synchronized(mChangeListeners) {
 				for (listener in mChangeListeners) {
-					listener.onChange()
+					listener()
 				}
 			}
 		}
-	}
-
-	fun interface OnChangeListener {
-		/**
-		 * Called when anything in the collection changes (cell's value, note, etc.)
-		 */
-		fun onChange()
 	}
 
 	companion object {

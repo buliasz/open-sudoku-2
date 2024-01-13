@@ -43,8 +43,8 @@ class SudokuGame {
 	var userNote: String = ""
 	private lateinit var mCells: CellCollection
 	private var mUsedSolver = false
-	private var mRemoveNotesOnEntry = false
-	private var mOnPuzzleSolvedListener: OnPuzzleSolvedListener? = null
+	internal var removeNotesOnEntry = false
+	internal var onPuzzleSolvedListener: (() -> Unit)? = null
 	var onHasUndoChangedListener: (isEmpty: Boolean) -> Unit
 		get() = commandStack.onEmptyChangeListener
 		set(value) {
@@ -100,10 +100,6 @@ class SudokuGame {
 		validate()
 	}
 
-	fun setOnPuzzleSolvedListener(listener: OnPuzzleSolvedListener) {
-		mOnPuzzleSolvedListener = listener
-	}
-
 	/**
 	 * Time of game-play in milliseconds.
 	 */
@@ -120,17 +116,13 @@ class SudokuGame {
 			commandStack = CommandStack(mCells)
 		}
 
-	fun setRemoveNotesOnEntry(removeNotesOnEntry: Boolean) {
-		mRemoveNotesOnEntry = removeNotesOnEntry
-	}
-
 	/**
 	 * Sets value for the given cell. 0 means empty cell.
 	 */
 	fun setCellValue(cell: Cell, value: Int) {
 		require(!(value < 0 || value > 9)) { "Value must be between 0-9." }
 		if (cell.isEditable) {
-			if (mRemoveNotesOnEntry) {
+			if (removeNotesOnEntry) {
 				executeCommand(SetCellValueAndRemoveNotesCommand(cell, value))
 			} else {
 				executeCommand(SetCellValueCommand(cell, value))
@@ -138,7 +130,7 @@ class SudokuGame {
 			validate()
 			if (isCompleted) {
 				finish()
-				(mOnPuzzleSolvedListener ?: return).onPuzzleSolved()
+				(onPuzzleSolvedListener ?: return).invoke()
 			}
 		}
 	}
@@ -294,13 +286,6 @@ class SudokuGame {
 
 	private fun validate() {
 		mCells.validate()
-	}
-
-	interface OnPuzzleSolvedListener {
-		/**
-		 * Occurs when puzzle is solved.
-		 */
-		fun onPuzzleSolved()
 	}
 
 	companion object {

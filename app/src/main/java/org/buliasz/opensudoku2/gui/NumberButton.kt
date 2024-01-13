@@ -49,17 +49,29 @@ class NumberButton(context: Context?, attrs: AttributeSet?) : MaterialButton(con
 	/** Paint for "numbers placed" count  */
 	private val mNumbersPlacedPaint: Paint = Paint()
 
-	/** Mode used to display numbers  */
-	private var mMode: Int = InputMethod.MODE_EDIT_VALUE
+	/** Mode used for displaying numbers  */
+	internal var mode: Int = InputMethod.MODE_EDIT_VALUE
+		set(value) {
+			if (field != value) {
+				field = value
+				invalidate()
+			}
+		}
 
 	/** True if the count of times the number is placed should be shown on the button  */
-	private var mShowNumbersPlaced = false
+	internal var showNumbersPlaced = false
+		set(value) {
+			if (field != value) {
+				field = value
+				invalidate()
+			}
+		}
 
 	/** Count of the number of times this number is placed in the puzzle  */
 	private var mNumbersPlaced = 0
 
 	/** True if the all_numbers_placed attribute is enabled  */
-	private var mEnableAllNumbersPlaced = false
+	internal var enableAllNumbersPlaced = false
 
 	/** Bounds of the text to display  */
 	private val mTextBounds = Rect()
@@ -92,7 +104,7 @@ class NumberButton(context: Context?, attrs: AttributeSet?) : MaterialButton(con
 		var textHeight: Float
 		var textWidth: Float
 		var number = "$tag"
-		when (mMode) {
+		when (mode) {
 			InputMethod.MODE_EDIT_VALUE -> {
 				// Large numbers, vertically/horizontally centered, with optional small number at
 				// the right showing the placed count.
@@ -101,7 +113,7 @@ class NumberButton(context: Context?, attrs: AttributeSet?) : MaterialButton(con
 				textHeight = mTextBounds.height().toFloat()
 				textWidth = mEnterNumberPaint.measureText(number, 0, 1)
 				canvas.drawText(number, 0, 1, midX - textWidth / 2, midY + textHeight / 2, mEnterNumberPaint)
-				if (mShowNumbersPlaced) {
+				if (showNumbersPlaced) {
 					// Initial offset is immediately to the right of the large number
 					val initialXOffset = midX + textWidth / 2
 
@@ -164,40 +176,21 @@ class NumberButton(context: Context?, attrs: AttributeSet?) : MaterialButton(con
 
 	override fun onCreateDrawableState(extraSpace: Int): IntArray {
 		val state = super.onCreateDrawableState(extraSpace + 1)
-		if (mNumbersPlaced == 9 && mEnableAllNumbersPlaced) {
+		if (mNumbersPlaced == 9 && enableAllNumbersPlaced) {
 			mergeDrawableStates(state, ALL_NUMBERS_PLACED_STATE)
 		}
 		return state
-	}
-
-	/** Sets the mode used for displaying numbers  */
-	fun setMode(mode: Int) {
-		if (mMode == mode) return
-		mMode = mode
-		invalidate()
-	}
-
-	/** Sets whether the count of numbers placed should be shown  */
-	fun setShowNumbersPlaced(showNumbersPlaced: Boolean) {
-		if (mShowNumbersPlaced != showNumbersPlaced) {
-			mShowNumbersPlaced = showNumbersPlaced
-			invalidate()
-		}
 	}
 
 	/** Sets the value to use for the count of placed numbers  */
 	fun setNumbersPlaced(numbersPlaced: Int) {
 		if (mNumbersPlaced != numbersPlaced) {
 			mNumbersPlaced = numbersPlaced
-			if (mEnableAllNumbersPlaced) {
+			if (enableAllNumbersPlaced) {
 				refreshDrawableState()
 			}
 			invalidate()
 		}
-	}
-
-	fun setEnableAllNumbersPlaced(enableAllNumbersPlaced: Boolean) {
-		mEnableAllNumbersPlaced = enableAllNumbersPlaced
 	}
 
 	override fun setTag(tag: Any) {

@@ -21,7 +21,6 @@ import android.content.Context
 import android.util.Log
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.game.FolderInfo
-import org.buliasz.opensudoku2.gui.FolderDetailLoader.FolderDetailCallback
 import java.util.concurrent.Executors
 
 /**
@@ -40,11 +39,11 @@ class FolderDetailLoader(context: Context?) {
 		mDatabase = SudokuDatabase(context!!)
 	}
 
-	fun loadDetailAsync(folderId: Long, loadedCallback: FolderDetailCallback) {
+	fun loadDetailAsync(folderId: Long, loadedCallback: (FolderInfo) -> Unit) {
 		executorService.execute {
 			try {
 				val folderInfo = mDatabase.getFolderInfoWithCounts(folderId)
-				loadedCallback.onLoaded(folderInfo)
+				loadedCallback(folderInfo)
 			} catch (e: Exception) {    // this is unimportant, we can log an error and continue
 				Log.e(TAG, "Error occurred while loading full folder info.", e)
 			}
@@ -54,10 +53,6 @@ class FolderDetailLoader(context: Context?) {
 	fun destroy() {
 		executorService.shutdownNow()
 		mDatabase.close()
-	}
-
-	interface FolderDetailCallback {
-		fun onLoaded(folderInfo: FolderInfo?)
 	}
 
 	companion object {

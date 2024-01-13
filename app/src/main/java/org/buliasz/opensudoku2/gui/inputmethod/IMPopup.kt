@@ -31,8 +31,13 @@ import org.buliasz.opensudoku2.gui.inputmethod.IMPopupDialog.OnNoteEditListener
 import org.buliasz.opensudoku2.gui.inputmethod.IMPopupDialog.OnNumberEditListener
 
 class IMPopup(val parent: ViewGroup) : InputMethod() {
-	private var mHighlightCompletedValues = true
-	private var mShowNumberTotals = false
+
+	/**
+	 * If set to true, buttons for numbers, which occur in [CellCollection]
+	 * more than [CellCollection.SUDOKU_SIZE]-times, will be highlighted.
+	 */
+	internal var highlightCompletedValues = true
+	internal var showNumberTotals = false
 	private var mEditCellDialog: IMPopupDialog? = null
 	private var mSelectedCell: Cell? = null
 	private lateinit var mSwitchModeButton: Button
@@ -43,7 +48,7 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 	private val mOnNumberEditListener = OnNumberEditListener { number ->
 		if (number != -1 && mSelectedCell != null) {
 			mGame!!.setCellValue(mSelectedCell!!, number)
-			mBoard!!.setHighlightedValue(number)
+			mBoard.highlightedValue = number
 		}
 		true
 	}
@@ -70,39 +75,27 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 	/**
 	 * Occurs when popup dialog is closed.
 	 */
-	private val mOnPopupDismissedListener = DialogInterface.OnDismissListener { _: DialogInterface? -> mBoard!!.hideTouchedCellHint() }
-
-	/**
-	 * If set to true, buttons for numbers, which occur in [CellCollection]
-	 * more than [CellCollection.SUDOKU_SIZE]-times, will be highlighted.
-	 */
-	fun setHighlightCompletedValues(highlightCompletedValues: Boolean) {
-		mHighlightCompletedValues = highlightCompletedValues
-	}
-
-	fun setShowNumberTotals(showNumberTotals: Boolean) {
-		mShowNumberTotals = showNumberTotals
-	}
+	private val mOnPopupDismissedListener = DialogInterface.OnDismissListener { _: DialogInterface? -> mBoard.hideTouchedCellHint() }
 
 	private fun ensureEditCellDialog() {
 		if (mEditCellDialog == null) {
-			with(IMPopupDialog(parent, mContext!!, mBoard!!)) {
-				setOnNumberEditListener(mOnNumberEditListener)
-				setOnNoteEditListener(mOnNoteEditListener)
+			with(IMPopupDialog(parent, mContext!!, mBoard)) {
+				onNumberEditListener = mOnNumberEditListener
+				onNoteEditListener = mOnNoteEditListener
 				setOnDismissListener(mOnPopupDismissedListener)
-				setShowNumberTotals(mShowNumberTotals)
-				setHighlightCompletedValues(mHighlightCompletedValues)
+				setShowNumberTotals(showNumberTotals)
+				setHighlightCompletedValues(highlightCompletedValues)
 				mEditCellDialog = this
 			}
 		}
 	}
 
 	override fun onActivated() {
-		mBoard!!.setAutoHideTouchedCellHint(false)
+		mBoard.autoHideTouchedCellHint = false
 	}
 
 	override fun onDeactivated() {
-		mBoard!!.setAutoHideTouchedCellHint(true)
+		mBoard.autoHideTouchedCellHint = true
 	}
 
 	override fun onCellTapped(cell: Cell) {
@@ -117,13 +110,13 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 			mEditCellDialog!!.setValueCount(valuesUseCount)
 			mEditCellDialog!!.show()
 		} else {
-			mBoard!!.hideTouchedCellHint()
+			mBoard.hideTouchedCellHint()
 		}
 	}
 
 	override fun onCellSelected(cell: Cell?) {
 		super.onCellSelected(cell)
-		mBoard!!.setHighlightedValue(cell?.value ?: 0)
+		mBoard.highlightedValue = cell?.value ?: 0
 	}
 
 	override fun onPause() {

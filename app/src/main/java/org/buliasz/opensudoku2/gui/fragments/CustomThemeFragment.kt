@@ -111,9 +111,9 @@ class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
 		val highlightSimilarCells = mSharedPreferences!!.getBoolean("highlight_similar_cells", true)
 		val highlightSimilarNotes = mSharedPreferences!!.getBoolean("highlight_similar_notes", true)
 		if (highlightSimilarCells) {
-			board!!.setHighlightSimilarCell(if (highlightSimilarNotes) HighlightMode.NUMBERS_AND_NOTES else HighlightMode.NUMBERS)
+			board!!.highlightSimilarCells = if (highlightSimilarNotes) HighlightMode.NUMBERS_AND_NOTES else HighlightMode.NUMBERS
 		}
-		board!!.setOnCellSelectedListener { cell: Cell? -> board.setHighlightedValue(cell?.value ?: 0) }
+		board!!.onCellSelectedListener = { cell: Cell? -> board.highlightedValue = cell?.value ?: 0 }
 		ThemeUtils.prepareBoardPreviewView(board)
 		updateThemePreview()
 	}

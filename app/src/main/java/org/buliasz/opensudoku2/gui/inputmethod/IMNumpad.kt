@@ -37,8 +37,13 @@ import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanelStatePersister.Stat
 
 class IMNumpad(val parent: ViewGroup) : InputMethod() {
 	var isMoveCellSelectionOnPress = true
-	private var mHighlightCompletedValues = true
-	private var mShowNumberTotals = false
+
+	/**
+	 * If set to true, buttons for numbers, which occur in [CellCollection]
+	 * more than [CellCollection.SUDOKU_SIZE]-times, will be highlighted.
+	 */
+	internal var highlightCompletedValues = true
+	internal var showNumberTotals = false
 	private var mSelectedCell: Cell? = null
 	private var mClearButton: IconButton? = null
 	private var mEditMode = MODE_EDIT_VALUE
@@ -60,7 +65,7 @@ class IMNumpad(val parent: ViewGroup) : InputMethod() {
 			when (mEditMode) {
 				MODE_EDIT_VALUE -> if (selNumber in 0..9) {
 					mGame!!.setCellValue(selCell, selNumber)
-					mBoard.setHighlightedValue(selNumber)
+					mBoard.highlightedValue = selNumber
 					if (isMoveCellSelectionOnPress) {
 						mBoard.moveCellSelectionRight()
 					}
@@ -84,23 +89,7 @@ class IMNumpad(val parent: ViewGroup) : InputMethod() {
 		mEditMode = v.tag as Int
 		update()
 	}
-	private val mOnCellsChangeListener = CellCollection.OnChangeListener {
-		if (mActive) {
-			update()
-		}
-	}
-
-	/**
-	 * If set to true, buttons for numbers, which occur in [CellCollection]
-	 * more than [CellCollection.SUDOKU_SIZE]-times, will be highlighted.
-	 */
-	fun setHighlightCompletedValues(highlightCompletedValues: Boolean) {
-		mHighlightCompletedValues = highlightCompletedValues
-	}
-
-	fun setShowNumberTotals(showNumberTotals: Boolean) {
-		mShowNumberTotals = showNumberTotals
-	}
+	private val mOnCellsChangeListener = { if (mActive) update() }
 
 	override fun initialize(
 		context: Context?, controlPanel: IMControlPanel?,
@@ -130,8 +119,8 @@ class IMNumpad(val parent: ViewGroup) : InputMethod() {
 			val button = numberButtons[num]
 			button!!.tag = num
 			button.setOnClickListener(mNumberButtonClicked)
-			button.setShowNumbersPlaced(mShowNumberTotals)
-			button.setEnableAllNumbersPlaced(mHighlightCompletedValues)
+			button.showNumbersPlaced = showNumberTotals
+			button.enableAllNumbersPlaced = highlightCompletedValues
 			button.backgroundTintList = backgroundColor
 			button.setTextColor(textColor)
 		}
@@ -185,7 +174,7 @@ class IMNumpad(val parent: ViewGroup) : InputMethod() {
 	}
 
 	override fun onCellSelected(cell: Cell?) {
-		mBoard.setHighlightedValue(cell?.value ?: 0)
+		mBoard.highlightedValue = cell?.value ?: 0
 		mSelectedCell = cell
 		update()
 	}
@@ -232,7 +221,7 @@ class IMNumpad(val parent: ViewGroup) : InputMethod() {
 			// This has to come first, calling setChecked() later doesn't work if the button is
 			// not editable when setChecked() is called.
 			button.isEnabled = editable
-			button.setMode(mEditMode)
+			button.mode = mEditMode
 
 			// Check the button if necessary
 			button.isChecked = buttonsToCheck.contains(tag)
