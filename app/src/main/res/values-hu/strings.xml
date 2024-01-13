@@ -197,7 +197,7 @@
 	<string name="export_folder">Mappa exportálása</string>
 	<string name="export_all_folders">Minden mappa exportálása</string>
 	<string name="folders_created">%d mappa importálva</string>
-	<string name="importing">Feladványok importálása…</string>
+	<string name="importing">Feladványok importálása %d/%d…</string>
 	<string name="exporting">Feladványok exportálása…</string>
 	<string name="unknown_export_error">Ismeretlen hiba exportálás közben</string>
 	<string name="highlight_completed_values">Elfogyott számok jelzése</string>
@@ -337,6 +337,7 @@
 	<string name="pref_error_summary">Érvénytelen értékeket tartalmazó cellák</string>
 	<string name="pref_even_title">Páros sejtek</string>
 	<string name="pref_even_summary">Páros számú 3x3-as dobozok cellái</string>
+	<string name="processing_input_file">Processing the input file</string>
 </resources>
 
 

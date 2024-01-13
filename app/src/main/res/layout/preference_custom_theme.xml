@@ -19,17 +19,16 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:padding="16dp">
 
-    <org.buliasz.opensudoku2.gui.SudokuBoardView
-        android:id="@+id/board_view"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
-        android:layout_marginStart="6dp" />
+	<org.buliasz.opensudoku2.gui.SudokuBoardView android:id="@+id/board_view"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="6dp"
+		android:layout_marginStart="6dp" />
 
-    <!-- The widgets for the list are added in the code -->
+	<!-- The widgets for the list are added in the code -->
 </LinearLayout>

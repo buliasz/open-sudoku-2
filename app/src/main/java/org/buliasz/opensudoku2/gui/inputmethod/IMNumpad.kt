@@ -60,9 +60,9 @@ class IMNumpad(val parent: ViewGroup) : InputMethod() {
 			when (mEditMode) {
 				MODE_EDIT_VALUE -> if (selNumber in 0..9) {
 					mGame!!.setCellValue(selCell, selNumber)
-					mBoard!!.setHighlightedValue(selNumber)
+					mBoard.setHighlightedValue(selNumber)
 					if (isMoveCellSelectionOnPress) {
-						mBoard!!.moveCellSelectionRight()
+						mBoard.moveCellSelectionRight()
 					}
 				}
 
@@ -104,7 +104,7 @@ class IMNumpad(val parent: ViewGroup) : InputMethod() {
 
 	override fun initialize(
 		context: Context?, controlPanel: IMControlPanel?,
-		game: SudokuGame, board: SudokuBoardView?, hintsQueue: HintsQueue?
+		game: SudokuGame, board: SudokuBoardView, hintsQueue: HintsQueue?
 	) {
 		super.initialize(context, controlPanel, game, board, hintsQueue)
 		game.cells.ensureOnChangeListener(mOnCellsChangeListener)
@@ -124,8 +124,8 @@ class IMNumpad(val parent: ViewGroup) : InputMethod() {
 		numberButtons[7] = controlPanel.findViewById(R.id.button_7)
 		numberButtons[8] = controlPanel.findViewById(R.id.button_8)
 		numberButtons[9] = controlPanel.findViewById(R.id.button_9)
-		val textColor: ColorStateList = makeTextColorStateList(mBoard!!)
-		val backgroundColor: ColorStateList = makeBackgroundColorStateList(mBoard!!)
+		val textColor: ColorStateList = makeTextColorStateList(mBoard)
+		val backgroundColor: ColorStateList = makeBackgroundColorStateList(mBoard)
 		for (num in numberButtons.keys) {
 			val button = numberButtons[num]
 			button!!.tag = num
@@ -181,11 +181,11 @@ class IMNumpad(val parent: ViewGroup) : InputMethod() {
 		get() = mSwitchModeButton
 
 	override fun onActivated() {
-		onCellSelected(if (mBoard!!.isReadOnly) null else mBoard!!.selectedCell)
+		onCellSelected(if (mBoard.isReadOnly) null else mBoard.selectedCell)
 	}
 
 	override fun onCellSelected(cell: Cell?) {
-		mBoard!!.setHighlightedValue(cell?.value ?: 0)
+		mBoard.setHighlightedValue(cell?.value ?: 0)
 		mSelectedCell = cell
 		update()
 	}

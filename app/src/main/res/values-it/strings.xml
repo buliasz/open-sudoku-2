@@ -174,7 +174,7 @@
 	<string name="export_folder">Esporta cartella</string>
 	<string name="export_all_folders">Esporta tutte le cartelle</string>
 	<string name="folders_created">%d cartelle importate.</string>
-	<string name="importing">Importazione rompicapi…</string>
+	<string name="importing">Importazione rompicapi %d/%d…</string>
 	<string name="exporting">Esportazione rompicapi…</string>
 	<string name="unknown_export_error">Errore sconosciuto durante esportazione rompicapi.</string>
 	<string name="highlight_completed_values">Evidenzia numeri completati</string>
@@ -318,4 +318,5 @@
 	<string name="pref_error_summary">Celle contenenti valori non validi</string>
 	<string name="pref_even_title">Cellule uniformi</string>
 	<string name="pref_even_summary">Celle in caselle 3x3 pari</string>
+	<string name="processing_input_file">Processing the input file</string>
 </resources>

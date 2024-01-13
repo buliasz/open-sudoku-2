@@ -24,15 +24,20 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.gui.importing.AbstractImportTask
 import org.buliasz.opensudoku2.gui.importing.OpenSudoku2ImportTask
 import org.buliasz.opensudoku2.gui.importing.SdmImportTask
+import org.buliasz.opensudoku2.gui.importing.SepbImportTask
+import org.buliasz.opensudoku2.gui.importing.SepbRegex
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStreamReader
@@ -44,6 +49,9 @@ import java.net.URISyntaxException
  * (web, file, .opensudoku2, .sdm, extras).
  */
 class PuzzleImportActivity : ThemedActivity() {
+	private var lastProgressUpdate: Long = 0
+	private lateinit var progressText: TextView
+	private lateinit var progressBar: ProgressBar
 	private val mOnImportFinishedListener = object : AbstractImportTask.OnImportFinishedListener {
 		override fun onImportFinished(importSuccessful: Boolean, folderId: Long) {
 			if (importSuccessful) {
@@ -132,16 +140,16 @@ class PuzzleImportActivity : ThemedActivity() {
 		}
 
 		val cBuffer = CharArray(512)
-		val read: Int
+		val numberOfCharactersRead: Int
 		try {
 			// read first 512 bytes to check the type of file
-			read = streamReader.read(cBuffer, 0, 512)
+			numberOfCharactersRead = streamReader.read(cBuffer, 0, 512)
 			streamReader.close()
 		} catch (e: IOException) {
 			return
 		}
 
-		if (read < 81) {
+		if (numberOfCharactersRead < 81) {
 			// At least one full 9x9 game needed in case of SDM
 			return
 		}
@@ -149,11 +157,14 @@ class PuzzleImportActivity : ThemedActivity() {
 		val cBufferStr = String(cBuffer)
 		@Suppress("RegExpSimplifiable")
 		importTask = if (cBufferStr.contains("<opensudoku2")) {
-			// Seems to be an OpenSudoku2 file
+			// Recognized OpenSudoku2 file
 			OpenSudoku2ImportTask(dataUri)
-		} else if (cBufferStr.matches("""[.0-9\n\r]{$read}""".toRegex())) {
-			// Seems to be a Sudoku SDM file
+		} else if (cBufferStr.matches("""[.0-9\n\r]{$numberOfCharactersRead}""".toRegex())) {
+			// Recognized Sudoku SDM file
 			SdmImportTask(dataUri)
+		} else if (SepbRegex.containsMatchIn(cBufferStr)) {
+			// Recognized Sudoku Exchange "Puzzle Bank" file
+			SepbImportTask(dataUri)
 		} else {
 			Log.e(TAG, "Unknown type of data provided (mime-type=${intent.type}; uri=$dataUri), exiting.")
 			Toast.makeText(this, R.string.invalid_format, Toast.LENGTH_LONG).show()
@@ -161,9 +172,28 @@ class PuzzleImportActivity : ThemedActivity() {
 			return
 		}
 
+		progressBar = findViewById(R.id.progressBar)
+		progressText = findViewById(R.id.progressText)
+
 		CoroutineScope(Dispatchers.IO).launch {
-			importTask.doInBackground(applicationContext, mOnImportFinishedListener, supportFragmentManager)
+			importTask.doInBackground(applicationContext, mOnImportFinishedListener, supportFragmentManager, ::progressUpdate)
 		}
+	}
+
+	private suspend fun progressUpdate(currentValue: Int, maxValue: Int) {
+		if (currentValue < maxValue && System.currentTimeMillis() - lastProgressUpdate < 300) {
+			return
+		}
+		withContext(Dispatchers.Main) {
+			if (currentValue == 0) {
+				progressText.text = applicationContext.getString(R.string.import_puzzles_found, maxValue)
+			} else {
+				progressBar.max = maxValue
+				progressBar.progress = currentValue
+				progressText.text = "$currentValue/$maxValue"
+			}
+		}
+		lastProgressUpdate = System.currentTimeMillis()
 	}
 
 	companion object {

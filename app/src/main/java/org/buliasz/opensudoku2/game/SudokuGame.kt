@@ -17,6 +17,7 @@
  */
 package org.buliasz.opensudoku2.game
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.os.SystemClock
 import org.buliasz.opensudoku2.db.Names
@@ -53,6 +54,22 @@ class SudokuGame {
 
 	// Time when current activity has become active.
 	private var mActiveFromTime: Long = -1
+
+	val contentValues: ContentValues
+		get() {
+			with(ContentValues()) {
+				put(Names.ORIGINAL_VALUES, cells.serialize(CellCollection.DATA_VERSION_ORIGINAL))
+				put(Names.CELLS_DATA, cells.serialize())
+				put(Names.CREATED, created)
+				put(Names.LAST_PLAYED, lastPlayed)
+				put(Names.STATE, state)
+				put(Names.TIME, time)
+				put(Names.USER_NOTE, userNote)
+				put(Names.COMMAND_STACK, if (state == GAME_STATE_PLAYING) commandStack.serialize() else "")
+				put(Names.FOLDER_ID, folderId)
+				return this
+			}
+		}
 
 	init {
 		state = GAME_STATE_NOT_STARTED
@@ -151,9 +168,7 @@ class SudokuGame {
 	/**
 	 * Undo last command.
 	 */
-	fun undo() {
-		commandStack.undo()
-	}
+	fun undo(): Cell? = commandStack.undo()
 
 	fun hasSomethingToUndo(): Boolean = !commandStack.isEmpty
 
@@ -171,8 +186,8 @@ class SudokuGame {
 		commandStack.undoToSolvableState()
 	}
 
-	val lastChangedCell: Cell?
-		get() = commandStack.lastChangedCell
+	val lastCommandCell: Cell?
+		get() = commandStack.lastCommandCell
 
 	/**
 	 * Start game-play.

@@ -54,11 +54,13 @@ class CommandStack(private val mCells: CellCollection) {
 		command.execute()
 	}
 
-	fun undo() {
+	fun undo(): Cell? {
 		if (!isEmpty) {
-			pop().undo()
+			val cellUndone = pop().undo()
 			validateCells()
+			return cellUndone
 		}
+		return null
 	}
 
 	fun setCheckpoint() {
@@ -94,15 +96,18 @@ class CommandStack(private val mCells: CellCollection) {
 		validateCells()
 	}
 
-	val lastChangedCell: Cell?
+	val lastCommandCell: Cell?
 		get() {
 			val iterator: ListIterator<AbstractCommand> = mCommandStack.listIterator(mCommandStack.size)
 			while (iterator.hasPrevious()) {
-				val o = iterator.previous()
-				if (o is AbstractSingleCellCommand) {
-					return o.cell
-				} else if (o is SetCellValueAndRemoveNotesCommand) {
-					return o.cell
+				when (val o = iterator.previous()) {
+					is AbstractSingleCellCommand -> {
+						return o.cell
+					}
+
+					is SetCellValueAndRemoveNotesCommand -> {
+						return o.cell
+					}
 				}
 			}
 			return null

@@ -40,7 +40,7 @@ abstract class InputMethod {
 	protected var mContext: Context? = null
 	private var mControlPanel: IMControlPanel? = null
 	protected var mGame: SudokuGame? = null
-	protected var mBoard: SudokuBoardView? = null
+	protected lateinit var mBoard: SudokuBoardView
 	private var mHintsQueue: HintsQueue? = null
 	private var mInputMethodView: View? = null
 	protected var mActive = false
@@ -52,7 +52,7 @@ abstract class InputMethod {
 		private set
 	private var mEnabled = true
 	open fun initialize(
-		context: Context?, controlPanel: IMControlPanel?, game: SudokuGame, board: SudokuBoardView?, hintsQueue: HintsQueue?
+		context: Context?, controlPanel: IMControlPanel?, game: SudokuGame, board: SudokuBoardView, hintsQueue: HintsQueue?
 	) {
 		mContext = context
 		mControlPanel = controlPanel

@@ -54,7 +54,7 @@ import org.buliasz.opensudoku2.utils.ThemeUtils
  * view as well, instead of allowing the AlertDialog to do it.
  */
 class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
-	private var mBoard: SudokuBoardView? = null
+	private lateinit var mBoard: SudokuBoardView
 	var mClickedDialogEntryIndex = 0
 	private var mEntries: Array<CharSequence?>? = null
 	private lateinit var mEntryValues: Array<CharSequence>
@@ -168,15 +168,15 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
 	}
 
 	private fun prepareBoardPreviewView(initialTheme: String) {
-		mBoard!!.setOnCellSelectedListener { cell: Cell? ->
-			mBoard!!.setHighlightedValue(cell?.value ?: 0)
+		mBoard.setOnCellSelectedListener { cell: Cell? ->
+			mBoard.setHighlightedValue(cell?.value ?: 0)
 		}
-		ThemeUtils.prepareBoardPreviewView(mBoard!!)
+		ThemeUtils.prepareBoardPreviewView(mBoard)
 		applyThemePreview(initialTheme)
 	}
 
 	private fun applyThemePreview(theme: String) {
-		ThemeUtils.applyThemeToSudokuBoardViewFromContext(theme, mBoard!!, requireContext())
+		ThemeUtils.applyThemeToSudokuBoardViewFromContext(theme, mBoard, requireContext())
 	}
 
 	companion object {

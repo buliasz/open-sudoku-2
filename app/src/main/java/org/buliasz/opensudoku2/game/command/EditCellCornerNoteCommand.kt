@@ -45,13 +45,12 @@ class EditCellCornerNoteCommand : AbstractSingleCellCommand {
 	}
 
 	override fun execute() {
-		val cell = cell
 		mOldNote = cell.cornerNote
 		cell.cornerNote = mNote
 	}
 
-	override fun undo() {
-		val cell = cell
+	override fun undo(): Cell {
 		cell.cornerNote = mOldNote
+		return cell
 	}
 }

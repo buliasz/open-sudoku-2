@@ -19,22 +19,22 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp">
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:padding="16dp">
 
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminate="true" />
+	<ProgressBar android:id="@+id/progressBar"
+		style="@android:style/Widget.ProgressBar.Horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:progress="0" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:text="@string/importing" />
+	<TextView android:id="@+id/progressText"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:text="@string/processing_input_file" />
 
 </LinearLayout>

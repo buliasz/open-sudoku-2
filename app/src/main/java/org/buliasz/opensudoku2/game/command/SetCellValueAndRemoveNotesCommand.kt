@@ -57,15 +57,14 @@ class SetCellValueAndRemoveNotesCommand : AbstractMultiNoteCommand {
 	override fun execute() {
 		mOldCornerNotes.clear()
 		saveOldNotes()
-		val cell = cell
 		cells.removeNotesForChangedCell(cell, mValue)
 		mOldValue = cell.value
 		cell.value = mValue
 	}
 
-	override fun undo() {
+	override fun undo(): Cell {
 		super.undo()
-		val cell = cell
 		cell.value = mOldValue
+		return cell
 	}
 }

@@ -18,6 +18,7 @@
 
 package org.buliasz.opensudoku2.game.command
 
+import org.buliasz.opensudoku2.game.Cell
 import org.buliasz.opensudoku2.game.CellCollection
 import org.buliasz.opensudoku2.game.CellNote
 import java.util.StringTokenizer
@@ -62,18 +63,17 @@ abstract class AbstractMultiNoteCommand : AbstractCellCommand() {
 		}
 	}
 
-	override fun undo() {
-		val cells = cells
+	override fun undo(): Cell? {
 		for (ne in mOldCornerNotes) {
 			cells.getCell(ne.rowIndex, ne.colIndex).cornerNote = ne.note
 		}
 		for (ne in mOldCenterNotes) {
 			cells.getCell(ne.rowIndex, ne.colIndex).centerNote = ne.note
 		}
+		return null
 	}
 
 	protected fun saveOldNotes() {
-		val cells = cells
 		for (r in 0..<CellCollection.SUDOKU_SIZE) {
 			for (c in 0..<CellCollection.SUDOKU_SIZE) {
 				mOldCornerNotes.add(NoteEntry(r, c, cells.getCell(r, c).cornerNote))

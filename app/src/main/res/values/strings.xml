@@ -202,9 +202,7 @@
 
 	<string name="puzzles_saved">Puzzles have been saved into \‘%s\’ folder</string>
 	<string name="no_puzzles_found">No puzzles found</string>
-	<string name="unknown_import_error">Unknown error occurred while importing puzzles; import was
-		cancelled
-	</string>
+	<string name="unknown_import_error">Unknown error occurred while importing puzzles; import was cancelled</string>
 	<string name="invalid_format">Invalid format; import was cancelled</string>
 
 	<string name="screen_border_size">Screen border size</string>
@@ -217,8 +215,9 @@
 	<string name="export">Export</string>
 	<string name="export_folder">Export folder</string>
 	<string name="export_all_folders">Export all folders</string>
-	<string name="folders_created">%d folders have been imported</string>
-	<string name="importing">Importing puzzles…</string>
+	<string name="folders_created">Created %d folders.</string>
+	<string name="import_puzzles_found">Found %d puzzles…</string>
+	<string name="importing">Importing puzzles</string>
 	<string name="exporting">Exporting puzzles…</string>
 	<string name="unknown_export_error">An unknown error occurred while exporting puzzles</string>
 	<string name="highlight_completed_values">Highlight completed numbers</string>
@@ -393,4 +392,5 @@
 	<string name="pref_even_title">Even cells</string>
 	<string name="pref_even_summary">Cells in even-numbered 3x3 boxes</string>
 	<string name="theme_emerald">Emerald</string>
+	<string name="processing_input_file">Processing the input file</string>
 </resources>

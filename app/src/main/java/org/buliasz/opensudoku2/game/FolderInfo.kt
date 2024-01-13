@@ -32,7 +32,7 @@ class FolderInfo {
 	/**
 	 * Name of the folder.
 	 */
-	var name: String? = null
+	lateinit var name: String
 
 	var created: Long = 0
 
@@ -52,7 +52,7 @@ class FolderInfo {
 	var playingCount = 0
 
 	constructor()
-	constructor(id: Long, name: String?) {
+	constructor(id: Long, name: String) {
 		this.id = id
 		this.name = name
 	}

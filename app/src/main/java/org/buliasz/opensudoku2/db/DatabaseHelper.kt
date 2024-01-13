@@ -42,14 +42,15 @@ class DatabaseHelper internal constructor(private val mContext: Context) :
 					"${Names.TIME} INTEGER," +
 					"${Names.LAST_PLAYED} INTEGER," +
 					"${Names.CELLS_DATA} Text," +
-					"${Names.USER_NOTE} Text," +
+					"${Names.ORIGINAL_VALUES} Text NOT NULL," +
+					"${Names.USER_NOTE} Text NOT NULL," +
 					"${Names.COMMAND_STACK} Text);"
 		)
 		db.execSQL(
 			"CREATE TABLE ${Names.FOLDER} (" +
 					"${Names.ID} INTEGER PRIMARY KEY," +
 					"${Names.FOLDER_CREATED} INTEGER," +
-					"${Names.FOLDER_NAME} TEXT);"
+					"${Names.FOLDER_NAME} TEXT UNIQUE NOT NULL);"
 		)
 		insertFolder(db, 1, mContext.getString(R.string.difficulty_easy))
 		insertPuzzle(db, 1, 1, "052006000160900004049803620400000800083201590001000002097305240200009056000100970")
@@ -147,19 +148,19 @@ class DatabaseHelper internal constructor(private val mContext: Context) :
 		createIndexes(db)
 	}
 
-	private fun insertFolder(db: SQLiteDatabase, folderID: Long, folderName: String) {
+	private fun insertFolder(db: SQLiteDatabase, folderId: Long, folderName: String) {
 		val now = System.currentTimeMillis()
-		db.execSQL("INSERT INTO ${Names.FOLDER} VALUES ($folderID, $now, '$folderName');")
+		db.execSQL("INSERT INTO ${Names.FOLDER} VALUES ($folderId, $now, '$folderName');")
 	}
 
-	private fun insertPuzzle(db: SQLiteDatabase, folderID: Long, puzzleID: Long, data: String) {
+	private fun insertPuzzle(db: SQLiteDatabase, folderId: Long, puzzleID: Long, originalValues: String) {
 		val cv = ContentValues()
 		cv.put(Names.ID, puzzleID)
-		cv.put(Names.FOLDER_ID, folderID)
+		cv.put(Names.FOLDER_ID, folderId)
 		cv.put(Names.CREATED, 0)
 		cv.put(Names.STATE, SudokuGame.GAME_STATE_NOT_STARTED)
 		cv.put(Names.TIME, 0)
-		cv.put(Names.CELLS_DATA, data)
+		cv.put(Names.ORIGINAL_VALUES, originalValues)
 		cv.put(Names.USER_NOTE, "")
 		cv.put(Names.COMMAND_STACK, "")
 		db.insert(Names.GAME, null, cv)

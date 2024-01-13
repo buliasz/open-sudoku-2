@@ -166,7 +166,7 @@
 	<string name="export_folder">Klasörü Dışarı Aktar</string>
 	<string name="export_all_folders">Klasörleri Dışarı Aktar</string>
 	<string name="folders_created">%d klasör içeri aktarıldı.</string>
-	<string name="importing">Bulmacalar içeri aktarılıyor…</string>
+	<string name="importing">Bulmacalar içeri aktarılıyor %d/%d…</string>
 	<string name="exporting">Bulmacalar dışarı aktarılıyor…</string>
 	<string name="unknown_export_error">Bulmacalar dışarı aktarılırken bilinmeyen bir hata oluştu.</string>
 	<string name="highlight_completed_values">Tamamlanan Rakamları Göster</string>
@@ -289,5 +289,6 @@
 	<string name="pref_error_summary">Geçersiz değerler içeren hücreler</string>
 	<string name="pref_even_title">Çift kutular</string>
 	<string name="pref_even_summary">Çift sayılı 3x3 kutulardaki hücreler</string>
+	<string name="processing_input_file">Processing the input file</string>
 
 </resources>

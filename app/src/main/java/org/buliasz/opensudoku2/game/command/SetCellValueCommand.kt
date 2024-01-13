@@ -43,13 +43,12 @@ class SetCellValueCommand : AbstractSingleCellCommand {
 	}
 
 	override fun execute() {
-		val cell = cell
 		mOldValue = cell.value
 		cell.value = mValue
 	}
 
-	override fun undo() {
-		val cell = cell
+	override fun undo(): Cell {
 		cell.value = mOldValue
+		return cell
 	}
 }

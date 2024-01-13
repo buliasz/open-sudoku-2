@@ -288,6 +288,7 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 			postInvalidate()
 		}
 
+	// TODO: remove all those unnecessary setters
 	fun setHighlightDirectlyWrongValues(newValue: Boolean) {
 		mHighlightDirectlyWrongValues = newValue
 		postInvalidate()
@@ -826,6 +827,7 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 
 	/**
 	 * Occurs when user selects the cell.
+	 * TODO: remove all those unnecessary interfaces
 	 */
 	fun interface OnCellSelectedListener {
 		fun onCellSelected(cell: Cell?)

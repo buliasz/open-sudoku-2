@@ -35,7 +35,7 @@ class ResetPuzzleDialogFragment(private val mDatabase: SudokuDatabase, val updat
 			.setTitle("Puzzle")
 			.setMessage(R.string.reset_puzzle_confirm)
 			.setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
-				val game = mDatabase.getGame(puzzleID) ?: return@setPositiveButton
+				val game = mDatabase.getPuzzle(puzzleID)!!
 				game.reset()
 				mDatabase.updatePuzzle(game)
 				updateList()

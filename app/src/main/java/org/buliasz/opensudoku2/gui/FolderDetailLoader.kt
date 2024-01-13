@@ -40,10 +40,10 @@ class FolderDetailLoader(context: Context?) {
 		mDatabase = SudokuDatabase(context!!)
 	}
 
-	fun loadDetailAsync(folderID: Long, loadedCallback: FolderDetailCallback) {
+	fun loadDetailAsync(folderId: Long, loadedCallback: FolderDetailCallback) {
 		executorService.execute {
 			try {
-				val folderInfo = mDatabase.getFolderInfoWithCounts(folderID)
+				val folderInfo = mDatabase.getFolderInfoWithCounts(folderId)
 				loadedCallback.onLoaded(folderInfo)
 			} catch (e: Exception) {    // this is unimportant, we can log an error and continue
 				Log.e(TAG, "Error occurred while loading full folder info.", e)

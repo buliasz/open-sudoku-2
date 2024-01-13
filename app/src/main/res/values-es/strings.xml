@@ -178,7 +178,7 @@
 	<string name="export_folder">Exportar carpeta</string>
 	<string name="export_all_folders">Exportar todas las carpetas</string>
 	<string name="folders_created">%d carpeta(s) ha(n) sido importada(s).</string>
-	<string name="importing">Importando puzzles…</string>
+	<string name="importing">Importando puzzles %d/%d…</string>
 	<string name="exporting">Exportando puzzles…</string>
 	<string name="unknown_export_error">Error desconocido exportando puzzles.</string>
 	<string name="highlight_completed_values">Resaltar completados</string>
@@ -325,4 +325,5 @@
 	<string name="pref_error_summary">Celdas que contienen valores no válidos</string>
 	<string name="pref_even_title">Células uniformes</string>
 	<string name="pref_even_summary">Celdas en cajas pares de 3x3</string>
+	<string name="processing_input_file">Processing the input file</string>
 </resources>

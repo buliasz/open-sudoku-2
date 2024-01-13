@@ -27,6 +27,7 @@ import kotlinx.coroutines.withContext
 import org.buliasz.opensudoku2.BuildConfig
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuDatabase
+import org.buliasz.opensudoku2.db.extractSudokuGameFromCursorRow
 import org.buliasz.opensudoku2.game.FolderInfo
 import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.gui.PuzzleExportActivity.Companion.ALL_IDS
@@ -52,7 +53,7 @@ class FileExportTask {
 	}
 
 	private fun saveToFile(exportParams: FileExportTaskParams, context: Context): FileExportTaskResult {
-		require(exportParams.folderId != null) { "'folderID' param must be set" }
+		require(exportParams.folderId != null) { "'folderId' param must be set" }
 		requireNotNull(exportParams.fileOutputStream) { "Output stream cannot be null" }
 		val start = System.currentTimeMillis()
 		val result = FileExportTaskResult()
@@ -92,19 +93,26 @@ class FileExportTask {
 		return result
 	}
 
-	private fun serializeFolders(db: SudokuDatabase, serializer: XmlSerializer, folderID: Long, gameId: Long = ALL_IDS) {
-		val folderList: List<FolderInfo> = if (folderID == -1L) db.getFolderList() else listOf(db.getFolderInfo(folderID)!!)
+	private fun serializeFolders(db: SudokuDatabase, serializer: XmlSerializer, folderId: Long, gameId: Long = ALL_IDS) {
+		val folderList: List<FolderInfo> = if (folderId == -1L) db.getFolderList() else listOf(db.getFolderInfo(folderId)!!)
 		for (folder in folderList) {
 			serializer.startTag("", Names.FOLDER)
-			serializer.attribute("", Names.FOLDER_NAME, folder.name ?: "")
+			serializer.attribute("", Names.FOLDER_NAME, folder.name)
 			serializer.attribute("", Names.FOLDER_CREATED, folder.created.toString())
-			val puzzleList = db.getSudokuGameList(folder.id, null, null)
-			for (game in puzzleList) {
-				if (gameId != ALL_IDS && gameId != game.id) {
-					continue
+
+			if (gameId == ALL_IDS) {
+				db.getPuzzleListCursor(folder.id, null, null).use { cursor ->
+					if (cursor.moveToFirst()) {
+						while (!cursor.isAfterLast) {
+							serializeGame(serializer, extractSudokuGameFromCursorRow(cursor))
+							cursor.moveToNext()
+						}
+					}
 				}
-				serializeGame(serializer, game)
+			} else {
+				serializeGame(serializer, db.getPuzzle(gameId)!!)
 			}
+
 			serializer.endTag("", Names.FOLDER)
 		}
 	}

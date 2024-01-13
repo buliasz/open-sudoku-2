@@ -36,7 +36,7 @@ class IMControlPanel : LinearLayout {
 	val imSingleNumber: IMSingleNumber = IMSingleNumber(this)
 	val imNumpad: IMNumpad = IMNumpad(this)
 	private var mContext: Context
-	private var mBoard: SudokuBoardView? = null
+	private lateinit var mBoard: SudokuBoardView
 	private var mGame: SudokuGame? = null
 	private var mHintsQueue: HintsQueue? = null
 	private val mInputMethods: MutableList<InputMethod> = ArrayList()

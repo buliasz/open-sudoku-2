@@ -20,6 +20,7 @@ package org.buliasz.opensudoku2.gui.fragments
 
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.DialogInterface.BUTTON_POSITIVE
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.DrawableRes
@@ -29,12 +30,13 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import org.buliasz.opensudoku2.R
 
-class SimpleDialog : DialogFragment(), DialogInterface.OnClickListener {
+class SimpleDialog(private val fragmentManager: FragmentManager) : DialogFragment(), DialogInterface.OnClickListener {
 	@StringRes var messageId: Int = 0
 	var message: String? = null
 	@DrawableRes var iconId: Int = 0
 	@StringRes var titleId: Int = R.string.app_name
 	var onOkCallback: (() -> Unit)? = null
+	var onDismiss: (() -> Unit)? = null
 	var dialogView: View? = null
 
 	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -60,11 +62,28 @@ class SimpleDialog : DialogFragment(), DialogInterface.OnClickListener {
 		return builder.create()
 	}
 
-	fun show(fragmentManager: FragmentManager) {
+	fun show() {
 		show(fragmentManager, this.javaClass.simpleName)
 	}
 
+	fun show(@StringRes messageId: Int) {
+		this.messageId = messageId
+		show()
+	}
+
+	fun show(message: String) {
+		this.message = message
+		show()
+	}
+
 	override fun onClick(dialog: DialogInterface?, which: Int) {
-		onOkCallback!!()
+		if (which == BUTTON_POSITIVE) {
+			onOkCallback?.invoke()
+		}
+	}
+
+	override fun onDismiss(dialog: DialogInterface) {
+		super.onDismiss(dialog)
+		onDismiss?.invoke()
 	}
 }

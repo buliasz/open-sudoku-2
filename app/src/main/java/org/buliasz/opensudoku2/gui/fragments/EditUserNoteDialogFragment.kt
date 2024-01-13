@@ -47,7 +47,7 @@ class EditUserNoteDialogFragment(
 			.setTitle(R.string.edit_note)
 			.setView(noteView)
 			.setPositiveButton(R.string.save) { _: DialogInterface?, _: Int ->
-				val game = mDatabase.getGame(puzzleId)!!
+				val game = mDatabase.getPuzzle(puzzleId)!!
 				game.userNote = mEditNoteInput.text.toString()
 				mDatabase.updatePuzzle(game)
 				updateList()

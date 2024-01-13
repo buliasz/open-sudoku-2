@@ -19,66 +19,60 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="6dp">
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:padding="6dp">
 
-    <org.buliasz.opensudoku2.gui.SudokuBoardView
-        android:id="@+id/board_view"
-        android:layout_width="100sp"
-        android:layout_height="100sp"
-        android:layout_marginEnd="6dp" />
+	<org.buliasz.opensudoku2.gui.SudokuBoardView android:id="@+id/board_view"
+		android:layout_width="100sp"
+		android:layout_height="100sp"
+		android:layout_marginEnd="6dp" />
 
-    <TextView
-        android:id="@+id/state"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/board_view"
-        android:text="State"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        tools:ignore="HardcodedText" />
+	<TextView android:id="@+id/state"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_toEndOf="@+id/board_view"
+		android:text="State"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8sp"
-        android:layout_toEndOf="@+id/state"
-        android:gravity="end"
-        android:text="00:00"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        tools:ignore="HardcodedText" />
+	<TextView android:id="@+id/time"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8sp"
+		android:layout_toEndOf="@+id/state"
+		android:gravity="end"
+		android:text="00:00"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/last_played"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/state"
-        android:layout_marginTop="4sp"
-        android:layout_toEndOf="@+id/board_view"
-        android:text="last_played"
-        tools:ignore="HardcodedText" />
+	<TextView android:id="@+id/last_played"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/state"
+		android:layout_marginTop="4sp"
+		android:layout_toEndOf="@+id/board_view"
+		android:text="last_played"
+		tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/created"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/last_played"
-        android:layout_marginTop="4sp"
-        android:layout_toEndOf="@+id/board_view"
-        android:text="created"
-        tools:ignore="HardcodedText" />
+	<TextView android:id="@+id/created"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/last_played"
+		android:layout_marginTop="4sp"
+		android:layout_toEndOf="@+id/board_view"
+		android:text="created"
+		tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/user_note"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/created"
-        android:layout_marginTop="4sp"
-        android:layout_toEndOf="@+id/board_view"
-        android:text="note"
-        tools:ignore="HardcodedText" />
+	<TextView android:id="@+id/user_note"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/created"
+		android:layout_marginTop="4sp"
+		android:layout_toEndOf="@+id/board_view"
+		android:text="note"
+		tools:ignore="HardcodedText" />
 
 </RelativeLayout>

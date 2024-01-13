@@ -28,6 +28,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.preference.PreferenceManager
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.SudokuDatabase
+import org.buliasz.opensudoku2.game.Cell
 import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.game.SudokuGame.OnPuzzleSolvedListener
 import org.buliasz.opensudoku2.gui.SudokuBoardView.HighlightMode
@@ -67,17 +68,14 @@ class SudokuPlayActivity : ThemedActivity() {
 			}
 			mSudokuBoard.isReadOnly = (true)
 			if (mSudokuGame.usedSolver()) {
-				with(SimpleDialog()) {
-					messageId = R.string.used_solver
-					show(supportFragmentManager)
-				}
+				SimpleDialog(supportFragmentManager).show(R.string.used_solver)
 
 			} else {
-				with(SimpleDialog()) {
+				with(SimpleDialog(supportFragmentManager)) {
 					iconId = R.drawable.ic_info
 					titleId = R.string.well_done
 					message = this@SudokuPlayActivity.getString(R.string.congrats, mGameTimeFormatter.format(mSudokuGame.time))
-					show(supportFragmentManager)
+					show()
 				}
 			}
 		}
@@ -86,17 +84,8 @@ class SudokuPlayActivity : ThemedActivity() {
 	private val onSelectedNumberChangedListener: OnSelectedNumberChangedListener =
 		object : OnSelectedNumberChangedListener {
 			override fun onSelectedNumberChanged(number: Int) {
-				if (number != 0) {
-					val cell = mSudokuGame.cells.findFirstCell(number)
-					mSudokuBoard.setHighlightedValue(number)
-					if (cell != null) {
-						mSudokuBoard.moveCellSelectionTo(cell.rowIndex, cell.columnIndex)
-					} else {
-						mSudokuBoard.clearCellSelection()
-					}
-				} else {
-					mSudokuBoard.clearCellSelection()
-				}
+				mSudokuBoard.setHighlightedValue(number)
+				mSudokuBoard.postInvalidate()
 			}
 		}
 
@@ -114,7 +103,7 @@ class SudokuPlayActivity : ThemedActivity() {
 		if (savedInstanceState == null) {
 			// activity runs for the first time, read game from database
 			val mSudokuGameID = intent.getLongExtra(EXTRA_PUZZLE_ID, 0)
-			mSudokuGame = mDatabase.getGame(mSudokuGameID) ?: SudokuGame()
+			mSudokuGame = mDatabase.getPuzzle(mSudokuGameID) ?: SudokuGame()
 		} else {
 			// activity has been running before, restore its state
 			mSudokuGame = SudokuGame()
@@ -146,11 +135,7 @@ class SudokuPlayActivity : ThemedActivity() {
 		mIMPopup = mIMControlPanel.imPopup
 		mIMSingleNumber = mIMControlPanel.imSingleNumber
 		mIMNumpad = mIMControlPanel.imNumpad
-		val cell = mSudokuGame.lastChangedCell
-		if (cell != null && !mSudokuBoard.isReadOnly) mSudokuBoard.moveCellSelectionTo(
-			cell.rowIndex,
-			cell.columnIndex
-		) else mSudokuBoard.moveCellSelectionTo(0, 0)
+		if (!mSudokuBoard.isReadOnly) selectCell(mSudokuGame.lastCommandCell)
 
 		settingsLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { restartActivity() }
 	}
@@ -338,23 +323,23 @@ class SudokuPlayActivity : ThemedActivity() {
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
 			MENU_ITEM_RESTART -> {
-				with(SimpleDialog()) {
+				with(SimpleDialog(supportFragmentManager)) {
 					iconId = R.drawable.ic_restore
 					titleId = R.string.app_name
 					messageId = R.string.restart_confirm
 					onOkCallback = ::resetGame
-					show(supportFragmentManager)
+					show()
 				}
 				return true
 			}
 
 			MENU_ITEM_CLEAR_ALL_NOTES -> {
-				with(SimpleDialog()) {
+				with(SimpleDialog(supportFragmentManager)) {
 					iconId = R.drawable.ic_delete
 					titleId = R.string.app_name
 					messageId = R.string.clear_all_notes_confirm
 					onOkCallback = mSudokuGame::clearAllNotes
-					show(supportFragmentManager)
+					show()
 				}
 				return true
 			}
@@ -369,17 +354,9 @@ class SudokuPlayActivity : ThemedActivity() {
 				return true
 			}
 
-			MENU_ITEM_UNDO_ACTION -> {
-				if (mSudokuGame.hasSomethingToUndo()) {
-					mSudokuGame.undo()
-					selectLastChangedCell()
-				}
-				return true
-			}
-
-			MENU_ITEM_UNDO -> {
-				mSudokuGame.undo()
-				selectLastChangedCell()
+			MENU_ITEM_UNDO_ACTION, MENU_ITEM_UNDO -> {
+				val undoneCell = mSudokuGame.undo()
+				selectCell(undoneCell)
 				return true
 			}
 
@@ -401,58 +378,52 @@ class SudokuPlayActivity : ThemedActivity() {
 			}
 
 			MENU_ITEM_UNDO_TO_CHECKPOINT -> {
-				with(SimpleDialog()) {
+				with(SimpleDialog(supportFragmentManager)) {
 					iconId = R.drawable.ic_undo
 					titleId = R.string.app_name
 					messageId = R.string.undo_to_checkpoint_confirm
 					onOkCallback = {
 						mSudokuGame.undoToCheckpoint()
-						selectLastChangedCell()
+						selectLastCommandCell()
 					}
-					show(supportFragmentManager)
+					show()
 				}
 				return true
 			}
 
 			MENU_ITEM_UNDO_TO_BEFORE_MISTAKE -> {
-				with(SimpleDialog()) {
+				with(SimpleDialog(supportFragmentManager)) {
 					iconId = R.drawable.ic_undo
 					titleId = R.string.app_name
 					messageId = R.string.undo_to_before_mistake_confirm
 					onOkCallback = {
 						mSudokuGame.undoToBeforeMistake()
-						selectLastChangedCell()
+						selectLastCommandCell()
 					}
-					show(supportFragmentManager)
+					show()
 				}
 				return true
 			}
 
 			MENU_ITEM_SOLVE -> {
-				with(SimpleDialog()) {
+				with(SimpleDialog(supportFragmentManager)) {
 					titleId = R.string.app_name
 					messageId = R.string.solve_puzzle_confirm
 					onOkCallback = {
 						val numberOfSolutions = mSudokuGame.solve()
 						if (numberOfSolutions == 0) {
-							with(SimpleDialog()) {
-								messageId = R.string.puzzle_has_no_solution
-								show(supportFragmentManager)
-							}
+							SimpleDialog(supportFragmentManager).show(R.string.puzzle_has_no_solution)
 						} else if (numberOfSolutions > 1) {
-							with(SimpleDialog()) {
-								messageId = R.string.puzzle_has_multiple_solutions
-								show(supportFragmentManager)
-							}
+							SimpleDialog(supportFragmentManager).show(R.string.puzzle_has_multiple_solutions)
 						}
 					}
-					show(supportFragmentManager)
+					show()
 				}
 				return true
 			}
 
 			MENU_ITEM_HINT -> {
-				with(SimpleDialog()) {
+				with(SimpleDialog(supportFragmentManager)) {
 					messageId = R.string.hint_confirm
 					onOkCallback = {
 						val cell = mSudokuBoard.selectedCell
@@ -463,27 +434,18 @@ class SudokuPlayActivity : ThemedActivity() {
 								}
 
 								0 -> {
-									with(SimpleDialog()) {
-										messageId = R.string.puzzle_has_no_solution
-										show(supportFragmentManager)
-									}
+									SimpleDialog(supportFragmentManager).show(R.string.puzzle_has_no_solution)
 								}
 
 								else -> {
-									with(SimpleDialog()) {
-										messageId = R.string.puzzle_has_multiple_solutions
-										show(supportFragmentManager)
-									}
+									SimpleDialog(supportFragmentManager).show(R.string.puzzle_has_multiple_solutions)
 								}
 							}
 						} else {
-							with(SimpleDialog()) {
-								messageId = R.string.cannot_give_hint
-								show(supportFragmentManager)
-							}
+							SimpleDialog(supportFragmentManager).show(R.string.cannot_give_hint)
 						}
 					}
-					show(supportFragmentManager)
+					show()
 				}
 				return true
 			}
@@ -512,9 +474,14 @@ class SudokuPlayActivity : ThemedActivity() {
 		finish()
 	}
 
-	private fun selectLastChangedCell() {
-		val cell = mSudokuGame.lastChangedCell
-		if (cell != null) mSudokuBoard.moveCellSelectionTo(cell.rowIndex, cell.columnIndex)
+	private fun selectLastCommandCell() {
+		selectCell(mSudokuGame.lastCommandCell ?: return)
+	}
+
+	private fun selectCell(cell: Cell?) {
+		if (cell != null) {
+			mSudokuBoard.moveCellSelectionTo(cell.rowIndex, cell.columnIndex)
+		}
 	}
 
 	/**

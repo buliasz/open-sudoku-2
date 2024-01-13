@@ -20,9 +20,9 @@ package org.buliasz.opensudoku2.gui.importing
 
 import android.content.Context
 import android.net.Uri
+import androidx.core.text.isDigitsOnly
 import org.buliasz.opensudoku2.db.SudokuInvalidFormatException
-import org.buliasz.opensudoku2.game.CellCollection
-import org.buliasz.opensudoku2.game.SudokuGame
+import org.buliasz.opensudoku2.db.insertPuzzle
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -34,8 +34,8 @@ import java.net.URL
  */
 class SdmImportTask(private val mUri: Uri) : AbstractImportTask() {
 	@Throws(SudokuInvalidFormatException::class)
-	override fun processImport(context: Context) {
-		importFolder(mUri.lastPathSegment ?: "UNKNOWN")
+	override suspend fun processImport(context: Context) {
+		val folderId = importFolder(mUri.lastPathSegment ?: "UNKNOWN")
 		val isr: InputStreamReader
 		try {
 			isr = if (mUri.scheme == "content") {
@@ -45,16 +45,18 @@ class SdmImportTask(private val mUri: Uri) : AbstractImportTask() {
 				val url = URL(mUri.toString())
 				InputStreamReader(url.openStream())
 			}
-			BufferedReader(isr).use { br ->
-				var s: String
-				while (br.readLine().also { s = it } != null) {
-					if (s != "") {
-						if (s.contains(".")) {
-							s = s.replace(".", "0")
+			mDatabase.writable.use { db ->
+				BufferedReader(isr).useLines {
+					it.forEach { inputLine ->
+						val cellsValues = inputLine.trim().replace(".", "0")
+						if (cellsValues.isNotBlank() && cellsValues.length == 81 && cellsValues.isDigitsOnly()) {
+							if (db.insertPuzzle(cellsValues, folderId)) {
+								importedCount += 1
+								mProgressUpdate(0, importedCount)
+							} else {
+								duplicatesCount += 1
+							}
 						}
-						val game = SudokuGame()
-						game.cells = CellCollection.deserialize(s)
-						importGame(game)
 					}
 				}
 			}

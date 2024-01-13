@@ -96,8 +96,8 @@ class PuzzleListActivity : ThemedActivity() {
 		updateTitle()
 		updateFilterStatus()
 
-		val games = mDatabase.getSudokuGameList(mFolderID, mListFilter, mListSorter.sortOrder)
-		mAdapter = PuzzleListRecyclerAdapter(this, games, ::playSudoku)
+		val puzzlesCursor = mDatabase.getPuzzleListCursor(mFolderID, mListFilter, mListSorter.sortOrder)
+		mAdapter = PuzzleListRecyclerAdapter(this, puzzlesCursor, ::playSudoku)
 
 		recyclerView = findViewById(R.id.puzzle_list_recycler)
 		recyclerView.adapter = mAdapter
@@ -118,6 +118,7 @@ class PuzzleListActivity : ThemedActivity() {
 		super.onDestroy()
 		mDatabase.close()
 		mFolderDetailLoader.destroy()
+		mAdapter.close()
 	}
 
 	override fun onSaveInstanceState(outState: Bundle) {
@@ -210,7 +211,7 @@ class PuzzleListActivity : ThemedActivity() {
 
 			MENU_ITEM_EDIT_NOTE -> {
 				editUserNoteDialog.puzzleId = mAdapter.selectedGameId
-				editUserNoteDialog.currentValue = mDatabase.getGame(editUserNoteDialog.puzzleId)?.userNote ?: ""
+				editUserNoteDialog.currentValue = mDatabase.getPuzzle(editUserNoteDialog.puzzleId)!!.userNote
 				editUserNoteDialog.show(supportFragmentManager, "EditUserNoteDialog")
 				return true
 			}
@@ -290,7 +291,7 @@ class PuzzleListActivity : ThemedActivity() {
 	private fun updateList() {
 		updateTitle()
 		updateFilterStatus()
-		mAdapter.updateGameList(mDatabase.getSudokuGameList(mFolderID, mListFilter, mListSorter.sortOrder))
+		mAdapter.updateGameList(mDatabase.getPuzzleListCursor(mFolderID, mListFilter, mListSorter.sortOrder))
 	}
 
 	private fun updateFilterStatus() {

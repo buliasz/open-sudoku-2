@@ -158,7 +158,7 @@
 	<string name="export_folder">Exportar pasta</string>
 	<string name="export_all_folders">Exportar todas as pastas</string>
 	<string name="folders_created">%d pastas foram importadas.</string>
-	<string name="importing">Importando jogos…</string>
+	<string name="importing">Importando jogos %d/%d…</string>
 	<string name="exporting">Exportando jogos…</string>
 	<string name="unknown_export_error">Erro desconhecido ao exportar jogos.</string>
 	<string name="highlight_completed_values">Destacar números finalizados</string>
@@ -284,5 +284,6 @@
 	<string name="pref_error_summary">Células contendo valores inválidos</string>
 	<string name="pref_even_title">Até caixas</string>
 	<string name="pref_even_summary">Cells in even-numbered 3x3 boxes</string>
+	<string name="processing_input_file">Processing the input file</string>
 
 </resources>

@@ -64,7 +64,7 @@ class PuzzleExportActivity : ThemedActivity() {
 			"all-folders-$timestamp"
 		} else {
 			val folderName = SudokuDatabase(applicationContext).use { database ->
-				val folderId = mExportParams.folderId ?: database.getGame(mExportParams.puzzleId!!)!!.folderId
+				val folderId = mExportParams.folderId ?: database.getPuzzle(mExportParams.puzzleId!!)!!.folderId
 				val folder = database.getFolderInfo(folderId)
 				if (folder == null) {
 					Log.e(TAG, "Folder with id ${mExportParams.folderId} not found, exiting.")

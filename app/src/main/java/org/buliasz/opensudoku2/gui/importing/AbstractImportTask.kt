@@ -20,7 +20,6 @@ package org.buliasz.opensudoku2.gui.importing
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -29,9 +28,9 @@ import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.db.SudokuInvalidFormatException
 import org.buliasz.opensudoku2.game.FolderInfo
-import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.gui.fragments.SimpleDialog
 import org.buliasz.opensudoku2.utils.Const
+import kotlin.reflect.KSuspendFunction2
 
 /**
  * To add support for new import source, do following:
@@ -47,15 +46,25 @@ import org.buliasz.opensudoku2.utils.Const
  * passes it input parameters.
  */
 abstract class AbstractImportTask {
-	private lateinit var mDatabase: SudokuDatabase
-	private lateinit var mFolder: FolderInfo // currently processed folder
 	private lateinit var mContext: Context
+	protected lateinit var mDatabase: SudokuDatabase
+	private lateinit var mFolder: FolderInfo // currently processed folder
 	private var mFolderCount = 0 // count of processed folders
-	private var mImportError: String? = null
-	private var mImportSuccessful = false
+	private lateinit var mImportError: String
+	protected var importedCount = 0
+	protected var duplicatesCount = 0
+	protected var updatedCount = 0
+	lateinit var mProgressUpdate: KSuspendFunction2<Int, Int, Unit>
+		private set
 
-	suspend fun doInBackground(context: Context, onImportFinished: OnImportFinishedListener, supportFragmentManager: FragmentManager) {
+	suspend fun doInBackground(
+		context: Context,
+		onImportFinished: OnImportFinishedListener,
+		supportFragmentManager: FragmentManager,
+		progressUpdate: KSuspendFunction2<Int, Int, Unit>
+	) {
 		mContext = context
+		mProgressUpdate = progressUpdate
 		var isSuccess = false
 		withContext(Dispatchers.IO) {
 			try {
@@ -75,31 +84,32 @@ abstract class AbstractImportTask {
 		onImportFinished: OnImportFinishedListener,
 		supportFragmentManager: FragmentManager
 	) {
+		var resultMessage = ""
 		if (isSuccess) {
 			if (mFolderCount == 1) {
-				Toast.makeText(
-					mContext, mContext.getString(R.string.puzzles_saved, mFolder.name),
-					Toast.LENGTH_LONG
-				).show()
+				resultMessage = mContext.getString(R.string.puzzles_saved, mFolder.name)
 			} else if (mFolderCount > 1) {
-				Toast.makeText(
-					mContext, mContext.getString(R.string.folders_created, mFolderCount),
-					Toast.LENGTH_LONG
-				).show()
+				resultMessage = mContext.getString(R.string.folders_created, mFolderCount)
 			}
+			if (importedCount > 0) resultMessage += "\nImported $importedCount new puzzles."
+			if (duplicatesCount > 0) resultMessage += "\nSkipped $duplicatesCount already existing puzzles."
+			if (updatedCount > 0) resultMessage += "\nUpdated $updatedCount existing puzzles."
 		} else {
-			with(SimpleDialog()) {
-				message = mImportError
-				show(supportFragmentManager)
-			}
+			resultMessage = mImportError
 		}
 
 		val folderId = if (mFolderCount == 1) mFolder.id else -1
-		onImportFinished.onImportFinished(isSuccess, folderId)
+		with(SimpleDialog(supportFragmentManager)) {
+			titleId = R.string.importing
+			message = resultMessage
+			onDismiss = {
+				onImportFinished.onImportFinished(isSuccess, folderId)
+			}
+			show()
+		}
 	}
 
-	private fun processImportInternal(): Boolean {
-		mImportSuccessful = true
+	private suspend fun processImportInternal(): Boolean {
 		val start = System.currentTimeMillis()
 		SudokuDatabase(mContext).use { database ->
 			try {
@@ -118,17 +128,19 @@ abstract class AbstractImportTask {
 
 		val end = System.currentTimeMillis()
 		if (BuildConfig.DEBUG) Log.i(Const.TAG, String.format("Imported in %f seconds.", (end - start) / 1000f))
-		return mImportSuccessful
+		return true
 	}
 
 	/**
 	 * Subclasses should do all import work in this method.
 	 */
 	@Throws(SudokuInvalidFormatException::class)
-	protected abstract fun processImport(context: Context)
+	protected abstract suspend fun processImport(context: Context)
 
 	/**
-	 * Creates new folder and starts appending puzzles to this folder.
+	 * Creates new folder to append later puzzles to this folder.
+	 *
+	 * @return folder ID
 	 */
 	protected fun importFolder(name: String, created: Long = System.currentTimeMillis()): Long {
 		mFolderCount++
@@ -136,40 +148,8 @@ abstract class AbstractImportTask {
 		return mFolder.id
 	}
 
-	/**
-	 * Imports game with all its fields.
-	 */
-	@Throws(SudokuInvalidFormatException::class)
-	protected fun importGame(newPuzzle: SudokuGame) {
-		if (isPuzzleValid(newPuzzle)) {
-			mDatabase.insertPuzzle(newPuzzle)
-		}
-	}
-
-	private fun isPuzzleValid(newPuzzle: SudokuGame): Boolean {
-		if (newPuzzle.solutionCount == 0) {
-			setError(mContext.getString(R.string.puzzle_has_no_solution))
-			return false
-		}
-		if (newPuzzle.solutionCount > 1) {
-			setError(mContext.getString(R.string.puzzle_has_multiple_solutions))
-			return false
-		}
-		val existingPuzzle = mDatabase.puzzleExists(newPuzzle.cells)
-		if (existingPuzzle != null) {
-			if (newPuzzle.folderId == existingPuzzle.folderId && existingPuzzle.state == SudokuGame.GAME_STATE_NOT_STARTED) {
-				mDatabase.deletePuzzle(existingPuzzle.id)  // delete not started game to insert the imported instance
-			} else {
-				setError(mContext.getString(R.string.puzzle_already_exists, mDatabase.getFolderInfo(existingPuzzle.folderId)?.name))
-				return false
-			}
-		}
-		return true
-	}
-
-	protected fun setError(error: String?) {
+	protected fun setError(error: String) {
 		mImportError = error
-		mImportSuccessful = false
 	}
 
 	interface OnImportFinishedListener {

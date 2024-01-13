@@ -17,6 +17,7 @@
  */
 package org.buliasz.opensudoku2.game.command
 
+import org.buliasz.opensudoku2.game.Cell
 import java.util.StringTokenizer
 
 /**
@@ -46,7 +47,7 @@ abstract class AbstractCommand {
 	/**
 	 * Undo this command.
 	 */
-	abstract fun undo()
+	abstract fun undo(): Cell?
 	private interface CommandCreatorFunction {
 		fun create(): AbstractCommand
 	}

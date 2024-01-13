@@ -29,6 +29,7 @@ object Names : BaseColumns {
 	const val STATE = "state"
 	const val TIME = "time"
 	const val LAST_PLAYED = "last_played"
+	const val ORIGINAL_VALUES = "original_values"
 	const val CELLS_DATA = "cells_data"
 	const val USER_NOTE = "user_note"
 	const val COMMAND_STACK = "command_stack"

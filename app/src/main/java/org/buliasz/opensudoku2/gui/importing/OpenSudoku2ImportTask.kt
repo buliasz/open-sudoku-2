@@ -23,7 +23,11 @@ import android.net.Uri
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuInvalidFormatException
+import org.buliasz.opensudoku2.db.insertPuzzle
+import org.buliasz.opensudoku2.db.puzzleExists
+import org.buliasz.opensudoku2.db.updatePuzzle
 import org.buliasz.opensudoku2.game.CellCollection
+import org.buliasz.opensudoku2.game.CellCollection.Companion.DATA_VERSION_ORIGINAL
 import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.gui.exporting.FileExportTask
 import org.xmlpull.v1.XmlPullParser
@@ -40,7 +44,7 @@ import java.net.URI
  */
 class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
 	@Throws(SudokuInvalidFormatException::class)
-	override fun processImport(context: Context) {
+	override suspend fun processImport(context: Context) {
 		val streamReader: InputStreamReader = if (mUri.scheme == "content") {
 			val contentResolver = context.contentResolver
 			InputStreamReader(contentResolver.openInputStream(mUri))
@@ -53,8 +57,9 @@ class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
 		}
 	}
 
+
 	@Throws(SudokuInvalidFormatException::class)
-	private fun importXml(context: Context, reader: Reader) {
+	private suspend fun importXml(context: Context, reader: Reader) {
 		val inBR = BufferedReader(reader)
 		val parserFactory: XmlPullParserFactory = XmlPullParserFactory.newInstance()
 		parserFactory.isNamespaceAware = false
@@ -86,7 +91,7 @@ class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
 	}
 
 	@Throws(XmlPullParserException::class, IOException::class, SudokuInvalidFormatException::class)
-	private fun importStateV3(parser: XmlPullParser) {
+	private suspend fun importStateV3(parser: XmlPullParser) {
 		var eventType = parser.eventType
 		var lastTag: String
 		var lastFolderId: Long = 0
@@ -100,7 +105,7 @@ class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
 				} else if (lastTag == Names.GAME) {
 					with(SudokuGame()) {
 						created = parser.getAttributeValue(null, Names.CREATED).toLong()
-						cells = CellCollection.Companion.deserialize(parser.getAttributeValue(null, Names.CELLS_DATA))
+						cells = CellCollection.deserialize(parser.getAttributeValue(null, Names.CELLS_DATA))
 						lastPlayed = parser.getAttributeValue(null, Names.LAST_PLAYED).toLong()
 						state = parser.getAttributeValue(null, Names.STATE).toInt()
 						time = parser.getAttributeValue(null, Names.TIME).toLong()
@@ -109,7 +114,16 @@ class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
 						if (state == SudokuGame.GAME_STATE_PLAYING) {
 							commandStack.deserialize(parser.getAttributeValue(null, Names.COMMAND_STACK))
 						}
-						importGame(this)
+						mDatabase.writable.use { db ->
+							if (!db.puzzleExists(cells.serialize(DATA_VERSION_ORIGINAL))) {
+								db.insertPuzzle(this)
+								importedCount += 1
+							} else {
+								db.updatePuzzle(this)    // those saved are in progress so update makes sense
+								updatedCount += 1
+							}
+							mProgressUpdate(0, importedCount + updatedCount)
+						}
 					}
 				}
 			}

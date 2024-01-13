@@ -77,7 +77,7 @@ class PuzzleEditActivity : ThemedActivity() {
 		} else {
 			if (mPuzzleID != 0L) {
 				// existing puzzle, read it from database
-				newPuzzle = mDatabase.getGame(mPuzzleID) ?: SudokuGame.createEmptyGame()
+				newPuzzle = mDatabase.getPuzzle(mPuzzleID) ?: SudokuGame.createEmptyGame()
 				newPuzzle.cells.markAllCellsAsEditable()
 			} else {
 				newPuzzle = SudokuGame.createEmptyGame()
@@ -172,33 +172,22 @@ class PuzzleEditActivity : ThemedActivity() {
 			MENU_ITEM_CHECK_VALIDITY -> {
 				when (getNumberOfSolutions()) {
 					1 -> {
-						with(SimpleDialog()) {
-							messageId = R.string.puzzle_solvable
-							show(supportFragmentManager)
-						}
+						SimpleDialog(supportFragmentManager).show(R.string.puzzle_solvable)
 					}
 
 					0 -> {
-						with(SimpleDialog()) {
-							messageId = R.string.puzzle_has_no_solution
-							show(supportFragmentManager)
-						}
+						SimpleDialog(supportFragmentManager).show(R.string.puzzle_has_no_solution)
 					}
 
 					else -> {
-						with(SimpleDialog()) {
-							messageId = R.string.puzzle_has_multiple_solutions
-							show(supportFragmentManager)
-						}
+						SimpleDialog(supportFragmentManager).show(R.string.puzzle_has_multiple_solutions)
 					}
 				}
 				return true
 			}
 
 			MENU_ITEM_SAVE -> {
-				if (isNewPuzzleValidAndUnique()) {
-					finish()  // puzzle will be saved automatically in onPause
-				}
+				showSaveDialogIfNecessary()
 				return true
 			}
 
@@ -223,49 +212,41 @@ class PuzzleEditActivity : ThemedActivity() {
 		when (mState) {
 			STATE_EDIT -> {
 				mDatabase.updatePuzzle(newPuzzle)
-				Toast.makeText(applicationContext, R.string.puzzle_updated, Toast.LENGTH_SHORT).show()
+				SimpleDialog(supportFragmentManager).show(R.string.puzzle_updated)
 			}
 
 			STATE_INSERT -> {
 				newPuzzle.created = System.currentTimeMillis()
 				mDatabase.insertPuzzle(newPuzzle)
-				Toast.makeText(applicationContext, R.string.puzzle_inserted, Toast.LENGTH_SHORT).show()
+				SimpleDialog(supportFragmentManager).show(R.string.puzzle_inserted)
 			}
 		}
 	}
 
-	private fun isNewPuzzleValidAndUnique(): Boolean {
+	private fun showSaveDialogIfNecessary() {
+		val dialog = SimpleDialog(supportFragmentManager)
+		dialog.onOkCallback = ::finish
+
 		// check number of solutions
 		val numberOfSolutions = getNumberOfSolutions()
 		if (numberOfSolutions == 0) {
-			with(SimpleDialog()) {
-				messageId = R.string.puzzle_has_no_solution
-				onOkCallback = ::finish
-				show(supportFragmentManager)
-			}
-			return false
+			dialog.show(R.string.puzzle_has_no_solution)
+			return
 		} else if (numberOfSolutions > 1) {
-			with(SimpleDialog()) {
-				messageId = R.string.puzzle_has_multiple_solutions
-				onOkCallback = ::finish
-				show(supportFragmentManager)
-			}
-			return false
+			dialog.show(R.string.puzzle_has_multiple_solutions)
+			return
 		}
 
 		// check already existing puzzles
-		val existingPuzzle = mDatabase.puzzleExists(newPuzzle.cells)
+		val existingPuzzle = mDatabase.findPuzzle(newPuzzle.cells)
 		if (existingPuzzle != null) {
-			with(SimpleDialog()) {
-				message =
-					applicationContext.getString(R.string.puzzle_already_exists, mDatabase.getFolderInfo(existingPuzzle.folderId)?.name)
-				onOkCallback = ::finish
-				show(supportFragmentManager)
-			}
-			return false
+			dialog.show(
+				applicationContext.getString(R.string.puzzle_already_exists, mDatabase.getFolderInfo(existingPuzzle.folderId)?.name)
+			)
+			return
 		}
 
-		return true
+		finish()  // puzzle will be saved automatically in onPause callback
 	}
 
 	/**

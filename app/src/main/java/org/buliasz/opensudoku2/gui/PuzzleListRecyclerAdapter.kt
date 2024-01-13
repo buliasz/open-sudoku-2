@@ -20,14 +20,17 @@ package org.buliasz.opensudoku2.gui
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.database.Cursor
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.buliasz.opensudoku2.R
+import org.buliasz.opensudoku2.db.extractSudokuGameFromCursorRow
 import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.utils.ThemeUtils
+import java.io.Closeable
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -36,9 +39,9 @@ import java.time.format.FormatStyle
 
 internal class PuzzleListRecyclerAdapter(
 	private val mContext: Context,
-	private var games: List<SudokuGame>,
+	private var puzzlesCursor: Cursor,
 	private val onClickListener: (Long) -> Unit
-) : RecyclerView.Adapter<PuzzleListRecyclerAdapter.ViewHolder?>() {
+) : RecyclerView.Adapter<PuzzleListRecyclerAdapter.ViewHolder?>(), Closeable {
 	var selectedGameId: Long = 0
 	private val mGameTimeFormatter = GameTimeFormat()
 	private val mDateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
@@ -49,16 +52,18 @@ internal class PuzzleListRecyclerAdapter(
 		return ViewHolder(view)
 	}
 
-	override fun getItemCount(): Int = games.size
+	override fun getItemCount(): Int = puzzlesCursor.count
 
 	@SuppressLint("NotifyDataSetChanged")
-	fun updateGameList(newGames: List<SudokuGame>) {
-		games = newGames
+	fun updateGameList(newGames: Cursor) {
+		puzzlesCursor.close()
+		puzzlesCursor = newGames
 		notifyDataSetChanged()
 	}
 
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-		val game: SudokuGame = games[position]
+		puzzlesCursor.moveToPosition(position)
+		val game: SudokuGame = extractSudokuGameFromCursorRow(puzzlesCursor)
 		holder.itemView.setOnClickListener { onClickListener(game.id) }
 		holder.itemView.setOnCreateContextMenuListener { menu, _, _ ->
 			selectedGameId = game.id
@@ -159,5 +164,9 @@ internal class PuzzleListRecyclerAdapter(
 		val lastPlayed: TextView = itemView.findViewById(R.id.last_played)
 		val created: TextView = itemView.findViewById(R.id.created)
 		val userNote: TextView = itemView.findViewById(R.id.user_note)
+	}
+
+	override fun close() {
+		puzzlesCursor.close()
 	}
 }

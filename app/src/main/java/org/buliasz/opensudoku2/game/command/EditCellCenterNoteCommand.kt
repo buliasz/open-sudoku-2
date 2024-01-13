@@ -44,13 +44,12 @@ class EditCellCenterNoteCommand : AbstractSingleCellCommand {
 	}
 
 	override fun execute() {
-		val cell = cell
 		mOldNote = cell.centerNote
 		cell.centerNote = mNote
 	}
 
-	override fun undo() {
-		val cell = cell
+	override fun undo(): Cell {
 		cell.centerNote = mOldNote
+		return cell
 	}
 }

@@ -18,7 +18,9 @@
 
 package org.buliasz.opensudoku2.game.command
 
+import org.buliasz.opensudoku2.game.Cell
+
 class CheckpointCommand : AbstractCommand() {
 	override fun execute() {}
-	override fun undo() {}
+	override fun undo(): Cell? = null
 }

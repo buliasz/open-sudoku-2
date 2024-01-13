@@ -109,7 +109,7 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 	}
 
 	override fun initialize(
-		context: Context?, controlPanel: IMControlPanel?, game: SudokuGame, board: SudokuBoardView?, hintsQueue: HintsQueue?
+		context: Context?, controlPanel: IMControlPanel?, game: SudokuGame, board: SudokuBoardView, hintsQueue: HintsQueue?
 	) {
 		super.initialize(context, controlPanel, game, board, hintsQueue)
 		game.cells.ensureOnChangeListener(mOnCellsChangeListener)
@@ -138,8 +138,8 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 		numberButtons[7] = controlPanel.findViewById(R.id.button_7)
 		numberButtons[8] = controlPanel.findViewById(R.id.button_8)
 		numberButtons[9] = controlPanel.findViewById(R.id.button_9)
-		val textColor: ColorStateList = makeTextColorStateList(mBoard!!)
-		val backgroundColor: ColorStateList = makeBackgroundColorStateList(mBoard!!)
+		val textColor: ColorStateList = makeTextColorStateList(mBoard)
+		val backgroundColor: ColorStateList = makeBackgroundColorStateList(mBoard)
 		for ((key, b) in numberButtons) {
 			with(b) {
 				tag = key
@@ -225,7 +225,7 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 			// Update the count of numbers placed
 			button.setNumbersPlaced(valuesUseCount[tag] ?: 0)
 		}
-		mBoard!!.setHighlightedValue(if (mBoard!!.isReadOnly) 0 else mSelectedNumber)
+		mBoard.setHighlightedValue(if (mBoard.isReadOnly) 0 else mSelectedNumber)
 	}
 
 	override fun onActivated() {
@@ -241,13 +241,13 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 				update()
 			}
 		}
-		mBoard!!.setHighlightedValue(mSelectedNumber)
+		mBoard.setHighlightedValue(mSelectedNumber)
 	}
 
 	private fun onSelectedNumberChanged() {
-		if (mBidirectionalSelection && mHighlightSimilar && mOnSelectedNumberChangedListener != null && !mBoard!!.isReadOnly) {
+		if (mBidirectionalSelection && mHighlightSimilar && mOnSelectedNumberChangedListener != null && !mBoard.isReadOnly) {
 			mOnSelectedNumberChangedListener!!.onSelectedNumberChanged(mSelectedNumber)
-			mBoard!!.setHighlightedValue(mSelectedNumber)
+			mBoard.setHighlightedValue(mSelectedNumber)
 		}
 	}
 
@@ -261,7 +261,7 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 				mGame!!.setCellCornerNote(cell, newNote)
 				// if we toggled the note off we want to de-select the cell
 				if (!newNote.hasNumber(selNumber)) {
-					mBoard!!.clearCellSelection()
+					mBoard.clearCellSelection()
 				}
 			}
 
@@ -271,7 +271,7 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 				val newNote = cell.centerNote.toggleNumber(selNumber)
 				mGame!!.setCellCenterNote(cell, newNote)
 				if (!newNote.hasNumber(selNumber)) {
-					mBoard!!.clearCellSelection()
+					mBoard.clearCellSelection()
 				}
 			}
 
@@ -279,7 +279,7 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 				// Normal flow, just set the value (or clear it if it is repeated touch)
 				if (selNumber == cell.value) {
 					selNumber = 0
-					mBoard!!.clearCellSelection()
+					mBoard.clearCellSelection()
 				}
 				mGame!!.setCellValue(cell, selNumber)
 			}

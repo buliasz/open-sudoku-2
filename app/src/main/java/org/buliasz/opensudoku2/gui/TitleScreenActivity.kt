@@ -62,20 +62,18 @@ class TitleScreenActivity : ThemedActivity() {
 
 	private fun canResume(mSudokuGameID: Long): Boolean {
 		val mDatabase = SudokuDatabase(applicationContext)
-		val mSudokuGame = mDatabase.getGame(mSudokuGameID)
-		return if (mSudokuGame != null) {
-			mSudokuGame.state != SudokuGame.GAME_STATE_COMPLETED
-		} else false
+		val mSudokuGame = mDatabase.getPuzzle(mSudokuGameID) ?: return false
+		return mSudokuGame.state != SudokuGame.GAME_STATE_COMPLETED
 	}
 
 	private fun setupResumeButton() {
 		val gameSettings = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-		val mPuzzleID = gameSettings.getLong("most_recently_played_puzzle_id", 0)
-		if (canResume(mPuzzleID)) {
+		val puzzleID = gameSettings.getLong("most_recently_played_puzzle_id", 0)
+		if (canResume(puzzleID)) {
 			mResumeButton!!.visibility = View.VISIBLE
 			mResumeButton!!.setOnClickListener {
 				val intentToPlay = Intent(this@TitleScreenActivity, SudokuPlayActivity::class.java)
-				intentToPlay.putExtra(SudokuPlayActivity.EXTRA_PUZZLE_ID, mPuzzleID)
+				intentToPlay.putExtra(SudokuPlayActivity.EXTRA_PUZZLE_ID, puzzleID)
 				startActivity(intentToPlay)
 			}
 		} else {
@@ -107,10 +105,10 @@ class TitleScreenActivity : ThemedActivity() {
 				val versionLabel = aboutView.findViewById<TextView>(R.id.version_label)
 				val versionName = AndroidUtils.getAppVersionName(applicationContext)
 				versionLabel.text = getString(R.string.version, versionName)
-				with(SimpleDialog()) {
+				with(SimpleDialog(supportFragmentManager)) {
 					iconId = R.mipmap.ic_launcher
 					dialogView = aboutView
-					show(supportFragmentManager)
+					show()
 				}
 				return true
 			}
