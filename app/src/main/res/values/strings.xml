@@ -200,7 +200,7 @@
 	<string name="puzzle_inserted">New puzzle has been saved</string>
 	<string name="puzzle_updated">Puzzle has been updated</string>
 
-	<string name="puzzles_saved">Puzzles have been saved into \‘%s\’ folder</string>
+	<string name="puzzles_saved">Puzzles have been saved into \‘%s\’ folder(s).</string>
 	<string name="no_puzzles_found">No puzzles found</string>
 	<string name="unknown_import_error">Unknown error occurred while importing puzzles; import was cancelled</string>
 	<string name="invalid_format">Invalid format; import was cancelled</string>
@@ -215,7 +215,6 @@
 	<string name="export">Export</string>
 	<string name="export_folder">Export folder</string>
 	<string name="export_all_folders">Export all folders</string>
-	<string name="folders_created">Created %d folders.</string>
 	<string name="import_puzzles_found">Found %d puzzles…</string>
 	<string name="importing">Importing puzzles</string>
 	<string name="exporting">Exporting puzzles…</string>
@@ -290,6 +289,7 @@
 	<string name="puzzle_has_no_solution">This puzzle has no solution.</string>
 	<string name="puzzle_has_multiple_solutions">This is invalid puzzle because it has multiple solutions.</string>
 	<string name="puzzle_already_exists">This puzzle is valid but it already exists in the %s folder.</string>
+	<string name="do_you_want_to_save_anyway">Press OK if you want to save it anyway and go back to the puzzle list.</string>
 
 	<string name="hint_confirm">This will fill in the correct value for the selected cell. Do you
 		want to continue?

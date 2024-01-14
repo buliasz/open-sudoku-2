@@ -29,6 +29,7 @@ import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.Toast
 import org.buliasz.opensudoku2.R
+import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.game.CellCollection
 import org.buliasz.opensudoku2.game.SudokuGame
@@ -58,11 +59,8 @@ class PuzzleEditActivity : ThemedActivity() {
 		if (Intent.ACTION_EDIT == action) {
 			// Requested to edit: set that state, and the data being edited.
 			mState = STATE_EDIT
-			mPuzzleID = if (intent.hasExtra(EXTRA_PUZZLE_ID)) {
-				intent.getLongExtra(EXTRA_PUZZLE_ID, 0)
-			} else {
-				throw IllegalArgumentException("Extra with key '$EXTRA_PUZZLE_ID' is required.")
-			}
+			mPuzzleID = intent.getLongExtra(Names.PUZZLE_ID, 0)
+			require(mPuzzleID != 0L) { "Extra with key PUZZLE_ID is required." }
 		} else if (Intent.ACTION_INSERT == action) {
 			mState = STATE_INSERT
 			mPuzzleID = 0
@@ -78,10 +76,12 @@ class PuzzleEditActivity : ThemedActivity() {
 		} else {
 			if (mPuzzleID != 0L) {
 				// existing puzzle, read it from database
-				newPuzzle = mDatabase.getPuzzle(mPuzzleID) ?: SudokuGame.createEmptyGame()
+				newPuzzle = mDatabase.getPuzzle(mPuzzleID)!!
 				newPuzzle.cells.markAllCellsAsEditable()
 			} else {
 				newPuzzle = SudokuGame.createEmptyGame()
+				newPuzzle.folderId = intent.getLongExtra(Names.FOLDER_ID, 0)
+				require(newPuzzle.folderId != 0L) { "Extra with key FOLDER_ID is required." }
 			}
 		}
 		mBoard.setGame(newPuzzle)
@@ -188,7 +188,7 @@ class PuzzleEditActivity : ThemedActivity() {
 			}
 
 			MENU_ITEM_SAVE -> {
-				showSaveDialogIfNecessary()
+				showSaveDialogAndOrFinish()
 				return true
 			}
 
@@ -213,28 +213,34 @@ class PuzzleEditActivity : ThemedActivity() {
 		when (mState) {
 			STATE_EDIT -> {
 				mDatabase.updatePuzzle(newPuzzle)
-				SimpleDialog(supportFragmentManager).show(R.string.puzzle_updated)
+				Toast.makeText(applicationContext, R.string.puzzle_updated, Toast.LENGTH_SHORT).show()
 			}
 
 			STATE_INSERT -> {
 				newPuzzle.created = Instant.now().epochSecond
 				mDatabase.insertPuzzle(newPuzzle)
-				SimpleDialog(supportFragmentManager).show(R.string.puzzle_inserted)
+				Toast.makeText(applicationContext, R.string.puzzle_inserted, Toast.LENGTH_SHORT).show()
 			}
 		}
 	}
 
-	private fun showSaveDialogIfNecessary() {
+	private fun showSaveDialogAndOrFinish() {
 		val dialog = SimpleDialog(supportFragmentManager)
 		dialog.onOkCallback = ::finish
 
 		// check number of solutions
 		val numberOfSolutions = getNumberOfSolutions()
 		if (numberOfSolutions == 0) {
-			dialog.show(R.string.puzzle_has_no_solution)
+			dialog.show(
+				applicationContext.getString(R.string.puzzle_has_no_solution) +
+						"\n" + applicationContext.getString(R.string.do_you_want_to_save_anyway)
+			)
 			return
 		} else if (numberOfSolutions > 1) {
-			dialog.show(R.string.puzzle_has_multiple_solutions)
+			dialog.show(
+				applicationContext.getString(R.string.puzzle_has_multiple_solutions) +
+						"\n" + applicationContext.getString(R.string.do_you_want_to_save_anyway)
+			)
 			return
 		}
 
@@ -242,7 +248,8 @@ class PuzzleEditActivity : ThemedActivity() {
 		val existingPuzzle = mDatabase.findPuzzle(newPuzzle.cells)
 		if (existingPuzzle != null) {
 			dialog.show(
-				applicationContext.getString(R.string.puzzle_already_exists, mDatabase.getFolderInfo(existingPuzzle.folderId)?.name)
+				applicationContext.getString(R.string.puzzle_already_exists, mDatabase.getFolderInfo(existingPuzzle.folderId)?.name) +
+						"\n" + applicationContext.getString(R.string.do_you_want_to_save_anyway)
 			)
 			return
 		}
@@ -290,10 +297,6 @@ class PuzzleEditActivity : ThemedActivity() {
 	}
 
 	companion object {
-		/**
-		 * When inserting new data, we need to know folder in which the new puzzle will be stored.
-		 */
-		const val EXTRA_PUZZLE_ID = "puzzle_id"
 		const val MENU_ITEM_CHECK_VALIDITY = Menu.FIRST
 		const val MENU_ITEM_SAVE = Menu.FIRST + 1
 		const val MENU_ITEM_CANCEL = Menu.FIRST + 2

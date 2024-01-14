@@ -28,6 +28,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.preference.PreferenceManager
 import org.buliasz.opensudoku2.R
+import org.buliasz.opensudoku2.db.Names.PUZZLE_ID
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.gui.fragments.SimpleDialog
@@ -73,7 +74,7 @@ class TitleScreenActivity : ThemedActivity() {
 			mResumeButton!!.visibility = View.VISIBLE
 			mResumeButton!!.setOnClickListener {
 				val intentToPlay = Intent(this@TitleScreenActivity, SudokuPlayActivity::class.java)
-				intentToPlay.putExtra(SudokuPlayActivity.EXTRA_PUZZLE_ID, puzzleID)
+				intentToPlay.putExtra(PUZZLE_ID, puzzleID)
 				startActivity(intentToPlay)
 			}
 		} else {

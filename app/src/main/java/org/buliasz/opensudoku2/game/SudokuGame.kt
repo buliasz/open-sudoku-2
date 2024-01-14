@@ -85,6 +85,7 @@ class SudokuGame {
 			putString(Names.CELLS_DATA, mCells.serialize())
 			putString(Names.USER_NOTE, userNote)
 			putString(Names.COMMAND_STACK, commandStack.serialize())
+			putLong(Names.FOLDER_ID, folderId)
 		}
 	}
 
@@ -97,6 +98,7 @@ class SudokuGame {
 		cells = CellCollection.deserialize(inState.getString(Names.CELLS_DATA) ?: "")
 		userNote = inState.getString(Names.USER_NOTE) ?: ""
 		commandStack.deserialize(inState.getString(Names.COMMAND_STACK))
+		folderId = inState.getLong(Names.FOLDER_ID)
 		validate()
 	}
 

@@ -24,6 +24,7 @@ object Names : BaseColumns {
 	const val FOLDER = "folder"
 	const val GAME = "game"
 	const val ID = BaseColumns._ID
+	const val PUZZLE_ID = "puzzle_id"
 	const val FOLDER_ID = "folder_id"
 	const val CREATED = "created"
 	const val STATE = "state"

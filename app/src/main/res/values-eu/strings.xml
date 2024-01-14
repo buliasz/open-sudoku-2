@@ -199,7 +199,6 @@
 	<string name="export">Esportatu</string>
 	<string name="export_folder">Esportatu karpeta</string>
 	<string name="export_all_folders">Esportatu karpeta guztiak</string>
-	<string name="folders_created">%d karpeta inportatu dira</string>
 	<string name="importing">Sudokuak inportatzen %d/%d…</string>
 	<string name="exporting">Sudokuak esportatzen…</string>
 	<string name="unknown_export_error">Errore ezezagun bat gertatu da sudokuak esportatzean</string>
@@ -346,4 +345,6 @@
 	<string name="pref_even_title">Zelula uniformeak</string>
 	<string name="pref_even_summary">Zeilak 3x3-ko kaxa bikoietan</string>
 	<string name="processing_input_file">Processing the input file</string>
+	<string name="do_you_want_to_save_anyway">Presioa egin OK, dena dela, gorde nahi baduzu eta buruhausteen zerrendara itzuli.</string>
+	<string name="import_puzzles_found">Aurkituta %d rompecabezas…</string>
 </resources>

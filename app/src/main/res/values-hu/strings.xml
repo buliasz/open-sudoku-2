@@ -196,7 +196,6 @@
 	<string name="export">Exportálás</string>
 	<string name="export_folder">Mappa exportálása</string>
 	<string name="export_all_folders">Minden mappa exportálása</string>
-	<string name="folders_created">%d mappa importálva</string>
 	<string name="importing">Feladványok importálása %d/%d…</string>
 	<string name="exporting">Feladványok exportálása…</string>
 	<string name="unknown_export_error">Ismeretlen hiba exportálás közben</string>
@@ -338,6 +337,8 @@
 	<string name="pref_even_title">Páros sejtek</string>
 	<string name="pref_even_summary">Páros számú 3x3-as dobozok cellái</string>
 	<string name="processing_input_file">Processing the input file</string>
+	<string name="do_you_want_to_save_anyway">Nyomja meg az OK gombot, ha mindenképpen el szeretné menteni, és vissza szeretne térni a rejtvénylistához.</string>
+	<string name="import_puzzles_found">Talált %d rejtvények …</string>
 </resources>
 
 

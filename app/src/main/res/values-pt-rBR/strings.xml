@@ -159,7 +159,6 @@
 	<string name="export">Exportação</string>
 	<string name="export_folder">Exportar pasta</string>
 	<string name="export_all_folders">Exportar todas as pastas</string>
-	<string name="folders_created">%d pastas foram importadas.</string>
 	<string name="importing">Importando jogos %d/%d…</string>
 	<string name="exporting">Exportando jogos…</string>
 	<string name="unknown_export_error">Erro desconhecido ao exportar jogos.</string>
@@ -287,5 +286,7 @@
 	<string name="pref_even_title">Até caixas</string>
 	<string name="pref_even_summary">Células em caixas 3x3 pares</string>
 	<string name="processing_input_file">Processing the input file</string>
+	<string name="do_you_want_to_save_anyway">Pressione OK se quiser salvá-lo de qualquer maneira e voltar para a lista de quebra-cabeças.</string>
+	<string name="import_puzzles_found">Encontrado %d quebra-cabeças…</string>
 
 </resources>

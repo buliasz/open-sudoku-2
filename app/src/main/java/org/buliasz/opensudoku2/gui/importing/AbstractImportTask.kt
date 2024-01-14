@@ -49,7 +49,7 @@ abstract class AbstractImportTask {
 	private lateinit var mContext: Context
 	protected lateinit var mDatabase: SudokuDatabase
 	private lateinit var mFolder: FolderInfo // currently processed folder
-	private var mFolderCount = 0 // count of processed folders
+	private var mFoldersUsed = HashSet<String>() // count of processed folders
 	protected lateinit var importError: String
 	protected var importedCount = 0
 	protected var duplicatesCount = 0
@@ -86,11 +86,7 @@ abstract class AbstractImportTask {
 	) {
 		var resultMessage = ""
 		if (isSuccess) {
-			if (mFolderCount == 1) {
-				resultMessage = mContext.getString(R.string.puzzles_saved, mFolder.name)
-			} else if (mFolderCount > 1) {
-				resultMessage = mContext.getString(R.string.folders_created, mFolderCount)
-			}
+			if (mFoldersUsed.size > 0) resultMessage += mContext.getString(R.string.puzzles_saved, mFoldersUsed.joinToString(", "))
 			if (importedCount > 0) resultMessage += "\nImported $importedCount new puzzles."
 			if (duplicatesCount > 0) resultMessage += "\nSkipped $duplicatesCount already existing puzzles."
 			if (updatedCount > 0) resultMessage += "\nUpdated $updatedCount existing puzzles."
@@ -98,7 +94,7 @@ abstract class AbstractImportTask {
 			resultMessage = importError
 		}
 
-		val folderId = if (mFolderCount == 1) mFolder.id else -1
+		val folderId = if (mFoldersUsed.size == 1) mFolder.id else -1
 		with(SimpleDialog(supportFragmentManager)) {
 			titleId = R.string.importing
 			message = resultMessage
@@ -120,7 +116,7 @@ abstract class AbstractImportTask {
 			}
 		}
 
-		if (mFolderCount == 0) {
+		if (importedCount + duplicatesCount + updatedCount == 0) {
 			importError = mContext.getString(R.string.no_puzzles_found)
 			return false
 		}
@@ -140,8 +136,8 @@ abstract class AbstractImportTask {
 	 * @return folder ID
 	 */
 	protected fun importFolder(name: String, created: Long = 0): Long {
-		mFolderCount++
 		mFolder = mDatabase.insertFolder(name, if (created > 0) created else Instant.now().epochSecond)
+		mFoldersUsed.add(mFolder.name)
 		return mFolder.id
 	}
 

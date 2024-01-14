@@ -197,7 +197,7 @@ class PuzzleListActivity : ThemedActivity() {
 			MENU_ITEM_EDIT -> {
 				val i = Intent(this, PuzzleEditActivity::class.java)
 				i.setAction(Intent.ACTION_EDIT)
-				i.putExtra(PuzzleEditActivity.EXTRA_PUZZLE_ID, mAdapter.selectedGameId)
+				i.putExtra(Names.PUZZLE_ID, mAdapter.selectedGameId)
 				startActivity(i)
 				return true
 			}
@@ -240,7 +240,7 @@ class PuzzleListActivity : ThemedActivity() {
 				// Launch activity to insert a new item
 				i = Intent(this, PuzzleEditActivity::class.java)
 				i.setAction(Intent.ACTION_INSERT)
-				i.putExtra(Names.FOLDER_ID, mFolderID)
+				i.putExtra(Names.FOLDER_ID, mFolderID)    // we need to know folder in which the new puzzle will be stored
 				startActivity(i)
 				return true
 			}
@@ -312,7 +312,7 @@ class PuzzleListActivity : ThemedActivity() {
 
 	private fun playSudoku(puzzleID: Long) {
 		val i = Intent(this@PuzzleListActivity, SudokuPlayActivity::class.java)
-		i.putExtra(SudokuPlayActivity.EXTRA_PUZZLE_ID, puzzleID)
+		i.putExtra(Names.PUZZLE_ID, puzzleID)
 		startActivity(i)
 	}
 

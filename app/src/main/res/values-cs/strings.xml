@@ -196,7 +196,6 @@
 	<string name="export">Export</string>
 	<string name="export_folder">Exportovat složku</string>
 	<string name="export_all_folders">Exportovat všechny složky</string>
-	<string name="folders_created">Bylo naimportováno %d složek.</string>
 	<string name="importing">Importuji sudoku %d/%d…</string>
 	<string name="exporting">Exportuji sudoku…</string>
 	<string name="unknown_export_error">Při exportu sudoku došlo k neznámé chybě.</string>
@@ -343,4 +342,6 @@
 	<string name="pref_even_title">Rovnoměrné buňky</string>
 	<string name="pref_even_summary">Buňky v sudých polích 3x3</string>
 	<string name="processing_input_file">Processing the input file</string>
+	<string name="do_you_want_to_save_anyway">Stiskněte OK, pokud jej přesto chcete uložit a vrátit se do seznamu křížovek.</string>
+	<string name="import_puzzles_found">Nalezeno %d hádanky…</string>
 </resources>

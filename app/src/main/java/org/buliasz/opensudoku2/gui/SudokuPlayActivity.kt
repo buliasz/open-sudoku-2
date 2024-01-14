@@ -27,6 +27,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.preference.PreferenceManager
 import org.buliasz.opensudoku2.R
+import org.buliasz.opensudoku2.db.Names.PUZZLE_ID
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.game.Cell
 import org.buliasz.opensudoku2.game.SudokuGame
@@ -96,7 +97,7 @@ class SudokuPlayActivity : ThemedActivity() {
 		// create sudoku game instance
 		if (savedInstanceState == null) {
 			// activity runs for the first time, read game from database
-			val mSudokuGameID = intent.getLongExtra(EXTRA_PUZZLE_ID, 0)
+			val mSudokuGameID = intent.getLongExtra(PUZZLE_ID, 0)
 			mSudokuGame = mDatabase.getPuzzle(mSudokuGameID) ?: SudokuGame()
 		} else {
 			// activity has been running before, restore its state
@@ -470,7 +471,6 @@ class SudokuPlayActivity : ThemedActivity() {
 	}
 
 	companion object {
-		const val EXTRA_PUZZLE_ID = "puzzle_id"
 		const val MENU_ITEM_RESTART = Menu.FIRST
 		const val MENU_ITEM_CLEAR_ALL_NOTES = Menu.FIRST + 1
 		const val MENU_ITEM_FILL_IN_NOTES = Menu.FIRST + 2

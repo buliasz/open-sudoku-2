@@ -172,7 +172,6 @@
 	<string name="export">Exportera</string>
 	<string name="export_folder">Exportera mapp</string>
 	<string name="export_all_folders">Exportera alla mappar</string>
-	<string name="folders_created">%d mappar har importerats.</string>
 	<string name="importing">Importerar pussel %d/%d…</string>
 	<string name="exporting">Exporterar pussel…</string>
 	<string name="unknown_export_error">Okänt fel uppstod vid pusselexport.</string>
@@ -299,5 +298,7 @@
 	<string name="pref_even_title">Jämna celler</string>
 	<string name="pref_even_summary">Celler i jämna 3x3-rutor</string>
 	<string name="processing_input_file">Processing the input file</string>
+	<string name="do_you_want_to_save_anyway">Tryck på OK om du vill spara den ändå och gå tillbaka till pussellistan.</string>
+	<string name="import_puzzles_found">Hittade %d pussel…</string>
 
 </resources>

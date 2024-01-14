@@ -31,8 +31,10 @@ import org.buliasz.opensudoku2.db.extractSudokuGameFromCursorRow
 import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.utils.ThemeUtils
 import java.io.Closeable
+import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -42,6 +44,7 @@ internal class PuzzleListRecyclerAdapter(
 	private var puzzlesCursor: Cursor,
 	private val onClickListener: (Long) -> Unit
 ) : RecyclerView.Adapter<PuzzleListRecyclerAdapter.ViewHolder?>(), Closeable {
+	private val LocalZoneOffset: ZoneOffset = ZoneId.systemDefault().rules.getOffset(Instant.now())
 	var selectedGameId: Long = 0
 	private val mGameTimeFormatter = GameTimeFormat()
 	private val mDateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
@@ -141,8 +144,8 @@ internal class PuzzleListRecyclerAdapter(
 		holder.userNote.text = game.userNote
 	}
 
-	private fun getDateAndTimeForHumans(utcEpochSeconds: Long): String {
-		val dateTime = LocalDateTime.ofEpochSecond(utcEpochSeconds, 0, ZoneOffset.UTC)
+	private fun getDateAndTimeForHumans(epochSeconds: Long): String {
+		val dateTime = LocalDateTime.ofEpochSecond(epochSeconds, 0, LocalZoneOffset)
 		val today = LocalDate.now()
 		val yesterday = today.minusDays(1)
 		return if (dateTime.isAfter(today.atStartOfDay())) {

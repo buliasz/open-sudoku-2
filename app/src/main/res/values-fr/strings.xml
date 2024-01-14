@@ -173,7 +173,6 @@
 	<string name="export">Exporter</string>
 	<string name="export_folder">Exporter le dossier</string>
 	<string name="export_all_folders">Exporter tous les dossiers</string>
-	<string name="folders_created">%d dossiers ont été importés.</string>
 	<string name="importing">Importation de grilles %d/%d…</string>
 	<string name="exporting">Exportation de grilles…</string>
 	<string name="unknown_export_error">Erreur inconnue lors de l\'exportation des grilles.</string>
@@ -316,5 +315,7 @@
 	<string name="pref_even_title">Cellules uniformes</string>
 	<string name="pref_even_summary">Cellules dans des boîtes paires de 3x3</string>
 	<string name="processing_input_file">Processing the input file</string>
+	<string name="do_you_want_to_save_anyway">Appuyez sur OK si vous voulez quand même l’enregistrer et revenir à la liste des puzzles.</string>
+	<string name="import_puzzles_found">Trouvé %d puzzles…</string>
 
 </resources>

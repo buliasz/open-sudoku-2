@@ -161,8 +161,7 @@
     <string name="export">Export</string>
     <string name="export_folder">Exportiere Ordner</string>
     <string name="export_all_folders">Exportiere alle Ordner</string>
-    <string name="folders_created">%d Ordner wurden importiert</string>
-    <string name="importing">Importiere Sudoku-Rätsel %d/%d…</string>
+	<string name="importing">Importiere Sudoku-Rätsel %d/%d…</string>
     <string name="exporting">Exportiere Sudoku-Rätsel…</string>
     <string name="unknown_export_error">Ein unbekannter Fehler ist während des Exports aufgetreten.</string>
     <string name="highlight_completed_values">Markiere vollständige Zahlen</string>
@@ -287,4 +286,6 @@
     <string name="pref_even_title">Gleichmäßige Zellen</string>
     <string name="pref_even_summary">Zellen in geraden 3x3-Kästchen</string>
 	<string name="processing_input_file">Processing the input file</string>
+	<string name="do_you_want_to_save_anyway">Drücken Sie OK, wenn Sie es trotzdem speichern möchten, und gehen Sie zurück zur Rätselliste.</string>
+    <string name="import_puzzles_found">%d rätsel gefunden…</string>
 </resources>

@@ -197,7 +197,6 @@
 	<string name="export">导出</string>
 	<string name="export_folder">导出分类</string>
 	<string name="export_all_folders">导出所有分类</string>
-	<string name="folders_created">%d分类被导入</string>
 	<string name="importing">导入谜题 %d/%d…</string>
 	<string name="exporting">导出谜题…</string>
 	<string name="unknown_export_error">导出谜题时发生未知错误。</string>
@@ -339,4 +338,6 @@
 	<string name="pref_even_title">偶数细胞</string>
 	<string name="pref_even_summary">偶数 3x3 框中的单元格</string>
 	<string name="processing_input_file">Processing the input file</string>
+	<string name="do_you_want_to_save_anyway">如果您仍然想保存它并返回拼图列表，请按 OK。</string>
+	<string name="import_puzzles_found">找到 %d 谜题</string>
 </resources>
