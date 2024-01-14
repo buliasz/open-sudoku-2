@@ -130,10 +130,10 @@ class SudokuDatabase(context: Context) : Closeable {
 	fun getFolderInfoWithCounts(folderId: Long): FolderInfo {
 		val folder = FolderInfo(folderId, "")
 		val q = "select f.${Names.ID} as ${Names.ID}, f.${Names.FOLDER_NAME} as ${Names.FOLDER_NAME}, " +
-				"g.${Names.STATE} as ${Names.STATE}, count(g.${Names.STATE}) as ${Names.COUNT} " +
-				"from ${Names.FOLDER} f left join ${Names.GAME} g on f.${Names.ID} = g.${Names.FOLDER_ID} " +
-				"where f.${Names.ID} = $folderId " +
-				"group by g.${Names.STATE}"
+			"g.${Names.STATE} as ${Names.STATE}, count(g.${Names.STATE}) as ${Names.COUNT} " +
+			"from ${Names.FOLDER} f left join ${Names.GAME} g on f.${Names.ID} = g.${Names.FOLDER_ID} " +
+			"where f.${Names.ID} = $folderId " +
+			"group by g.${Names.STATE}"
 		mOpenHelper.readableDatabase.use { db ->
 			db.rawQuery(q, null).use { cursor ->
 				while (cursor.moveToNext()) {

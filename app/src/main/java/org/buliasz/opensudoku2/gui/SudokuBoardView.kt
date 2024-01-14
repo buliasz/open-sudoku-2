@@ -455,12 +455,12 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 
 					HighlightMode.NUMBERS_AND_NOTES -> {
 						shouldHighlightCell = highlightedValueIsValid &&
-								(highlightedValue == cell.value || cell.notedNumbers.contains(highlightedValue) && cell.value == 0)
+							(highlightedValue == cell.value || cell.notedNumbers.contains(highlightedValue) && cell.value == 0)
 					}
 				}
 				if (shouldHighlightCell) {
 					mPaints[row][col][0] = mBackgroundHighlighted
-					mPaints[row][col][1] = mTextHighlighted
+					if (cell.isEditable) mPaints[row][col][1] = mTextHighlighted
 					mPaints[row][col][2] = mTextNoteHighlighted
 				}
 
