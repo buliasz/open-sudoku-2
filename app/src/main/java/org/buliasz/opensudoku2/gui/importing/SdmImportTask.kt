@@ -37,9 +37,16 @@ import java.net.URL
  * Handles import of .sdm files (see http://sudocue.net/download.php).
  */
 class SdmImportTask(private val mUri: Uri) : AbstractImportTask() {
-	@Throws(SudokuInvalidFormatException::class)
+	private lateinit var folderName: String
+	var folderId: Long = 0L
+		get() {
+			if (field == 0L) field = importFolder(folderName)
+			return field
+		}
+
+@Throws(SudokuInvalidFormatException::class)
 	override suspend fun processImport(context: Context) {
-		val folderId = importFolder(mUri.getFileName(context.contentResolver) ?: "Imported Puzzles")
+		folderName = mUri.getFileName(context.contentResolver) ?: "Imported Puzzles"
 		val isr: InputStreamReader
 		try {
 			isr = if (mUri.scheme == "content") {

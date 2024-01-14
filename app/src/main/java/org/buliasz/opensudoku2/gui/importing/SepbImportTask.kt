@@ -36,9 +36,16 @@ import java.net.URL
 val SepbRegex = """\s*\w+\s+(?<cellValues>\d{81})\s+\d+.\d+\s*""".toRegex()
 
 class SepbImportTask(private val mUri: Uri) : AbstractImportTask() {
+	private lateinit var folderName: String
+	var folderId: Long = 0L
+		get() {
+			if (field == 0L) field = importFolder(folderName)
+			return field
+		}
+
 	@Throws(SudokuInvalidFormatException::class)
 	override suspend fun processImport(context: Context) {
-		val folderId = importFolder(mUri.getFileName(context.contentResolver) ?: "Imported Puzzles")
+		folderName = mUri.getFileName(context.contentResolver) ?: "Imported Puzzles"
 		val isr: InputStreamReader = if (mUri.scheme == "content") {
 			val contentResolver = context.contentResolver
 			InputStreamReader(contentResolver.openInputStream(mUri))

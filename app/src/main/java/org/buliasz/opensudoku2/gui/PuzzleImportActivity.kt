@@ -59,16 +59,10 @@ class PuzzleImportActivity : ThemedActivity() {
 				val i: Intent
 				if (folderId == -1L) {
 					// multiple folders were imported, go to folder list
-					i = Intent(
-						this@PuzzleImportActivity,
-						FolderListActivity::class.java
-					)
+					i = Intent(this@PuzzleImportActivity, FolderListActivity::class.java)
 				} else {
 					// one folder was imported, go to this folder
-					i = Intent(
-						this@PuzzleImportActivity,
-						PuzzleListActivity::class.java
-					)
+					i = Intent(this@PuzzleImportActivity, PuzzleListActivity::class.java)
 					i.putExtra(Names.FOLDER_ID, folderId)
 				}
 				startActivity(i)
