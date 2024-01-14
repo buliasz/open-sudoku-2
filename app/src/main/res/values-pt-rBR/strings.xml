@@ -35,7 +35,7 @@
 	<string name="note">Anotação:</string>
 	<string name="edit_note">Editar anotação</string>
 	<string name="add_folder">Adicionar pasta</string>
-	<string name="import_file">Importar</string>
+	<string name="import_title">Importar</string>
 	<string name="about">Sobre</string>
 	<string name="error">Erro</string>
 	<string name="rename_folder">Renomear pasta</string>
@@ -84,15 +84,15 @@
 	<string name="input_methods">Modos de Entrada</string>
 	<string name="popup">Popup</string>
 	<string name="popup_summary">Edite o valor e a anotação numa janela popup.</string>
-	<string name="single_number">Número Simples</string>
-	<string name="single_number_summary">Selecione o número e toque na célula para definir seu valor ou anotação.</string>
-	<string name="numpad">Teclado</string>
-	<string name="numpad_summary">Mostra um teclado numérico que age como tal.</string>
-	<string name="numpad_move_right">Move para a direita ao pressionar</string>
-	<string name="numpad_move_right_summary">Move uma casa para a direita quando é escolhido um número.</string>
-	<string name="numpad_abbr">Tec</string>
+	<string name="insert_on_tap">Inserir ao tocar</string>
+	<string name="insert_on_tap_summary">Selecione o número e toque na célula para definir seu valor ou anotação.</string>
+	<string name="select_on_tap">Selecione ao tocar</string>
+	<string name="select_on_tap_summary">Mostra um teclado numérico que age como tal.</string>
+	<string name="move_right_on_insert">Move para a direita ao pressionar</string>
+	<string name="move_right_on_insert_summary">Move uma casa para a direita quando é escolhido um número.</string>
+	<string name="select_on_tap_abbr">Selecione ao tocar</string>
 	<string name="popup_abbr">Pop</string>
-	<string name="single_number_abbr">NS</string>
+	<string name="insert_on_tap_abbr">Toque para inserir</string>
 	<string name="welcome">Bem-vindo</string>
 	<string name="hint">Dica</string>
 	<string name="help">Ajuda</string>
@@ -105,13 +105,13 @@
 		<i>Popup</i>. Pressione qualquer célula para editar seu conteúdo.\n\nObserve o botão no canto inferior direito que alterna
 		entre os modos de entrada.\n
 	</string>
-	<string name="im_single_number_hint">Você está agora no modo de entrada
+	<string name="im_insert_on_tap_hint">Você está agora no modo de entrada
 		<i>Número Simples</i>. Pressione um botão numérico e escolha qualquer célula para preencher com o número selecionado.\n\n
 		Pressione o botão com um
 		<i>Lápis</i>
 		para editar a observação da célula.\n
 	</string>
-	<string name="im_numpad_hint">Você está agora no modo de entrada
+	<string name="im_select_on_tap_hint">Você está agora no modo de entrada
 		<i>Teclado</i>. Os botões agem como um teclado numérico padrão.\n\n
 		Pressione o botão com um
 		<i>Lápis</i>
@@ -159,7 +159,7 @@
 	<string name="export">Exportação</string>
 	<string name="export_folder">Exportar pasta</string>
 	<string name="export_all_folders">Exportar todas as pastas</string>
-	<string name="importing">Importando jogos %d/%d…</string>
+	<string name="importing">Importando jogos %1$d/%2$d…</string>
 	<string name="exporting">Exportando jogos…</string>
 	<string name="unknown_export_error">Erro desconhecido ao exportar jogos.</string>
 	<string name="highlight_completed_values">Destacar números finalizados</string>
@@ -285,7 +285,7 @@
 	<string name="pref_error_summary">Células contendo valores inválidos</string>
 	<string name="pref_even_title">Até caixas</string>
 	<string name="pref_even_summary">Células em caixas 3x3 pares</string>
-	<string name="processing_input_file">Processing the input file</string>
+	<string name="processing_input_file">Processando o arquivo de entrada</string>
 	<string name="do_you_want_to_save_anyway">Pressione OK se quiser salvá-lo de qualquer maneira e voltar para a lista de quebra-cabeças.</string>
 	<string name="import_puzzles_found">Encontrado %d quebra-cabeças…</string>
 

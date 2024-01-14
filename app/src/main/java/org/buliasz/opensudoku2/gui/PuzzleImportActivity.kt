@@ -83,6 +83,7 @@ class PuzzleImportActivity : ThemedActivity() {
 
 		supportRequestWindowFeature(Window.FEATURE_LEFT_ICON)
 		setContentView(R.layout.import_puzzle)
+		setTitle(R.string.import_title)
 		window.setFeatureDrawableResource(
 			Window.FEATURE_LEFT_ICON,
 			R.mipmap.ic_launcher_icon
@@ -192,7 +193,7 @@ class PuzzleImportActivity : ThemedActivity() {
 			} else {
 				progressBar.max = maxValue
 				progressBar.progress = currentValue
-				progressText.text = "$currentValue/$maxValue"
+				progressText.text = applicationContext.getString(R.string.importing, currentValue, maxValue)
 			}
 		}
 		lastProgressUpdateMs = System.currentTimeMillis()

@@ -35,7 +35,7 @@ import org.buliasz.opensudoku2.gui.NumberButton
 import org.buliasz.opensudoku2.gui.SudokuBoardView
 import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanelStatePersister.StateBundle
 
-class IMNumpad(val parent: ViewGroup) : InputMethod() {
+class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 	var isMoveCellSelectionOnPress = true
 
 	/**
@@ -101,7 +101,7 @@ class IMNumpad(val parent: ViewGroup) : InputMethod() {
 
 	override fun createControlPanelView(abbrName: String): View {
 		val inflater = mContext!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-		val controlPanel = inflater.inflate(R.layout.im_numpad, null)
+		val controlPanel = inflater.inflate(R.layout.im_select_on_tap, null)
 
 		val numberButtons = HashMap<Int, NumberButton>()
 		numberButtons[1] = controlPanel.findViewById(R.id.button_1)
@@ -154,18 +154,18 @@ class IMNumpad(val parent: ViewGroup) : InputMethod() {
 		centerNoteButton.iconTint = textColor
 		mCenterNoteButton = centerNoteButton
 
-		mSwitchModeButton = controlPanel.findViewById(R.id.numpad_switch_input_mode)
+		mSwitchModeButton = controlPanel.findViewById(R.id.sot_switch_input_mode)
 		mSwitchModeButton.text = abbrName
 
 		return controlPanel
 	}
 
 	override val nameResID: Int
-		get() = R.string.numpad
+		get() = R.string.select_on_tap
 	override val helpResID: Int
-		get() = R.string.im_numpad_hint
+		get() = R.string.im_select_on_tap_hint
 	override val abbrName: String
-		get() = mContext!!.getString(R.string.numpad_abbr)
+		get() = mContext!!.getString(R.string.select_on_tap_abbr)
 	override val switchModeButton: Button
 		get() = mSwitchModeButton
 

@@ -35,9 +35,9 @@ import org.buliasz.opensudoku2.gui.SudokuBoardView.HighlightMode
 import org.buliasz.opensudoku2.gui.fragments.SimpleDialog
 import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanel
 import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanelStatePersister
-import org.buliasz.opensudoku2.gui.inputmethod.IMNumpad
+import org.buliasz.opensudoku2.gui.inputmethod.IMInsertOnTap
 import org.buliasz.opensudoku2.gui.inputmethod.IMPopup
-import org.buliasz.opensudoku2.gui.inputmethod.IMSingleNumber
+import org.buliasz.opensudoku2.gui.inputmethod.IMSelectOnTap
 import org.buliasz.opensudoku2.utils.ThemeUtils
 
 class SudokuPlayActivity : ThemedActivity() {
@@ -50,8 +50,8 @@ class SudokuPlayActivity : ThemedActivity() {
 	private lateinit var mIMControlPanel: IMControlPanel
 	private lateinit var mIMControlPanelStatePersister: IMControlPanelStatePersister
 	private lateinit var mIMPopup: IMPopup
-	private lateinit var mIMSingleNumber: IMSingleNumber
-	private lateinit var mIMNumpad: IMNumpad
+	private lateinit var mIMInsertOnTap: IMInsertOnTap
+	private lateinit var mIMSelectOnTap: IMSelectOnTap
 	private var mShowTime = true
 	private lateinit var mGameTimer: GameTimer
 	private val mGameTimeFormatter = GameTimeFormat()
@@ -81,6 +81,7 @@ class SudokuPlayActivity : ThemedActivity() {
 
 	private val onSelectedNumberChangedListener: (Int) -> Unit = {
 		mSudokuBoard.highlightedValue = it
+		mSudokuBoard.clearCellSelection()
 		mSudokuBoard.postInvalidate()
 	}
 
@@ -128,8 +129,8 @@ class SudokuPlayActivity : ThemedActivity() {
 		mIMControlPanel.initialize(mSudokuBoard, mSudokuGame, mHintsQueue)
 		mIMControlPanelStatePersister = IMControlPanelStatePersister(this)
 		mIMPopup = mIMControlPanel.imPopup
-		mIMSingleNumber = mIMControlPanel.imSingleNumber
-		mIMNumpad = mIMControlPanel.imNumpad
+		mIMInsertOnTap = mIMControlPanel.imInsertOnTap
+		mIMSelectOnTap = mIMControlPanel.imSelectOnTap
 		if (!mSudokuBoard.isReadOnly) selectCell(mSudokuGame.lastCommandCell)
 
 		settingsLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { restartActivity() }
@@ -167,21 +168,21 @@ class SudokuPlayActivity : ThemedActivity() {
 				mGameTimer.start()
 			}
 		}
-		val moveCellSelectionOnPress = gameSettings.getBoolean("im_numpad_move_right", false)
+		val moveCellSelectionOnPress = gameSettings.getBoolean("im_move_right_on_insert_move_right", false)
 		mSudokuBoard.moveCellSelectionOnPress = moveCellSelectionOnPress
-		mIMNumpad.isMoveCellSelectionOnPress = (moveCellSelectionOnPress)
+		mIMSelectOnTap.isMoveCellSelectionOnPress = (moveCellSelectionOnPress)
 		mIMPopup.isEnabled = (gameSettings.getBoolean("im_popup", true))
-		mIMSingleNumber.isEnabled = (gameSettings.getBoolean("im_single_number", true))
-		mIMNumpad.isEnabled = (gameSettings.getBoolean("im_numpad", true))
+		mIMInsertOnTap.isEnabled = (gameSettings.getBoolean("insert_on_tap", true))
+		mIMSelectOnTap.isEnabled = (gameSettings.getBoolean("select_on_tap", true))
 		mIMPopup.highlightCompletedValues = gameSettings.getBoolean("highlight_completed_values", true)
 		mIMPopup.showNumberTotals = gameSettings.getBoolean("show_number_totals", false)
-		mIMSingleNumber.highlightCompletedValues = gameSettings.getBoolean("highlight_completed_values", true)
-		mIMSingleNumber.showNumberTotals = gameSettings.getBoolean("show_number_totals", false)
-		mIMSingleNumber.bidirectionalSelection = gameSettings.getBoolean("bidirectional_selection", true)
-		mIMSingleNumber.highlightSimilar = gameSettings.getBoolean("highlight_similar", true)
-		mIMSingleNumber.onSelectedNumberChangedListener = onSelectedNumberChangedListener
-		mIMNumpad.highlightCompletedValues = gameSettings.getBoolean("highlight_completed_values", true)
-		mIMNumpad.showNumberTotals = gameSettings.getBoolean("show_number_totals", false)
+		mIMInsertOnTap.highlightCompletedValues = gameSettings.getBoolean("highlight_completed_values", true)
+		mIMInsertOnTap.showNumberTotals = gameSettings.getBoolean("show_number_totals", false)
+		mIMInsertOnTap.bidirectionalSelection = gameSettings.getBoolean("bidirectional_selection", true)
+		mIMInsertOnTap.highlightSimilar = gameSettings.getBoolean("highlight_similar", true)
+		mIMInsertOnTap.onSelectedNumberChangedListener = onSelectedNumberChangedListener
+		mIMSelectOnTap.highlightCompletedValues = gameSettings.getBoolean("highlight_completed_values", true)
+		mIMSelectOnTap.showNumberTotals = gameSettings.getBoolean("show_number_totals", false)
 		mIMControlPanel.activateFirstInputMethod() // make sure that some input method is activated
 		mIMControlPanelStatePersister.restoreState(mIMControlPanel)
 		if (!mSudokuBoard.isReadOnly) {

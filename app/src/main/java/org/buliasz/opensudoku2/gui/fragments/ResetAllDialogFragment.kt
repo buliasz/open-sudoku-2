@@ -26,12 +26,11 @@ import androidx.fragment.app.DialogFragment
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.db.extractSudokuGameFromCursorRow
-import org.buliasz.opensudoku2.gui.PuzzleListSorter
+import org.buliasz.opensudoku2.db.forEach
 
 class ResetAllDialogFragment(
 	private val mDatabase: SudokuDatabase,
 	private val mFolderID: Long,
-	private val mListSorter: PuzzleListSorter,
 	val updateList: () -> Unit
 ) : DialogFragment() {
 	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -39,15 +38,10 @@ class ResetAllDialogFragment(
 			.setIcon(R.drawable.ic_restore)
 			.setTitle(R.string.reset_all_puzzles_confirm)
 			.setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
-				mDatabase.getPuzzleListCursor(mFolderID, null, mListSorter.sortOrder).use { cursor ->
-					if (cursor.moveToFirst()) {
-						while (!cursor.isAfterLast) {
-							val puzzle = extractSudokuGameFromCursorRow(cursor)
-							puzzle.reset()
-							mDatabase.updatePuzzle(puzzle)
-							cursor.moveToNext()
-						}
-					}
+				mDatabase.getPuzzleListCursor(mFolderID, null, null).forEach { cursor ->
+					val puzzle = extractSudokuGameFromCursorRow(cursor)
+					puzzle.reset()
+					mDatabase.updatePuzzle(puzzle)
 				}
 				updateList()
 			}

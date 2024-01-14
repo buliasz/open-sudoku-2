@@ -25,6 +25,7 @@ import org.buliasz.opensudoku2.db.forEach
 import org.buliasz.opensudoku2.db.getPuzzleListCursor
 import org.buliasz.opensudoku2.db.insertPuzzle
 import org.buliasz.opensudoku2.db.originalValues
+import org.buliasz.opensudoku2.utils.getFileName
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
@@ -37,7 +38,7 @@ val SepbRegex = """\s*\w+\s+(?<cellValues>\d{81})\s+\d+.\d+\s*""".toRegex()
 class SepbImportTask(private val mUri: Uri) : AbstractImportTask() {
 	@Throws(SudokuInvalidFormatException::class)
 	override suspend fun processImport(context: Context) {
-		val folderId = importFolder(mUri.lastPathSegment ?: "UNKNOWN")
+		val folderId = importFolder(mUri.getFileName(context.contentResolver) ?: "Imported Puzzles")
 		val isr: InputStreamReader = if (mUri.scheme == "content") {
 			val contentResolver = context.contentResolver
 			InputStreamReader(contentResolver.openInputStream(mUri))

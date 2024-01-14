@@ -44,7 +44,7 @@
 	<string name="edit_note">Editatu oharra</string>
 
 	<string name="add_folder">Gehitu karpeta</string>
-	<string name="import_file">Inportatu</string>
+	<string name="import_title">Inportatu</string>
 	<string name="about">Honi buruz</string>
 	<string name="error">Errorea</string>
 	<string name="rename_folder">Berrizendatu karpeta</string>
@@ -97,25 +97,24 @@
 	<string name="input_methods">Sarrera moduak</string>
 	<string name="popup">Leihotxoa</string>
 	<string name="popup_summary">Editatu gelaxkaren balioa eta oharrak leihotxo batean.</string>
-	<string name="single_number">Zenbaki bakarra</string>
-	<string name="single_number_summary">Aukeratu zenbakia eta gero ukitu gelaxka bat balio edo ohar hori ezartzeko.</string>
-	<string name="numpad">Zenbaki-teklatua</string>
-	<string name="numpad_summary">Erakutsi zenbaki-teklatua (betiko zenbaki-teklatuak bezala funtzionatzen du)</string>
-	<string name="numpad_move_right">Mugitu eskuinera ukitu bitartean</string>
-	<string name="numpad_move_right_summary">Gelaxkaren hautapena bat eskuinera mugitzen du zenbaki-botoia ukitzean.
+	<string name="insert_on_tap">Txorrota txertatu</string>
+	<string name="insert_on_tap_summary">Aukeratu zenbakia eta gero ukitu gelaxka bat balio edo ohar hori ezartzeko.</string>
+	<string name="select_on_tap">Hautatzea jotzean</string>
+	<string name="select_on_tap_summary">Erakutsi zenbaki-teklatua (betiko zenbaki-teklatuak bezala funtzionatzen du)</string>
+	<string name="move_right_on_insert">Mugitu eskuinera ukitu bitartean</string>
+	<string name="move_right_on_insert_summary">Gelaxkaren hautapena bat eskuinera mugitzen du zenbaki-botoia ukitzean.
 	</string>
 
-	<string name="numpad_abbr">Zk\nTek</string>
+	<string name="select_on_tap_abbr">Hautatzea jotzean</string>
 	<string name="popup_abbr">Lei\nho\txo</string>
-	<string name="single_number_abbr">ZB</string>
+	<string name="insert_on_tap_abbr">Sartzeko ukitua</string>
 	<string name="welcome">Ongi etorri</string>
 	<string name="hint">Pista</string>
 	<string name="help">Laguntza</string>
 	<string name="that_is_all">Hori da dena</string>
 
-	<string name="first_run_hint">
-		Sudokua osatzeko hainbat sarrera modu dituzu.
-		Modu horietara ohitzen laguntzeko hainbat aholku erakutsiko zaizkizu modu horietatik igaro ahala.
+	<string name="first_run_hint">Sudokua osatzeko hainbat sarrera modu dituzu. Modu horietara ohitzen laguntzeko hainbat aholku erakutsiko zaizkizu modu
+		horietatik igaro ahala.
 		\n\nJolasaren ezarpenetan aholku hauek desgaitu ditzakezu.\n
 	</string>
 
@@ -127,7 +126,7 @@
 		Botoi hau beste sarrera modu batera aldatzeko erabil dezakezu.\n
 	</string>
 
-	<string name="im_single_number_hint">
+	<string name="im_insert_on_tap_hint">
 		<i>Zenbaki bakarra</i>
 		sarrera moduan zaude.
 		Lehenik, sakatu edozein zenbaki-botoi zenbakia hautatzeko.
@@ -135,7 +134,7 @@
 		\n\nSakatu <i>Arkatz</i> botoia gelaxketan oharrak gehitzeko.\n
 	</string>
 
-	<string name="im_numpad_hint">
+	<string name="im_select_on_tap_hint">
 		<i>Zenbaki-teklatu</i>
 		sarrera moduan zaude.
 		Botoiek betiko zenbaki-teklatuek bezala funtzionatzen dute.
@@ -199,7 +198,7 @@
 	<string name="export">Esportatu</string>
 	<string name="export_folder">Esportatu karpeta</string>
 	<string name="export_all_folders">Esportatu karpeta guztiak</string>
-	<string name="importing">Sudokuak inportatzen %d/%d…</string>
+	<string name="importing">Sudokuak inportatzen %1$d/%2$d…</string>
 	<string name="exporting">Sudokuak esportatzen…</string>
 	<string name="unknown_export_error">Errore ezezagun bat gertatu da sudokuak esportatzean</string>
 	<string name="highlight_completed_values">Nabarmendu osatutako balioak</string>
@@ -226,8 +225,7 @@
 	<string name="highlight_similar_cells_summary">Nabarmendu zenbaki berbera duten gelaxkak</string>
 
 	<string name="bidirectional_selection">Bi noranzkoko hautapena</string>
-	<string name="bidirectional_selection_summary">
-		Zenbaki bakar sarrera moduan, editatu ezin daiteken gelaxka bat ukitzean zenbaki
+	<string name="bidirectional_selection_summary">Zenbaki bakar sarrera moduan, editatu ezin daiteken gelaxka bat ukitzean zenbaki
 		berbereko botoia hautatuko da (eta alderantziz).
 	</string>
 	<string name="contributors_label">Kolaboratzaileak</string>
@@ -243,8 +241,7 @@
 	<string name="theme_custom">Itxura pertsonalizatua</string>
 
 	<string name="screen_custom_theme">Itxura pertsonalizatuaren koloreak</string>
-	<string name="screen_custom_theme_summary_disabled">
-		Ezarpen hau gaitzeko, aukeratu \"Itxura pertsonalizatua\" gaineko \"Itxura\" atalean
+	<string name="screen_custom_theme_summary_disabled">Ezarpen hau gaitzeko, aukeratu \"Itxura pertsonalizatua\" gaineko \"Itxura\" atalean
 	</string>
 
 	<string name="default_lineColor">Ingerada</string>
@@ -344,7 +341,7 @@
 	<string name="pref_error_summary">Balio ez-baliozkoak dituzten zendak</string>
 	<string name="pref_even_title">Zelula uniformeak</string>
 	<string name="pref_even_summary">Zeilak 3x3-ko kaxa bikoietan</string>
-	<string name="processing_input_file">Processing the input file</string>
+	<string name="processing_input_file">Sarrerako artxiboaren prozesamendua</string>
 	<string name="do_you_want_to_save_anyway">Presioa egin OK, dena dela, gorde nahi baduzu eta buruhausteen zerrendara itzuli.</string>
 	<string name="import_puzzles_found">Aurkituta %d rompecabezas…</string>
 </resources>

@@ -21,20 +21,26 @@
 	<string name="edit_puzzle">Edit puzzle</string>
 
 	<string name="version">Version %s</string>
-	<string name="homepage" translatable="false">https://github.com/buliasz/open-sudoku-2</string>
-	<string name="send_me_bugs">
-		Ideas, fixes etc. are welcome. If you run into a bug, don\'t hesitate to use the issue
+	<string name="homepage"
+		translatable="false">https://github.com/buliasz/open-sudoku-2
+	</string>
+	<string name="send_me_bugs">Ideas, fixes etc. are welcome. If you run into a bug, don\'t hesitate to use the issue
 		tracker on the project\'s homepage.
 	</string>
 
 	<string name="current_developers_label">Open Sudoku 2 Author</string>
-	<string name="current_developers" translatable="false">Bart Uliasz</string>
+	<string name="current_developers"
+		translatable="false">Bart Uliasz
+	</string>
 
 	<string name="old_developers_label">Open Sudoku 1 Authors</string>
-	<string name="old_developers" translatable="false">Óscar García Amor, Roman Mašek</string>
+	<string name="old_developers"
+		translatable="false">Óscar García Amor, Roman Mašek
+	</string>
 
 	<string name="localization_contributors_label">Localization Contributors</string>
-	<string name="localization_contributors" translatable="false">
+	<string name="localization_contributors"
+		translatable="false">
 		Vit Hnilica\n
 		Martin Sobola\n
 		Martin Helff\n
@@ -60,7 +66,6 @@
 	<string name="edit_note">Edit note</string>
 
 	<string name="add_folder">Add folder</string>
-	<string name="import_file">Import</string>
 	<string name="about">About</string>
 	<string name="error">Error</string>
 	<string name="rename_folder">Rename folder</string>
@@ -108,64 +113,55 @@
 	<string name="highlight_directly_wrong_values_summary">Highlight values that directly break rules of Sudoku (notes are ignored).</string>
 	<string name="highlight_indirectly_wrong_values">Highlight indirectly wrong values</string>
 	<string name="highlight_indirectly_wrong_values_summary">Highlight values that do not match the final puzzle solution (notes are ignored).</string>
-	<string name="input_methods">Input Modes</string>
-	<string name="popup">Popup</string>
-	<string name="popup_summary">Edit cell value and note in popup.</string>
-	<string name="single_number">Single number</string>
-	<string name="single_number_summary">Select number, then just tap on cell to set its value or
-		note.
-	</string>
-	<string name="numpad">Numpad</string>
-	<string name="numpad_summary">Show numpad (acts as standard numeric keyboard)</string>
-	<string name="numpad_move_right">Move right on press</string>
-	<string name="numpad_move_right_summary">Moves cell selection by one cell to the right when
-		number button is pressed.
-	</string>
 
-	<string name="numpad_abbr">Number Pad</string>
-	<string name="popup_abbr">Pop</string>
-	<string name="single_number_abbr">SN</string>
+	<string name="input_methods">Input Modes</string>
+	<string name="popup">Pop-up</string>
+	<string name="popup_summary">Edit cell value and notes in a popup.</string>
+	<string name="insert_on_tap">Insert on tap</string>
+	<string name="insert_on_tap_summary">Apply selected key by just tapping on cell.</string>
+	<string name="select_on_tap">Select on tap</string>
+	<string name="select_on_tap_summary">Tapping a cell selects it only. Use on-screen keyboard to modify the selected cell.</string>
+	<string name="move_right_on_insert">Move right on value insert</string>
+	<string name="move_right_on_insert_summary">Moves selection by one cell to the right when a value is applied.</string>
+	<string name="select_on_tap_abbr">Select on tap</string>
+	<string name="popup_abbr">Pop-up on tap</string>
+	<string name="insert_on_tap_abbr">Insert on tap</string>
+
 	<string name="welcome">Welcome</string>
 	<string name="hint">Hint</string>
 	<string name="help">Help</string>
 	<string name="that_is_all">That\’s all</string>
 
-	<string name="first_run_hint">
-		There are several input modes which you can use to fill in the puzzle.
+	<string name="first_run_hint">There are several input modes which you can use to fill in the puzzle.
 		In order to help you get familiar with these modes, there will be several hints displayed as
 		you go through them.
 		\n\nYou can disable these hints in game settings.\n
 	</string>
 
-	<string name="im_popup_hint">
-		You\’re now in the <i>Popup</i> input mode.
-		Tap any cell with finger to edit its content.
+	<string name="im_popup_hint">You\’re now in the <i>Pop-up</i> input mode.
+		Tap any cell with tap to edit its content.
 		\n\nNotice the button in the lower right corner.
 		You can use this button to switch to another input mode.\n
 	</string>
 
-	<string name="im_single_number_hint">
-		You\’re now in the <i>Single number</i> input mode.
-		First select any number button by pressing it.
-		Then just tap on cells in which you want to have the selected number filled.
-		\n\nPress <i>Pencil</i> button to toggle the cell\’s note editing.\n
+	<string name="im_insert_on_tap_hint">You\’re now in the <i>Insert on tap</i> input mode.
+		First select any key button by pressing it.
+		Then just tap on cells in which you want to have the selected key applied.
+		\n\nPress one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\’s notes editing.\n
 	</string>
 
-	<string name="im_numpad_hint">
-		You\’re now in the <i>Numpad</i> input mode.
-		Buttons act as a standard numeric keyboard.
-		\n\nPress <i>Pencil</i> button to toggle the cell\’s note editing.\n
+	<string name="im_select_on_tap_hint">You\’re now in the <i>Select on tap</i> input mode.
+		Buttons act as a standard keyboard. You need first to select cell by tapping it, then press button to modify the selected cell.
+		\n\nPress one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\’s notes editing.\n
 	</string>
 
-	<string name="im_disable_modes_hint">
-		Please remember that you don\’t have to use all input modes.
+	<string name="im_disable_modes_hint">Please remember that you don\’t have to use all input modes.
 		You can disable any of them in the game settings.
 		\n\nYou can also use the keyboard and trackball to control the game.
 		If you want to enter notes using the keyboard, press number with alt or shift.\n
 	</string>
 
-	<string name="help_text">
-		<b>Keyboard controls</b>
+	<string name="help_text"><b>Keyboard controls</b>
 		\n\nUse trackball to navigate to the desired cell and then press a number on the keyboard to
 		fill in the value.
 		If you want to edit the cell\’s note, press number with shift or alt.\n\n
@@ -179,14 +175,14 @@
 		\n\nA pop-up dialog is shown when you tap the cell.
 		You can edit cell\’s content using this dialog.\n\n
 
-		<b>Single number input mode</b>
-		\n\nFirst select any number button by pressing it.
+		<b>Input on tap mode</b>
+		\n\nSelect any key button by pressing it.
 		Then just tap on cells in which you want to have the selected number filled.
-		\n\nUse <i>Pencil</i> button to toggle between the cell\’s value and note editing.\n\n
+		\n\nPress one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\’s note editing.\n
 
-		<b>Numpad input mode</b>
+		<b>Select on tap mode</b>
 		\n\nButtons act as a standard numeric keyboard.
-		\n\nUse <i>Pencil</i> button to toggle between the cell\’s value and note editing.\n
+		\n\nPress one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\’s note editing.\n
 	</string>
 
 
@@ -200,14 +196,16 @@
 	<string name="puzzle_inserted">New puzzle has been saved</string>
 	<string name="puzzle_updated">Puzzle has been updated</string>
 
+	<string name="import_title">Import</string>
+	<string name="importing">Imported puzzles %1$d/%2$d</string>
+	<string name="import_puzzles_found">Found %d puzzles…</string>
 	<string name="puzzles_saved">Puzzles have been saved into \‘%s\’ folder(s).</string>
+	<string name="invalid_format">Invalid format; import was cancelled</string>
 	<string name="no_puzzles_found">No puzzles found</string>
 	<string name="unknown_import_error">Unknown error occurred while importing puzzles; import was cancelled</string>
-	<string name="invalid_format">Invalid format; import was cancelled</string>
 
 	<string name="screen_border_size">Screen border size</string>
-	<string name="screen_border_size_summary">
-		Some displays do not react to touches on screen edges.
+	<string name="screen_border_size_summary">Some displays do not react to touches on screen edges.
 		This could help in such cases.
 	</string>
 	<string name="highlight_touched_cell">Highlight cell on touch</string>
@@ -215,8 +213,6 @@
 	<string name="export">Export</string>
 	<string name="export_folder">Export folder</string>
 	<string name="export_all_folders">Export all folders</string>
-	<string name="import_puzzles_found">Found %d puzzles…</string>
-	<string name="importing">Importing puzzles</string>
 	<string name="exporting">Exporting puzzles…</string>
 	<string name="unknown_export_error">An unknown error occurred while exporting puzzles</string>
 	<string name="highlight_completed_values">Highlight completed numbers</string>
@@ -225,7 +221,7 @@
 	</string>
 	<string name="theme">Theme</string>
 	<string name="select_theme">Select theme</string>
-	<string name="puzzles_have_been_exported">Puzzles have been exported to \‘%s\’</string>
+	<string name="puzzles_have_been_exported">Puzzles have been successfully exported to the \‘%s\’ file</string>
 	<string name="difficulty_hard">Hard</string>
 	<string name="difficulty_medium">Medium</string>
 	<string name="difficulty_easy">Easy</string>
@@ -246,18 +242,11 @@
 	<string name="highlight_similar_cells_summary">Highlight cells with similar values</string>
 
 	<string name="bidirectional_selection">Bidirectional selection</string>
-	<string name="bidirectional_selection_summary">
-		In single number input panel, the selection of a non editable cell automatically
-		selects the corresponding button (and vice versa).
+	<string name="bidirectional_selection_summary">In the \'Insert on tap\' input mode, tapping a non-editable cell automatically selects the cell\'s value
+		button.
 	</string>
 	<string name="contributors_label">Contributors</string>
-	<string name="contributors" translatable="false">
-		Sergey Pimanov\n
-		@TacoTheDank\n
-		@steve3424\n
-		Chris Lane\n
-		Justin Nordin
-	</string>
+	<string name="contributors" translatable="false">Sergey Pimanov\n@TacoTheDank\n@steve3424\nChris Lane\nJustin Nordin</string>
 
 	<string name="theme_paper">Paper</string>
 	<string name="theme_graph_paper">Graph Paper</string>
@@ -269,9 +258,7 @@
 	<string name="theme_custom">Custom Theme</string>
 
 	<string name="screen_custom_theme">Custom theme colors</string>
-	<string name="screen_custom_theme_summary_disabled">
-		Choose \“Custom Theme\” in the \“Theme\” setting above to enable this option
-	</string>
+	<string name="screen_custom_theme_summary_disabled">Choose \“Custom Theme\” in the \“Theme\” setting above to enable this option</string>
 
 	<string name="default_lineColor">Cell border</string>
 
@@ -302,7 +289,8 @@
 	<string name="copy_from_existing_theme">Copy from existing theme</string>
 
 	<string name="theme_default">Dark</string>
-	<string name="theme_amoled" translatable="false">AMOLED</string>
+	<string name="theme_amoled" translatable="false">AMOLED
+	</string>
 	<string name="theme_latte">Caramel Latte</string>
 	<string name="theme_espresso">Espresso</string>
 	<string name="theme_sunrise">Sunrise</string>
@@ -360,12 +348,18 @@
 
 	<string name="fill_all_notes">Fill in notes with all values</string>
 
-	<string name="sort_order_ascending" translatable="false">ASC</string>
-	<string name="sort_order_descending" translatable="false">DESC</string>
+	<string name="sort_order_ascending"
+		translatable="false">ASC
+	</string>
+	<string name="sort_order_descending"
+		translatable="false">DESC
+	</string>
 
 	<string name="press_color_to_apply">Press on Color to apply</string>
 
-	<string name="dark_mode_key" translatable="false">ui_mode</string>
+	<string name="dark_mode_key"
+		translatable="false">ui_mode
+	</string>
 	<string name="dark_mode_title">Interface Mode</string>
 
 	<!-- Options when selecting dark mode -->

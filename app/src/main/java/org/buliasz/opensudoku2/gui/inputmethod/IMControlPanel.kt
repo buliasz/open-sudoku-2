@@ -31,8 +31,8 @@ import java.util.Collections
 
 class IMControlPanel : LinearLayout {
 	val imPopup: IMPopup = IMPopup(this)
-	val imSingleNumber: IMSingleNumber = IMSingleNumber(this)
-	val imNumpad: IMNumpad = IMNumpad(this)
+	val imInsertOnTap: IMInsertOnTap = IMInsertOnTap(this)
+	val imSelectOnTap: IMSelectOnTap = IMSelectOnTap(this)
 	private var mContext: Context
 	private lateinit var mBoard: SudokuBoardView
 	private var mGame: SudokuGame? = null
@@ -163,8 +163,8 @@ class IMControlPanel : LinearLayout {
 	private fun createInputMethods() {
 		if (mInputMethods.size == 0) {
 			addInputMethod(INPUT_METHOD_POPUP, imPopup)
-			addInputMethod(INPUT_METHOD_SINGLE_NUMBER, imSingleNumber)
-			addInputMethod(INPUT_METHOD_NUMPAD, imNumpad)
+			addInputMethod(INPUT_METHOD_INSERT_ON_TAP, imInsertOnTap)
+			addInputMethod(INPUT_METHOD_SELECT_ON_TAP, imSelectOnTap)
 		}
 	}
 
@@ -187,7 +187,7 @@ class IMControlPanel : LinearLayout {
 
 	companion object {
 		const val INPUT_METHOD_POPUP = 0
-		const val INPUT_METHOD_SINGLE_NUMBER = 1
-		const val INPUT_METHOD_NUMPAD = 2
+		const val INPUT_METHOD_INSERT_ON_TAP = 1
+		const val INPUT_METHOD_SELECT_ON_TAP = 2
 	}
 }

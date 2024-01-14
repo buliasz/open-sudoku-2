@@ -44,7 +44,7 @@
 	<string name="edit_note">Megjegyzés szerkesztése</string>
 
 	<string name="add_folder">Új mappa</string>
-	<string name="import_file">Importálás</string>
+	<string name="import_title">Importálás</string>
 	<string name="about">Névjegy</string>
 	<string name="error">Hiba</string>
 	<string name="rename_folder">Mappa átnevezése</string>
@@ -97,17 +97,17 @@
 	<string name="input_methods">Beviteli módok</string>
 	<string name="popup">Felugró ablak</string>
 	<string name="popup_summary">Cella érték és megjegyzés szerkesztése felugró ablakban.</string>
-	<string name="single_number">Bevitel egyesével</string>
-	<string name="single_number_summary">Először a beírandó szám, majd a kívánt cella kiválasztása.</string>
-	<string name="numpad">Szám-billentyűzet</string>
-	<string name="numpad_summary">A cella kiválasztása után írható be az érték vagy megjegyzés.</string>
-	<string name="numpad_move_right">Bevitel után jobbra haladás</string>
-	<string name="numpad_move_right_summary">Beírást követően a kijelölést eggyel jobbra mozgatja.
+	<string name="insert_on_tap">Beszúrás koppintásra</string>
+	<string name="insert_on_tap_summary">Először a beírandó szám, majd a kívánt cella kiválasztása.</string>
+	<string name="select_on_tap">Válassza ki koppintással</string>
+	<string name="select_on_tap_summary">A cella kiválasztása után írható be az érték vagy megjegyzés.</string>
+	<string name="move_right_on_insert">Bevitel után jobbra haladás</string>
+	<string name="move_right_on_insert_summary">Beírást követően a kijelölést eggyel jobbra mozgatja.
 	</string>
 
-	<string name="numpad_abbr">SzB</string>
+	<string name="select_on_tap_abbr">Válassza ki koppintással</string>
 	<string name="popup_abbr">FA</string>
-	<string name="single_number_abbr">1x</string>
+	<string name="insert_on_tap_abbr">Beszúrás koppintással</string>
 	<string name="welcome">Üdvözöllek!</string>
 	<string name="hint">Segítség</string>
 	<string name="help">Súgó</string>
@@ -125,14 +125,14 @@
 		\n\nA jobb alsó sarokban lévő gommbbal válthatsz a következő beviteli módra.\n
 	</string>
 
-	<string name="im_single_number_hint">
+	<string name="im_insert_on_tap_hint">
 		Most a <i>Bevitel egyesével</i> üzemmód aktív.
 		Ilyenkor előbb a beírandó számot kell kiválasztanod,
 		majd meg kell érintened a cellát amelybe be szeretnéd írni.
 		\n\nA <i>Ceruza</i> gombbal válthatsz az érték és megjegyzés bevitele között.\n
 	</string>
 
-	<string name="im_numpad_hint">
+	<string name="im_select_on_tap_hint">
 		Most a <i>Szám-billentyűzet</i> beviteli mód aktív.
 		A gombok itt úgy működnek, mint egy hagyományos numerikus billentyűzeten.
 		Előbb válaszd ki a cellát, majd írd be a kívánt értéket.
@@ -196,7 +196,7 @@
 	<string name="export">Exportálás</string>
 	<string name="export_folder">Mappa exportálása</string>
 	<string name="export_all_folders">Minden mappa exportálása</string>
-	<string name="importing">Feladványok importálása %d/%d…</string>
+	<string name="importing">Feladványok importálása %1$d/%2$d…</string>
 	<string name="exporting">Feladványok exportálása…</string>
 	<string name="unknown_export_error">Ismeretlen hiba exportálás közben</string>
 	<string name="highlight_completed_values">Elfogyott számok jelzése</string>
@@ -223,9 +223,8 @@
 	<string name="highlight_similar_cells_summary">Kiemeli a kijelölttel azonos értékű cellákat.</string>
 
 	<string name="bidirectional_selection">Kétirányú kiválasztás</string>
-	<string name="bidirectional_selection_summary">
-		Egyenkénti bevitel esetén a megfelelő gomb automatikusan kiválasztásra kerül
-		a kijelölt, nem szerkeszthető cella értéke alapján. (És visszafelé is.)
+	<string name="bidirectional_selection_summary">Egyenkénti bevitel esetén a megfelelő gomb automatikusan kiválasztásra kerül a kijelölt, nem szerkeszthető
+		cella értéke alapján. (És visszafelé is.)
 	</string>
 	<string name="contributors_label">Közreműködők</string>
 
@@ -336,7 +335,7 @@
 	<string name="pref_error_summary">Érvénytelen értékeket tartalmazó cellák</string>
 	<string name="pref_even_title">Páros sejtek</string>
 	<string name="pref_even_summary">Páros számú 3x3-as dobozok cellái</string>
-	<string name="processing_input_file">Processing the input file</string>
+	<string name="processing_input_file">A bemeneti fájl feldolgozása</string>
 	<string name="do_you_want_to_save_anyway">Nyomja meg az OK gombot, ha mindenképpen el szeretné menteni, és vissza szeretne térni a rejtvénylistához.</string>
 	<string name="import_puzzles_found">Talált %d rejtvények …</string>
 </resources>

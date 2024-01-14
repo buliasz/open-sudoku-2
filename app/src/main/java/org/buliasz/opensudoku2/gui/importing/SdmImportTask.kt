@@ -22,7 +22,11 @@ import android.content.Context
 import android.net.Uri
 import androidx.core.text.isDigitsOnly
 import org.buliasz.opensudoku2.db.SudokuInvalidFormatException
+import org.buliasz.opensudoku2.db.forEach
+import org.buliasz.opensudoku2.db.getPuzzleListCursor
 import org.buliasz.opensudoku2.db.insertPuzzle
+import org.buliasz.opensudoku2.db.originalValues
+import org.buliasz.opensudoku2.utils.getFileName
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -35,31 +39,42 @@ import java.net.URL
 class SdmImportTask(private val mUri: Uri) : AbstractImportTask() {
 	@Throws(SudokuInvalidFormatException::class)
 	override suspend fun processImport(context: Context) {
-		val folderId = importFolder(mUri.lastPathSegment ?: "UNKNOWN")
+		val folderId = importFolder(mUri.getFileName(context.contentResolver) ?: "Imported Puzzles")
 		val isr: InputStreamReader
 		try {
 			isr = if (mUri.scheme == "content") {
 				val contentResolver = context.contentResolver
 				InputStreamReader(contentResolver.openInputStream(mUri))
 			} else {
-				val url = URL(mUri.toString())
+				val url = URL("$mUri")
 				InputStreamReader(url.openStream())
 			}
-			mDatabase.writable.use { db ->
-				BufferedReader(isr).useLines {
-					it.forEach { inputLine ->
-						val cellsValues = inputLine.trim().replace(".", "0")
-						if (cellsValues.isNotBlank() && cellsValues.length == 81 && cellsValues.isDigitsOnly()) {
-							if (db.insertPuzzle(cellsValues, folderId)) {
-								importedCount += 1
-								mProgressUpdate(0, importedCount)
-							} else {
-								duplicatesCount += 1
-							}
-						}
+			val newPuzzleMap = HashMap<String, Boolean>()
+			BufferedReader(isr).useLines { lineSequence ->
+				lineSequence.forEach { inputLine ->
+					val cellsValues = inputLine.trim().replace(".", "0")
+					if (cellsValues.length == 81 && cellsValues.isDigitsOnly()) {
+						newPuzzleMap[cellsValues] = true
+						mProgressUpdate(0, newPuzzleMap.size)
 					}
 				}
 			}
+
+			mDatabase.writable.use { db ->
+				db.getPuzzleListCursor().forEach { c -> newPuzzleMap[c.originalValues] = false }
+				var index = 0
+				for ((values, isNew) in newPuzzleMap) {
+					index += 1
+					mProgressUpdate(index, newPuzzleMap.size)
+					if (isNew) {
+						db.insertPuzzle(values, folderId)
+						importedCount += 1
+					} else {
+						duplicatesCount += 1
+					}
+				}
+			}
+
 		} catch (e: MalformedURLException) {
 			throw RuntimeException(e)
 		} catch (e: IOException) {

@@ -89,19 +89,19 @@
 	<string name="input_methods">Modalità inserimento</string>
 	<string name="popup">Popup</string>
 	<string name="popup_summary">Modifica valore cella e note nel popup.</string>
-	<string name="single_number">Numero singolo</string>
-	<string name="single_number_summary">Seleziona il numero, poi tocca la cella per impostare il valore o la nota.
+	<string name="insert_on_tap">Inserimento alla spina</string>
+	<string name="insert_on_tap_summary">Seleziona il numero, poi tocca la cella per impostare il valore o la nota.
 	</string>
-	<string name="numpad">Tastierino numerico</string>
-	<string name="numpad_summary">Mostra i tastierini num. che funzionano come classiche tastiere num.</string>
-	<string name="numpad_move_right">Sposta a destra se premuto</string>
-	<string name="numpad_move_right_summary">Sposta la selezione di una cella a destra quando si preme il pulsante
+	<string name="select_on_tap">Seleziona alla spina</string>
+	<string name="select_on_tap_summary">Mostra i tastierini num. che funzionano come classiche tastiere num.</string>
+	<string name="move_right_on_insert">Sposta a destra se premuto</string>
+	<string name="move_right_on_insert_summary">Sposta la selezione di una cella a destra quando si preme il pulsante
 		numerico.
 	</string>
 
-	<string name="numpad_abbr">Taste.\nNum</string>
+	<string name="select_on_tap_abbr">Seleziona alla spina</string>
 	<string name="popup_abbr">Pop</string>
-	<string name="single_number_abbr">NS</string>
+	<string name="insert_on_tap_abbr">Tocca per inserire</string>
 	<string name="welcome">Benvenuto</string>
 	<string name="hint">Suggerimento</string>
 	<string name="help">Aiuto</string>
@@ -116,13 +116,13 @@
 		per modificare il suo contenuto.\n\nDa notare il tasto nella parte inferiore destra. Puoi usare questo tasto per
 		passare ad un\'altra modalità di inserimento.\n
 	</string>
-	<string name="im_single_number_hint">Ora sei nella modalità di inserimento<i>Numero Singolo</i>. Seleziona prima
+	<string name="im_insert_on_tap_hint">Ora sei nella modalità di inserimento<i>Numero Singolo</i>. Seleziona prima
 		qualsiasi tasto numerico premendolo. Poi premi sulle celle che vuoi riempire con i numeri selezionati.\n\nUsa il
 		tasto
 		<i>Pennello</i>
 		per passare dal valore della cella alla modifica delle note.\n
 	</string>
-	<string name="im_numpad_hint">Ora sei nella modalità di inserimento<i>Tastierino Numerico</i>. I tasti funzionano
+	<string name="im_select_on_tap_hint">Ora sei nella modalità di inserimento<i>Tastierino Numerico</i>. I tasti funzionano
 		come una normale tastiera numerica.\n\nUsa il tasto
 		<i>Pennello</i>
 		per passare dal valore della cella alla modifica delle note.\n
@@ -173,7 +173,7 @@
 	<string name="export">Esporta</string>
 	<string name="export_folder">Esporta cartella</string>
 	<string name="export_all_folders">Esporta tutte le cartelle</string>
-	<string name="importing">Importazione rompicapi %d/%d…</string>
+	<string name="importing">Importazione rompicapi %1$d/%2$d…</string>
 	<string name="exporting">Esportazione rompicapi…</string>
 	<string name="unknown_export_error">Errore sconosciuto durante esportazione rompicapi.</string>
 	<string name="highlight_completed_values">Evidenzia numeri completati</string>
@@ -189,7 +189,7 @@
 
 	<string name="current_developers_label">Sviluppatore attuale</string>
 	<string name="fill_in_notes_summary">Abilita il menu \"Riempi nelle note\".</string>
-	<string name="import_file">Importa</string>
+	<string name="import_title">Importa</string>
 	<string name="localization_contributors_label">Contributori localizzazione</string>
 	<string name="old_developers_label">Sviluppatori precedenti</string>
 	<string name="set_checkpoint">Imposta punto di controllo</string>
@@ -317,7 +317,7 @@
 	<string name="pref_error_summary">Celle contenenti valori non validi</string>
 	<string name="pref_even_title">Cellule uniformi</string>
 	<string name="pref_even_summary">Celle in caselle 3x3 pari</string>
-	<string name="processing_input_file">Processing the input file</string>
+	<string name="processing_input_file">Elaborazione del file di input</string>
 	<string name="do_you_want_to_save_anyway">Premi OK se vuoi salvarlo comunque e tornare all\'elenco dei puzzle.</string>
 	<string name="import_puzzles_found">Trovati %d puzzle…</string>
 </resources>

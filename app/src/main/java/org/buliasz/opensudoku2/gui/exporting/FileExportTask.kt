@@ -27,6 +27,7 @@ import kotlinx.coroutines.withContext
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.db.extractSudokuGameFromCursorRow
+import org.buliasz.opensudoku2.db.forEach
 import org.buliasz.opensudoku2.game.FolderInfo
 import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.gui.PuzzleExportActivity.Companion.ALL_IDS
@@ -100,13 +101,8 @@ class FileExportTask {
 			serializer.attribute("", Names.FOLDER_CREATED, folder.created.toString())
 
 			if (gameId == ALL_IDS) {
-				db.getPuzzleListCursor(folder.id, null, null).use { cursor ->
-					if (cursor.moveToFirst()) {
-						while (!cursor.isAfterLast) {
-							serializeGame(serializer, extractSudokuGameFromCursorRow(cursor))
-							cursor.moveToNext()
-						}
-					}
+				db.getPuzzleListCursor(folder.id, null, null).forEach { cursor ->
+					serializeGame(serializer, extractSudokuGameFromCursorRow(cursor))
 				}
 			} else {
 				serializeGame(serializer, db.getPuzzle(gameId)!!)

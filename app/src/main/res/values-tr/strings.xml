@@ -22,9 +22,8 @@
 
 	<string name="version">Versiyon %s</string>
 
-	<string name="send_me_bugs">
-		Eğer bir hata ile karşılaşırsan, bu hatayı bana bildirmek veya gidermek için benimle iletişime geçmekten çekinme. Bunun için mail atabilir veya proje
-		sayfasını kullanabilirsin.
+	<string name="send_me_bugs">Eğer bir hata ile karşılaşırsan, bu hatayı bana bildirmek veya gidermek için benimle iletişime geçmekten çekinme. Bunun için
+		mail atabilir veya proje sayfasını kullanabilirsin.
 	</string>
 
 	<string name="current_developers_label">Şimdiki Geliştirici</string>
@@ -46,7 +45,7 @@
 	<string name="edit_note">Notu Düzenle</string>
 
 	<string name="add_folder">Klasör Ekle</string>
-	<string name="import_file">İçeri Aktar</string>
+	<string name="import_title">İçeri Aktar</string>
 	<string name="about">Hakkında</string>
 	<string name="error">Hata</string>
 	<string name="rename_folder">Klasörün İsmini Değiştir</string>
@@ -54,7 +53,7 @@
 	<string name="rename_folder_title">Yeni İsim Ver %s</string>
 	<string name="delete_folder_title">Sil %s</string>
 	<string name="delete_folder_confirm">Klasörü silmek istediğinize emin misiniz?</string>
-	<string name="n_puzzles">%d Sudoku</string>
+	<string name="n_puzzles">%d Bulmaca(lar)</string>
 	<string name="all_solved">Hepsi çözüldü</string>
 	<string name="n_unsolved">%d çözülmedi</string>
 	<string name="n_playing">%d oynanıyor</string>
@@ -97,17 +96,17 @@
 	<string name="input_methods">Doldurma Seçenekleri</string>
 	<string name="popup">Açılır Pencere</string>
 	<string name="popup_summary">Rakamları açılır pencere ile gir.</string>
-	<string name="single_number">Seçili Rakam</string>
-	<string name="single_number_summary">Bir rakam seçin ve yerleştirmek istediğiniz kutuları tıklayın.</string>
-	<string name="numpad">Rakam Tablosu</string>
-	<string name="numpad_summary">Kutuyu seçin ve yerleştirmek istediğiniz rakamı seçin.</string>
-	<string name="numpad_move_right">Sağ Tarafa Kaydır</string>
-	<string name="numpad_move_right_summary">Bir rakam girdikten sonra seçili hücreyi sağa kaydırır.
+	<string name="insert_on_tap">Musluğa ekle</string>
+	<string name="insert_on_tap_summary">Bir rakam seçin ve yerleştirmek istediğiniz kutuları tıklayın.</string>
+	<string name="select_on_tap">Dokunarak seç</string>
+	<string name="select_on_tap_summary">Kutuyu seçin ve yerleştirmek istediğiniz rakamı seçin.</string>
+	<string name="move_right_on_insert">Sağ Tarafa Kaydır</string>
+	<string name="move_right_on_insert_summary">Bir rakam girdikten sonra seçili hücreyi sağa kaydırır.
 	</string>
 
-	<string name="numpad_abbr">Rak\nTab</string>
+	<string name="select_on_tap_abbr">Dokunarak seç</string>
 	<string name="popup_abbr">AP</string>
-	<string name="single_number_abbr">SR</string>
+	<string name="insert_on_tap_abbr">Eklemek için dokunun</string>
 	<string name="welcome">Hoşgeldin</string>
 	<string name="hint">İpucu</string>
 	<string name="help">Yardım</string>
@@ -120,11 +119,11 @@
 	<string name="im_popup_hint">Şuan <i>Açılır Pencere</i> seçeneğini kullanıyorsun. Bir kutu seç ve düzenle.\n\nSağ altta bulunan butona tıklayarak farklı bir
 		seçenek kullanabilirsin.\n
 	</string>
-	<string name="im_single_number_hint">Şuan <i>Seçili Rakam</i> seçeneğini kullanıyorsun. Bir rakam seç ve yerleştirmek istediğin kutulara tıkla.\n\n<i>
+	<string name="im_insert_on_tap_hint">Şuan <i>Seçili Rakam</i> seçeneğini kullanıyorsun. Bir rakam seç ve yerleştirmek istediğin kutulara tıkla.\n\n<i>
 		Kalem
 	</i> butonuna tıklayarak seçili rakamı istediğin kutuya not olarak girebilirsin.\n
 	</string>
-	<string name="im_numpad_hint">Şuan <i>Rakam Tablosu</i> seçeneğini kullanıyorsun. Rakam girmek istediğin kutuyu seç ve sonra istediğin rakamı seç.\n\n<i>
+	<string name="im_select_on_tap_hint">Şuan <i>Rakam Tablosu</i> seçeneğini kullanıyorsun. Rakam girmek istediğin kutuyu seç ve sonra istediğin rakamı seç.\n\n<i>
 		Kalem
 	</i> butonuna tıklayarak seçtiğin kutuya not olarak rakam ekleyebilirsin.\n
 	</string>
@@ -165,7 +164,7 @@
 	<string name="export">Dışarı Aktar</string>
 	<string name="export_folder">Klasörü Dışarı Aktar</string>
 	<string name="export_all_folders">Klasörleri Dışarı Aktar</string>
-	<string name="importing">Bulmacalar içeri aktarılıyor %d/%d…</string>
+	<string name="importing">Bulmacalar içeri aktarılıyor %1$d/%2$d…</string>
 	<string name="exporting">Bulmacalar dışarı aktarılıyor…</string>
 	<string name="unknown_export_error">Bulmacalar dışarı aktarılırken bilinmeyen bir hata oluştu.</string>
 	<string name="highlight_completed_values">Tamamlanan Rakamları Göster</string>
@@ -187,36 +186,35 @@
 	<string name="set_checkpoint">Kayıt Noktası Oluştur</string>
 	<string name="undo_to_checkpoint">Kayıt Noktasına Dön</string>
 	<string name="undo_to_checkpoint_confirm">Kayıt noktasına kadar yaptığın hamleleri geri almak istediğine emin misin?</string>
-	<string name="highlight_similar_cells">Highlight similar cells</string>
-	<string name="highlight_similar_cells_summary">Highlight cells with similar values</string>
-	<string name="contributors_label">Contributors</string>
-	<string name="bidirectional_selection">Bidirectional selection</string>
-	<string name="bidirectional_selection_summary">In single number input panel, the selection of a non editable cell automatically selects the corresponding
-		button and vice versa.
+	<string name="highlight_similar_cells">Benzer hücreleri vurgulama</string>
+	<string name="highlight_similar_cells_summary">Benzer değerlere sahip hücreleri vurgulama</string>
+	<string name="contributors_label">Katkıda bulunan</string>
+	<string name="bidirectional_selection">Çift yönlü seçim</string>
+	<string name="bidirectional_selection_summary">\'Dokunduğunuzda ekle\' giriş modunda, düzenlenemeyen bir hücrenin seçimi otomatik olarak
+		karşılık gelen sayı düğmesi.
 	</string>
-
 
 	<string name="theme_paper">Kâğıt</string>
 	<string name="theme_graph_paper">Grafik kağıdı</string>
 	<string name="theme_light">Işık</string>
 	<string name="theme_paper_light">Kâğıt Işığı</string>
-	<string name="theme_graph_paper_light">Graph Paper Light</string>
+	<string name="theme_graph_paper_light">Grafik Kağıdı Işığı</string>
 	<string name="theme_high_contrast">Yüksek kontrast</string>
-	<string name="theme_inverted_high_contrast">Inverted High Contrast</string>
-	<string name="theme_custom">Custom Theme</string>
+	<string name="theme_inverted_high_contrast">Ters Çevrilmiş Yüksek Kontrast</string>
+	<string name="theme_custom">Özel Tema</string>
 
-	<string name="screen_custom_theme">Custom Theme colors</string>
-	<string name="screen_custom_theme_summary_disabled">Choose \"Custom Theme\" in \"Theme\" setting above to enable this section.</string>
+	<string name="screen_custom_theme">Özel Tema renkleri</string>
+	<string name="screen_custom_theme_summary_disabled">Bu bölümü etkinleştirmek için yukarıdaki \"Tema\" ayarında \"Özel Tema\" yı seçin.</string>
 
-	<string name="default_lineColor">Line</string>
+	<string name="default_lineColor">Satır</string>
 
-	<string name="default_sectorLineColor">Sector line</string>
+	<string name="default_sectorLineColor">Sektör çizgisi</string>
 
-	<string name="default_textColor">Text</string>
+	<string name="default_textColor">Metin</string>
 
-	<string name="default_textColorNote">Note text</string>
+	<string name="default_textColorNote">Not metni</string>
 
-	<string name="default_backgroundColor">Primary background</string>
+	<string name="default_backgroundColor">Birincil arka plan</string>
 	<string name="solve_puzzle">Bulmaca çözmek</string>
 	<string name="solve_puzzle_confirm">Çözümü görmek istediğinizden emin misiniz?</string>
 	<string name="used_solver">Çözümü görmek için çözücüyü kullandınız!</string>
@@ -288,7 +286,7 @@
 	<string name="pref_error_summary">Geçersiz değerler içeren hücreler</string>
 	<string name="pref_even_title">Çift kutular</string>
 	<string name="pref_even_summary">Çift sayılı 3x3 kutulardaki hücreler</string>
-	<string name="processing_input_file">Processing the input file</string>
+	<string name="processing_input_file">Giriş dosyasını işleme</string>
 	<string name="do_you_want_to_save_anyway">Yine de kaydetmek ve bulmaca listesine geri dönmek istiyorsanız Tamam\'a basın.</string>
 	<string name="import_puzzles_found">%d bulmaca bulundu…</string>
 

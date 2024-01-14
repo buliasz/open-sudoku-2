@@ -40,7 +40,7 @@ import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanelStatePersister.Stat
  * This class represents following type of number input workflow: Number buttons are displayed
  * in the sidebar, user selects one number and then fill values by tapping the cells.
  */
-class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
+class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 	/**
 	 * If set to true, buttons for numbers, which occur in [CellCollection]
 	 * more than [CellCollection.SUDOKU_SIZE]-times, will be highlighted.
@@ -95,18 +95,18 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 	}
 
 	override val nameResID: Int
-		get() = R.string.single_number
+		get() = R.string.insert_on_tap
 	override val helpResID: Int
-		get() = R.string.im_single_number_hint
+		get() = R.string.im_insert_on_tap_hint
 	override val abbrName: String
-		get() = mContext!!.getString(R.string.single_number_abbr)
+		get() = mContext!!.getString(R.string.insert_on_tap_abbr)
 
 	override val switchModeButton: Button
 		get() = mSwitchModeButton
 
 	override fun createControlPanelView(abbrName: String): View {
 		val inflater = mContext!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-		val controlPanel = inflater.inflate(R.layout.im_single_number, null)
+		val controlPanel = inflater.inflate(R.layout.im_insert_on_tap, null)
 		val numberButtons = HashMap<Int, NumberButton>()
 		numberButtons[1] = controlPanel.findViewById(R.id.button_1)
 		numberButtons[2] = controlPanel.findViewById(R.id.button_2)
@@ -224,8 +224,8 @@ class IMSingleNumber(val parent: ViewGroup) : InputMethod() {
 	}
 
 	private fun onSelectedNumberChanged() {
-		if (bidirectionalSelection && highlightSimilar && onSelectedNumberChangedListener != null && !mBoard.isReadOnly) {
-			onSelectedNumberChangedListener!!(mSelectedNumber)
+		if (highlightSimilar && !mBoard.isReadOnly) {
+			onSelectedNumberChangedListener?.invoke(mSelectedNumber)
 			mBoard.highlightedValue = mSelectedNumber
 		}
 	}

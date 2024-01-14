@@ -49,7 +49,7 @@
 	<string name="edit_note">编辑笔记</string>
 
 	<string name="add_folder">添加分类</string>
-	<string name="import_file">导入</string>
+	<string name="import_title">导入</string>
 	<string name="about">关于</string>
 	<string name="error">错误</string>
 	<string name="rename_folder">重命名分类</string>
@@ -100,16 +100,16 @@
 	<string name="input_methods">输入模式</string>
 	<string name="popup">弹框</string>
 	<string name="popup_summary">在弹框编辑格子的值和笔记。</string>
-	<string name="single_number">单数字</string>
-	<string name="single_number_summary">选择数字，然后仅仅点击格子来设置数值或笔记。</string>
-	<string name="numpad">数字键盘</string>
-	<string name="numpad_summary">显示数字面板（作为标准数字键盘）</string>
-	<string name="numpad_move_right">按下后向右移动</string>
-	<string name="numpad_move_right_summary">按下数字后，向右移动选择一个格子。</string>
+	<string name="insert_on_tap">点击插入</string>
+	<string name="insert_on_tap_summary">选择数字，然后仅仅点击格子来设置数值或笔记。</string>
+	<string name="select_on_tap">点击时选择</string>
+	<string name="select_on_tap_summary">显示数字面板（作为标准数字键盘）</string>
+	<string name="move_right_on_insert">按下后向右移动</string>
+	<string name="move_right_on_insert_summary">按下数字后，向右移动选择一个格子。</string>
 
-	<string name="numpad_abbr">数字面板</string>
+	<string name="select_on_tap_abbr">点击时选择</string>
 	<string name="popup_abbr">弹出</string>
-	<string name="single_number_abbr">单数字</string>
+	<string name="insert_on_tap_abbr">点击插入</string>
 	<string name="welcome">欢迎</string>
 	<string name="hint">提示</string>
 	<string name="help">帮助</string>
@@ -128,14 +128,14 @@
 		你可以使用这个按钮切换到另一种输入模式。\n
 	</string>
 
-	<string name="im_single_number_hint">
+	<string name="im_insert_on_tap_hint">
 		你现在在<i>单数字</i>输入模式。
 		首先按下任意数字按钮。
 		然后只需点击想用所选数字填充的格子即可。
 		\n\n按<i>笔</i>按钮可切换单元格的笔记编辑。\n
 	</string>
 
-	<string name="im_numpad_hint">
+	<string name="im_select_on_tap_hint">
 		你现在在<i>数字键盘</i>输入模式。
 		按钮作为标准的数字键盘。
 		\n\n按<i>笔</i>按钮切换单元格的笔记编辑。\n
@@ -188,8 +188,7 @@
 
 
 	<string name="screen_border_size">屏幕边框大小</string>
-	<string name="screen_border_size_summary">
-		有些显示屏对屏幕边缘的触摸没有反应。
+	<string name="screen_border_size_summary">有些显示屏对屏幕边缘的触摸没有反应。
 		在这种情况下可能会有所帮助。
 	</string>
 	<string name="highlight_touched_cell">点击格子时高亮</string>
@@ -197,7 +196,7 @@
 	<string name="export">导出</string>
 	<string name="export_folder">导出分类</string>
 	<string name="export_all_folders">导出所有分类</string>
-	<string name="importing">导入谜题 %d/%d…</string>
+	<string name="importing">导入谜题 %1$d/%2$d…</string>
 	<string name="exporting">导出谜题…</string>
 	<string name="unknown_export_error">导出谜题时发生未知错误。</string>
 	<string name="highlight_completed_values">高亮完成的数字</string>
@@ -224,9 +223,7 @@
 	<string name="highlight_similar_cells_summary">高亮相似值的格子</string>
 
 	<string name="bidirectional_selection">双向选择</string>
-	<string name="bidirectional_selection_summary">
-		在单数输入面板，选择不可编辑的格子会自动选择相应的按钮（反之亦然）。
-	</string>
+	<string name="bidirectional_selection_summary">在单数输入面板，选择不可编辑的格子会自动选择相应的按钮（反之亦然）。</string>
 	<string name="contributors_label">贡献者</string>
 
 
@@ -240,9 +237,7 @@
 	<string name="theme_custom">自定义主题</string>
 
 	<string name="screen_custom_theme">自定义主题颜色</string>
-	<string name="screen_custom_theme_summary_disabled">
-		在上面的“主题”设置中选择“自定义主题”来启用这个功能。
-	</string>
+	<string name="screen_custom_theme_summary_disabled">在上面的“主题”设置中选择“自定义主题”来启用这个功能。</string>
 
 	<string name="default_lineColor">线</string>
 
@@ -337,7 +332,7 @@
 	<string name="pref_error_summary">包含无效值的单元格</string>
 	<string name="pref_even_title">偶数细胞</string>
 	<string name="pref_even_summary">偶数 3x3 框中的单元格</string>
-	<string name="processing_input_file">Processing the input file</string>
+	<string name="processing_input_file">处理输入文件</string>
 	<string name="do_you_want_to_save_anyway">如果您仍然想保存它并返回拼图列表，请按 OK。</string>
 	<string name="import_puzzles_found">找到 %d 谜题</string>
 </resources>

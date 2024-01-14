@@ -44,7 +44,7 @@
 	<string name="edit_note">Editar notas</string>
 
 	<string name="add_folder">Añadir carpeta</string>
-	<string name="import_file">Importar</string>
+	<string name="import_title">Importar</string>
 	<string name="about">Sobre</string>
 	<string name="error">Error</string>
 	<string name="rename_folder">Renombrar carpeta</string>
@@ -97,16 +97,16 @@
 	<string name="input_methods">Métodos de entrada</string>
 	<string name="popup">Ventana emergente</string>
 	<string name="popup_summary">Editar el valor y las anotaciones de cada celda en una ventana emergente.</string>
-	<string name="single_number">Número Simple</string>
-	<string name="single_number_summary">Selecciona un número y luego pulsa en una celda para fijar ese valor o esa anotación.</string>
-	<string name="numpad">Pad numérico</string>
-	<string name="numpad_summary">Muestra un pad que actua como un teclado numérico estándar.</string>
-	<string name="numpad_move_right">Mover a la derecha</string>
-	<string name="numpad_move_right_summary">Mueve la seleccion de la celda una a la derecha cuando se presiona un botón.</string>
+	<string name="insert_on_tap">Insertar en el grifo</string>
+	<string name="insert_on_tap_summary">Selecciona un número y luego pulsa en una celda para fijar ese valor o esa anotación.</string>
+	<string name="select_on_tap">Seleccionar al tocar</string>
+	<string name="select_on_tap_summary">Muestra un pad que actua como un teclado numérico estándar.</string>
+	<string name="move_right_on_insert">Mover a la derecha</string>
+	<string name="move_right_on_insert_summary">Mueve la seleccion de la celda una a la derecha cuando se presiona un botón.</string>
 
-	<string name="numpad_abbr">Pad\nNum</string>
+	<string name="select_on_tap_abbr">Seleccionar al tocar</string>
 	<string name="popup_abbr">VE</string>
-	<string name="single_number_abbr">NS</string>
+	<string name="insert_on_tap_abbr">Toque para insertar</string>
 	<string name="welcome">Bienvenido</string>
 	<string name="hint">Sugerencias</string>
 	<string name="help">Ayuda</string>
@@ -123,12 +123,12 @@
 		contenido.\n\nObserva el botón de la esquina inferior derecha. Puedes utilizar este botón
 		para cambiar a otro modo de entrada.\n
 	</string>
-	<string name="im_single_number_hint">Ahora te encuentras en el modo de entrada de <i>número
+	<string name="im_insert_on_tap_hint">Ahora te encuentras en el modo de entrada de <i>número
 		simple</i>. Primero selecciona cualquier botón numérico presionandolo. A
 		continuación, toca en las celdas en las que deseas poner el número seleccionado.\n\nPresiona
 		el <i>botón del lápiz</i> para cambiar al modo de anotaciones.\n
 	</string>
-	<string name="im_numpad_hint">Ahora te encuentras en el modo de entrada <i>teclado numérico</i>.
+	<string name="im_select_on_tap_hint">Ahora te encuentras en el modo de entrada <i>teclado numérico</i>.
 		Los botones funcionan como un teclado numérico estándar.\n\nPresiona el <i>botón del
 			lápiz
 		</i> para cambiar al modo de anotaciones.\n
@@ -177,7 +177,7 @@
 	<string name="export">Exportar</string>
 	<string name="export_folder">Exportar carpeta</string>
 	<string name="export_all_folders">Exportar todas las carpetas</string>
-	<string name="importing">Importando puzzles %d/%d…</string>
+	<string name="importing">Importando puzzles %1$d/%2$d…</string>
 	<string name="exporting">Exportando puzzles…</string>
 	<string name="unknown_export_error">Error desconocido exportando puzzles.</string>
 	<string name="highlight_completed_values">Resaltar completados</string>
@@ -324,7 +324,7 @@
 	<string name="pref_error_summary">Celdas que contienen valores no válidos</string>
 	<string name="pref_even_title">Células uniformes</string>
 	<string name="pref_even_summary">Celdas en cajas pares de 3x3</string>
-	<string name="processing_input_file">Processing the input file</string>
+	<string name="processing_input_file">Procesamiento del archivo de entrada</string>
 	<string name="do_you_want_to_save_anyway">Presione OK si desea guardarlo de todos modos y vuelva a la lista de rompecabezas.</string>
 	<string name="import_puzzles_found">Encontrados %d rompecabezas…</string>
 </resources>

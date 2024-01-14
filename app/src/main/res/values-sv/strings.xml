@@ -90,18 +90,18 @@
 	<string name="input_methods">Inmatningsläge</string>
 	<string name="popup">Popup</string>
 	<string name="popup_summary">Redigera nummer och anteckning i en popup.</string>
-	<string name="single_number">Enkelt nummer</string>
-	<string name="single_number_summary">Välj nummer, sen klickar du på en ruta för att sätta nummret eller
+	<string name="insert_on_tap">Infoga på kran</string>
+	<string name="insert_on_tap_summary">Välj nummer, sen klickar du på en ruta för att sätta nummret eller
 		anteckningen.
 	</string>
-	<string name="numpad">Numeriskt tangentbord</string>
-	<string name="numpad_summary">Visa det numeriska tangentbordet.</string>
-	<string name="numpad_move_right">Flytta automatiskt</string>
-	<string name="numpad_move_right_summary">Flytta till nästa nummer automatiskt.</string>
+	<string name="select_on_tap">Välj genom att trycka på</string>
+	<string name="select_on_tap_summary">Visa det numeriska tangentbordet.</string>
+	<string name="move_right_on_insert">Flytta automatiskt</string>
+	<string name="move_right_on_insert_summary">Flytta till nästa nummer automatiskt.</string>
 
-	<string name="numpad_abbr">Num\ntgb</string>
+	<string name="select_on_tap_abbr">Välj genom att trycka på</string>
 	<string name="popup_abbr">Pop</string>
-	<string name="single_number_abbr">Enk\nnum</string>
+	<string name="insert_on_tap_abbr">Tryck för att infoga</string>
 	<string name="welcome">Välkommen</string>
 	<string name="hint">Antydan</string>
 	<string name="help">Hjälp</string>
@@ -114,12 +114,12 @@
 	<string name="im_popup_hint">Du är nu i läget<i>Popup</i>. Klicka på en av rutorna för att välja nummer.\n\nNotera
 		knappen nere i högra hörnet, den används för att växla till nästa inmatningssätt.\n
 	</string>
-	<string name="im_single_number_hint">Du är nu i läget<i>Enkelt nummer</i>. Först väljer du nummer genom att klicka
+	<string name="im_insert_on_tap_hint">Du är nu i läget<i>Enkelt nummer</i>. Först väljer du nummer genom att klicka
 		på respektive knapp nedan, sen klickar du på den ruta du vill använda nummret.\n\nTryck på
 		<i>Penn-knappen</i>
 		för att växla mellan anteckningsläge och skrivläge.\n
 	</string>
-	<string name="im_numpad_hint">Du är nu i läget<i>Numeriskt tangentbord</i>. Knapparna fungerar som ett vanligt
+	<string name="im_select_on_tap_hint">Du är nu i läget<i>Numeriskt tangentbord</i>. Knapparna fungerar som ett vanligt
 		numeriskt tangentbord. \n\nTryck på
 		<i>Penn-knappen</i>
 		för att växla mellan anteckningsläge och skrivläge.\n
@@ -172,7 +172,7 @@
 	<string name="export">Exportera</string>
 	<string name="export_folder">Exportera mapp</string>
 	<string name="export_all_folders">Exportera alla mappar</string>
-	<string name="importing">Importerar pussel %d/%d…</string>
+	<string name="importing">Importerar pussel %1$d/%2$d…</string>
 	<string name="exporting">Exporterar pussel…</string>
 	<string name="unknown_export_error">Okänt fel uppstod vid pusselexport.</string>
 	<string name="highlight_completed_values">Markera färdiga nummer</string>
@@ -186,46 +186,44 @@
 	<string name="difficulty_easy">Enkel</string>
 
 	<string name="current_developers_label">Current Developer</string>
-	<string name="fill_in_notes_summary">Enable "Fill in notes" menu item.</string>
-	<string name="import_file">Import</string>
+	<string name="fill_in_notes_summary">Aktivera menyalternativet Fyll i anteckningar.</string>
+	<string name="import_title">Import</string>
 	<string name="localization_contributors_label">Localization Contributors</string>
 	<string name="old_developers_label">Old Developers</string>
-	<string name="set_checkpoint">Set checkpoint</string>
-	<string name="show_number_totals">Show Number Totals</string>
-	<string name="show_number_totals_summary">Displays count of each number placed.</string>
-	<string name="undo_to_checkpoint">Undo to checkpoint</string>
-	<string name="undo_to_checkpoint_confirm">Are you sure you want to undo all actions since last checkpoint?</string>
-	<string name="what_is_new">What\'s new</string>
-	<string name="highlight_similar_cells">Highlight similar cells</string>
-	<string name="highlight_similar_cells_summary">Highlight cells with similar values</string>
-	<string name="contributors_label">Contributors</string>
-	<string name="bidirectional_selection">Bidirectional selection</string>
-	<string name="bidirectional_selection_summary">In single number input panel, the selection of a non editable cell automatically selects the corresponding
-		button and vice versa.
-	</string>
+	<string name="set_checkpoint">Ställ in kontrollpunkt</string>
+	<string name="show_number_totals">Visa totalsummor</string>
+	<string name="show_number_totals_summary">Visar antalet för varje placerat nummer.</string>
+	<string name="undo_to_checkpoint">Ångra till kontrollpunkt</string>
+	<string name="undo_to_checkpoint_confirm">Är du säker på att du vill ångra alla åtgärder sedan den senaste kontrollpunkten?</string>
+	<string name="what_is_new">Vad är det senaste</string>
+	<string name="highlight_similar_cells">Markera liknande celler</string>
+	<string name="highlight_similar_cells_summary">Markera celler med liknande värden</string>
+	<string name="contributors_label">Bidragsgivare</string>
+	<string name="bidirectional_selection">Dubbelriktad markering</string>
+	<string name="bidirectional_selection_summary">I inmatningsläget \"Infoga vid tryckning\" väljs motsvarande knapp automatiskt när du väljer en cell som inte kan redigeras.</string>
 
 
-	<string name="theme_paper">Paper</string>
-	<string name="theme_graph_paper">Graph Paper</string>
-	<string name="theme_light">Light</string>
-	<string name="theme_paper_light">Paper Light</string>
-	<string name="theme_graph_paper_light">Graph Paper Light</string>
-	<string name="theme_high_contrast">High Contrast</string>
-	<string name="theme_inverted_high_contrast">Inverted High Contrast</string>
-	<string name="theme_custom">Custom Theme</string>
+	<string name="theme_paper">Papper</string>
+	<string name="theme_graph_paper">Rutat papper</string>
+	<string name="theme_light">Ljus</string>
+	<string name="theme_paper_light">Papper Ljus</string>
+	<string name="theme_graph_paper_light">Rutat pappersljus</string>
+	<string name="theme_high_contrast">Hög kontrast</string>
+	<string name="theme_inverted_high_contrast">Inverterad hög kontrast</string>
+	<string name="theme_custom">Anpassat tema</string>
 
-	<string name="screen_custom_theme">Custom Theme colors</string>
-	<string name="screen_custom_theme_summary_disabled">Choose \"Custom Theme\" in \"Theme\" setting above to enable this section.</string>
+	<string name="screen_custom_theme">Anpassade temafärger</string>
+	<string name="screen_custom_theme_summary_disabled">Välj \"Anpassat tema\" i inställningen \"Tema\" ovan för att aktivera det här avsnittet.</string>
 
-	<string name="default_lineColor">Line</string>
+	<string name="default_lineColor">Linje</string>
 
-	<string name="default_sectorLineColor">Sector line</string>
+	<string name="default_sectorLineColor">Sektor linje</string>
 
 	<string name="default_textColor">Text</string>
 
-	<string name="default_textColorNote">Note text</string>
+	<string name="default_textColorNote">Anteckningens text</string>
 
-	<string name="default_backgroundColor">Primary background</string>
+	<string name="default_backgroundColor">Primär bakgrund</string>
 	<string name="solve_puzzle">Lös pussel</string>
 	<string name="solve_puzzle_confirm">Är du säker på att du vill se lösningen?</string>
 	<string name="used_solver">Du har använt lösaren för att se lösningen!</string>
@@ -297,7 +295,7 @@
 	<string name="pref_error_summary">Celler som innehåller ogiltiga värden</string>
 	<string name="pref_even_title">Jämna celler</string>
 	<string name="pref_even_summary">Celler i jämna 3x3-rutor</string>
-	<string name="processing_input_file">Processing the input file</string>
+	<string name="processing_input_file">Bearbeta indatafilen</string>
 	<string name="do_you_want_to_save_anyway">Tryck på OK om du vill spara den ändå och gå tillbaka till pussellistan.</string>
 	<string name="import_puzzles_found">Hittade %d pussel…</string>
 

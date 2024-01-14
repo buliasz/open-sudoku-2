@@ -89,18 +89,18 @@
     <string name="input_methods">Eingabe-Methoden</string>
     <string name="popup">Popup</string>
     <string name="popup_summary">Zahlen in einem Popup-Dialog bearbeiten.</string>
-    <string name="single_number">Einzelne Zahl</string>
-    <string name="single_number_summary">Eine Zahl auswählen, danach auf eine Zelle tippen, um den Wert oder die Notiz zu
+    <string name="insert_on_tap">Einfügen auf Knopfdruck</string>
+    <string name="insert_on_tap_summary">Eine Zahl auswählen, danach auf eine Zelle tippen, um den Wert oder die Notiz zu
 		setzen.
 	</string>
-    <string name="numpad">Zahlenblock</string>
-    <string name="numpad_summary">Zahlenblock anzeigen, der wie eine Tastatur funktioniert.</string>
-    <string name="numpad_move_right">Fokus nach rechts verschieben</string>
-    <string name="numpad_move_right_summary">Nach Eingabe einer Zahl den Fokus nach rechts verschieben.</string>
+    <string name="select_on_tap">Auf Knopfdruck auswählen</string>
+    <string name="select_on_tap_summary">Zahlenblock anzeigen, der wie eine Tastatur funktioniert.</string>
+    <string name="move_right_on_insert">Fokus nach rechts verschieben</string>
+    <string name="move_right_on_insert_summary">Nach Eingabe einer Zahl den Fokus nach rechts verschieben.</string>
 
-    <string name="numpad_abbr">ZB</string>
-    <string name="popup_abbr">Pop</string>
-    <string name="single_number_abbr">EZ</string>
+    <string name="select_on_tap_abbr">Auf Knopfdruck auswählen</string>
+    <string name="popup_abbr">Pop-up auf Knopfdruck</string>
+    <string name="insert_on_tap_abbr">Tippen zum Einfügen</string>
     <string name="welcome">Willkommen</string>
     <string name="hint">Hinweis</string>
     <string name="help">Hilfe</string>
@@ -115,11 +115,11 @@
 		diese zu bearbeiten\n\nBeachten Sie den Schalter in der unteren rechten Ecke. Über diese können Sie jederzeit
 		den Eingabe-Modus wechseln.\n
 	</string>
-    <string name="im_single_number_hint">Sie befinden sich nun im<i>Einzelne Zahl</i>-Modus. Wählen Sie zunächst eine
+    <string name="im_insert_on_tap_hint">Sie befinden sich nun im<i>Einzelne Zahl</i>-Modus. Wählen Sie zunächst eine
 		Zahl aus. Dann tippen Sie die Zelle an, in die Sie die Zahl eintragen möchten.\n\nDrücken Sie die<i>Stift</i>
 		-Schaltfläche, um Zellen-Notizen zu bearbeiten.\n
 	</string>
-    <string name="im_numpad_hint">Sie befinden sich nun im<i>Zahlenblock</i>-Modus. Die Zahlen von 1 bis 9 werden als
+    <string name="im_select_on_tap_hint">Sie befinden sich nun im<i>Zahlenblock</i>-Modus. Die Zahlen von 1 bis 9 werden als
 		Bildschirm-Tastatur angezeigt.\n\nDrücken Sie die<i>Stift</i>-Schaltfläche, um Zellen-Notizen zu bearbeiten.\n
 	</string>
     <string name="im_disable_modes_hint">Bitte beachten Sie, das Sie nicht alle Eingabe-Modi verwenden müssen. Sie
@@ -161,7 +161,7 @@
     <string name="export">Export</string>
     <string name="export_folder">Exportiere Ordner</string>
     <string name="export_all_folders">Exportiere alle Ordner</string>
-	<string name="importing">Importiere Sudoku-Rätsel %d/%d…</string>
+	<string name="importing">Importiere Sudoku-Rätsel %1$d/%2$d…</string>
     <string name="exporting">Exportiere Sudoku-Rätsel…</string>
     <string name="unknown_export_error">Ein unbekannter Fehler ist während des Exports aufgetreten.</string>
     <string name="highlight_completed_values">Markiere vollständige Zahlen</string>
@@ -176,7 +176,7 @@
 
     <string name="current_developers_label">Aktive Entwickler</string>
     <string name="fill_in_notes_summary">Aktiviere den Menüpunkt \"Notizen eintragen\" im Spielmenü.</string>
-    <string name="import_file">Import</string>
+    <string name="import_title">Import</string>
     <string name="localization_contributors_label">Mitwirkende Lokalisierung</string>
     <string name="old_developers_label">Ehemalige Entwickler</string>
     <string name="set_checkpoint">Setze Sicherungspunkt</string>
@@ -285,7 +285,7 @@
     <string name="pref_error_summary">Zellen mit ungültigen Werten</string>
     <string name="pref_even_title">Gleichmäßige Zellen</string>
     <string name="pref_even_summary">Zellen in geraden 3x3-Kästchen</string>
-	<string name="processing_input_file">Processing the input file</string>
+	<string name="processing_input_file">Verarbeiten der Eingabedatei</string>
 	<string name="do_you_want_to_save_anyway">Drücken Sie OK, wenn Sie es trotzdem speichern möchten, und gehen Sie zurück zur Rätselliste.</string>
     <string name="import_puzzles_found">%d rätsel gefunden…</string>
 </resources>

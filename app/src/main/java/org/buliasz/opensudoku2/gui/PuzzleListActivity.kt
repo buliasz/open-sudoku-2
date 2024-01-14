@@ -107,7 +107,7 @@ class PuzzleListActivity : ThemedActivity() {
 		deletePuzzleDialog = DeletePuzzleDialogFragment(mDatabase, settings, ::updateList)
 		filterDialog = FilterDialogFragment(mListFilter, settings, ::updateList)
 		sortDialog = SortDialogFragment(mListSorter, settings, ::updateList)
-		resetAllDialog = ResetAllDialogFragment(mDatabase, mFolderID, mListSorter, ::updateList)
+		resetAllDialog = ResetAllDialogFragment(mDatabase, mFolderID, ::updateList)
 
 		val factory = LayoutInflater.from(this)
 		editUserNoteDialog = EditUserNoteDialogFragment(factory, mDatabase, ::updateList)

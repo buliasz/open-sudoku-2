@@ -22,10 +22,8 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.OpenableColumns
 import android.text.format.DateFormat
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,6 +34,8 @@ import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.gui.exporting.FileExportTask
 import org.buliasz.opensudoku2.gui.exporting.FileExportTaskParams
+import org.buliasz.opensudoku2.gui.fragments.SimpleDialog
+import org.buliasz.opensudoku2.utils.getFileName
 import java.io.FileNotFoundException
 import java.util.Date
 
@@ -92,31 +92,22 @@ class PuzzleExportActivity : ThemedActivity() {
 	}
 
 	private fun startExportToFileTask(uri: Uri?) {
+		val finishDialog = SimpleDialog(supportFragmentManager)
+		finishDialog.onDismiss = ::finish
 		mFileExportTask.onExportFinishedListener = { result ->
 			withContext(Dispatchers.Main) {
 				if (result!!.isSuccess) {
-					Toast.makeText(
-						this@PuzzleExportActivity,
-						getString(R.string.puzzles_have_been_exported, result.filename),
-						Toast.LENGTH_SHORT
-					).show()
+					finishDialog.show(getString(R.string.puzzles_have_been_exported, result.filename))
 				} else {
-					Toast.makeText(
-						this@PuzzleExportActivity, getString(R.string.unknown_export_error), Toast.LENGTH_LONG
-					).show()
+					finishDialog.show(getString(R.string.unknown_export_error))
 				}
 			}
-			finish()
 		}
 		try {
 			mExportParams.fileOutputStream = contentResolver.openOutputStream(uri!!)
-			contentResolver.query(uri, null, null, null, null)?.use { cursor ->
-				if (cursor.moveToFirst()) {
-					mExportParams.filename = cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
-				}
-			}
+			mExportParams.filename = uri.getFileName(contentResolver)
 		} catch (e: FileNotFoundException) {
-			Toast.makeText(this@PuzzleExportActivity, getString(R.string.unknown_export_error), Toast.LENGTH_LONG).show()
+			finishDialog.show(R.string.unknown_export_error)
 		}
 		CoroutineScope(Dispatchers.IO).launch {
 			mFileExportTask.exportToFile(this@PuzzleExportActivity, mExportParams)
@@ -131,3 +122,4 @@ class PuzzleExportActivity : ThemedActivity() {
 		private val TAG = PuzzleExportActivity::class.java.simpleName
 	}
 }
+

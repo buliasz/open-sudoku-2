@@ -138,7 +138,7 @@ class FolderListActivity : ThemedActivity() {
 		menu.add(0, MENU_ITEM_ADD, 0, R.string.add_folder)
 			.setShortcut('3', 'a')
 			.setIcon(R.drawable.ic_add)
-		menu.add(0, MENU_ITEM_IMPORT, 0, R.string.import_file)
+		menu.add(0, MENU_ITEM_IMPORT, 0, R.string.import_title)
 			.setShortcut('8', 'i')
 			.setIcon(R.drawable.ic_baseline_download_24)
 		menu.add(0, MENU_ITEM_EXPORT_ALL, 1, R.string.export_all_folders)

@@ -18,16 +18,26 @@
 
 package org.buliasz.opensudoku2.utils
 
+import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
+import android.provider.OpenableColumns
+import java.io.File
 
 object AndroidUtils {
 	/**
 	 * Returns version code of OpenSudoku2.
 	 */
-	fun getAppVersionCode(context: Context): Int {
+	fun getAppVersionCode(context: Context): Long {
 		return try {
-			context.packageManager.getPackageInfo(context.packageName, 0).versionCode
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+				context.packageManager.getPackageInfo(context.packageName, 0).longVersionCode
+			} else {
+				@Suppress("DEPRECATION")
+				context.packageManager.getPackageInfo(context.packageName, 0).versionCode.toLong()
+			}
 		} catch (e: PackageManager.NameNotFoundException) {
 			throw RuntimeException(e)
 		}
@@ -43,4 +53,13 @@ object AndroidUtils {
 			throw RuntimeException(e)
 		}
 	}
+}
+
+internal fun Uri.getFileName(contentResolver: ContentResolver): String? {
+	contentResolver.query(this, null, null, null, null)?.use { cursor ->
+		if (cursor.moveToFirst()) {
+			return@getFileName File(cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))).name
+		}
+	}
+	return lastPathSegment
 }

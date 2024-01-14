@@ -41,7 +41,7 @@
 	<string name="edit_note">Editer une note</string>
 
 	<string name="add_folder">Ajout dossier</string>
-	<string name="import_file">Importer</string>
+	<string name="import_title">Importer</string>
 	<string name="about">À propos</string>
 	<string name="error">Erreur</string>
 	<string name="rename_folder">Renommer le dossier</string>
@@ -94,17 +94,17 @@
 	<string name="input_methods">Modes de saisie</string>
 	<string name="popup">Popup</string>
 	<string name="popup_summary">Éditer la valeur et les notes de la cellule dans une fenêtre contextuelle.</string>
-	<string name="single_number">Simple Numéro</string>
-	<string name="single_number_summary">Sélectionnez le chiffre, puis la cellule pour indiquer s\'il s\'agit du chiffre ou de la note.</string>
-	<string name="numpad">Numpad</string>
-	<string name="numpad_summary">Afficher le clavier numérique (agit comme un clavier numérique standard).</string>
-	<string name="numpad_move_right">Déplacer vers la droite à l\'appui</string>
-	<string name="numpad_move_right_summary">Déplace la sélection de céllule d\'une case vers la droite lorsque le bouton du chiffre est appuyé.
+	<string name="insert_on_tap">Insert sur le robinet</string>
+	<string name="insert_on_tap_summary">Sélectionnez le chiffre, puis la cellule pour indiquer s\'il s\'agit du chiffre ou de la note.</string>
+	<string name="select_on_tap">Sélectionner au robinet</string>
+	<string name="select_on_tap_summary">Afficher le clavier numérique (agit comme un clavier numérique standard).</string>
+	<string name="move_right_on_insert">Déplacer vers la droite à l\'appui</string>
+	<string name="move_right_on_insert_summary">Déplace la sélection de céllule d\'une case vers la droite lorsque le bouton du chiffre est appuyé.
 	</string>
 
-	<string name="numpad_abbr">Number Pad</string>
+	<string name="select_on_tap_abbr">Sélectionner au robinet</string>
 	<string name="popup_abbr">Pop</string>
-	<string name="single_number_abbr">SN</string>
+	<string name="insert_on_tap_abbr">Appuyez pour insérer</string>
 	<string name="welcome">Bienvenue</string>
 	<string name="hint">Indice</string>
 	<string name="help">Aide</string>
@@ -118,11 +118,11 @@
 		le coin en bas à droite. Celui-ci vous permet de changer de mode de saisie.\n
 	</string>
 
-	<string name="im_single_number_hint">Vous êtes actuellement en mode de saisie <i>Simple Numéro</i>. Commencez par sélectionner le chiffre en le touchant,
+	<string name="im_insert_on_tap_hint">Vous êtes actuellement en mode de saisie <i>Simple Numéro</i>. Commencez par sélectionner le chiffre en le touchant,
 		puis tapez simplement la cellule où vous voulez placer ce chiffre.\n\nAppuyez sur le bouton <i>Crayon</i> pour basculer en édition de note.\n
 	</string>
 
-	<string name="im_numpad_hint">Vous êtes actuellement en mode de saisie <i>Numpad</i>. Les boutons agissent comme un clavier numérique.\n\nAppuyez sur le
+	<string name="im_select_on_tap_hint">Vous êtes actuellement en mode de saisie <i>Numpad</i>. Les boutons agissent comme un clavier numérique.\n\nAppuyez sur le
 		bouton <i>Crayon</i> pour basculer en édition de note.\n
 	</string>
 
@@ -173,7 +173,7 @@
 	<string name="export">Exporter</string>
 	<string name="export_folder">Exporter le dossier</string>
 	<string name="export_all_folders">Exporter tous les dossiers</string>
-	<string name="importing">Importation de grilles %d/%d…</string>
+	<string name="importing">Importation de grilles %1$d/%2$d…</string>
 	<string name="exporting">Exportation de grilles…</string>
 	<string name="unknown_export_error">Erreur inconnue lors de l\'exportation des grilles.</string>
 	<string name="highlight_completed_values">Surligner les nombres complétés</string>
@@ -201,7 +201,7 @@
 
 	<string name="bidirectional_selection">Sélection bidirectionnelle</string>
 	<string name="bidirectional_selection_summary">Dans le mode de saisie Simple Numéro, la sélection d\'une cellule non modifiable sélectionne automatiquement
-		le bouton de numéro correspondante (et vice versa).
+		le bouton de numéro correspondante.
 	</string>
 	<string name="contributors_label">Contributeurs</string>
 
@@ -314,7 +314,7 @@
 	<string name="pref_error_summary">Cellules contenant des valeurs non valides</string>
 	<string name="pref_even_title">Cellules uniformes</string>
 	<string name="pref_even_summary">Cellules dans des boîtes paires de 3x3</string>
-	<string name="processing_input_file">Processing the input file</string>
+	<string name="processing_input_file">Traitement du fichier d’entrée</string>
 	<string name="do_you_want_to_save_anyway">Appuyez sur OK si vous voulez quand même l’enregistrer et revenir à la liste des puzzles.</string>
 	<string name="import_puzzles_found">Trouvé %d puzzles…</string>
 

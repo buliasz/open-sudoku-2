@@ -88,12 +88,12 @@ class PuzzleEditActivity : ThemedActivity() {
 		val mInputMethods = findViewById<IMControlPanel>(R.id.input_methods)
 		mInputMethods.initialize(mBoard, newPuzzle, null)
 
-		// only Numpad input method will be enabled
+		// only SelectOnTap input method will be enabled
 		for (im in mInputMethods.inputMethods) {
 			im.isEnabled = false
 		}
-		mInputMethods.imNumpad.isEnabled = true
-		mInputMethods.activateInputMethod(IMControlPanel.INPUT_METHOD_NUMPAD)
+		mInputMethods.imSelectOnTap.isEnabled = true
+		mInputMethods.activateInputMethod(IMControlPanel.INPUT_METHOD_SELECT_ON_TAP)
 		mClipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
 	}
 

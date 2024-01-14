@@ -96,7 +96,7 @@ abstract class AbstractImportTask {
 
 		val folderId = if (mFoldersUsed.size == 1) mFolder.id else -1
 		with(SimpleDialog(supportFragmentManager)) {
-			titleId = R.string.importing
+			titleId = R.string.import_title
 			message = resultMessage
 			onDismiss = {
 				onImportFinished.onImportFinished(isSuccess, folderId)
