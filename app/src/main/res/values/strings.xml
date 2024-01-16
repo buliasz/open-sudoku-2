@@ -199,7 +199,8 @@
 	<string name="import_title">Import</string>
 	<string name="importing">Imported puzzles %1$d/%2$d</string>
 	<string name="import_puzzles_found">Found %d puzzles…</string>
-	<string name="puzzles_saved">Puzzles have been saved into \‘%s\’ folder(s).</string>
+	<string name="checking_duplicates">Checking for duplicates among existing puzzles…</string>
+	<string name="puzzles_saved">Changes were applied to \‘%s\’ folder(s).</string>
 	<string name="invalid_format">Invalid format; import was cancelled</string>
 	<string name="no_puzzles_found">No puzzles found</string>
 	<string name="unknown_import_error">Unknown error occurred while importing puzzles; import was cancelled</string>

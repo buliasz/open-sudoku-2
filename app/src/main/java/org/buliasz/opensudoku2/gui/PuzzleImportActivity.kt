@@ -18,7 +18,6 @@
 
 package org.buliasz.opensudoku2.gui
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -176,15 +175,20 @@ class PuzzleImportActivity : ThemedActivity() {
 		}
 	}
 
-	@SuppressLint("SetTextI18n")
 	private suspend fun progressUpdate(currentValue: Int, maxValue: Int) {
-		if (currentValue < maxValue && System.currentTimeMillis() - lastProgressUpdateMs < 200) {
+		if (currentValue < maxValue && System.currentTimeMillis() - lastProgressUpdateMs < 300) {
 			return
 		}
 		withContext(Dispatchers.Main) {
 			if (currentValue == 0) {
-				progressText.text = applicationContext.getString(R.string.import_puzzles_found, maxValue)
+				progressBar.isIndeterminate = true
+				if (maxValue == -1) {
+					progressText.text = applicationContext.getString(R.string.checking_duplicates)
+				} else {
+					progressText.text = applicationContext.getString(R.string.import_puzzles_found, maxValue)
+				}
 			} else {
+				progressBar.isIndeterminate = false
 				progressBar.max = maxValue
 				progressBar.progress = currentValue
 				progressText.text = applicationContext.getString(R.string.importing, currentValue, maxValue)

@@ -34,8 +34,8 @@ import org.buliasz.opensudoku2.game.command.SetCellValueCommand
 import java.time.Instant
 
 class SudokuGame {
-	var id: Long = 0
-	var folderId: Long = 0
+	var id: Long = -1
+	var folderId: Long = -1
 	var created: Long = 0
 	var state: Int
 	private var mTime: Long = 0

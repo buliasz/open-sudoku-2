@@ -22,8 +22,6 @@ import android.content.Context
 import android.net.Uri
 import org.buliasz.opensudoku2.db.SudokuInvalidFormatException
 import org.buliasz.opensudoku2.db.forEach
-import org.buliasz.opensudoku2.db.getPuzzleListCursor
-import org.buliasz.opensudoku2.db.insertPuzzle
 import org.buliasz.opensudoku2.db.originalValues
 import org.buliasz.opensudoku2.utils.getFileName
 import java.io.BufferedReader
@@ -54,27 +52,22 @@ class SepbImportTask(private val mUri: Uri) : AbstractImportTask() {
 			InputStreamReader(url.openStream())
 		}
 
-		val newPuzzleMap = HashMap<String, Boolean>()
+		val newPuzzles = HashSet<String>()
 		BufferedReader(isr).useLines { lineSequence ->
 			lineSequence.forEach { inputLine ->
-				SepbRegex.find(inputLine)?.also { newPuzzleMap[it.groups["cellValues"]?.value!!] = true }
-				mProgressUpdate(0, newPuzzleMap.size)
+				SepbRegex.find(inputLine)?.also { newPuzzles.add(it.groups["cellValues"]?.value!!) }
+				mProgressUpdate(0, newPuzzles.size)
 			}
 		}
 
-		mDatabase.writable.use { db ->
-			db.getPuzzleListCursor().forEach { c -> newPuzzleMap[c.originalValues] = false }
-			var index = 0
-			for ((values, isNew) in newPuzzleMap) {
-				index += 1
-				mProgressUpdate(index, newPuzzleMap.size)
-				if (isNew) {
-					db.insertPuzzle(values, folderId)
-					importedCount += 1
-				} else {
-					duplicatesCount += 1
-				}
-			}
+		mProgressUpdate(0, -1)
+		mDatabase.getPuzzleListCursor().forEach { c -> if (newPuzzles.remove(c.originalValues)) duplicatesCount += 1 }
+		var index = 0
+		for (values in newPuzzles) {
+			index += 1
+			mProgressUpdate(index, newPuzzles.size)
+			mDatabase.insertPuzzle(values, folderId)
+			importedCount += 1
 		}
 	}
 }
