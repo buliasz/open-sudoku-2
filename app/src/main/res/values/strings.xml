@@ -117,15 +117,15 @@
 	<string name="input_methods">Input Modes</string>
 	<string name="popup">Pop-up</string>
 	<string name="popup_summary">Edit cell value and notes in a popup.</string>
-	<string name="insert_on_tap">Insert on tap</string>
+	<string name="insert_on_tap">Insert on cell tap</string>
 	<string name="insert_on_tap_summary">Apply selected key by just tapping on cell.</string>
-	<string name="select_on_tap">Select on tap</string>
+	<string name="select_on_tap">Select on cell tap</string>
 	<string name="select_on_tap_summary">Tapping a cell selects it only. Use on-screen keyboard to modify the selected cell.</string>
 	<string name="move_right_on_insert">Move right on value insert</string>
 	<string name="move_right_on_insert_summary">Moves selection by one cell to the right when a value is applied.</string>
-	<string name="select_on_tap_abbr">Select on tap</string>
-	<string name="popup_abbr">Pop-up on tap</string>
-	<string name="insert_on_tap_abbr">Insert on tap</string>
+	<string name="select_on_tap_abbr">Select on cell tap</string>
+	<string name="popup_abbr">Pop-up on cell tap</string>
+	<string name="insert_on_tap_abbr">Insert on cell tap</string>
 
 	<string name="welcome">Welcome</string>
 	<string name="hint">Hint</string>
@@ -144,13 +144,13 @@
 		You can use this button to switch to another input mode.\n
 	</string>
 
-	<string name="im_insert_on_tap_hint">You\’re now in the <i>Insert on tap</i> input mode.
+	<string name="im_insert_on_tap_hint">You\’re now in the <i>Insert on cell tap</i> input mode.
 		First select any key button by pressing it.
 		Then just tap on cells in which you want to have the selected key applied.
 		\n\nPress one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\’s notes editing.\n
 	</string>
 
-	<string name="im_select_on_tap_hint">You\’re now in the <i>Select on tap</i> input mode.
+	<string name="im_select_on_tap_hint">You\’re now in the <i>Select on cell tap</i> input mode.
 		Buttons act as a standard keyboard. You need first to select cell by tapping it, then press button to modify the selected cell.
 		\n\nPress one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\’s notes editing.\n
 	</string>
@@ -175,12 +175,12 @@
 		\n\nA pop-up dialog is shown when you tap the cell.
 		You can edit cell\’s content using this dialog.\n\n
 
-		<b>Input on tap mode</b>
+		<b>Insert on cell tap mode</b>
 		\n\nSelect any key button by pressing it.
 		Then just tap on cells in which you want to have the selected number filled.
 		\n\nPress one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\’s note editing.\n
 
-		<b>Select on tap mode</b>
+		<b>Select on cell tap mode</b>
 		\n\nButtons act as a standard numeric keyboard.
 		\n\nPress one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\’s note editing.\n
 	</string>
@@ -244,7 +244,7 @@
 	<string name="highlight_similar_cells_summary">Highlight cells with similar values</string>
 
 	<string name="bidirectional_selection">Bidirectional selection</string>
-	<string name="bidirectional_selection_summary">In the \'Insert on tap\' input mode, tapping a non-editable cell automatically selects the cell\'s value
+	<string name="bidirectional_selection_summary">In the \'Insert on cell tap\' input mode, tapping a non-editable cell automatically selects the cell\'s value
 		button.
 	</string>
 	<string name="contributors_label">Contributors</string>

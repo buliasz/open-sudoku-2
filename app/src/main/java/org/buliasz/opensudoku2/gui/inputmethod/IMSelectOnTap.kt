@@ -19,6 +19,8 @@ package org.buliasz.opensudoku2.gui.inputmethod
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.media.AudioManager
+import android.media.ToneGenerator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +36,7 @@ import org.buliasz.opensudoku2.gui.IconButton
 import org.buliasz.opensudoku2.gui.NumberButton
 import org.buliasz.opensudoku2.gui.SudokuBoardView
 import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanelStatePersister.StateBundle
+
 
 class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 	var isMoveCellSelectionOnPress = true
@@ -224,7 +227,11 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 			button.isChecked = buttonsToCheck.contains(tag)
 
 			// Update the count of numbers placed
-			button.setNumbersPlaced(valuesUseCount[tag] ?: 0)
+			val valueCount = valuesUseCount[tag] ?: 0
+			button.setNumbersPlaced(valueCount)
+			if (valueCount == 9) {
+				ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100).startTone(ToneGenerator.TONE_CDMA_PIP, 150)
+			}
 		}
 	}
 
