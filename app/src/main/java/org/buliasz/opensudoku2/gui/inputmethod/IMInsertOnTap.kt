@@ -49,7 +49,7 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 	internal var showNumberTotals = false
 	internal var bidirectionalSelection = true
 	internal var highlightSimilar = true
-	private var mSelectedNumber = 1
+	private var mSelectedNumber = 0
 	private var mEditMode: Int = MODE_EDIT_VALUE
 	private var mNumberButtons: MutableMap<Int, NumberButton>? = null
 
@@ -87,9 +87,7 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 		update()
 	}
 
-	override fun initialize(
-		context: Context?, controlPanel: IMControlPanel?, game: SudokuGame, board: SudokuBoardView, hintsQueue: HintsQueue?
-	) {
+	override fun initialize(context: Context, controlPanel: IMControlPanel, game: SudokuGame, board: SudokuBoardView, hintsQueue: HintsQueue?) {
 		super.initialize(context, controlPanel, game, board, hintsQueue)
 		game.cells.ensureOnChangeListener(mOnCellsChangeListener)
 	}
@@ -99,13 +97,13 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 	override val helpResID: Int
 		get() = R.string.im_insert_on_tap_hint
 	override val abbrName: String
-		get() = mContext!!.getString(R.string.insert_on_tap_abbr)
+		get() = mContext.getString(R.string.insert_on_tap_abbr)
 
 	override val switchModeButton: Button
 		get() = mSwitchModeButton
 
 	override fun createControlPanelView(abbrName: String): View {
-		val inflater = mContext!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+		val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 		val controlPanel = inflater.inflate(R.layout.im_insert_on_tap, null)
 		val numberButtons = HashMap<Int, NumberButton>()
 		numberButtons[1] = controlPanel.findViewById(R.id.button_1)
@@ -190,7 +188,7 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 				mCenterNoteButton!!.isChecked = true
 			}
 		}
-		val valuesUseCount = mGame!!.cells.valuesUseCount
+		val valuesUseCount = mGame.cells.valuesUseCount
 		for (button in mNumberButtons!!.values) {
 			val tag = button.tag as Int
 			button.mode = mEditMode
@@ -234,10 +232,10 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 		var selNumber = mSelectedNumber
 		when (mEditMode) {
 			MODE_EDIT_CORNER_NOTE -> if (selNumber == 0) {
-				mGame!!.setCellCornerNote(cell, CellNote.EMPTY)
+				mGame.setCellCornerNote(cell, CellNote.EMPTY)
 			} else if (selNumber in 1..9) {
 				val newNote = cell.cornerNote.toggleNumber(selNumber)
-				mGame!!.setCellCornerNote(cell, newNote)
+				mGame.setCellCornerNote(cell, newNote)
 				// if we toggled the note off we want to de-select the cell
 				if (!newNote.hasNumber(selNumber)) {
 					mBoard.clearCellSelection()
@@ -245,10 +243,10 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 			}
 
 			MODE_EDIT_CENTER_NOTE -> if (selNumber == 0) {
-				mGame!!.setCellCenterNote(cell, CellNote.EMPTY)
+				mGame.setCellCenterNote(cell, CellNote.EMPTY)
 			} else if (selNumber in 1..9) {
 				val newNote = cell.centerNote.toggleNumber(selNumber)
-				mGame!!.setCellCenterNote(cell, newNote)
+				mGame.setCellCenterNote(cell, newNote)
 				if (!newNote.hasNumber(selNumber)) {
 					mBoard.clearCellSelection()
 				}
@@ -260,18 +258,22 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 					selNumber = 0
 					mBoard.clearCellSelection()
 				}
-				mGame!!.setCellValue(cell, selNumber)
+				mGame.setCellValue(cell, selNumber)
 			}
 		}
 	}
 
 	override fun onSaveState(outState: StateBundle) {
+		outState.putLong("gameId", mGame.id)
 		outState.putInt("selectedNumber", mSelectedNumber)
 		outState.putInt("editMode", mEditMode)
 	}
 
 	override fun onRestoreState(savedState: StateBundle) {
-		mSelectedNumber = savedState.getInt("selectedNumber", 1)
+		if (mGame.id != savedState.getLong("gameId", 0)) {
+			return
+		}
+		mSelectedNumber = savedState.getInt("selectedNumber", 0)
 		mEditMode = savedState.getInt("editMode", MODE_EDIT_VALUE)
 		if (isInputMethodViewCreated) {
 			update()

@@ -47,7 +47,7 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 	 */
 	private val mOnNumberEditListener = OnNumberEditListener { number ->
 		if (number != -1 && mSelectedCell != null) {
-			mGame!!.setCellValue(mSelectedCell!!, number)
+			mGame.setCellValue(mSelectedCell!!, number)
 			mBoard.highlightedValue = number
 		}
 		true
@@ -59,14 +59,14 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 	private val mOnNoteEditListener: OnNoteEditListener = object : OnNoteEditListener {
 		override fun onCornerNoteEdit(numbers: Array<Int>): Boolean {
 			if (mSelectedCell != null) {
-				mGame!!.setCellCornerNote(mSelectedCell!!, CellNote.fromIntArray(numbers))
+				mGame.setCellCornerNote(mSelectedCell!!, CellNote.fromIntArray(numbers))
 			}
 			return true
 		}
 
 		override fun onCenterNoteEdit(numbers: Array<Int>): Boolean {
 			if (mSelectedCell != null) {
-				mGame!!.setCellCenterNote(mSelectedCell!!, CellNote.fromIntArray(numbers))
+				mGame.setCellCenterNote(mSelectedCell!!, CellNote.fromIntArray(numbers))
 			}
 			return true
 		}
@@ -79,7 +79,7 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 
 	private fun ensureEditCellDialog() {
 		if (mEditCellDialog == null) {
-			with(IMPopupDialog(parent, mContext!!, mBoard)) {
+			with(IMPopupDialog(parent, mContext, mBoard)) {
 				onNumberEditListener = mOnNumberEditListener
 				onNoteEditListener = mOnNoteEditListener
 				setOnDismissListener(mOnPopupDismissedListener)
@@ -106,7 +106,7 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 			mEditCellDialog!!.setNumber(cell.value)
 			mEditCellDialog!!.setCornerNotes(cell.cornerNote.notedNumbers)
 			mEditCellDialog!!.setCenterNotes(cell.centerNote.notedNumbers)
-			val valuesUseCount = mGame!!.cells.valuesUseCount
+			val valuesUseCount = mGame.cells.valuesUseCount
 			mEditCellDialog!!.setValueCount(valuesUseCount)
 			mEditCellDialog!!.show()
 		} else {
@@ -131,12 +131,12 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 	override val helpResID: Int
 		get() = R.string.im_popup_hint
 	override val abbrName: String
-		get() = mContext!!.getString(R.string.popup_abbr)
+		get() = mContext.getString(R.string.popup_abbr)
 	override val switchModeButton: Button
 		get() = mSwitchModeButton
 
 	override fun createControlPanelView(abbrName: String): View {
-		val inflater = mContext!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+		val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 		val controlPanel = inflater.inflate(R.layout.im_popup, null)
 
 		mSwitchModeButton = controlPanel.findViewById(R.id.popup_switch_input_mode)

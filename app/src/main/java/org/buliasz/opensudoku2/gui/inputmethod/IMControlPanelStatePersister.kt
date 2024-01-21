@@ -34,13 +34,13 @@ class IMControlPanelStatePersister(context: Context?) {
 
 	fun saveState(controlPanel: IMControlPanel) {
 		// save state of control panel itself
-		val cpState = StateBundle(mPreferences, PREFIX + "", true)
+		val cpState = StateBundle(mPreferences, PREFIX, true)
 		cpState.putInt("activeMethodIndex", controlPanel.activeMethodIndex)
 		cpState.commit()
 
 		// save state of all input methods
 		for (im in controlPanel.inputMethods) {
-			val outState = StateBundle(mPreferences, PREFIX + "" + im.inputMethodName, true)
+			val outState = StateBundle(mPreferences, "$PREFIX${im.inputMethodName}", true)
 			im.onSaveState(outState)
 			outState.commit()
 		}
@@ -48,7 +48,7 @@ class IMControlPanelStatePersister(context: Context?) {
 
 	fun restoreState(controlPanel: IMControlPanel) {
 		// restore state of control panel itself
-		val cpState = StateBundle(mPreferences, PREFIX + "", false)
+		val cpState = StateBundle(mPreferences, PREFIX, false)
 		val methodId = cpState.getInt("activeMethodIndex", 0)
 		if (methodId != -1) {
 			controlPanel.activateInputMethod(methodId)
@@ -56,7 +56,7 @@ class IMControlPanelStatePersister(context: Context?) {
 
 		// restore state of all input methods
 		for (im in controlPanel.inputMethods) {
-			val savedState = StateBundle(mPreferences, PREFIX + "" + im.inputMethodName, false)
+			val savedState = StateBundle(mPreferences, "$PREFIX${im.inputMethodName}", false)
 			im.onRestoreState(savedState)
 		}
 	}
@@ -81,11 +81,17 @@ class IMControlPanelStatePersister(context: Context?) {
 
 		fun getInt(key: String, defValue: Int): Int = mPreferences.getInt(mPrefix + key, defValue)
 
+		fun getLong(key: String, defValue: Long): Long = mPreferences.getLong(mPrefix + key, defValue)
+
 		fun getString(key: String, defValue: String?): String? = mPreferences.getString(mPrefix + key, defValue)
 
 		fun putInt(key: String, value: Int) {
 			check(mEditable) { "StateBundle is not editable" }
 			mPrefEditor!!.putInt(mPrefix + key, value)
+		}
+
+		fun putLong(key: String, value: Long) {
+			mPrefEditor!!.putLong(mPrefix + key, value)
 		}
 
 		fun commit() {

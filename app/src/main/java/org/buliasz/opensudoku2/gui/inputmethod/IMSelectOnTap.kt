@@ -64,7 +64,7 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 		if (selCell != null) {
 			when (mEditMode) {
 				MODE_EDIT_VALUE -> if (selNumber in 0..9) {
-					mGame!!.setCellValue(selCell, selNumber)
+					mGame.setCellValue(selCell, selNumber)
 					mBoard.highlightedValue = selNumber
 					if (isMoveCellSelectionOnPress) {
 						mBoard.moveCellSelectionRight()
@@ -72,15 +72,15 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 				}
 
 				MODE_EDIT_CORNER_NOTE -> if (selNumber == 0) {
-					mGame!!.setCellCornerNote(selCell, CellNote.EMPTY)
+					mGame.setCellCornerNote(selCell, CellNote.EMPTY)
 				} else if (selNumber in 1..9) {
-					mGame!!.setCellCornerNote(selCell, selCell.cornerNote.toggleNumber(selNumber))
+					mGame.setCellCornerNote(selCell, selCell.cornerNote.toggleNumber(selNumber))
 				}
 
 				MODE_EDIT_CENTER_NOTE -> if (selNumber == 0) {
-					mGame!!.setCellCenterNote(selCell, CellNote.EMPTY)
+					mGame.setCellCenterNote(selCell, CellNote.EMPTY)
 				} else if (selNumber in 1..9) {
-					mGame!!.setCellCenterNote(selCell, selCell.centerNote.toggleNumber(selNumber))
+					mGame.setCellCenterNote(selCell, selCell.centerNote.toggleNumber(selNumber))
 				}
 			}
 		}
@@ -91,16 +91,13 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 	}
 	private val mOnCellsChangeListener = { if (mActive) update() }
 
-	override fun initialize(
-		context: Context?, controlPanel: IMControlPanel?,
-		game: SudokuGame, board: SudokuBoardView, hintsQueue: HintsQueue?
-	) {
+	override fun initialize(context: Context, controlPanel: IMControlPanel, game: SudokuGame, board: SudokuBoardView, hintsQueue: HintsQueue?) {
 		super.initialize(context, controlPanel, game, board, hintsQueue)
 		game.cells.ensureOnChangeListener(mOnCellsChangeListener)
 	}
 
 	override fun createControlPanelView(abbrName: String): View {
-		val inflater = mContext!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+		val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 		val controlPanel = inflater.inflate(R.layout.im_select_on_tap, null)
 
 		val numberButtons = HashMap<Int, NumberButton>()
@@ -165,7 +162,7 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 	override val helpResID: Int
 		get() = R.string.im_select_on_tap_hint
 	override val abbrName: String
-		get() = mContext!!.getString(R.string.select_on_tap_abbr)
+		get() = mContext.getString(R.string.select_on_tap_abbr)
 	override val switchModeButton: Button
 		get() = mSwitchModeButton
 
@@ -213,7 +210,7 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 				}
 			}
 		}
-		val valuesUseCount = mGame!!.cells.valuesUseCount
+		val valuesUseCount = mGame.cells.valuesUseCount
 		for (button in mNumberButtons!!.values) {
 			val tag = button.tag as Int
 

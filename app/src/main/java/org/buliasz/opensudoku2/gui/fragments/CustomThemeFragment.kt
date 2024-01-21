@@ -57,7 +57,7 @@ import org.buliasz.opensudoku2.utils.ThemeUtils
  * Preview and set a custom app theme.
  */
 class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListener, MenuProvider {
-	private var mBoard: SudokuBoardView? = null
+	private lateinit var mBoard: SudokuBoardView
 	private var mCopyFromExistingThemeDialog: Dialog? = null
 	private var mSharedPreferences: SharedPreferences? = null
 
@@ -107,20 +107,20 @@ class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
 		menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 	}
 
-	private fun prepareGamePreviewView(board: SudokuBoardView?) {
+	private fun prepareGamePreviewView(board: SudokuBoardView) {
 		val highlightSimilarCells = mSharedPreferences!!.getBoolean("highlight_similar_cells", true)
 		val highlightSimilarNotes = mSharedPreferences!!.getBoolean("highlight_similar_notes", true)
 		if (highlightSimilarCells) {
-			board!!.highlightSimilarCells = if (highlightSimilarNotes) HighlightMode.NUMBERS_AND_NOTES else HighlightMode.NUMBERS
+			board.highlightSimilarCells = if (highlightSimilarNotes) HighlightMode.NUMBERS_AND_NOTES else HighlightMode.NUMBERS
 		}
-		board!!.onCellSelectedListener = { cell: Cell? -> board.highlightedValue = cell?.value ?: 0 }
+		board.onCellSelectedListener = { cell: Cell? -> board.highlightedValue = cell?.value ?: 0 }
 		ThemeUtils.prepareBoardPreviewView(board)
 		updateThemePreview()
 	}
 
 	private fun updateThemePreview() {
 		val themeName = mSharedPreferences!!.getString("theme", "opensudoku2")
-		ThemeUtils.applyThemeToSudokuBoardViewFromContext(themeName!!, mBoard!!, requireContext())
+		ThemeUtils.applyThemeToSudokuBoardViewFromContext(themeName!!, mBoard, requireContext())
 	}
 
 	override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

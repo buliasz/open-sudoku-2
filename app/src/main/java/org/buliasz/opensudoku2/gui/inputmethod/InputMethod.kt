@@ -37,9 +37,9 @@ import kotlin.math.ceil
 abstract class InputMethod {
 	abstract val switchModeButton: Button
 
-	protected var mContext: Context? = null
-	private var mControlPanel: IMControlPanel? = null
-	protected var mGame: SudokuGame? = null
+	protected lateinit var mContext: Context
+	private lateinit var mControlPanel: IMControlPanel
+	protected lateinit var mGame: SudokuGame
 	protected lateinit var mBoard: SudokuBoardView
 	private var mHintsQueue: HintsQueue? = null
 	private var mInputMethodView: View? = null
@@ -51,9 +51,7 @@ abstract class InputMethod {
 	var inputMethodName: String? = null
 		private set
 	private var mEnabled = true
-	open fun initialize(
-		context: Context?, controlPanel: IMControlPanel?, game: SudokuGame, board: SudokuBoardView, hintsQueue: HintsQueue?
-	) {
+	open fun initialize(context: Context, controlPanel: IMControlPanel, game: SudokuGame, board: SudokuBoardView, hintsQueue: HintsQueue?) {
 		mContext = context
 		mControlPanel = controlPanel
 		mGame = game
@@ -95,7 +93,7 @@ abstract class InputMethod {
 		set(enabled) {
 			mEnabled = enabled
 			if (!enabled) {
-				mControlPanel!!.activateNextInputMethod()
+				mControlPanel.activateNextInputMethod()
 			}
 		}
 
