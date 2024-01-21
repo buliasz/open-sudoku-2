@@ -19,8 +19,6 @@ package org.buliasz.opensudoku2.gui.inputmethod
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.media.AudioManager
-import android.media.ToneGenerator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,28 +60,29 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 	private lateinit var mSwitchModeButton: Button
 
 	private val mNumberButtonClicked = View.OnClickListener { v: View ->
-		val selNumber = v.tag as Int
+		val selectedDigit = v.tag as Int
 		val selCell = mSelectedCell
 		if (selCell != null) {
 			when (mEditMode) {
-				MODE_EDIT_VALUE -> if (selNumber in 0..9) {
-					mGame.setCellValue(selCell, selNumber)
-					mBoard.highlightedValue = selNumber
+				MODE_EDIT_VALUE -> if (selectedDigit in 0..9) {
+					mGame.setCellValue(selCell, selectedDigit)
+					beepIfAllOfDigitIn(selectedDigit)
+					mBoard.highlightedValue = selectedDigit
 					if (isMoveCellSelectionOnPress) {
 						mBoard.moveCellSelectionRight()
 					}
 				}
 
-				MODE_EDIT_CORNER_NOTE -> if (selNumber == 0) {
+				MODE_EDIT_CORNER_NOTE -> if (selectedDigit == 0) {
 					mGame.setCellCornerNote(selCell, CellNote.EMPTY)
-				} else if (selNumber in 1..9) {
-					mGame.setCellCornerNote(selCell, selCell.cornerNote.toggleNumber(selNumber))
+				} else if (selectedDigit in 1..9) {
+					mGame.setCellCornerNote(selCell, selCell.cornerNote.toggleNumber(selectedDigit))
 				}
 
-				MODE_EDIT_CENTER_NOTE -> if (selNumber == 0) {
+				MODE_EDIT_CENTER_NOTE -> if (selectedDigit == 0) {
 					mGame.setCellCenterNote(selCell, CellNote.EMPTY)
-				} else if (selNumber in 1..9) {
-					mGame.setCellCenterNote(selCell, selCell.centerNote.toggleNumber(selNumber))
+				} else if (selectedDigit in 1..9) {
+					mGame.setCellCenterNote(selCell, selCell.centerNote.toggleNumber(selectedDigit))
 				}
 			}
 		}
@@ -229,9 +228,6 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 			// Update the count of numbers placed
 			val valueCount = valuesUseCount[tag] ?: 0
 			button.setNumbersPlaced(valueCount)
-			if (valueCount == 9) {
-				ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100).startTone(ToneGenerator.TONE_CDMA_PIP, 150)
-			}
 		}
 	}
 

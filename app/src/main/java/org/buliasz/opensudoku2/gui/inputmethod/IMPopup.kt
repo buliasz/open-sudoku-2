@@ -45,10 +45,11 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 	/**
 	 * Occurs when user selects number in EditCellDialog.
 	 */
-	private val mOnNumberEditListener = OnNumberEditListener { number ->
-		if (number != -1 && mSelectedCell != null) {
-			mGame.setCellValue(mSelectedCell!!, number)
-			mBoard.highlightedValue = number
+	private val mOnNumberEditListener = OnNumberEditListener { digit ->
+		if (digit != -1 && mSelectedCell != null) {
+			mGame.setCellValue(mSelectedCell!!, digit)
+			beepIfAllOfDigitIn(digit)
+			mBoard.highlightedValue = digit
 		}
 		true
 	}
