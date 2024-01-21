@@ -24,13 +24,10 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.gui.importing.AbstractImportTask
@@ -49,24 +46,16 @@ import java.net.URISyntaxException
  * (web, file, .opensudoku2, .sdm, extras).
  */
 class PuzzleImportActivity : ThemedActivity() {
-	private var lastProgressUpdateMs: Long = 0
-	private lateinit var progressText: TextView
-	private lateinit var progressBar: ProgressBar
 	private val mOnImportFinishedListener = object : AbstractImportTask.OnImportFinishedListener {
 		override fun onImportFinished(importSuccessful: Boolean, folderId: Long) {
 			if (importSuccessful) {
-				val i: Intent
-				if (folderId == -1L) {
-					// multiple folders were imported, go to folder list
-					i = Intent(this@PuzzleImportActivity, FolderListActivity::class.java)
-				} else {
-					// one folder was imported, go to this folder
-					i = Intent(this@PuzzleImportActivity, PuzzleListActivity::class.java)
+				if (folderId != -1L) {
+					// one folder was imported, show this folder automatically
+					val i = Intent(this@PuzzleImportActivity, PuzzleListActivity::class.java)
 					i.putExtra(Names.FOLDER_ID, folderId)
+					startActivity(i)
 				}
-				startActivity(i)
 			}
-			// call finish, so this activity won't be part of history
 			finish()
 		}
 	}
@@ -167,34 +156,17 @@ class PuzzleImportActivity : ThemedActivity() {
 			return
 		}
 
-		progressBar = findViewById(R.id.progressBar)
-		progressText = findViewById(R.id.progressText)
-
-		CoroutineScope(Dispatchers.IO).launch {
-			importTask.doInBackground(applicationContext, mOnImportFinishedListener, supportFragmentManager, ::progressUpdate)
-		}
-	}
-
-	private suspend fun progressUpdate(currentValue: Int, maxValue: Int) {
-		if (currentValue < maxValue && System.currentTimeMillis() - lastProgressUpdateMs < 300) {
-			return
-		}
-		withContext(Dispatchers.Main) {
-			if (currentValue == 0) {
-				progressBar.isIndeterminate = true
-				if (maxValue == -1) {
-					progressText.text = applicationContext.getString(R.string.checking_duplicates)
-				} else {
-					progressText.text = applicationContext.getString(R.string.import_puzzles_found, maxValue)
-				}
-			} else {
-				progressBar.isIndeterminate = false
-				progressBar.max = maxValue
-				progressBar.progress = currentValue
-				progressText.text = applicationContext.getString(R.string.importing, currentValue, maxValue)
+		with(ProgressUpdater(applicationContext, findViewById(R.id.progressBar))) {
+			progressTextView = findViewById(R.id.progressText)
+			progressStringRes = R.string.importing
+			progressStringResMaxOnly = R.string.import_puzzles_found
+			progressStringResNoValues = R.string.checking_duplicates
+			this
+		}.use { progressUpdater ->
+			CoroutineScope(Dispatchers.IO).launch {
+				importTask.doInBackground(applicationContext, mOnImportFinishedListener, supportFragmentManager, progressUpdater)
 			}
 		}
-		lastProgressUpdateMs = System.currentTimeMillis()
 	}
 
 	companion object {

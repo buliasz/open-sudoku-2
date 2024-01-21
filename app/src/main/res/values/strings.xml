@@ -203,7 +203,7 @@
 	<string name="puzzles_saved">Changes were applied to \‘%s\’ folder(s).</string>
 	<string name="invalid_format">Invalid format; import was cancelled</string>
 	<string name="no_puzzles_found">No puzzles found</string>
-	<string name="unknown_import_error">Unknown error occurred while importing puzzles; import was cancelled</string>
+	<string name="unknown_import_error">Unknown error occurred while importing puzzles. Import was interrupted.</string>
 
 	<string name="screen_border_size">Screen border size</string>
 	<string name="screen_border_size_summary">Some displays do not react to touches on screen edges.
@@ -214,7 +214,8 @@
 	<string name="export">Export</string>
 	<string name="export_folder">Export folder</string>
 	<string name="export_all_folders">Export all folders</string>
-	<string name="exporting">Exporting puzzles…</string>
+	<string name="exporting">From folder \‘%s\‘…</string>
+	<string name="exported_num">Exported %d/%d puzzles…</string>
 	<string name="unknown_export_error">An unknown error occurred while exporting puzzles</string>
 	<string name="highlight_completed_values">Highlight completed numbers</string>
 	<string name="highlight_completed_values_summary">Highlight buttons for numbers which have been

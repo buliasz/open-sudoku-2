@@ -24,7 +24,7 @@
 	android:orientation="vertical"
 	android:padding="16dp">
 
-	<TextView android:id="@+id/textView"
+	<TextView android:id="@+id/title"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:text="@string/exporting" />
@@ -34,4 +34,9 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:indeterminate="true" />
+
+	<TextView android:id="@+id/progressText"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/exported_num" />
 </LinearLayout>

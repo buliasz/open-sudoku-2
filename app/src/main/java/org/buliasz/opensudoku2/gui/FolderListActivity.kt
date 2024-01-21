@@ -80,7 +80,7 @@ class FolderListActivity : ThemedActivity() {
 					.show()
 			}
 		}
-		mDatabase = SudokuDatabase(applicationContext)
+		mDatabase = SudokuDatabase(applicationContext, true)
 		mAdapter = FolderListRecyclerAdapter(this, mDatabase.getFolderList()) { id: Long ->
 			val i = Intent(applicationContext, PuzzleListActivity::class.java)
 			i.putExtra(Names.FOLDER_ID, id)

@@ -46,6 +46,7 @@ class PuzzleExportActivity : ThemedActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.sudoku_export)
+		setTitle(R.string.export)
 		mFileExportTask = FileExportTask()
 		mExportParams = FileExportTaskParams()
 		var intent = intent
@@ -61,7 +62,7 @@ class PuzzleExportActivity : ThemedActivity() {
 		val fileName = if (mExportParams.folderId == -1L) {
 			"all-folders-$timestamp"
 		} else {
-			val folderName = SudokuDatabase(applicationContext).use { database ->
+			val folderName = SudokuDatabase(applicationContext, true).use { database ->
 				val folderId = mExportParams.folderId ?: database.getPuzzle(mExportParams.puzzleId!!)!!.folderId
 				val folder = database.getFolderInfo(folderId)
 				if (folder == null) {
@@ -109,8 +110,18 @@ class PuzzleExportActivity : ThemedActivity() {
 		} catch (e: FileNotFoundException) {
 			finishDialog.show(R.string.unknown_export_error)
 		}
-		CoroutineScope(Dispatchers.IO).launch {
-			mFileExportTask.exportToFile(this@PuzzleExportActivity, mExportParams)
+
+
+		with(ProgressUpdater(applicationContext, findViewById(R.id.progressBar))) {
+			titleTextView = findViewById(R.id.title)
+			titleStringRes = R.string.exporting
+			progressTextView = findViewById(R.id.progressText)
+			progressStringRes = R.string.exported_num
+			this
+		}.use { progressUpdater ->
+			CoroutineScope(Dispatchers.IO).launch {
+				mFileExportTask.exportToFile(this@PuzzleExportActivity, mExportParams, progressUpdater)
+			}
 		}
 	}
 

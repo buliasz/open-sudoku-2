@@ -58,7 +58,7 @@ class SudokuGame {
 	val contentValues: ContentValues
 		get() {
 			with(ContentValues()) {
-				put(Names.ORIGINAL_VALUES, cells.serialize(CellCollection.DATA_VERSION_ORIGINAL))
+				put(Names.ORIGINAL_VALUES, cells.originalValues)
 				put(Names.CELLS_DATA, cells.serialize())
 				put(Names.CREATED, created)
 				put(Names.LAST_PLAYED, lastPlayed)

@@ -27,10 +27,10 @@ import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.db.SudokuInvalidFormatException
 import org.buliasz.opensudoku2.game.FolderInfo
+import org.buliasz.opensudoku2.gui.ProgressUpdater
 import org.buliasz.opensudoku2.gui.fragments.SimpleDialog
 import org.buliasz.opensudoku2.utils.Const
 import java.time.Instant
-import kotlin.reflect.KSuspendFunction2
 
 /**
  * To add support for new import source, do following:
@@ -54,14 +54,14 @@ abstract class AbstractImportTask {
 	protected var importedCount = 0
 	protected var duplicatesCount = 0
 	protected var updatedCount = 0
-	lateinit var mProgressUpdate: KSuspendFunction2<Int, Int, Unit>
+	lateinit var mProgressUpdate: ProgressUpdater
 		private set
 
 	suspend fun doInBackground(
 		context: Context,
 		onImportFinished: OnImportFinishedListener,
 		supportFragmentManager: FragmentManager,
-		progressUpdate: KSuspendFunction2<Int, Int, Unit>
+		progressUpdate: ProgressUpdater
 	) {
 		mContext = context
 		mProgressUpdate = progressUpdate
@@ -89,7 +89,7 @@ abstract class AbstractImportTask {
 			if (mFoldersUsed.size > 0) resultMessage += mContext.getString(R.string.puzzles_saved, mFoldersUsed.joinToString(", "))
 			if (importedCount > 0) resultMessage += "\nImported $importedCount new puzzles."
 			if (duplicatesCount > 0) resultMessage += "\nSkipped $duplicatesCount already existing puzzles."
-			if (updatedCount > 0) resultMessage += "\nUpdated $updatedCount existing puzzles."
+			if (updatedCount > 0) resultMessage += "\nUpdated $updatedCount existing puzzles with saved in-progress games."
 		} else {
 			resultMessage = importError
 		}
@@ -106,7 +106,7 @@ abstract class AbstractImportTask {
 	}
 
 	private suspend fun processImportInternal(): Boolean {
-		SudokuDatabase(mContext).use { database ->
+		SudokuDatabase(mContext, false).use { database ->
 			try {
 				mDatabase = database
 				processImport(mContext)  // let subclass handle the import

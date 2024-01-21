@@ -60,17 +60,17 @@ class SdmImportTask(private val mUri: Uri) : AbstractImportTask() {
 					val cellsValues = inputLine.trim().replace(".", "0")
 					if (cellsValues.length == 81 && cellsValues.isDigitsOnly()) {
 						newPuzzles.add(cellsValues)
-						mProgressUpdate(0, newPuzzles.size)
+						mProgressUpdate.maxValue = newPuzzles.size
 					}
 				}
 			}
 
-			mProgressUpdate(0, -1)
 			mDatabase.getPuzzleListCursor().forEach { c -> if (newPuzzles.remove(c.originalValues)) duplicatesCount += 1 }
 			var index = 0
+			mProgressUpdate.maxValue = newPuzzles.size
 			for (values in newPuzzles) {
 				index += 1
-				mProgressUpdate(index, newPuzzles.size)
+				mProgressUpdate.currentValue = index
 				mDatabase.insertPuzzle(values, folderId)
 				importedCount += 1
 			}

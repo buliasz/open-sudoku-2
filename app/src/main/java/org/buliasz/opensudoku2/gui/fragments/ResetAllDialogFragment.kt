@@ -25,8 +25,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.SudokuDatabase
-import org.buliasz.opensudoku2.db.extractSudokuGameFromCursorRow
-import org.buliasz.opensudoku2.db.forEach
 
 class ResetAllDialogFragment(
 	private val mDatabase: SudokuDatabase,
@@ -38,11 +36,7 @@ class ResetAllDialogFragment(
 			.setIcon(R.drawable.ic_restore)
 			.setTitle(R.string.reset_all_puzzles_confirm)
 			.setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
-				mDatabase.getPuzzleListCursor(mFolderID, null, null).forEach { cursor ->
-					val puzzle = extractSudokuGameFromCursorRow(cursor)
-					puzzle.reset()
-					mDatabase.updatePuzzle(puzzle)
-				}
+				mDatabase.resetAllPuzzles(mFolderID)
 				updateList()
 			}
 			.setNegativeButton(android.R.string.cancel) { _: DialogInterface?, _: Int -> }

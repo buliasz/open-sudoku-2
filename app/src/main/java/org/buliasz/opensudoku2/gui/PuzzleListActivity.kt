@@ -66,7 +66,7 @@ class PuzzleListActivity : ThemedActivity() {
 		setContentView(R.layout.sudoku_list)
 		mFilterStatus = findViewById(R.id.filter_status)
 		setDefaultKeyMode(DEFAULT_KEYS_SHORTCUT)
-		mDatabase = SudokuDatabase(applicationContext)
+		mDatabase = SudokuDatabase(applicationContext, true)
 		mFolderDetailLoader = FolderDetailLoader(applicationContext)
 		val intent = intent
 

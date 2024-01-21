@@ -25,6 +25,14 @@ import java.util.regex.Pattern
  * Collection of Sudoku cells. This class in fact represents one Sudoku board (9x9).
  */
 class CellCollection private constructor(val cells: Array<Array<Cell>>) {
+	private var mOriginalValues: String? = null
+	val originalValues: String
+		get() {
+			if (mOriginalValues == null) {
+				mOriginalValues = serialize(DATA_VERSION_ORIGINAL)
+			}
+			return mOriginalValues!!
+		}
 	private val mChangeListeners: MutableList<() -> Unit> = ArrayList()
 
 	// Helper arrays, contains references to the groups of cells, which should contain unique

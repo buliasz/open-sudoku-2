@@ -36,7 +36,7 @@ class FolderDetailLoader(context: Context?) {
 	private val executorService = Executors.newSingleThreadExecutor()
 
 	init {
-		mDatabase = SudokuDatabase(context!!)
+		mDatabase = SudokuDatabase(context!!, true)
 	}
 
 	fun loadDetailAsync(folderId: Long, loadedCallback: (FolderInfo) -> Unit) {

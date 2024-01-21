@@ -62,8 +62,7 @@ class TitleScreenActivity : ThemedActivity() {
 	}
 
 	private fun canResume(mSudokuGameID: Long): Boolean {
-		val mDatabase = SudokuDatabase(applicationContext)
-		val mSudokuGame = mDatabase.getPuzzle(mSudokuGameID) ?: return false
+		val mSudokuGame = SudokuDatabase(applicationContext, true).use { it.getPuzzle(mSudokuGameID) ?: return@canResume false }
 		return mSudokuGame.state != SudokuGame.GAME_STATE_COMPLETED
 	}
 

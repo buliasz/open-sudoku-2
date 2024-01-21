@@ -23,8 +23,10 @@ import android.net.Uri
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuInvalidFormatException
+import org.buliasz.opensudoku2.db.forEach
+import org.buliasz.opensudoku2.db.id
+import org.buliasz.opensudoku2.db.originalValues
 import org.buliasz.opensudoku2.game.CellCollection
-import org.buliasz.opensudoku2.game.CellCollection.Companion.DATA_VERSION_ORIGINAL
 import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.gui.exporting.FileExportTask
 import org.xmlpull.v1.XmlPullParser
@@ -92,7 +94,9 @@ class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
 		var eventType = parser.eventType
 		var lastTag: String
 		var lastFolderId: Long = 0
+		val existingPuzzles = HashMap<String, Long>()
 
+		mDatabase.getPuzzleListCursor().forEach { c -> existingPuzzles[c.originalValues] = c.id }
 		while (eventType != XmlPullParser.END_DOCUMENT) {
 			if (eventType == XmlPullParser.START_TAG) {
 				lastTag = parser.name
@@ -112,15 +116,17 @@ class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
 						if (state == SudokuGame.GAME_STATE_PLAYING) {
 							commandStack.deserialize(parser.getAttributeValue(null, Names.COMMAND_STACK))
 						}
-						id = mDatabase.findPuzzle(cells.serialize(DATA_VERSION_ORIGINAL))
+						id = existingPuzzles[cells.originalValues] ?: -1
 						if (id < 0L) {
 							mDatabase.insertPuzzle(this)
 							importedCount += 1
-						} else {
+						} else if (state == SudokuGame.GAME_STATE_PLAYING) {
 							mDatabase.updatePuzzle(this)    // those saved may be in progress, update makes sense for puzzles exported from by this app
 							updatedCount += 1
+						} else {
+							duplicatesCount += 1
 						}
-						mProgressUpdate(0, importedCount + updatedCount)
+						mProgressUpdate.maxValue = importedCount + updatedCount + duplicatesCount
 					}
 				}
 			}

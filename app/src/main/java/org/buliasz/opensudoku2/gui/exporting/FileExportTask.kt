@@ -30,6 +30,7 @@ import org.buliasz.opensudoku2.db.extractSudokuGameFromCursorRow
 import org.buliasz.opensudoku2.db.forEach
 import org.buliasz.opensudoku2.game.FolderInfo
 import org.buliasz.opensudoku2.game.SudokuGame
+import org.buliasz.opensudoku2.gui.ProgressUpdater
 import org.buliasz.opensudoku2.gui.PuzzleExportActivity.Companion.ALL_IDS
 import org.buliasz.opensudoku2.utils.Const
 import org.xmlpull.v1.XmlSerializer
@@ -44,18 +45,16 @@ class FileExportTask {
 	 */
 	var onExportFinishedListener: (suspend (FileExportTaskResult?) -> Unit)? = null
 
-	internal suspend fun exportToFile(context: Context, vararg params: FileExportTaskParams?) {
+	internal suspend fun exportToFile(context: Context, params: FileExportTaskParams, progressUpdater: ProgressUpdater) {
 		withContext(Dispatchers.IO) {
-			for (param in params) {
-				val result = saveToFile(param!!, context)
-				launch {
-					onExportFinishedListener?.invoke(result)
-				}
+			val result = saveToFile(params, context, progressUpdater)
+			launch {
+				onExportFinishedListener?.invoke(result)
 			}
 		}
 	}
 
-	private fun saveToFile(exportParams: FileExportTaskParams, context: Context): FileExportTaskResult {
+	private fun saveToFile(exportParams: FileExportTaskParams, context: Context, progressUpdater: ProgressUpdater): FileExportTaskResult {
 		require(exportParams.folderId != null) { "'folderId' param must be set" }
 		requireNotNull(exportParams.fileOutputStream) { "Output stream cannot be null" }
 		val result = FileExportTaskResult()
@@ -70,8 +69,8 @@ class FileExportTask {
 			serializer.startTag("", "opensudoku2")
 			serializer.attribute("", "version", FILE_EXPORT_VERSION)
 
-			SudokuDatabase(context).use { db ->
-				serializeFolders(db, serializer, exportParams.folderId!!, exportParams.puzzleId ?: ALL_IDS)
+			SudokuDatabase(context, true).use { db ->
+				serializeFolders(db, serializer, exportParams.folderId!!, exportParams.puzzleId ?: ALL_IDS, progressUpdater)
 			}
 
 			serializer.endTag("", "opensudoku2")
@@ -93,16 +92,21 @@ class FileExportTask {
 		return result
 	}
 
-	private fun serializeFolders(db: SudokuDatabase, serializer: XmlSerializer, folderId: Long, gameId: Long = ALL_IDS) {
+	private fun serializeFolders(db: SudokuDatabase, serializer: XmlSerializer, folderId: Long, gameId: Long = ALL_IDS, progressUpdater: ProgressUpdater) {
 		val folderList: List<FolderInfo> = if (folderId == -1L) db.getFolderList() else listOf(db.getFolderInfo(folderId)!!)
 		for (folder in folderList) {
 			serializer.startTag("", Names.FOLDER)
 			serializer.attribute("", Names.FOLDER_NAME, folder.name)
 			serializer.attribute("", Names.FOLDER_CREATED, folder.created.toString())
+			progressUpdater.titleParam = folder.name
 
+			var exportedCount = 0
 			if (gameId == ALL_IDS) {
-				db.getPuzzleListCursor(folder.id, null, null).forEach { cursor ->
+				db.getPuzzleListCursor(folder.id).forEach { cursor ->
 					serializeGame(serializer, extractSudokuGameFromCursorRow(cursor))
+					exportedCount += 1
+					progressUpdater.currentValue = exportedCount
+					progressUpdater.maxValue = cursor.count
 				}
 			} else {
 				serializeGame(serializer, db.getPuzzle(gameId)!!)

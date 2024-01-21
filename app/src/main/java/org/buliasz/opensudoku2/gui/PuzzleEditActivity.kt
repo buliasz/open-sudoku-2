@@ -52,7 +52,7 @@ class PuzzleEditActivity : ThemedActivity() {
 		setContentView(R.layout.sudoku_edit)
 		mRootLayout = findViewById(R.id.root_layout)
 		val mBoard = findViewById<SudokuBoardView>(R.id.board_view)
-		mDatabase = SudokuDatabase(applicationContext)
+		mDatabase = SudokuDatabase(applicationContext, false)
 		val intent = intent
 		val action = intent.action
 		val mPuzzleID: Long
