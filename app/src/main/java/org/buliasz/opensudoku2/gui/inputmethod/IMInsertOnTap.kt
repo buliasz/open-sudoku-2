@@ -229,36 +229,37 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 	}
 
 	override fun onCellTapped(cell: Cell) {
-		var selNumber = mSelectedNumber
+		var selectedDigit = mSelectedNumber
 		when (mEditMode) {
-			MODE_EDIT_CORNER_NOTE -> if (selNumber == 0) {
+			MODE_EDIT_CORNER_NOTE -> if (selectedDigit == 0) {
 				mGame.setCellCornerNote(cell, CellNote.EMPTY)
-			} else if (selNumber in 1..9) {
-				val newNote = cell.cornerNote.toggleNumber(selNumber)
+			} else if (selectedDigit in 1..9) {
+				val newNote = cell.cornerNote.toggleNumber(selectedDigit)
 				mGame.setCellCornerNote(cell, newNote)
 				// if we toggled the note off we want to de-select the cell
-				if (!newNote.hasNumber(selNumber)) {
+				if (!newNote.hasNumber(selectedDigit)) {
 					mBoard.clearCellSelection()
 				}
 			}
 
-			MODE_EDIT_CENTER_NOTE -> if (selNumber == 0) {
+			MODE_EDIT_CENTER_NOTE -> if (selectedDigit == 0) {
 				mGame.setCellCenterNote(cell, CellNote.EMPTY)
-			} else if (selNumber in 1..9) {
-				val newNote = cell.centerNote.toggleNumber(selNumber)
+			} else if (selectedDigit in 1..9) {
+				val newNote = cell.centerNote.toggleNumber(selectedDigit)
 				mGame.setCellCenterNote(cell, newNote)
-				if (!newNote.hasNumber(selNumber)) {
+				if (!newNote.hasNumber(selectedDigit)) {
 					mBoard.clearCellSelection()
 				}
 			}
 
 			MODE_EDIT_VALUE -> {
 				// Normal flow, just set the value (or clear it if it is repeated touch)
-				if (selNumber == cell.value) {
-					selNumber = 0
+				if (selectedDigit == cell.value) {
+					selectedDigit = 0
 					mBoard.clearCellSelection()
 				}
-				mGame.setCellValue(cell, selNumber)
+				mGame.setCellValue(cell, selectedDigit)
+				beepIfAllOfDigitIn(selectedDigit)
 			}
 		}
 	}
