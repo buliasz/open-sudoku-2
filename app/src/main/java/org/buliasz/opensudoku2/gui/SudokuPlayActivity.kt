@@ -74,6 +74,7 @@ class SudokuPlayActivity : ThemedActivity() {
 				iconId = R.drawable.ic_info
 				titleId = R.string.well_done
 				message = this@SudokuPlayActivity.getString(R.string.congrats, mGameTimeFormatter.format(mSudokuGame.time))
+				onOkCallback = ::finish
 				show()
 			}
 		}

@@ -143,4 +143,9 @@ class CommandStack(private val mCells: CellCollection) {
 			result.push(command)
 		}
 	}
+
+	fun clean() {
+		mCommandStack.empty()
+		isEmpty = true
+	}
 }

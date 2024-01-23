@@ -224,6 +224,7 @@ class SudokuGame {
 				setCellValue(cell, cell.solution)
 			}
 		}
+		commandStack.clean()
 		return 1
 	}
 
