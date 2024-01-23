@@ -37,7 +37,6 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 	 * more than [CellCollection.SUDOKU_SIZE]-times, will be highlighted.
 	 */
 	internal var highlightCompletedValues = true
-	internal var showNumberTotals = false
 	private var mEditCellDialog: IMPopupDialog? = null
 	private var mSelectedCell: Cell? = null
 	private lateinit var mSwitchModeButton: Button
@@ -80,14 +79,15 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 
 	private fun ensureEditCellDialog() {
 		if (mEditCellDialog == null) {
-			with(IMPopupDialog(parent, mContext, mBoard)) {
+			mEditCellDialog = with(IMPopupDialog(parent, mContext, mBoard)) {
 				onNumberEditListener = mOnNumberEditListener
 				onNoteEditListener = mOnNoteEditListener
 				setOnDismissListener(mOnPopupDismissedListener)
-				setShowNumberTotals(showNumberTotals)
+				setShowNumberTotals(showDigitCount)
 				setHighlightCompletedValues(highlightCompletedValues)
-				mEditCellDialog = this
+				this
 			}
+			mDigitButtons = mEditCellDialog!!.mNumberButtons
 		}
 	}
 

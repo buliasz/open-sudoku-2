@@ -38,7 +38,7 @@ import org.buliasz.opensudoku2.gui.SudokuBoardView
 class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoardView) : Dialog(mContext) {
 	private val mInflater: LayoutInflater
 	private var mEditMode = InputMethod.MODE_EDIT_VALUE
-	private val mNumberButtons: MutableMap<Int, NumberButton> = HashMap()
+	val mNumberButtons: MutableMap<Int, NumberButton> = HashMap()
 
 	// selected number on "Select number" tab (0 if nothing is selected).
 	private var mSelectedNumber = 0
@@ -229,8 +229,8 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 			return
 		}
 		mShowNumberTotals = showNumberTotals
-		for (b in mNumberButtons.values) {
-			b.showNumbersPlaced = mShowNumberTotals
+		for (button in mNumberButtons.values) {
+			button.showNumbersPlaced = mShowNumberTotals
 		}
 	}
 

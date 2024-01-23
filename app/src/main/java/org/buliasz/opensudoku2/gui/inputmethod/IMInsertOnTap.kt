@@ -46,12 +46,10 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 	 * more than [CellCollection.SUDOKU_SIZE]-times, will be highlighted.
 	 */
 	internal var highlightCompletedValues = true
-	internal var showNumberTotals = false
 	internal var bidirectionalSelection = true
 	internal var highlightSimilar = true
 	private var mSelectedNumber = 0
 	private var mEditMode: Int = MODE_EDIT_VALUE
-	private var mNumberButtons: MutableMap<Int, NumberButton>? = null
 
 	// Conceptually these behave like RadioButtons. However, it's difficult to style a RadioButton
 	// without re-implementing all the drawables, and they would require a custom parent layout
@@ -117,18 +115,18 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 		numberButtons[9] = controlPanel.findViewById(R.id.button_9)
 		val textColor: ColorStateList = makeTextColorStateList(mBoard)
 		val backgroundColor: ColorStateList = makeBackgroundColorStateList(mBoard)
-		for ((key, b) in numberButtons) {
-			with(b) {
+		for ((key, button) in numberButtons) {
+			with(button) {
 				tag = key
 				setOnClickListener(mNumberButtonClicked)
 				setOnTouchListener(mNumberButtonTouched)
-				showNumbersPlaced = showNumberTotals
+				showNumbersPlaced = showDigitCount
 				enableAllNumbersPlaced = highlightCompletedValues
 				backgroundTintList = backgroundColor
 				setTextColor(textColor)
 			}
 		}
-		mNumberButtons = numberButtons
+		mDigitButtons = numberButtons
 
 		with(controlPanel.findViewById<MaterialButton>(R.id.button_clear)) {
 			tag = 0
@@ -189,7 +187,7 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 			}
 		}
 		val valuesUseCount = mGame.cells.valuesUseCount
-		for (button in mNumberButtons!!.values) {
+		for (button in mDigitButtons!!.values) {
 			val tag = button.tag as Int
 			button.mode = mEditMode
 			if (mSelectedNumber == tag) {

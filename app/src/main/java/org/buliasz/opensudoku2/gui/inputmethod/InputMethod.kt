@@ -29,6 +29,7 @@ import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.game.Cell
 import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.gui.HintsQueue
+import org.buliasz.opensudoku2.gui.NumberButton
 import org.buliasz.opensudoku2.gui.SudokuBoardView
 import org.buliasz.opensudoku2.gui.inputmethod.IMControlPanelStatePersister.StateBundle
 import kotlin.math.ceil
@@ -46,6 +47,16 @@ abstract class InputMethod {
 	private var mHintsQueue: HintsQueue? = null
 	private var mInputMethodView: View? = null
 	protected var mActive = false
+	internal var showDigitCount = false
+		set(value) {
+			if (field != value) {
+				field = value
+				mDigitButtons?.forEach { (_, button) ->
+					button.showNumbersPlaced = value
+				}
+			}
+		}
+	internal var mDigitButtons: MutableMap<Int, NumberButton>? = null
 
 	/**
 	 * This should be unique name of input method.
@@ -217,7 +228,7 @@ abstract class InputMethod {
 
 	protected fun beepIfAllOfDigitIn(digit: Int) {
 		if (digit > 0 && mGame.cells.valuesUseCount[digit] == 9) {
-			ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100).startTone(ToneGenerator.TONE_PROP_ACK, 300) // TONE_CDMA_INTERCEPT
+			ToneGenerator(AudioManager.STREAM_MUSIC, 100).startTone(ToneGenerator.TONE_PROP_ACK, 300) // TONE_CDMA_INTERCEPT
 		}
 	}
 }

@@ -44,11 +44,9 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 	 * more than [CellCollection.SUDOKU_SIZE]-times, will be highlighted.
 	 */
 	internal var highlightCompletedValues = true
-	internal var showNumberTotals = false
 	private var mSelectedCell: Cell? = null
 	private var mClearButton: IconButton? = null
 	private var mEditMode = MODE_EDIT_VALUE
-	private var mNumberButtons: MutableMap<Int, NumberButton>? = null
 
 	// Conceptually these behave like RadioButtons. However, it's difficult to style a RadioButton
 	// without re-implementing all the drawables, and they would require a custom parent layout
@@ -118,12 +116,12 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 			val button = numberButtons[num]
 			button!!.tag = num
 			button.setOnClickListener(mNumberButtonClicked)
-			button.showNumbersPlaced = showNumberTotals
+			button.showNumbersPlaced = showDigitCount
 			button.enableAllNumbersPlaced = highlightCompletedValues
 			button.backgroundTintList = backgroundColor
 			button.setTextColor(textColor)
 		}
-		mNumberButtons = numberButtons
+		mDigitButtons = numberButtons
 
 		val clearButton = controlPanel.findViewById<IconButton>(R.id.button_clear)
 		clearButton.tag = 0
@@ -213,7 +211,7 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 			}
 		}
 		val valuesUseCount = mGame.cells.valuesUseCount
-		for (button in mNumberButtons!!.values) {
+		mDigitButtons?.values?.forEach { button ->
 			val tag = button.tag as Int
 
 			// Enable / disable the button, depending on the editable state of the selected cell

@@ -175,14 +175,14 @@ class SudokuPlayActivity : ThemedActivity() {
 		mIMInsertOnTap.isEnabled = (gameSettings.getBoolean("insert_on_tap", true))
 		mIMSelectOnTap.isEnabled = (gameSettings.getBoolean("select_on_tap", true))
 		mIMPopup.highlightCompletedValues = gameSettings.getBoolean("highlight_completed_values", true)
-		mIMPopup.showNumberTotals = gameSettings.getBoolean("show_number_totals", false)
+		mIMPopup.showDigitCount = gameSettings.getBoolean("show_number_totals", false)
 		mIMInsertOnTap.highlightCompletedValues = gameSettings.getBoolean("highlight_completed_values", true)
-		mIMInsertOnTap.showNumberTotals = gameSettings.getBoolean("show_number_totals", false)
+		mIMInsertOnTap.showDigitCount = gameSettings.getBoolean("show_number_totals", false)
 		mIMInsertOnTap.bidirectionalSelection = gameSettings.getBoolean("bidirectional_selection", true)
 		mIMInsertOnTap.highlightSimilar = gameSettings.getBoolean("highlight_similar", true)
 		mIMInsertOnTap.onSelectedNumberChangedListener = onSelectedNumberChangedListener
 		mIMSelectOnTap.highlightCompletedValues = gameSettings.getBoolean("highlight_completed_values", true)
-		mIMSelectOnTap.showNumberTotals = gameSettings.getBoolean("show_number_totals", false)
+		mIMSelectOnTap.showDigitCount = gameSettings.getBoolean("show_number_totals", false)
 		mIMControlPanel.activateFirstInputMethod() // make sure that some input method is activated
 		mIMControlPanelStatePersister.restoreState(mIMControlPanel)
 		if (!mSudokuBoard.isReadOnly) {
