@@ -270,7 +270,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 								canvas.drawCircle(
 									cellLeft + (noteCol + 0.5f) * noteWidth + 2,
 									cellTop + mNoteTop + (noteRow + 0.5f) * mPaints[row][col][2].textSize,
-									mPaints[row][col][2].textSize * 0.7f,
+									mPaints[row][col][2].textSize * 0.6f,
 									mBackgroundHighlighted
 								)
 							}
@@ -312,7 +312,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 								canvas.drawCircle(
 									cellLeft + offsetX - bounds.width() / 2f + bounds.width() / cell.centerNote.notedNumbers.size * (it.index + 0.5f),
 									cellTop + offsetY - bounds.height() / 2f,
-									mPaints[row][col][2].textSize * 0.7f,
+									mPaints[row][col][2].textSize * 0.6f,
 									mBackgroundHighlighted
 								)
 							}

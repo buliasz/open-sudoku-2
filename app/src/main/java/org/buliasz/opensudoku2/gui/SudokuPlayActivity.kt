@@ -46,6 +46,7 @@ import org.buliasz.opensudoku2.utils.ThemeUtils
 
 
 class SudokuPlayActivity : ThemedActivity() {
+	private var bellEnabled: Boolean = true
 	private lateinit var settingsLauncher: ActivityResultLauncher<Intent>
 	private lateinit var mSudokuGame: SudokuGame
 	private lateinit var mDatabase: SudokuDatabase
@@ -91,7 +92,7 @@ class SudokuPlayActivity : ThemedActivity() {
 	private val onDigitFinishedListener: ((Int) -> Unit) = { digit ->
 		mSudokuBoard.blinkValue(digit)
 		val audioService = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-		if (!audioService.isStreamMute(AudioManager.STREAM_MUSIC) && audioService.ringerMode == AudioManager.RINGER_MODE_NORMAL) {
+		if (bellEnabled && !audioService.isStreamMute(AudioManager.STREAM_MUSIC) && audioService.ringerMode == AudioManager.RINGER_MODE_NORMAL) {
 			val volume = 100 * audioService.getStreamVolume(AudioManager.STREAM_MUSIC) / audioService.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
 			ToneGenerator(AudioManager.STREAM_MUSIC, volume).startTone(ToneGenerator.TONE_PROP_ACK, 300)
 		}
@@ -141,7 +142,7 @@ class SudokuPlayActivity : ThemedActivity() {
 		mSudokuGame.onPuzzleSolvedListener = onSolvedListener
 		mSudokuGame.onDigitFinishedManuallyListener = onDigitFinishedListener
 		mSudokuGame.onHasUndoChangedListener =
-			{ isUndoStackEmpty -> mOptionsMenu.findItem(MENU_ITEM_UNDO_ACTION).setEnabled(!isUndoStackEmpty) }
+			{ isUndoStackEmpty -> mOptionsMenu.findItem(MenuItems.UNDO_ACTION.id).setEnabled(!isUndoStackEmpty) }
 		mHintsQueue.showOneTimeHint("welcome", R.string.welcome, R.string.first_run_hint)
 		mIMControlPanel = findViewById(R.id.input_methods)
 		mIMControlPanel.initialize(mSudokuBoard, mSudokuGame, mHintsQueue)
@@ -162,6 +163,7 @@ class SudokuPlayActivity : ThemedActivity() {
 		val screenPadding = gameSettings.getInt("screen_border_size", 0)
 		mRootLayout.setPadding(screenPadding, screenPadding, screenPadding, screenPadding)
 		mFillInNotesEnabled = gameSettings.getBoolean("fill_in_notes_enabled", false)
+		bellEnabled = gameSettings.getBoolean("bell_enabled", true)
 		val theme = gameSettings.getString("theme", "opensudoku2")
 		if (theme == "custom" || theme == "custom_light") {
 			ThemeUtils.applyCustomThemeToSudokuBoardViewFromSharedPreferences(this, mSudokuBoard)
@@ -237,40 +239,44 @@ class SudokuPlayActivity : ThemedActivity() {
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
 		super.onCreateOptionsMenu(menu)
 		// action menu
-		menu.add(0, MENU_ITEM_UNDO_ACTION, 0, R.string.undo)
+		menu.add(0, MenuItems.BELL_ACTION.id, 0, "bell")
+			.setIcon(if (bellEnabled) R.drawable.notifications_active else R.drawable.notifications_off)
+			.setEnabled(true)
+			.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+		menu.add(0, MenuItems.UNDO_ACTION.id, 1, R.string.undo)
 			.setIcon(R.drawable.ic_undo)
 			.setEnabled(mSudokuGame.hasSomethingToUndo())
 			.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-		menu.add(0, MENU_ITEM_SETTINGS_ACTION, 8, R.string.settings)
+		menu.add(0, MenuItems.SETTINGS_ACTION.id, 2, R.string.settings)
 			.setIcon(R.drawable.ic_settings)
 			.setEnabled(true)
 			.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
 
 		// drop-down menu
-		menu.add(0, MENU_ITEM_UNDO, 0, R.string.undo)
+		menu.add(0, MenuItems.UNDO.id, 0, R.string.undo)
 			.setShortcut('1', 'u')
 			.setIcon(R.drawable.ic_undo)
 		if (mFillInNotesEnabled) {
-			menu.add(0, MENU_ITEM_FILL_IN_NOTES, 1, R.string.fill_in_notes)
+			menu.add(0, MenuItems.FILL_IN_NOTES.id, 1, R.string.fill_in_notes)
 				.setIcon(R.drawable.ic_edit_grey)
 		}
-		menu.add(0, MENU_ITEM_FILL_IN_NOTES_WITH_ALL_VALUES, 1, R.string.fill_all_notes)
+		menu.add(0, MenuItems.FILL_IN_NOTES_WITH_ALL_VALUES.id, 1, R.string.fill_all_notes)
 			.setIcon(R.drawable.ic_edit_grey)
-		menu.add(0, MENU_ITEM_CLEAR_ALL_NOTES, 2, R.string.clear_all_notes)
+		menu.add(0, MenuItems.CLEAR_ALL_NOTES.id, 2, R.string.clear_all_notes)
 			.setShortcut('3', 'a')
 			.setIcon(R.drawable.ic_delete)
-		menu.add(0, MENU_ITEM_SET_CHECKPOINT, 3, R.string.set_checkpoint)
-		menu.add(0, MENU_ITEM_UNDO_TO_CHECKPOINT, 4, R.string.undo_to_checkpoint)
-		menu.add(0, MENU_ITEM_UNDO_TO_BEFORE_MISTAKE, 4, R.string.undo_to_before_mistake)
-		menu.add(0, MENU_ITEM_HINT, 5, R.string.hint)
-		menu.add(0, MENU_ITEM_SOLVE, 6, R.string.solve_puzzle)
-		menu.add(0, MENU_ITEM_RESTART, 7, R.string.restart)
+		menu.add(0, MenuItems.SET_CHECKPOINT.id, 3, R.string.set_checkpoint)
+		menu.add(0, MenuItems.UNDO_TO_CHECKPOINT.id, 4, R.string.undo_to_checkpoint)
+		menu.add(0, MenuItems.UNDO_TO_BEFORE_MISTAKE.id, 4, R.string.undo_to_before_mistake)
+		menu.add(0, MenuItems.HINT.id, 5, R.string.hint)
+		menu.add(0, MenuItems.SOLVE.id, 6, R.string.solve_puzzle)
+		menu.add(0, MenuItems.RESTART.id, 7, R.string.restart)
 			.setShortcut('7', 'r')
 			.setIcon(R.drawable.ic_restore)
-		menu.add(0, MENU_ITEM_SETTINGS, 8, R.string.settings)
+		menu.add(0, MenuItems.SETTINGS.id, 8, R.string.settings)
 			.setShortcut('9', 's')
 			.setIcon(R.drawable.ic_settings)
-		menu.add(0, MENU_ITEM_HELP, 9, R.string.help)
+		menu.add(0, MenuItems.HELP.id, 9, R.string.help)
 			.setShortcut('0', 'h')
 			.setIcon(R.drawable.ic_help)
 
@@ -292,31 +298,31 @@ class SudokuPlayActivity : ThemedActivity() {
 	override fun onPrepareOptionsMenu(menu: Menu): Boolean {
 		super.onPrepareOptionsMenu(menu)
 		if (mSudokuGame.state == SudokuGame.GAME_STATE_PLAYING) {
-			menu.findItem(MENU_ITEM_CLEAR_ALL_NOTES).setEnabled(true)
+			menu.findItem(MenuItems.CLEAR_ALL_NOTES.id).setEnabled(true)
 			if (mFillInNotesEnabled) {
-				menu.findItem(MENU_ITEM_FILL_IN_NOTES).setEnabled(true)
+				menu.findItem(MenuItems.FILL_IN_NOTES.id).setEnabled(true)
 			}
-			menu.findItem(MENU_ITEM_FILL_IN_NOTES_WITH_ALL_VALUES).setEnabled(true)
-			menu.findItem(MENU_ITEM_UNDO).setEnabled(mSudokuGame.hasSomethingToUndo())
-			menu.findItem(MENU_ITEM_UNDO_TO_CHECKPOINT).setEnabled(mSudokuGame.hasUndoCheckpoint())
+			menu.findItem(MenuItems.FILL_IN_NOTES_WITH_ALL_VALUES.id).setEnabled(true)
+			menu.findItem(MenuItems.UNDO.id).setEnabled(mSudokuGame.hasSomethingToUndo())
+			menu.findItem(MenuItems.UNDO_TO_CHECKPOINT.id).setEnabled(mSudokuGame.hasUndoCheckpoint())
 		} else {
-			menu.findItem(MENU_ITEM_CLEAR_ALL_NOTES).setEnabled(false)
+			menu.findItem(MenuItems.CLEAR_ALL_NOTES.id).setEnabled(false)
 			if (mFillInNotesEnabled) {
-				menu.findItem(MENU_ITEM_FILL_IN_NOTES).setEnabled(false)
+				menu.findItem(MenuItems.FILL_IN_NOTES.id).setEnabled(false)
 			}
-			menu.findItem(MENU_ITEM_FILL_IN_NOTES_WITH_ALL_VALUES).setEnabled(false)
-			menu.findItem(MENU_ITEM_UNDO).setEnabled(false)
-			menu.findItem(MENU_ITEM_UNDO_TO_CHECKPOINT).setEnabled(false)
-			menu.findItem(MENU_ITEM_UNDO_TO_BEFORE_MISTAKE).setEnabled(false)
-			menu.findItem(MENU_ITEM_SOLVE).setEnabled(false)
-			menu.findItem(MENU_ITEM_HINT).setEnabled(false)
+			menu.findItem(MenuItems.FILL_IN_NOTES_WITH_ALL_VALUES.id).setEnabled(false)
+			menu.findItem(MenuItems.UNDO.id).setEnabled(false)
+			menu.findItem(MenuItems.UNDO_TO_CHECKPOINT.id).setEnabled(false)
+			menu.findItem(MenuItems.UNDO_TO_BEFORE_MISTAKE.id).setEnabled(false)
+			menu.findItem(MenuItems.SOLVE.id).setEnabled(false)
+			menu.findItem(MenuItems.HINT.id).setEnabled(false)
 		}
 		return true
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
-			MENU_ITEM_RESTART -> {
+			MenuItems.RESTART.id -> {
 				with(SimpleDialog(supportFragmentManager)) {
 					iconId = R.drawable.ic_restore
 					titleId = R.string.app_name
@@ -327,7 +333,7 @@ class SudokuPlayActivity : ThemedActivity() {
 				return true
 			}
 
-			MENU_ITEM_CLEAR_ALL_NOTES -> {
+			MenuItems.CLEAR_ALL_NOTES.id -> {
 				with(SimpleDialog(supportFragmentManager)) {
 					iconId = R.drawable.ic_delete
 					titleId = R.string.app_name
@@ -338,40 +344,50 @@ class SudokuPlayActivity : ThemedActivity() {
 				return true
 			}
 
-			MENU_ITEM_FILL_IN_NOTES -> {
+			MenuItems.FILL_IN_NOTES.id -> {
 				mSudokuGame.fillInNotes()
 				return true
 			}
 
-			MENU_ITEM_FILL_IN_NOTES_WITH_ALL_VALUES -> {
+			MenuItems.FILL_IN_NOTES_WITH_ALL_VALUES.id -> {
 				mSudokuGame.fillInNotesWithAllValues()
 				return true
 			}
 
-			MENU_ITEM_UNDO_ACTION, MENU_ITEM_UNDO -> {
+			MenuItems.UNDO_ACTION.id, MenuItems.UNDO.id -> {
 				val undoneCell = mSudokuGame.undo()
 				selectCell(undoneCell)
 				return true
 			}
 
-			MENU_ITEM_SETTINGS_ACTION, MENU_ITEM_SETTINGS -> {
+			MenuItems.BELL_ACTION.id -> {
+				bellEnabled = !bellEnabled
+				val gameSettings = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+				val editor = gameSettings.edit()
+				editor.putBoolean("bell_enabled", bellEnabled)
+				editor.apply()
+				item.setIcon(if (bellEnabled) R.drawable.notifications_active else R.drawable.notifications_off)
+				return true
+			}
+
+			MenuItems.SETTINGS_ACTION.id, MenuItems.SETTINGS.id -> {
 				val i = Intent()
 				i.setClass(this, GameSettingsActivity::class.java)
 				settingsLauncher.launch(i)
 				return true
 			}
 
-			MENU_ITEM_HELP -> {
+			MenuItems.HELP.id -> {
 				mHintsQueue.showHint(R.string.help, R.string.help_text)
 				return true
 			}
 
-			MENU_ITEM_SET_CHECKPOINT -> {
+			MenuItems.SET_CHECKPOINT.id -> {
 				mSudokuGame.setUndoCheckpoint()
 				return true
 			}
 
-			MENU_ITEM_UNDO_TO_CHECKPOINT -> {
+			MenuItems.UNDO_TO_CHECKPOINT.id -> {
 				with(SimpleDialog(supportFragmentManager)) {
 					iconId = R.drawable.ic_undo
 					titleId = R.string.app_name
@@ -385,7 +401,7 @@ class SudokuPlayActivity : ThemedActivity() {
 				return true
 			}
 
-			MENU_ITEM_UNDO_TO_BEFORE_MISTAKE -> {
+			MenuItems.UNDO_TO_BEFORE_MISTAKE.id -> {
 				with(SimpleDialog(supportFragmentManager)) {
 					iconId = R.drawable.ic_undo
 					titleId = R.string.app_name
@@ -399,7 +415,7 @@ class SudokuPlayActivity : ThemedActivity() {
 				return true
 			}
 
-			MENU_ITEM_SOLVE -> {
+			MenuItems.SOLVE.id -> {
 				with(SimpleDialog(supportFragmentManager)) {
 					titleId = R.string.app_name
 					messageId = R.string.solve_puzzle_confirm
@@ -416,7 +432,7 @@ class SudokuPlayActivity : ThemedActivity() {
 				return true
 			}
 
-			MENU_ITEM_HINT -> {
+			MenuItems.HINT.id -> {
 				with(SimpleDialog(supportFragmentManager)) {
 					messageId = R.string.hint_confirm
 					onOkCallback = {
@@ -455,9 +471,9 @@ class SudokuPlayActivity : ThemedActivity() {
 		if (mShowTime) {
 			mGameTimer.start()
 		}
-		mOptionsMenu.findItem(MENU_ITEM_SOLVE).setEnabled(true)
-		mOptionsMenu.findItem(MENU_ITEM_HINT).setEnabled(true)
-		mOptionsMenu.findItem(MENU_ITEM_UNDO_ACTION).setEnabled(mSudokuGame.hasSomethingToUndo())
+		mOptionsMenu.findItem(MenuItems.SOLVE.id).setEnabled(true)
+		mOptionsMenu.findItem(MenuItems.HINT.id).setEnabled(true)
+		mOptionsMenu.findItem(MenuItems.UNDO_ACTION.id).setEnabled(mSudokuGame.hasSomethingToUndo())
 	}
 
 	/**
@@ -490,20 +506,25 @@ class SudokuPlayActivity : ThemedActivity() {
 	}
 
 	companion object {
-		const val MENU_ITEM_RESTART = Menu.FIRST
-		const val MENU_ITEM_CLEAR_ALL_NOTES = Menu.FIRST + 1
-		const val MENU_ITEM_FILL_IN_NOTES = Menu.FIRST + 2
-		const val MENU_ITEM_FILL_IN_NOTES_WITH_ALL_VALUES = Menu.FIRST + 3
-		const val MENU_ITEM_UNDO_ACTION = Menu.FIRST + 4
-		const val MENU_ITEM_UNDO = Menu.FIRST + 5
-		const val MENU_ITEM_HELP = Menu.FIRST + 6
-		const val MENU_ITEM_SETTINGS_ACTION = Menu.FIRST + 7
-		const val MENU_ITEM_SETTINGS = Menu.FIRST + 8
-		const val MENU_ITEM_SET_CHECKPOINT = Menu.FIRST + 9
-		const val MENU_ITEM_UNDO_TO_CHECKPOINT = Menu.FIRST + 10
-		const val MENU_ITEM_UNDO_TO_BEFORE_MISTAKE = Menu.FIRST + 11
-		const val MENU_ITEM_SOLVE = Menu.FIRST + 12
-		const val MENU_ITEM_HINT = Menu.FIRST + 13
+		enum class MenuItems {
+			RESTART,
+			CLEAR_ALL_NOTES,
+			FILL_IN_NOTES,
+			FILL_IN_NOTES_WITH_ALL_VALUES,
+			UNDO_ACTION,
+			UNDO,
+			HELP,
+			SETTINGS_ACTION,
+			SETTINGS,
+			SET_CHECKPOINT,
+			UNDO_TO_CHECKPOINT,
+			UNDO_TO_BEFORE_MISTAKE,
+			SOLVE,
+			HINT,
+			BELL_ACTION;
+
+			val id = ordinal + Menu.FIRST
+		}
 
 		// This class implements the game clock.  All it does is update the status each tick.
 		private class GameTimer(private val sudokuPlayActivity: SudokuPlayActivity) : Timer(1000, Looper.getMainLooper()) {
