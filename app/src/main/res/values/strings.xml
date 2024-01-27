@@ -23,8 +23,8 @@
 	<string name="version">Version %s</string>
 	<string name="homepage" translatable="false">https://github.com/buliasz/open-sudoku-2
 	</string>
-	<string name="send_me_bugs">Ideas, fixes etc. are welcome. If you run into a bug, don\'t hesitate to use the issue
-		tracker on the project\'s homepage.
+	<string name="send_me_bugs">Ideas, fixes etc. are welcome. If you run into a bug, don\'t hesitate to use the Issues / New issue
+		option on the project\'s homepage.
 	</string>
 
 	<string name="current_developers_label">Open Sudoku 2 Author</string>
@@ -47,7 +47,8 @@
 		@madcrow\n
 		@Tubix\n
 		@ceskyDJ\n
-		@fabpolli
+		@fabpolli\n
+		Bart Uliasz
 	</string>
 
 	<string name="close">Close</string>

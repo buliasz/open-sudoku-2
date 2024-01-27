@@ -100,7 +100,7 @@ class SudokuGame {
 		userNote = inState.getString(Names.USER_NOTE) ?: ""
 		commandStack.deserialize(inState.getString(Names.COMMAND_STACK))
 		folderId = inState.getLong(Names.FOLDER_ID)
-		validate()
+		mCells.validate()
 	}
 
 	/**
@@ -115,7 +115,7 @@ class SudokuGame {
 		get() = mCells
 		set(cells) {
 			mCells = cells
-			validate()
+			mCells.validate()
 			commandStack = CommandStack(mCells)
 		}
 
@@ -123,15 +123,15 @@ class SudokuGame {
 	 * Sets value for the given cell. 0 means empty cell.
 	 */
 	fun setCellValue(cell: Cell, value: Int, isManual: Boolean) {
-		if (!cell.isEditable) return
+		if (!cell.isEditable || cell.value == value) return
 		require(!(value < 0 || value > 9)) { "Value must be between 0-9." }
 
 		if (removeNotesOnEntry) {
-			executeCommand(SetCellValueAndRemoveNotesCommand(cell, value))
+			executeCommand(SetCellValueAndRemoveNotesCommand(cell, value), isManual)
 		} else {
-			executeCommand(SetCellValueCommand(cell, value))
+			executeCommand(SetCellValueCommand(cell, value), isManual)
 		}
-		if (validate()) {
+		if (mCells.validate()) {
 			if (isManual && value > 0 && cells.valuesUseCount[value] == 9) {
 				onDigitFinishedManuallyListener?.invoke(value)
 			}
@@ -145,23 +145,27 @@ class SudokuGame {
 	/**
 	 * Sets corner note attached to the given cell.
 	 */
-	fun setCellCornerNote(cell: Cell, note: CellNote) {
-		if (cell.isEditable) {
-			executeCommand(EditCellCornerNoteCommand(cell, note))
+	fun setCellCornerNote(cell: Cell, note: CellNote, isManual: Boolean): Boolean {
+		if (cell.isEditable && cell.cornerNote != note) {
+			executeCommand(EditCellCornerNoteCommand(cell, note), isManual)
+			return true
 		}
+		return false
 	}
 
 	/**
 	 * Sets center note attached to the given cell.
 	 */
-	fun setCellCenterNote(cell: Cell, note: CellNote) {
-		if (cell.isEditable) {
-			executeCommand(EditCellCenterNoteCommand(cell, note))
+	fun setCellCenterNote(cell: Cell, note: CellNote, isManual: Boolean): Boolean {
+		if (cell.isEditable && cell.centerNote != note) {
+			executeCommand(EditCellCenterNoteCommand(cell, note), isManual)
+			return true
 		}
+		return false
 	}
 
-	private fun executeCommand(c: AbstractCommand) {
-		commandStack.execute(c)
+	private fun executeCommand(c: AbstractCommand, isManual: Boolean) {
+		commandStack.execute(c, isManual)
 	}
 
 	/**
@@ -266,7 +270,7 @@ class SudokuGame {
 			}
 		}
 		commandStack = CommandStack(mCells)
-		validate()
+		mCells.validate()
 		time = 0
 		lastPlayed = 0
 		state = GAME_STATE_NOT_STARTED
@@ -280,21 +284,17 @@ class SudokuGame {
 	private val isCompleted: Boolean
 		get() = mCells.isCompleted
 
-	fun clearAllNotes() = executeCommand(ClearAllNotesCommand())
+	fun clearAllNotesManual() = executeCommand(ClearAllNotesCommand(), true)
 
 	/**
 	 * Fills in possible values which can be entered in each cell.
 	 */
-	fun fillInNotes() = executeCommand(FillInNotesCommand())
+	fun fillInNotesManual() = executeCommand(FillInNotesCommand(), true)
 
 	/**
 	 * Fills in all values which can be entered in each cell.
 	 */
-	fun fillInNotesWithAllValues() = executeCommand(FillInNotesWithAllValuesCommand())
-
-	private fun validate(): Boolean {
-		return mCells.validate()
-	}
+	fun fillInNotesWithAllValuesManual() = executeCommand(FillInNotesWithAllValuesCommand(), true)
 
 	companion object {
 		const val GAME_STATE_PLAYING = 0

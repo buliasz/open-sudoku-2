@@ -58,6 +58,10 @@ abstract class AbstractCommand {
 
 	companion object {
 		private val commands = arrayOf(
+			CommandDef(ManualActionCommand::class.java.simpleName, "c0",
+				object : CommandCreatorFunction {
+					override fun create(): AbstractCommand = ManualActionCommand()
+				}),
 			CommandDef(ClearAllNotesCommand::class.java.simpleName, "c1",
 				object : CommandCreatorFunction {
 					override fun create(): AbstractCommand = ClearAllNotesCommand()

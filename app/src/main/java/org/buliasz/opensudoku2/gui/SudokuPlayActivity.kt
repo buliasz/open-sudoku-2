@@ -338,19 +338,19 @@ class SudokuPlayActivity : ThemedActivity() {
 					iconId = R.drawable.ic_delete
 					titleId = R.string.app_name
 					messageId = R.string.clear_all_notes_confirm
-					onOkCallback = mSudokuGame::clearAllNotes
+					onOkCallback = mSudokuGame::clearAllNotesManual
 					show()
 				}
 				return true
 			}
 
 			MenuItems.FILL_IN_NOTES.id -> {
-				mSudokuGame.fillInNotes()
+				mSudokuGame.fillInNotesManual()
 				return true
 			}
 
 			MenuItems.FILL_IN_NOTES_WITH_ALL_VALUES.id -> {
-				mSudokuGame.fillInNotesWithAllValues()
+				mSudokuGame.fillInNotesWithAllValuesManual()
 				return true
 			}
 

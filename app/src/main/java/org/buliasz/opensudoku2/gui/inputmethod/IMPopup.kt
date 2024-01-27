@@ -27,8 +27,6 @@ import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.game.Cell
 import org.buliasz.opensudoku2.game.CellCollection
 import org.buliasz.opensudoku2.game.CellNote
-import org.buliasz.opensudoku2.gui.inputmethod.IMPopupDialog.OnNoteEditListener
-import org.buliasz.opensudoku2.gui.inputmethod.IMPopupDialog.OnNumberEditListener
 
 class IMPopup(val parent: ViewGroup) : InputMethod() {
 
@@ -43,27 +41,14 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 
 	/**
 	 * Occurs when user selects number in EditCellDialog.
-	 */
-	private val mOnNumberEditListener = OnNumberEditListener { digit ->
-		if (digit != -1) {
-			mGame.setCellValue(mSelectedCell, digit, true)
-			mBoard.highlightedValue = digit
-		}
-		true
-	}
-
-	/**
 	 * Occurs when user edits note in EditCellDialog
 	 */
-	private val mOnNoteEditListener: OnNoteEditListener = object : OnNoteEditListener {
-		override fun onCornerNoteEdit(numbers: Array<Int>): Boolean {
-			mGame.setCellCornerNote(mSelectedCell, CellNote.fromIntArray(numbers))
-			return true
-		}
-
-		override fun onCenterNoteEdit(numbers: Array<Int>): Boolean {
-			mGame.setCellCenterNote(mSelectedCell, CellNote.fromIntArray(numbers))
-			return true
+	private fun mOnCellUpdate(value: Int, cornerNotes: Array<Int>, centerNotes: Array<Int>) {
+		var manualRecorded = mGame.setCellCornerNote(mSelectedCell, CellNote.fromIntArray(cornerNotes), true)
+		manualRecorded = mGame.setCellCenterNote(mSelectedCell, CellNote.fromIntArray(centerNotes), !manualRecorded) || manualRecorded
+		if (value != -1) {
+			mGame.setCellValue(mSelectedCell, value, !manualRecorded)
+			mBoard.highlightedValue = value
 		}
 	}
 
@@ -75,8 +60,7 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 	private fun ensureEditCellDialog() {
 		if (mEditCellDialog == null) {
 			mEditCellDialog = with(IMPopupDialog(parent, mContext, mBoard)) {
-				onNumberEditListener = mOnNumberEditListener
-				onNoteEditListener = mOnNoteEditListener
+				cellUpdateCallback = ::mOnCellUpdate
 				setOnDismissListener(mOnPopupDismissedListener)
 				setShowNumberTotals(showDigitCount)
 				setHighlightCompletedValues(highlightCompletedValues)

@@ -49,18 +49,31 @@ class CommandStack(private val mCells: CellCollection) {
 		}
 	}
 
-	fun execute(command: AbstractCommand) {
+	fun execute(command: AbstractCommand, isManual: Boolean) {
+		if (isManual) {
+			push(ManualActionCommand())
+		}
 		push(command)
 		command.execute()
 	}
 
 	fun undo(): Cell? {
-		if (!isEmpty) {
-			val cellUndone = pop().undo()
-			validateCells()
-			return cellUndone
+		if (isEmpty) {
+			return null
 		}
-		return null
+
+		var lastCommand: AbstractCommand
+		var cellUndone: Cell? = null
+
+		do {
+			lastCommand = pop()
+			if (lastCommand !is ManualActionCommand && lastCommand !is CheckpointCommand) {
+				cellUndone = lastCommand.undo()
+			}
+		} while (!isEmpty && lastCommand !is ManualActionCommand)
+
+		mCells.validate()
+		return cellUndone
 	}
 
 	fun setCheckpoint() {
@@ -85,15 +98,15 @@ class CommandStack(private val mCells: CellCollection) {
 			c.undo()
 			if (c is CheckpointCommand) break
 		}
-		validateCells()
+		mCells.validate()
 	}
 
 	fun undoToSolvableState() {
 		require(mCells.solutionCount == 1) { "This puzzle has " + mCells.solutionCount + " solutions" }
 		while (!isEmpty && mCells.hasMistakes) {
-			pop().undo()
+			undo()
 		}
-		validateCells()
+		mCells.validate()
 	}
 
 	val lastCommandCell: Cell?
@@ -118,7 +131,9 @@ class CommandStack(private val mCells: CellCollection) {
 			command.cells = mCells
 		}
 		mCommandStack.push(command)
-		isEmpty = false
+		if (command !is CheckpointCommand) {
+			isEmpty = false
+		}
 	}
 
 	private fun pop(): AbstractCommand {
@@ -127,20 +142,16 @@ class CommandStack(private val mCells: CellCollection) {
 		return lastCommand
 	}
 
-	private fun validateCells() {
-		mCells.validate()
-	}
-
 	fun deserialize(data: String?) {
 		if (data == null || data == "") {
 			return
 		}
 		val st = StringTokenizer(data, "|")
-		val result = CommandStack(mCells)
+		clean()
 		val stackSize = st.nextToken().toInt()
 		for (i in 0..<stackSize) {
 			val command: AbstractCommand = AbstractCommand.deserialize(st)
-			result.push(command)
+			push(command)
 		}
 	}
 

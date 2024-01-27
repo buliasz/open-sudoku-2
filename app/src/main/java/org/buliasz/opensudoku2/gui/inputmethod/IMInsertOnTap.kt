@@ -230,10 +230,10 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 		var selectedDigit = mSelectedNumber
 		when (mEditMode) {
 			MODE_EDIT_CORNER_NOTE -> if (selectedDigit == 0) {
-				mGame.setCellCornerNote(cell, CellNote.EMPTY)
+				mGame.setCellCornerNote(cell, CellNote.EMPTY, true)
 			} else if (selectedDigit in 1..9) {
 				val newNote = cell.cornerNote.toggleNumber(selectedDigit)
-				mGame.setCellCornerNote(cell, newNote)
+				mGame.setCellCornerNote(cell, newNote, true)
 				// if we toggled the note off we want to de-select the cell
 				if (!newNote.hasNumber(selectedDigit)) {
 					mBoard.clearCellSelection()
@@ -241,10 +241,10 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 			}
 
 			MODE_EDIT_CENTER_NOTE -> if (selectedDigit == 0) {
-				mGame.setCellCenterNote(cell, CellNote.EMPTY)
+				mGame.setCellCenterNote(cell, CellNote.EMPTY, true)
 			} else if (selectedDigit in 1..9) {
 				val newNote = cell.centerNote.toggleNumber(selectedDigit)
-				mGame.setCellCenterNote(cell, newNote)
+				mGame.setCellCenterNote(cell, newNote, true)
 				if (!newNote.hasNumber(selectedDigit)) {
 					mBoard.clearCellSelection()
 				}

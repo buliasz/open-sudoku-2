@@ -651,9 +651,9 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 					// clear value in selected cell
 					if (selectedCell != null) {
 						if (event.isShiftPressed) {
-							mGame.setCellCornerNote(selectedCell!!, CellNote.EMPTY)
+							mGame.setCellCornerNote(selectedCell!!, CellNote.EMPTY, true)
 						} else if (event.isAltPressed) {
-							mGame.setCellCenterNote(selectedCell!!, CellNote.EMPTY)
+							mGame.setCellCenterNote(selectedCell!!, CellNote.EMPTY, true)
 						} else {
 							mGame.setCellValue(selectedCell!!, 0, true)
 							moveCellSelectionRight()
@@ -673,9 +673,9 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 				val selNumber = keyCode - KeyEvent.KEYCODE_0
 				val cell = selectedCell!!
 				if (event.isShiftPressed) {    // add or remove number in cell's corner note
-					mGame.setCellCornerNote(cell, cell.cornerNote.toggleNumber(selNumber))
+					mGame.setCellCornerNote(cell, cell.cornerNote.toggleNumber(selNumber), true)
 				} else if (event.isAltPressed) {    // add or remove number in cell's center note
-					mGame.setCellCenterNote(cell, cell.cornerNote.toggleNumber(selNumber))
+					mGame.setCellCenterNote(cell, cell.cornerNote.toggleNumber(selNumber), true)
 				} else {  // enter number in cell
 					mGame.setCellValue(cell, selNumber, true)
 					if (moveCellSelectionOnPress) {

@@ -53,14 +53,10 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 	private val mCenterNoteButton: MaterialButton
 
 	/**
-	 * Registers a callback to be invoked when number is selected.
+	 * Callback to be invoked when user selects a new cell value and/or corner/center notes.
 	 */
-	internal var onNumberEditListener: OnNumberEditListener? = null
+	internal lateinit var cellUpdateCallback: ((value: Int, cornerNotes: Array<Int>, centerNotes: Array<Int>) -> Unit)
 
-	/**
-	 * Register a callback to be invoked when note is edited.
-	 */
-	internal var onNoteEditListener: OnNoteEditListener? = null
 	private val mValueCount: MutableMap<Int, Int> = HashMap()
 
 	private val mNumberButtonClicked = View.OnClickListener { v: View ->
@@ -112,13 +108,7 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 
 	/** Synchronises state with the hosting activity and dismisses the dialog  */
 	private fun syncAndDismiss() {
-		if (onNumberEditListener != null) {
-			onNumberEditListener!!.onNumberEdit(mSelectedNumber)
-		}
-		if (onNoteEditListener != null) {
-			onNoteEditListener!!.onCornerNoteEdit(mCornerNoteSelectedNumbers.toTypedArray())
-			onNoteEditListener!!.onCenterNoteEdit(mCenterNoteSelectedNumbers.toTypedArray())
-		}
+		cellUpdateCallback(mSelectedNumber, mCornerNoteSelectedNumbers.toTypedArray(), mCenterNoteSelectedNumbers.toTypedArray())
 		dismiss()
 	}
 
@@ -280,22 +270,5 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 		mValueCount.clear()
 		mValueCount.putAll(count!!)
 		update()
-	}
-
-	/**
-	 * Interface definition for a callback to be invoked, when user selects a number, which
-	 * should be entered in the Sudoku cell.
-	 */
-	fun interface OnNumberEditListener {
-		fun onNumberEdit(number: Int): Boolean
-	}
-
-	/**
-	 * Interface definition for a callback to be invoked, when user selects new note
-	 * content.
-	 */
-	interface OnNoteEditListener {
-		fun onCornerNoteEdit(numbers: Array<Int>): Boolean
-		fun onCenterNoteEdit(numbers: Array<Int>): Boolean
 	}
 }

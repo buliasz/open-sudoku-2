@@ -71,15 +71,15 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 				}
 
 				MODE_EDIT_CORNER_NOTE -> if (selectedDigit == 0) {
-					mGame.setCellCornerNote(selCell, CellNote.EMPTY)
+					mGame.setCellCornerNote(selCell, CellNote.EMPTY, true)
 				} else if (selectedDigit in 1..9) {
-					mGame.setCellCornerNote(selCell, selCell.cornerNote.toggleNumber(selectedDigit))
+					mGame.setCellCornerNote(selCell, selCell.cornerNote.toggleNumber(selectedDigit), true)
 				}
 
 				MODE_EDIT_CENTER_NOTE -> if (selectedDigit == 0) {
-					mGame.setCellCenterNote(selCell, CellNote.EMPTY)
+					mGame.setCellCenterNote(selCell, CellNote.EMPTY, true)
 				} else if (selectedDigit in 1..9) {
-					mGame.setCellCenterNote(selCell, selCell.centerNote.toggleNumber(selectedDigit))
+					mGame.setCellCenterNote(selCell, selCell.centerNote.toggleNumber(selectedDigit), true)
 				}
 			}
 		}

@@ -20,49 +20,30 @@ package org.buliasz.opensudoku2.game
 import java.util.StringTokenizer
 
 /**
- * Note attached to cell. This object is immutable by design.
+ * Note attached to a cell. Immutable objects.
  */
-class CellNote {
-	private val mNotedNumbers: Short
-
-	constructor() {
-		mNotedNumbers = 0
-	}
-
-	private constructor(notedNumbers: Short) {
-		mNotedNumbers = notedNumbers
-	}
-
+class CellNote(private val binaryNotedNumbers: Short = 0) {
 	/**
-	 * Appends string representation of this object to the given `StringBuilder`.
-	 * You can later recreate object from this string by calling [.deserialize].
+	 * Returns numbers currently noted in cell.
 	 */
-	fun serialize(target: StringBuilder) {
-		target.append(mNotedNumbers.toInt())
-		target.append("|")
-	}
-
-	fun serialize(): String {
-		val sb = StringBuilder()
-		serialize(sb)
-		return "$sb"
-	}
-
 	val notedNumbers: MutableList<Int>
-		/**
-		 * Returns numbers currently noted in cell.
-		 */
 		get() {
 			val result: MutableList<Int> = ArrayList()
 			var c = 1
 			for (i in 0..8) {
-				if (mNotedNumbers.toInt() and c.toShort().toInt() != 0) {
+				if (binaryNotedNumbers.toInt() and c.toShort().toInt() != 0) {
 					result.add(i + 1)
 				}
 				c = c shl 1
 			}
 			return result
 		}
+
+	/**
+	 * Returns true, if note is empty.
+	 */
+	val isEmpty: Boolean
+		get() = binaryNotedNumbers == 0.toShort()
 
 	/**
 	 * Toggles noted number: if number is already noted, it will be removed otherwise it will be added.
@@ -72,7 +53,7 @@ class CellNote {
 	 */
 	fun toggleNumber(number: Int): CellNote {
 		require(!(number < 1 || number > 9)) { "Number must be between 1-9." }
-		return CellNote((mNotedNumbers.toInt() xor (1 shl number - 1)).toShort())
+		return CellNote((binaryNotedNumbers.toInt() xor (1 shl number - 1)).toShort())
 	}
 
 	/**
@@ -80,7 +61,7 @@ class CellNote {
 	 */
 	fun addNumber(number: Int): CellNote {
 		require(!(number < 1 || number > 9)) { "Number must be between 1-9." }
-		return CellNote((mNotedNumbers.toInt() or (1 shl number - 1)).toShort())
+		return CellNote((binaryNotedNumbers.toInt() or (1 shl number - 1)).toShort())
 	}
 
 	/**
@@ -88,24 +69,27 @@ class CellNote {
 	 */
 	fun removeNumber(number: Int): CellNote {
 		require(!(number < 1 || number > 9)) { "Number must be between 1-9." }
-		return CellNote((mNotedNumbers.toInt() and (1 shl number - 1).inv()).toShort())
+		return CellNote((binaryNotedNumbers.toInt() and (1 shl number - 1).inv()).toShort())
 	}
 
-	fun hasNumber(number: Int): Boolean {
-		return if (number < 1 || number > 9) {
-			false
-		} else mNotedNumbers.toInt() and (1 shl number - 1) != 0
+	fun hasNumber(number: Int): Boolean = if (number < 1 || number > 9) false else binaryNotedNumbers.toInt() and (1 shl number - 1) != 0
+
+	/**
+	 * Appends string representation of this object to the given `StringBuilder`.
+	 * You can later recreate object from this string by calling [.deserialize].
+	 */
+	fun serialize(target: StringBuilder) {
+		target.append(binaryNotedNumbers.toInt())
+		target.append("|")
 	}
 
-	fun clear(): CellNote = CellNote()
+	override fun equals(other: Any?): Boolean {
+		if (this === other) return true
+		if (other !is CellNote) return false
+		return binaryNotedNumbers == other.binaryNotedNumbers
+	}
 
-	val isEmpty: Boolean
-		/**
-		 * Returns true, if note is empty.
-		 *
-		 * @return True if note is empty.
-		 */
-		get() = mNotedNumbers.toInt() == 0
+	override fun hashCode(): Int = binaryNotedNumbers.toInt()
 
 	companion object {
 		val EMPTY = CellNote()
