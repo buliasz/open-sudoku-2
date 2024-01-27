@@ -40,6 +40,7 @@ class CellGroup {
 		val cellsByValue: MutableMap<Int, Cell> = HashMap()
 		for (cell in cells) {
 			val value = cell.value
+			if (value == 0) continue
 			if (cellsByValue[value] != null) {
 				cell.isValid = false
 				cellsByValue[value]!!.isValid = (false)

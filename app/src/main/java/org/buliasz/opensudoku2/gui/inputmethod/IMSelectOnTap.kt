@@ -63,8 +63,7 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 		if (selCell != null) {
 			when (mEditMode) {
 				MODE_EDIT_VALUE -> if (selectedDigit in 0..9) {
-					mGame.setCellValue(selCell, selectedDigit)
-					beepIfAllOfDigitIn(selectedDigit)
+					mGame.setCellValue(selCell, selectedDigit, true)
 					mBoard.highlightedValue = selectedDigit
 					if (isMoveCellSelectionOnPress) {
 						mBoard.moveCellSelectionRight()

@@ -19,14 +19,14 @@ package org.buliasz.opensudoku2.gui
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.os.SystemClock
 
 /**
- * This class implements a simple periodic timer.
- * Construct a periodic timer with a given tick interval.
+ * This class implements a simple periodic timer. Construct a periodic timer with a given tick interval.
  * @param mTickInterval The tick interval in ms.
  */
-internal abstract class Timer(private var mTickInterval: Long) : Handler() {
+internal abstract class Timer(private var mTickInterval: Long, looper: Looper) : Handler(looper) {
 	/**
 	 * Query whether this Timer is running.
 	 *

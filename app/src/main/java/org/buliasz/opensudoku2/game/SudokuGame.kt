@@ -45,6 +45,7 @@ class SudokuGame {
 	private var mUsedSolver = false
 	internal var removeNotesOnEntry = false
 	internal var onPuzzleSolvedListener: (() -> Unit)? = null
+	internal var onDigitFinishedManuallyListener: ((Int) -> Unit)? = null
 	var onHasUndoChangedListener: (isEmpty: Boolean) -> Unit
 		get() = commandStack.onEmptyChangeListener
 		set(value) {
@@ -121,19 +122,23 @@ class SudokuGame {
 	/**
 	 * Sets value for the given cell. 0 means empty cell.
 	 */
-	fun setCellValue(cell: Cell, value: Int) {
+	fun setCellValue(cell: Cell, value: Int, isManual: Boolean) {
+		if (!cell.isEditable) return
 		require(!(value < 0 || value > 9)) { "Value must be between 0-9." }
-		if (cell.isEditable) {
-			if (removeNotesOnEntry) {
-				executeCommand(SetCellValueAndRemoveNotesCommand(cell, value))
-			} else {
-				executeCommand(SetCellValueCommand(cell, value))
+
+		if (removeNotesOnEntry) {
+			executeCommand(SetCellValueAndRemoveNotesCommand(cell, value))
+		} else {
+			executeCommand(SetCellValueCommand(cell, value))
+		}
+		if (validate()) {
+			if (isManual && value > 0 && cells.valuesUseCount[value] == 9) {
+				onDigitFinishedManuallyListener?.invoke(value)
 			}
-			validate()
-			if (isCompleted) {
-				finish()
-				(onPuzzleSolvedListener ?: return).invoke()
-			}
+		}
+		if (isCompleted) {
+			finish()
+			onPuzzleSolvedListener?.invoke()
 		}
 	}
 
@@ -221,7 +226,7 @@ class SudokuGame {
 		for (row in 0..<SUDOKU_SIZE) {
 			for (col in 0..<SUDOKU_SIZE) {
 				val cell = mCells.getCell(row, col)
-				setCellValue(cell, cell.solution)
+				setCellValue(cell, cell.solution, false)
 			}
 		}
 		commandStack.clean()
@@ -235,7 +240,7 @@ class SudokuGame {
 	 */
 	fun solveCell(cell: Cell) {
 		require(mCells.solutionCount == 1) { "This puzzle has " + mCells.solutionCount + " solutions" }
-		setCellValue(cell, cell.solution)
+		setCellValue(cell, cell.solution, true)
 	}
 
 	/**
@@ -268,11 +273,11 @@ class SudokuGame {
 		mUsedSolver = false
 	}
 
+	/**
+	 * Returns true, if puzzle is solved. In order to know the current state, you have to
+	 * call validate first.
+	 */
 	private val isCompleted: Boolean
-		/**
-		 * Returns true, if puzzle is solved. In order to know the current state, you have to
-		 * call validate first.
-		 */
 		get() = mCells.isCompleted
 
 	fun clearAllNotes() = executeCommand(ClearAllNotesCommand())
@@ -287,8 +292,8 @@ class SudokuGame {
 	 */
 	fun fillInNotesWithAllValues() = executeCommand(FillInNotesWithAllValuesCommand())
 
-	private fun validate() {
-		mCells.validate()
+	private fun validate(): Boolean {
+		return mCells.validate()
 	}
 
 	companion object {

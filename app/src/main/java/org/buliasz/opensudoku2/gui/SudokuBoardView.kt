@@ -22,10 +22,13 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
+import android.os.Looper
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import androidx.annotation.ColorInt
 import com.google.android.material.color.MaterialColors
 import org.buliasz.opensudoku2.R
@@ -39,7 +42,9 @@ import kotlin.math.roundToInt
 /**
  * Sudoku board widget.
  */
-open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
+class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
+	private var blinkingValue: Int = 0
+	private val blinker = Blinker(this)
 	var selectedCell: Cell? = null
 		private set
 
@@ -74,18 +79,18 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 	 */
 	internal lateinit var onCellSelectedListener: (Cell?) -> Unit
 	private val mLinePaint = Paint()
-	private val mSectorLinePaint: Paint
-	private val mText: Paint
-	private val mTextReadOnly: Paint
-	private val mTextSecondary: Paint
-	private val mTextTouched: Paint
-	private val mTextFocused: Paint
-	private val mTextHighlighted: Paint
-	private val mTextNote: Paint
-	private val mTextNoteSecondary: Paint
-	private val mTextNoteTouched: Paint
-	private val mTextNoteFocused: Paint
-	private val mTextNoteHighlighted: Paint
+	private val mSectorLinePaint = Paint()
+	private val mText = Paint()
+	private val mTextReadOnly = Paint()
+	private val mTextSecondary = Paint()
+	private val mTextTouched = Paint()
+	private val mTextFocused = Paint()
+	private val mTextHighlighted = Paint()
+	private val mTextNote = Paint()
+	private val mTextNoteSecondary = Paint()
+	private val mTextNoteTouched = Paint()
+	private val mTextNoteFocused = Paint()
+	private val mTextNoteHighlighted = Paint()
 
 	/**
 	 * Stores the background and foreground paints for each cell so they can be drawn
@@ -96,19 +101,19 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 	 * So [1][3][0] is the background ([0]) paint of the cell in the second ([1]) row
 	 * in the fourth ([3]) column.
 	 */
-	private var mPaints = Array(9) { Array(9) { arrayOfNulls<Paint>(3) } }
+	private var mPaints: Array<Array<Array<Paint>>>
 	private var mNumberLeft = 0
 	private var mNumberTop = 0
 	private var mNoteTop = 0f
 	private var mSectorLineWidth = 0
-	private val mBackground: Paint
-	private val mBackgroundSecondary: Paint
-	private val mBackgroundReadOnly: Paint
-	private val mBackgroundTouched: Paint
-	private val mBackgroundFocused: Paint
-	private val mBackgroundHighlighted: Paint
-	private val mTextInvalid: Paint
-	private val mBackgroundInvalid: Paint
+	private val mBackground = Paint()
+	private val mBackgroundSecondary = Paint()
+	private val mBackgroundReadOnly = Paint()
+	private val mBackgroundTouched = Paint()
+	private val mBackgroundFocused = Paint()
+	private val mBackgroundHighlighted = Paint()
+	private val mTextInvalid = Paint()
+	private val mBackgroundInvalid = Paint()
 	private val bounds = Rect()
 	private val paint = Paint()
 
@@ -118,26 +123,6 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 	init {
 		isFocusable = true
 		isFocusableInTouchMode = true
-		mSectorLinePaint = Paint()
-		mText = Paint()
-		mTextReadOnly = Paint()
-		mTextInvalid = Paint()
-		mTextSecondary = Paint()
-		mTextTouched = Paint()
-		mTextFocused = Paint()
-		mTextHighlighted = Paint()
-		mTextNote = Paint()
-		mTextNoteSecondary = Paint()
-		mTextNoteTouched = Paint()
-		mTextNoteFocused = Paint()
-		mTextNoteHighlighted = Paint()
-		mBackground = Paint()
-		mBackgroundSecondary = Paint()
-		mBackgroundReadOnly = Paint()
-		mBackgroundTouched = Paint()
-		mBackgroundFocused = Paint()
-		mBackgroundHighlighted = Paint()
-		mBackgroundInvalid = Paint()
 		mText.isAntiAlias = true
 		mTextReadOnly.isAntiAlias = true
 		mTextInvalid.isAntiAlias = true
@@ -150,7 +135,242 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 		mTextNoteFocused.isAntiAlias = true
 		mTextNoteTouched.isAntiAlias = true
 		mTextNoteHighlighted.isAntiAlias = true
+		mPaints = Array(9) { Array(9) { arrayOf(mBackground, mText, mTextNote) } }
 		setAllColorsFromThemedContext(context)
+	}
+
+	override fun onDraw(canvas: Canvas) {
+		super.onDraw(canvas)
+
+		val width = width - paddingRight
+		val height = height - paddingBottom
+		val paddingLeft = paddingLeft
+		val paddingTop = paddingTop
+
+		// Ensure the whole canvas starts with the background colour, in case any other colours are transparent.
+		canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), mBackground)
+
+		// draw cells
+		var cellLeft: Int
+		var cellTop: Int
+		val notesPerRow = 5
+		val numberAscent = mText.ascent()
+		val noteAscent = mTextNote.ascent()
+		val noteWidth = mCellWidth / (notesPerRow + 1)
+		if (highlightIndirectlyWrongValues) {
+			mCells.solutionCount // make sure solution is filled in cells for highlighting
+		}
+		for (row in 0..8) {
+			for (col in 0..8) {
+				// Default colours for ordinary cells
+				mPaints[row][col][0] = mBackground
+				mPaints[row][col][1] = mText
+				mPaints[row][col][2] = mTextNote
+				val cell = mCells.getCell(row, col)
+
+				// Even boxes
+				if (mBackgroundSecondary.color != Color.TRANSPARENT) {
+					val boxNumber = row / 3 + col / 3 + 1 // 1-based
+					if (boxNumber % 2 == 0) {
+						mPaints[row][col][0] = mBackgroundSecondary
+						mPaints[row][col][1] = mTextSecondary
+						mPaints[row][col][2] = mTextNoteSecondary
+					} else {
+						mPaints[row][col][0] = mBackground
+						mPaints[row][col][1] = mText
+						mPaints[row][col][2] = mTextNote
+					}
+				}
+
+				// Read-only (given digit) cells
+				if (!cell.isEditable) {
+					mPaints[row][col][0] = mBackgroundReadOnly
+					mPaints[row][col][1] = mTextReadOnly
+				}
+
+				// Possibly highlight this cell if it contains the same digit (or, optionally,
+				// note) as the selected cell.
+				val cellIsNotAlreadySelected = selectedCell == null || selectedCell !== cell
+				val highlightedValueIsValid = highlightedValue != 0
+				var shouldHighlightCell = false
+				when (highlightSimilarCells) {
+					HighlightMode.NONE -> {}
+					HighlightMode.NUMBERS -> {
+						shouldHighlightCell = cellIsNotAlreadySelected && highlightedValueIsValid && highlightedValue == cell.value
+					}
+
+					HighlightMode.NUMBERS_AND_NOTES -> {
+						shouldHighlightCell = highlightedValueIsValid &&
+							(highlightedValue == cell.value) // || cell.notedNumbers.contains(highlightedValue) && cell.value == 0)
+					}
+				}
+				if (shouldHighlightCell) {
+					mPaints[row][col][0] = mBackgroundHighlighted
+					if (cell.isEditable) mPaints[row][col][1] = mTextHighlighted
+					mPaints[row][col][2] = mTextNoteHighlighted
+				}
+
+				// Seeing that a cell is invalid is more important than it being highlighted. Only mark editable cells as errors, there's no point
+				// marking a given cell with an error (partly because the user can't change it, and partly because then the user can't easily see which
+				// of the cells containing the error are editable).
+				if (highlightDirectlyWrongValues && cell.value != 0 && cell.isEditable && !cell.isValid) {
+					mPaints[row][col][0] = mBackgroundInvalid
+					mPaints[row][col][1] = mTextInvalid
+					mPaints[row][col][2] = mTextNote // Not read, set to avoid risk of NPEs
+				}
+				if (highlightIndirectlyWrongValues && cell.value != 0 && !cell.matchesSolution) {
+					mPaints[row][col][0] = mBackgroundInvalid
+					mPaints[row][col][1] = mTextInvalid
+					mPaints[row][col][2] = mTextNote // Not read, set to avoid risk of NPEs
+				}
+
+				// Highlight this cell if (a) we're highlighting cells in the same row/column as the touched cell, and (b) this cell is in that row or column.
+				if (highlightTouchedCell && mTouchedCell != null) {
+					val touchedRow = mTouchedCell!!.rowIndex
+					val touchedCol = mTouchedCell!!.columnIndex
+					if (row == touchedRow || col == touchedCol) {
+						mPaints[row][col][0] = mBackgroundTouched
+						mPaints[row][col][1] = mTextTouched
+						mPaints[row][col][2] = mTextNoteTouched
+					}
+				}
+				cellLeft = (col * mCellWidth + paddingLeft).roundToInt()
+				cellTop = (row * mCellHeight + paddingTop).roundToInt()
+
+				// Draw the cell background
+				canvas.drawRect(
+					cellLeft.toFloat(), cellTop.toFloat(),
+					cellLeft + mCellWidth, cellTop + mCellHeight,
+					mPaints[row][col][0]
+				)
+
+				// Draw cell contents
+				val value = cell.value
+				if (value != 0) {
+					var valuePaint = mPaints[row][col][1]
+					if (value == blinkingValue) {
+						valuePaint = mTextTouched
+					}
+					canvas.drawText(
+						"$value",
+						(cellLeft + mNumberLeft).toFloat(),
+						cellTop + mNumberTop - numberAscent,
+						valuePaint
+					)
+				} else {
+					// To draw notes the cell is divided to 3 rows (0-2) and notesPerRow columns.
+
+					// "corner" notes are drawn in rows 0 and 2, up to 5 in row 0, up to 4 in row 3, left-aligned.
+					if (!cell.cornerNote.isEmpty) {
+						for ((i, number) in cell.cornerNote.notedNumbers.withIndex()) {
+							val noteCol = i % notesPerRow
+							// First notesPerRow numbers draw on row 0, remaining draw on row 2.
+							val noteRow = if (i < notesPerRow) 0 else 2
+							if (number == highlightedValue) {
+								canvas.drawCircle(
+									cellLeft + (noteCol + 0.5f) * noteWidth + 2,
+									cellTop + mNoteTop + (noteRow + 0.5f) * mPaints[row][col][2].textSize,
+									mPaints[row][col][2].textSize * 0.7f,
+									mBackgroundHighlighted
+								)
+							}
+							canvas.drawText(
+								"$number",
+								cellLeft + noteCol * noteWidth + 2,
+								cellTop + mNoteTop - noteAscent + noteRow * mPaints[row][col][2].textSize - 1,
+								mPaints[row][col][2]
+							)
+						}
+					}
+
+					// "center" notes are drawn in row 1, centre-aligned.
+					if (!cell.centerNote.isEmpty) {
+						paint.set(mPaints[row][col][2])
+						paint.textAlign = Paint.Align.CENTER
+						val note = cell.centerNote.notedNumbers.joinToString("")
+
+						// Determine the font size (specifically, width) to use. The string
+						// may run out of the cell (typically if it's more than 5 digits long).
+						// If it will exceed the cell width, shrink the font.
+						paint.getTextBounds(note, 0, note.length, bounds)
+
+						// Horizontally align the centre note
+						val offsetX = mCellWidth / 2f
+
+						// If the centre note's width exceeds some percentage of the cell's
+						// width then scale down the size of the centre note, and recalculate
+						// the y offset.
+						if (bounds.width() / mCellWidth > 0.97f) {
+							paint.textSize = paint.textSize * mCellWidth * 0.97f / bounds.width()
+							paint.getTextBounds(note, 0, note.length, bounds)
+						}
+
+						// Vertically align the centre note
+						val offsetY = mCellHeight / 2f + bounds.height() / 2f
+						cell.centerNote.notedNumbers.withIndex().forEach {
+							if (it.value == highlightedValue) {
+								canvas.drawCircle(
+									cellLeft + offsetX - bounds.width() / 2f + bounds.width() / cell.centerNote.notedNumbers.size * (it.index + 0.5f),
+									cellTop + offsetY - bounds.height() / 2f,
+									mPaints[row][col][2].textSize * 0.7f,
+									mBackgroundHighlighted
+								)
+							}
+						}
+						canvas.drawText(
+							note,
+							cellLeft + offsetX,
+							cellTop + offsetY,
+							paint
+						)
+					}
+				}
+			}
+		}
+
+		// draw vertical lines
+		for (c in 0..9) {
+			val x = c * mCellWidth + paddingLeft
+			canvas.drawLine(x, paddingTop.toFloat(), x, height.toFloat(), mLinePaint)
+		}
+
+		// draw horizontal lines
+		for (r in 0..9) {
+			val y = r * mCellHeight + paddingTop
+			canvas.drawLine(paddingLeft.toFloat(), y, width.toFloat(), y, mLinePaint)
+		}
+		val sectorLineWidth1 = mSectorLineWidth / 2
+		val sectorLineWidth2 = sectorLineWidth1 + mSectorLineWidth % 2
+
+		// draw sector (thick) lines
+		var c = 0
+		while (c <= 9) {
+			val x = c * mCellWidth + paddingLeft
+			canvas.drawRect(x - sectorLineWidth1, paddingTop.toFloat(), x + sectorLineWidth2, height.toFloat(), mSectorLinePaint)
+			c += 3
+		}
+		var r = 0
+		while (r <= 9) {
+			val y = r * mCellHeight + paddingTop
+			canvas.drawRect(paddingLeft.toFloat(), y - sectorLineWidth1, width.toFloat(), y + sectorLineWidth2, mSectorLinePaint)
+			r += 3
+		}
+
+		// highlight selected cell
+		if (!mReadonly && selectedCell != null) {
+			cellLeft = (selectedCell!!.columnIndex * mCellWidth).roundToInt() + paddingLeft
+			cellTop = (selectedCell!!.rowIndex * mCellHeight).roundToInt() + paddingTop
+
+			// The stroke is drawn half inside and half outside the given cell. Compensate by adjusting the cell's bounds by half the
+			// stroke width to move it entirely inside the cell.
+			val halfStrokeWidth = mBackgroundFocused.strokeWidth / 2
+			mBackgroundFocused.alpha = 128
+			canvas.drawRect(
+				cellLeft + halfStrokeWidth, cellTop + halfStrokeWidth,
+				cellLeft + mCellWidth - halfStrokeWidth, cellTop + mCellHeight - halfStrokeWidth,
+				mBackgroundFocused
+			)
+		}
 	}
 
 	fun setAllColorsFromThemedContext(context: Context) {
@@ -392,231 +612,6 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 		return (sectorLineWidthInDip * dipScale).toInt()
 	}
 
-	override fun onDraw(canvas: Canvas) {
-		super.onDraw(canvas)
-
-		val width = width - paddingRight
-		val height = height - paddingBottom
-		val paddingLeft = paddingLeft
-		val paddingTop = paddingTop
-
-		// Ensure the whole canvas starts with the background colour, in case any other
-		// colours are transparent.
-		canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), mBackground)
-
-		// draw cells
-		var cellLeft: Int
-		var cellTop: Int
-		val notesPerRow = 5
-		val numberAscent = mText.ascent()
-		val noteAscent = mTextNote.ascent()
-		val noteWidth = mCellWidth / (notesPerRow + 1)
-		if (highlightIndirectlyWrongValues) {
-			mCells.solutionCount // make sure solution is filled in cells for highlighting
-		}
-		for (row in 0..8) {
-			for (col in 0..8) {
-				// Default colours for ordinary cells
-				mPaints[row][col][0] = mBackground
-				mPaints[row][col][1] = mText
-				mPaints[row][col][2] = mTextNote
-				val cell = mCells.getCell(row, col)
-
-				// Even boxes
-				if (mBackgroundSecondary.color != Color.TRANSPARENT) {
-					val boxNumber = row / 3 + col / 3 + 1 // 1-based
-					if (boxNumber % 2 == 0) {
-						mPaints[row][col][0] = mBackgroundSecondary
-						mPaints[row][col][1] = mTextSecondary
-						mPaints[row][col][2] = mTextNoteSecondary
-					} else {
-						mPaints[row][col][0] = mBackground
-						mPaints[row][col][1] = mText
-						mPaints[row][col][2] = mTextNote
-					}
-				}
-
-				// Read-only (given digit) cells
-				if (!cell.isEditable) {
-					mPaints[row][col][0] = mBackgroundReadOnly
-					mPaints[row][col][1] = mTextReadOnly
-				}
-
-				// Possibly highlight this cell if it contains the same digit (or, optionally,
-				// note) as the selected cell.
-				val cellIsNotAlreadySelected = selectedCell == null || selectedCell !== cell
-				val highlightedValueIsValid = highlightedValue != 0
-				var shouldHighlightCell = false
-				when (highlightSimilarCells) {
-					HighlightMode.NONE -> {}
-					HighlightMode.NUMBERS -> {
-						shouldHighlightCell = cellIsNotAlreadySelected && highlightedValueIsValid && highlightedValue == cell.value
-					}
-
-					HighlightMode.NUMBERS_AND_NOTES -> {
-						shouldHighlightCell = highlightedValueIsValid &&
-							(highlightedValue == cell.value || cell.notedNumbers.contains(highlightedValue) && cell.value == 0)
-					}
-				}
-				if (shouldHighlightCell) {
-					mPaints[row][col][0] = mBackgroundHighlighted
-					if (cell.isEditable) mPaints[row][col][1] = mTextHighlighted
-					mPaints[row][col][2] = mTextNoteHighlighted
-				}
-
-				// Seeing that a cell is invalid is more important than it being
-				// highlighted. Only mark editable cells as errors, there's no point
-				// marking a given cell with an error (partly because the user can't
-				// change it, and partly because then the user can't easily see which
-				// of the cells containing the error are editable).
-				if (highlightDirectlyWrongValues && cell.value != 0 && cell.isEditable && !cell.isValid) {
-					mPaints[row][col][0] = mBackgroundInvalid
-					mPaints[row][col][1] = mTextInvalid
-					mPaints[row][col][2] = mTextNote // Not read, set to avoid risk of NPEs
-				}
-				if (highlightIndirectlyWrongValues && cell.value != 0 && !cell.matchesSolution) {
-					mPaints[row][col][0] = mBackgroundInvalid
-					mPaints[row][col][1] = mTextInvalid
-					mPaints[row][col][2] = mTextNote // Not read, set to avoid risk of NPEs
-				}
-
-				// Highlight this cell if (a) we're highlighting cells in the same row/column
-				// as the touched cell, and (b) this cell is in that row or column.
-				if (highlightTouchedCell && mTouchedCell != null) {
-					val touchedRow = mTouchedCell!!.rowIndex
-					val touchedCol = mTouchedCell!!.columnIndex
-					if (row == touchedRow || col == touchedCol) {
-						mPaints[row][col][0] = mBackgroundTouched
-						mPaints[row][col][1] = mTextTouched
-						mPaints[row][col][2] = mTextNoteTouched
-					}
-				}
-				cellLeft = (col * mCellWidth + paddingLeft).roundToInt()
-				cellTop = (row * mCellHeight + paddingTop).roundToInt()
-
-				// Draw the cell background
-				canvas.drawRect(
-					cellLeft.toFloat(), cellTop.toFloat(),
-					cellLeft + mCellWidth, cellTop + mCellHeight,
-					mPaints[row][col][0]!!
-				)
-
-				// Draw cell contents
-				val value = cell.value
-				if (value != 0) {
-					canvas.drawText(
-						"$value",
-						(cellLeft + mNumberLeft).toFloat(),
-						cellTop + mNumberTop - numberAscent,
-						mPaints[row][col][1]!!
-					)
-				} else {
-					// To draw notes the cell is divided up in to 3 rows (0-2) and notesPerRow
-					// columns.
-					//
-					// "corner" notes are drawn in rows 0 and 2, up to 5 in row 0, up to 4 in
-					// row 3, left-aligned.
-					//
-					// "centre" notes are drawn in row 1, centre-aligned.
-					if (!cell.cornerNote.isEmpty) {
-						val numbers: Collection<Int?> = cell.cornerNote.notedNumbers
-						for ((i, number) in numbers.withIndex()) {
-							val noteCol = i % notesPerRow
-							// First notesPerRow numbers draw on row 0, remaining draw on row 2.
-							val noteRow = if (i < notesPerRow) 0 else 2
-							canvas.drawText(
-								number!!.toString(),
-								cellLeft + noteCol * noteWidth + 2,
-								cellTop + mNoteTop - noteAscent + noteRow * mPaints[row][col][2]!!.textSize - 1,
-								mPaints[row][col][2]!!
-							)
-						}
-					}
-					if (!cell.centerNote.isEmpty) {
-						paint.set(mPaints[row][col][2])
-						paint.textAlign = Paint.Align.CENTER
-						val note = cell.centerNote.notedNumbers.joinToString("")
-
-						// Determine the font size (specifically, width) to use. The string
-						// may run out of the cell (typically if it's more than 5 digits long).
-						// If it will exceed the cell width, shrink the font.
-						paint.getTextBounds(note, 0, note.length, bounds)
-
-						// Horizontally align the centre note
-						val offsetX = mCellWidth / 2f
-
-						// If the centre note's width exceeds some percentage of the cell's
-						// width then scale down the size of the centre note, and recalculate
-						// the y offset.
-						val pct = bounds.width() / mCellWidth
-						var prevTextSize: Float
-						if (pct > 0.95) {
-							prevTextSize = paint.textSize
-							val scaledTextSize = prevTextSize * (1 - (pct - 1))
-							paint.textSize = scaledTextSize
-
-							// Recalculate the text bounds as the size has changed
-							paint.getTextBounds(note, 0, note.length, bounds)
-						}
-
-						// Vertically align the centre note
-						val offsetY = mCellHeight / 2f + bounds.height() / 2f
-						canvas.drawText(
-							note,
-							cellLeft + offsetX,
-							cellTop + offsetY,  /*cellTop + mNoteTop - noteAscent + mCellCenterNotePaint.getTextSize() - 1,*/
-							paint
-						)
-					}
-				}
-			}
-		}
-
-		// draw vertical lines
-		for (c in 0..9) {
-			val x = c * mCellWidth + paddingLeft
-			canvas.drawLine(x, paddingTop.toFloat(), x, height.toFloat(), mLinePaint)
-		}
-
-		// draw horizontal lines
-		for (r in 0..9) {
-			val y = r * mCellHeight + paddingTop
-			canvas.drawLine(paddingLeft.toFloat(), y, width.toFloat(), y, mLinePaint)
-		}
-		val sectorLineWidth1 = mSectorLineWidth / 2
-		val sectorLineWidth2 = sectorLineWidth1 + mSectorLineWidth % 2
-
-		// draw sector (thick) lines
-		var c = 0
-		while (c <= 9) {
-			val x = c * mCellWidth + paddingLeft
-			canvas.drawRect(x - sectorLineWidth1, paddingTop.toFloat(), x + sectorLineWidth2, height.toFloat(), mSectorLinePaint)
-			c += 3
-		}
-		var r = 0
-		while (r <= 9) {
-			val y = r * mCellHeight + paddingTop
-			canvas.drawRect(paddingLeft.toFloat(), y - sectorLineWidth1, width.toFloat(), y + sectorLineWidth2, mSectorLinePaint)
-			r += 3
-		}
-
-		// highlight selected cell
-		if (!mReadonly && selectedCell != null) {
-			cellLeft = (selectedCell!!.columnIndex * mCellWidth).roundToInt() + paddingLeft
-			cellTop = (selectedCell!!.rowIndex * mCellHeight).roundToInt() + paddingTop
-
-			// The stroke is drawn half inside and half outside the given cell. Compensate by adjusting the cell's bounds by half the
-			// stroke width to move it entirely inside the cell.
-			val halfStrokeWidth = mBackgroundFocused.strokeWidth / 2
-			mBackgroundFocused.alpha = 128
-			canvas.drawRect(
-				cellLeft + halfStrokeWidth, cellTop + halfStrokeWidth,
-				cellLeft + mCellWidth - halfStrokeWidth, cellTop + mCellHeight - halfStrokeWidth,
-				mBackgroundFocused
-			)
-		}
-	}
-
 	override fun onTouchEvent(event: MotionEvent): Boolean {
 		if (mReadonly) return false
 
@@ -655,10 +650,12 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 				KeyEvent.KEYCODE_0, KeyEvent.KEYCODE_SPACE, KeyEvent.KEYCODE_DEL -> {
 					// clear value in selected cell
 					if (selectedCell != null) {
-						if (event.isShiftPressed || event.isAltPressed) {
-							setCellNote(selectedCell!!, CellNote.EMPTY)
+						if (event.isShiftPressed) {
+							mGame.setCellCornerNote(selectedCell!!, CellNote.EMPTY)
+						} else if (event.isAltPressed) {
+							mGame.setCellCenterNote(selectedCell!!, CellNote.EMPTY)
 						} else {
-							setCellValue(selectedCell!!, 0)
+							mGame.setCellValue(selectedCell!!, 0, true)
 							moveCellSelectionRight()
 						}
 					}
@@ -675,12 +672,12 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 			if (keyCode >= KeyEvent.KEYCODE_1 && keyCode <= KeyEvent.KEYCODE_9 && selectedCell != null) {
 				val selNumber = keyCode - KeyEvent.KEYCODE_0
 				val cell = selectedCell!!
-				if (event.isShiftPressed || event.isAltPressed) {
-					// add or remove number in cell's note
-					setCellNote(cell, cell.cornerNote.toggleNumber(selNumber))
-				} else {
-					// enter number in cell
-					setCellValue(cell, selNumber)
+				if (event.isShiftPressed) {    // add or remove number in cell's corner note
+					mGame.setCellCornerNote(cell, cell.cornerNote.toggleNumber(selNumber))
+				} else if (event.isAltPressed) {    // add or remove number in cell's center note
+					mGame.setCellCenterNote(cell, cell.cornerNote.toggleNumber(selNumber))
+				} else {  // enter number in cell
+					mGame.setCellValue(cell, selNumber, true)
 					if (moveCellSelectionOnPress) {
 						moveCellSelectionRight()
 					}
@@ -704,18 +701,6 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 			}
 		}
 		postInvalidate()
-	}
-
-	private fun setCellValue(cell: Cell, value: Int) {
-		if (cell.isEditable) {
-			mGame.setCellValue(cell, value)
-		}
-	}
-
-	private fun setCellNote(cell: Cell, note: CellNote) {
-		if (cell.isEditable) {
-			mGame.setCellCornerNote(cell, note)
-		}
 	}
 
 	/**
@@ -774,6 +759,15 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 		}
 	}
 
+	fun blinkValue(digit: Int) {
+		val anim: Animation = AlphaAnimation(0.0f, 1.0f)
+		anim.duration = 50 //You can manage the blinking time with this parameter
+		anim.startOffset = 20
+		anim.repeatMode = Animation.REVERSE
+		anim.repeatCount = 4
+		blinker.blink(digit)
+	}
+
 	enum class HighlightMode {
 		NONE,
 		NUMBERS,
@@ -783,5 +777,31 @@ open class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: At
 	companion object {
 		val TAG: String = SudokuBoardView::class.java.simpleName
 		const val DEFAULT_BOARD_SIZE = 100
+
+		private class Blinker(private val sudokuBoard: SudokuBoardView) : Timer(250, Looper.getMainLooper()) {
+			private var blinkCount = 0
+			private var blinkValue = 0
+
+			fun blink(newValue: Int) {
+				blinkValue = newValue
+				blinkCount = 0
+				start()
+			}
+
+			override fun step(count: Int, time: Long): Boolean {
+				if (sudokuBoard.blinkingValue == 0) {
+					sudokuBoard.blinkingValue = blinkValue
+					blinkCount += 1
+				} else {
+					sudokuBoard.blinkingValue = 0
+					if (blinkCount >= 2) {
+						sudokuBoard.postInvalidate()
+						return true
+					}
+				}
+				sudokuBoard.postInvalidate()
+				return false
+			}
+		}
 	}
 }

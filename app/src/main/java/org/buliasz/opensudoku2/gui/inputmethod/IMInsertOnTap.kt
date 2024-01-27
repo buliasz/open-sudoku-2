@@ -256,8 +256,7 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 					selectedDigit = 0
 					mBoard.clearCellSelection()
 				}
-				mGame.setCellValue(cell, selectedDigit)
-				beepIfAllOfDigitIn(selectedDigit)
+				mGame.setCellValue(cell, selectedDigit, true)
 			}
 		}
 	}

@@ -19,8 +19,6 @@ package org.buliasz.opensudoku2.gui.inputmethod
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.media.AudioManager
-import android.media.ToneGenerator
 import android.view.View
 import android.widget.Button
 import androidx.annotation.ColorInt
@@ -223,12 +221,6 @@ abstract class InputMethod {
 			var alpha = color ushr 24
 			alpha = ceil((alpha * alphaPct).toDouble()).toInt()
 			return color and 0x00ffffff or (alpha shl 24)
-		}
-	}
-
-	protected fun beepIfAllOfDigitIn(digit: Int) {
-		if (digit > 0 && mGame.cells.valuesUseCount[digit] == 9) {
-			ToneGenerator(AudioManager.STREAM_MUSIC, 100).startTone(ToneGenerator.TONE_PROP_ACK, 300) // TONE_CDMA_INTERCEPT
 		}
 	}
 }

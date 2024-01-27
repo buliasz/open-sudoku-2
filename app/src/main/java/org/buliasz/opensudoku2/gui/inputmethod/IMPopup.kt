@@ -38,16 +38,15 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 	 */
 	internal var highlightCompletedValues = true
 	private var mEditCellDialog: IMPopupDialog? = null
-	private var mSelectedCell: Cell? = null
+	private lateinit var mSelectedCell: Cell
 	private lateinit var mSwitchModeButton: Button
 
 	/**
 	 * Occurs when user selects number in EditCellDialog.
 	 */
 	private val mOnNumberEditListener = OnNumberEditListener { digit ->
-		if (digit != -1 && mSelectedCell != null) {
-			mGame.setCellValue(mSelectedCell!!, digit)
-			beepIfAllOfDigitIn(digit)
+		if (digit != -1) {
+			mGame.setCellValue(mSelectedCell, digit, true)
 			mBoard.highlightedValue = digit
 		}
 		true
@@ -58,16 +57,12 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 	 */
 	private val mOnNoteEditListener: OnNoteEditListener = object : OnNoteEditListener {
 		override fun onCornerNoteEdit(numbers: Array<Int>): Boolean {
-			if (mSelectedCell != null) {
-				mGame.setCellCornerNote(mSelectedCell!!, CellNote.fromIntArray(numbers))
-			}
+			mGame.setCellCornerNote(mSelectedCell, CellNote.fromIntArray(numbers))
 			return true
 		}
 
 		override fun onCenterNoteEdit(numbers: Array<Int>): Boolean {
-			if (mSelectedCell != null) {
-				mGame.setCellCenterNote(mSelectedCell!!, CellNote.fromIntArray(numbers))
-			}
+			mGame.setCellCenterNote(mSelectedCell, CellNote.fromIntArray(numbers))
 			return true
 		}
 	}

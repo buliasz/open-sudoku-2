@@ -140,7 +140,7 @@ class FolderListActivity : ThemedActivity() {
 			.setIcon(R.drawable.ic_add)
 		menu.add(0, MENU_ITEM_IMPORT, 0, R.string.import_title)
 			.setShortcut('8', 'i')
-			.setIcon(R.drawable.ic_baseline_download_24)
+			.setIcon(R.drawable.ic_baseline_download)
 		menu.add(0, MENU_ITEM_EXPORT_ALL, 1, R.string.export_all_folders)
 			.setShortcut('7', 'e')
 			.setIcon(R.drawable.ic_share)

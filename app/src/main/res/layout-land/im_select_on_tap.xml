@@ -145,7 +145,7 @@
 
 	<org.buliasz.opensudoku2.gui.IconButton android:id="@+id/button_clear"
 		style="@style/keypadButton"
-		app:icon="@drawable/ic_outline_backspace"
+		app:icon="@drawable/ink_eraser"
 		app:iconGravity="textStart"
 		app:iconTint="?attr/colorOnSurface"
 		android:checkable="false"

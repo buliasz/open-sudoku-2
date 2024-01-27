@@ -18,8 +18,12 @@
 package org.buliasz.opensudoku2.gui
 
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
+import android.media.ToneGenerator
 import android.os.Bundle
+import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -39,6 +43,7 @@ import org.buliasz.opensudoku2.gui.inputmethod.IMInsertOnTap
 import org.buliasz.opensudoku2.gui.inputmethod.IMPopup
 import org.buliasz.opensudoku2.gui.inputmethod.IMSelectOnTap
 import org.buliasz.opensudoku2.utils.ThemeUtils
+
 
 class SudokuPlayActivity : ThemedActivity() {
 	private lateinit var settingsLauncher: ActivityResultLauncher<Intent>
@@ -80,10 +85,21 @@ class SudokuPlayActivity : ThemedActivity() {
 		}
 	}
 
+	/**
+	 * Occurs when puzzle is solved.
+	 */
+	private val onDigitFinishedListener: ((Int) -> Unit) = { digit ->
+		mSudokuBoard.blinkValue(digit)
+		val audioService = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+		if (!audioService.isStreamMute(AudioManager.STREAM_MUSIC) && audioService.ringerMode == AudioManager.RINGER_MODE_NORMAL) {
+			val volume = 100 * audioService.getStreamVolume(AudioManager.STREAM_MUSIC) / audioService.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+			ToneGenerator(AudioManager.STREAM_MUSIC, volume).startTone(ToneGenerator.TONE_PROP_ACK, 300)
+		}
+	}
+
 	private val onSelectedNumberChangedListener: (Int) -> Unit = {
 		mSudokuBoard.highlightedValue = it
 		mSudokuBoard.clearCellSelection()
-		mSudokuBoard.postInvalidate()
 	}
 
 	public override fun onCreate(savedInstanceState: Bundle?) {
@@ -123,6 +139,7 @@ class SudokuPlayActivity : ThemedActivity() {
 		}
 		mSudokuBoard.setGame(mSudokuGame)
 		mSudokuGame.onPuzzleSolvedListener = onSolvedListener
+		mSudokuGame.onDigitFinishedManuallyListener = onDigitFinishedListener
 		mSudokuGame.onHasUndoChangedListener =
 			{ isUndoStackEmpty -> mOptionsMenu.findItem(MENU_ITEM_UNDO_ACTION).setEnabled(!isUndoStackEmpty) }
 		mHintsQueue.showOneTimeHint("welcome", R.string.welcome, R.string.first_run_hint)
@@ -489,7 +506,7 @@ class SudokuPlayActivity : ThemedActivity() {
 		const val MENU_ITEM_HINT = Menu.FIRST + 13
 
 		// This class implements the game clock.  All it does is update the status each tick.
-		private class GameTimer(private val sudokuPlayActivity: SudokuPlayActivity) : Timer(1000) {
+		private class GameTimer(private val sudokuPlayActivity: SudokuPlayActivity) : Timer(1000, Looper.getMainLooper()) {
 			override fun step(count: Int, time: Long): Boolean {
 				sudokuPlayActivity.updateTime()
 				return false // Run until explicitly stopped.
