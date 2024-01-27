@@ -182,7 +182,8 @@
 	<string name="puzzle_inserted">Sudoku berriak gorde dira</string>
 	<string name="puzzle_updated">Sudokua eguneratu da</string>
 
-	<string name="puzzles_saved">Sudokuak \'%s\' karpetan gorde dira</string>
+	<string name="checking_duplicates">Sudokuren buru-hausgarriak aztertuz…</string>
+	<string name="puzzles_saved">Sudokuak %s karpetan gorde dira</string>
 	<string name="no_puzzles_found">Ez da sudokurik aukitu</string>
 	<string name="unknown_import_error">Errore ezezagun bat gertatu da sudokuak inportatzean; inportazioa bertan behera utzi da</string>
 	<string name="invalid_format">Formatu baliogabea; inportazioa bertan behera utzi da</string>
@@ -199,7 +200,8 @@
 	<string name="export_folder">Esportatu karpeta</string>
 	<string name="export_all_folders">Esportatu karpeta guztiak</string>
 	<string name="importing">Sudokuak inportatzen %1$d/%2$d…</string>
-	<string name="exporting">Sudokuak esportatzen…</string>
+	<string name="exporting">Karpetatik \'%s\'…</string>
+	<string name="exported_num">Esportatutako buru-hausturak %1$d/%2$d…</string>
 	<string name="unknown_export_error">Errore ezezagun bat gertatu da sudokuak esportatzean</string>
 	<string name="highlight_completed_values">Nabarmendu osatutako balioak</string>
 	<string name="highlight_completed_values_summary">9 aldiz sartutako zenbakien botoiak nabarmentzen ditu</string>

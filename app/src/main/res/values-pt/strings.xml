@@ -142,7 +142,8 @@
 	<string name="show_time_summary">Mostra horário durante o jogo.</string>
 	<string name="puzzle_inserted">Novos jogos foram salvos.</string>
 	<string name="puzzle_updated">Jogos foram atualizados.</string>
-	<string name="puzzles_saved">Jogos foram salvos na pasta \'%s\'.</string>
+	<string name="checking_duplicates">Verificando quebra-cabeças de Sudoku existentes…</string>
+	<string name="puzzles_saved">Jogos foram salvos na pasta %s.</string>
 	<string name="no_puzzles_found">Nenhum jogo encontrado.</string>
 	<string name="unknown_import_error">Erro desconhecido ao importar jogos. A importação foi cancelada.</string>
 	<string name="invalid_format">Formato inválido. A importação foi cancelada.</string>
@@ -158,7 +159,8 @@
 	<string name="export_folder">Exportar pasta</string>
 	<string name="export_all_folders">Exportar todas as pastas</string>
 	<string name="importing">Importando jogos %1$d/%2$d…</string>
-	<string name="exporting">Exportando jogos…</string>
+	<string name="exporting">Da pasta \'%s\'…</string>
+	<string name="exported_num">Quebra-cabeças %1$d/%2$d exportados…</string>
 	<string name="unknown_export_error">Erro desconhecido ao exportar jogos.</string>
 	<string name="highlight_completed_values">Destacar números finalizados</string>
 	<string name="highlight_completed_values_summary">Destaca botões dos números que já foram usados 9 vezes.

@@ -181,7 +181,8 @@
 	<string name="puzzle_inserted">新谜题被保存</string>
 	<string name="puzzle_updated">谜题已被更新。</string>
 
-	<string name="puzzles_saved">谜题被保存到\'%s\'分类</string>
+	<string name="checking_duplicates">正在检查现有的数独谜题…</string>
+	<string name="puzzles_saved">谜题被保存到%s分类</string>
 	<string name="no_puzzles_found">没有发现谜题</string>
 	<string name="unknown_import_error">导入谜题时发生未知错误，取消导入。</string>
 	<string name="invalid_format">无效的格式，取消导入</string>
@@ -197,7 +198,8 @@
 	<string name="export_folder">导出分类</string>
 	<string name="export_all_folders">导出所有分类</string>
 	<string name="importing">导入谜题 %1$d/%2$d…</string>
-	<string name="exporting">导出谜题…</string>
+	<string name="exporting">从文件夹 \'%s\'…</string>
+	<string name="exported_num">导出了 %1$d/%2$d 的谜题…</string>
 	<string name="unknown_export_error">导出谜题时发生未知错误。</string>
 	<string name="highlight_completed_values">高亮完成的数字</string>
 	<string name="highlight_completed_values_summary">高亮输入了9次的数字按钮</string>

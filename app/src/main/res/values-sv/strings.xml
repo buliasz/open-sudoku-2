@@ -154,7 +154,8 @@
 	<string name="puzzle_inserted">Nya pussel har sparats.</string>
 	<string name="puzzle_updated">Pusslet har uppdaterats.</string>
 
-	<string name="puzzles_saved">Pusslen har sparats till mappen \'%s\'.</string>
+	<string name="checking_duplicates">Kollar befintliga Sudoku-pussel…</string>
+	<string name="puzzles_saved">Pusslen har sparats till mappen %s.</string>
 
 	<string name="no_puzzles_found">Inga pussel hittades.</string>
 	<string name="unknown_import_error">Ett okänt fel inträffade under inläsningen av pussel, inläsningen avbröts.
@@ -173,7 +174,8 @@
 	<string name="export_folder">Exportera mapp</string>
 	<string name="export_all_folders">Exportera alla mappar</string>
 	<string name="importing">Importerar pussel %1$d/%2$d…</string>
-	<string name="exporting">Exporterar pussel…</string>
+	<string name="exporting">Från mappen \'%s\'…</string>
+	<string name="exported_num">Exporterade %1$d/%2$d pussel…</string>
 	<string name="unknown_export_error">Okänt fel uppstod vid pusselexport.</string>
 	<string name="highlight_completed_values">Markera färdiga nummer</string>
 	<string name="highlight_completed_values_summary">Markera de nummer som använts 9 gånger.</string>

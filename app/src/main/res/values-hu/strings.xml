@@ -180,7 +180,8 @@
 	<string name="puzzle_inserted">Új feladvány elmentve</string>
 	<string name="puzzle_updated">Új feladvány frissítve</string>
 
-	<string name="puzzles_saved">Feladványok a(z) \"%s\" mappába mentve</string>
+	<string name="checking_duplicates">A meglévő Sudoku rejtvények ellenőrzése…</string>
+	<string name="puzzles_saved">Feladványok a(z) %s mappába mentve</string>
 	<string name="no_puzzles_found">Nem találhatóak feladványok</string>
 	<string name="unknown_import_error">Ismeretlen hiba importálás közben; az importálás megszakadt.</string>
 	<string name="invalid_format">Érvénytlen formátum; importálás megszakítva.</string>
@@ -197,7 +198,8 @@
 	<string name="export_folder">Mappa exportálása</string>
 	<string name="export_all_folders">Minden mappa exportálása</string>
 	<string name="importing">Feladványok importálása %1$d/%2$d…</string>
-	<string name="exporting">Feladványok exportálása…</string>
+	<string name="exporting">A mappából \'%s\'…</string>
+	<string name="exported_num">Exportált %1$d/%2$d rejtvények…</string>
 	<string name="unknown_export_error">Ismeretlen hiba exportálás közben</string>
 	<string name="highlight_completed_values">Elfogyott számok jelzése</string>
 	<string name="highlight_completed_values_summary">Megjelöli azon számok gombjait, melyek már 9-szer fel lettek használva.</string>
@@ -310,10 +312,10 @@
 	<string name="sort_last_played">Legutóbbi végigjátszás ideje</string>
 	<string name="pasted_from_clipboard">Pasted from clipboard</string>
 	<string name="copied_to_clipboard">Kimásolva a vágólapra</string>
-	<string name="invalid_puzzle_format">Invalid puzzle format</string>
-	<string name="invalid_mime_type">Invalid MIME type, please, check your clipboard contents</string>
+	<string name="invalid_puzzle_format">Érvénytelen puzzle formátum</string>
+	<string name="invalid_mime_type">Érvénytelen MIME-típus, kérjük, ellenőrizze a vágólap tartalmát</string>
 	<string name="reset_all_puzzles">Az összes visszaállítása</string>
-	<string name="reset_all_puzzles_confirm">Are you sure you want to reset all puzzles in this folder?</string>
+	<string name="reset_all_puzzles_confirm">Biztos benne, hogy vissza akarja állítani az összes rejtvényt ebben a mappában?</string>
 	<string name="fill_all_notes">Jegyzetek kitöltése az összes értékkel</string>
 	<string name="press_color_to_apply">Nyomja meg a Színes gombot az alkalmazáshoz</string>
 	<string name="dark_mode_light">Világítás mód</string>

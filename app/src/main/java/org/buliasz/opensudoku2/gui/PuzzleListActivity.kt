@@ -158,19 +158,19 @@ class PuzzleListActivity : ThemedActivity() {
 
 		// This is our one standard application action -- inserting a
 		// new note into the list.
-		menu.add(0, MENU_ITEM_FOLDERS, 0, R.string.folders).setShortcut('1', 'f')
+		menu.add(0, MenuItems.FOLDERS.id, 0, R.string.folders).setShortcut('1', 'f')
 			.setIcon(R.drawable.ic_folder)
-		menu.add(0, MENU_ITEM_INSERT, 1, R.string.add_puzzle).setShortcut('2', 'a')
+		menu.add(0, MenuItems.INSERT.id, 1, R.string.add_puzzle).setShortcut('2', 'a')
 			.setIcon(R.drawable.ic_add)
-		menu.add(0, MENU_ITEM_FILTER, 2, R.string.filter).setShortcut('3', 'f')
+		menu.add(0, MenuItems.FILTER.id, 2, R.string.filter).setShortcut('3', 'f')
 			.setIcon(R.drawable.ic_view)
-		menu.add(0, MENU_ITEM_SORT, 3, R.string.sort).setShortcut('4', 'o')
+		menu.add(0, MenuItems.SORT.id, 3, R.string.sort).setShortcut('4', 'o')
 			.setIcon(R.drawable.ic_sort)
-		menu.add(0, MENU_ITEM_RESET_ALL, 4, R.string.reset_all_puzzles).setShortcut('5', 'r')
+		menu.add(0, MenuItems.RESET_ALL.id, 4, R.string.reset_all_puzzles).setShortcut('5', 'r')
 			.setIcon(R.drawable.ic_undo)
-		menu.add(0, MENU_ITEM_EXPORT_FOLDER, 5, R.string.export_folder).setShortcut('6', 'e')
+		menu.add(0, MenuItems.EXPORT_FOLDER.id, 5, R.string.export_folder).setShortcut('6', 'e')
 			.setIcon(R.drawable.ic_share)
-		menu.add(0, MENU_ITEM_SETTINGS, 6, R.string.settings).setShortcut('7', 's')
+		menu.add(0, MenuItems.SETTINGS.id, 6, R.string.settings).setShortcut('7', 's')
 			.setIcon(R.drawable.ic_settings)
 
 		// Generate any additional actions that can be performed on the
@@ -189,12 +189,12 @@ class PuzzleListActivity : ThemedActivity() {
 
 	override fun onContextItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
-			MENU_ITEM_PLAY -> {
+			MenuItems.PLAY.id -> {
 				playSudoku(mAdapter.selectedGameId)
 				return true
 			}
 
-			MENU_ITEM_EDIT -> {
+			MenuItems.EDIT.id -> {
 				val i = Intent(this, PuzzleEditActivity::class.java)
 				i.setAction(Intent.ACTION_EDIT)
 				i.putExtra(Names.PUZZLE_ID, mAdapter.selectedGameId)
@@ -202,26 +202,26 @@ class PuzzleListActivity : ThemedActivity() {
 				return true
 			}
 
-			MENU_ITEM_DELETE -> {
+			MenuItems.DELETE.id -> {
 				deletePuzzleDialog.puzzleID = mAdapter.selectedGameId
 				deletePuzzleDialog.show(supportFragmentManager, "DeletePuzzleDialog")
 				return true
 			}
 
-			MENU_ITEM_EDIT_NOTE -> {
+			MenuItems.EDIT_NOTE.id -> {
 				editUserNoteDialog.puzzleId = mAdapter.selectedGameId
 				editUserNoteDialog.currentValue = mDatabase.getPuzzle(editUserNoteDialog.puzzleId)!!.userNote
 				editUserNoteDialog.show(supportFragmentManager, "EditUserNoteDialog")
 				return true
 			}
 
-			MENU_ITEM_RESET -> {
+			MenuItems.RESET.id -> {
 				resetPuzzleDialog.puzzleID = mAdapter.selectedGameId
 				resetPuzzleDialog.show(supportFragmentManager, "ResetPuzzleDialog")
 				return true
 			}
 
-			MENU_ITEM_EXPORT_GAME -> {
+			MenuItems.EXPORT_GAME.id -> {
 				val intent = Intent()
 				intent.setClass(this, PuzzleExportActivity::class.java)
 				intent.putExtra(Names.FOLDER_ID, mFolderID)
@@ -236,7 +236,7 @@ class PuzzleListActivity : ThemedActivity() {
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		val i: Intent
 		when (item.itemId) {
-			MENU_ITEM_INSERT -> {
+			MenuItems.INSERT.id -> {
 				// Launch activity to insert a new item
 				i = Intent(this, PuzzleEditActivity::class.java)
 				i.setAction(Intent.ACTION_INSERT)
@@ -245,35 +245,35 @@ class PuzzleListActivity : ThemedActivity() {
 				return true
 			}
 
-			MENU_ITEM_SETTINGS -> {
+			MenuItems.SETTINGS.id -> {
 				i = Intent(this, GameSettingsActivity::class.java)
 				startActivity(i)
 				return true
 			}
 
-			MENU_ITEM_FILTER -> {
+			MenuItems.FILTER.id -> {
 				filterDialog.show(supportFragmentManager, "FilterDialog")
 				return true
 			}
 
-			MENU_ITEM_SORT -> {
+			MenuItems.SORT.id -> {
 				sortDialog.show(supportFragmentManager, "SortDialog")
 				return true
 			}
 
-			MENU_ITEM_FOLDERS -> {
+			MenuItems.FOLDERS.id -> {
 				i = Intent(this, FolderListActivity::class.java)
 				startActivity(i)
 				finish()
 				return true
 			}
 
-			MENU_ITEM_RESET_ALL -> {
+			MenuItems.RESET_ALL.id -> {
 				resetAllDialog.show(supportFragmentManager, "ResetAllDialog")
 				return true
 			}
 
-			MENU_ITEM_EXPORT_FOLDER -> {
+			MenuItems.EXPORT_FOLDER.id -> {
 				val intent = Intent()
 				intent.setClass(this, PuzzleExportActivity::class.java)
 				intent.putExtra(Names.FOLDER_ID, mFolderID)
@@ -317,19 +317,24 @@ class PuzzleListActivity : ThemedActivity() {
 	}
 
 	companion object {
-		const val MENU_ITEM_INSERT = Menu.FIRST
-		const val MENU_ITEM_EDIT = Menu.FIRST + 1
-		const val MENU_ITEM_DELETE = Menu.FIRST + 2
-		const val MENU_ITEM_PLAY = Menu.FIRST + 3
-		const val MENU_ITEM_RESET = Menu.FIRST + 4
-		const val MENU_ITEM_RESET_ALL = Menu.FIRST + 5
-		const val MENU_ITEM_EDIT_NOTE = Menu.FIRST + 6
-		const val MENU_ITEM_FILTER = Menu.FIRST + 7
-		const val MENU_ITEM_SORT = Menu.FIRST + 8
-		const val MENU_ITEM_FOLDERS = Menu.FIRST + 9
-		const val MENU_ITEM_SETTINGS = Menu.FIRST + 10
-		const val MENU_ITEM_EXPORT_GAME = Menu.FIRST + 11
-		const val MENU_ITEM_EXPORT_FOLDER = Menu.FIRST + 12
+		enum class MenuItems {
+			INSERT,
+			EDIT,
+			DELETE,
+			PLAY,
+			RESET,
+			RESET_ALL,
+			EDIT_NOTE,
+			FILTER,
+			SORT,
+			FOLDERS,
+			SETTINGS,
+			EXPORT_GAME,
+			EXPORT_FOLDER;
+
+			val id = ordinal + Menu.FIRST
+		}
+
 		const val FILTER_STATE_NOT_STARTED = "filter" + SudokuGame.GAME_STATE_NOT_STARTED
 		const val FILTER_STATE_PLAYING = "filter" + SudokuGame.GAME_STATE_PLAYING
 		const val FILTER_STATE_SOLVED = "filter" + SudokuGame.GAME_STATE_COMPLETED

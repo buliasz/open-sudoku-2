@@ -161,7 +161,8 @@
 	<string name="puzzle_inserted">Nouvelle grille sauvegardée.</string>
 	<string name="puzzle_updated">Grille mise à jour.</string>
 
-	<string name="puzzles_saved">Grilles sauvegardées dans le dossier \'%s\'.</string>
+	<string name="checking_duplicates">Vérification des grilles de Sudoku existantes…</string>
+	<string name="puzzles_saved">Grilles sauvegardées dans le dossier %s.</string>
 	<string name="no_puzzles_found">Aucune grille trouvée.</string>
 	<string name="unknown_import_error">Erreur inconnue lors de l\'importation des grilles. Importation annulée.</string>
 	<string name="invalid_format">Format incorrect. Importation annulée.</string>
@@ -174,7 +175,8 @@
 	<string name="export_folder">Exporter le dossier</string>
 	<string name="export_all_folders">Exporter tous les dossiers</string>
 	<string name="importing">Importation de grilles %1$d/%2$d…</string>
-	<string name="exporting">Exportation de grilles…</string>
+	<string name="exporting">À partir du dossier \'%s\'…</string>
+	<string name="exported_num">Puzzles %1$d/%2$d exportés…</string>
 	<string name="unknown_export_error">Erreur inconnue lors de l\'exportation des grilles.</string>
 	<string name="highlight_completed_values">Surligner les nombres complétés</string>
 	<string name="highlight_completed_values_summary">Surligne les boutons des nombres ayant été introduit 9 fois.</string>

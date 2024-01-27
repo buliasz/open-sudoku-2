@@ -150,6 +150,7 @@
 	<string name="puzzle_inserted">Yeni bulmaca kaydedildi.</string>
 	<string name="puzzle_updated">Bulmaca güncellendi.</string>
 
+	<string name="checking_duplicates">Mevcut Sudoku bulmacalarını kontrol etmek…</string>
 	<string name="puzzles_saved">Bulmacalar %s klasörüne kaydedildi.</string>
 	<string name="no_puzzles_found">Bulmaca bulunamadı.</string>
 	<string name="unknown_import_error">Bulmacalar içeri aktarılırken bilinmeyen bir hata oluştu. Aktarım iptal edildi.</string>
@@ -165,7 +166,8 @@
 	<string name="export_folder">Klasörü Dışarı Aktar</string>
 	<string name="export_all_folders">Klasörleri Dışarı Aktar</string>
 	<string name="importing">Bulmacalar içeri aktarılıyor %1$d/%2$d…</string>
-	<string name="exporting">Bulmacalar dışarı aktarılıyor…</string>
+	<string name="exporting">\'%s\' klasöründen…</string>
+	<string name="exported_num">Dışa aktarılan %1$d/%2$d bulmacalar…</string>
 	<string name="unknown_export_error">Bulmacalar dışarı aktarılırken bilinmeyen bir hata oluştu.</string>
 	<string name="highlight_completed_values">Tamamlanan Rakamları Göster</string>
 	<string name="highlight_completed_values_summary">9 defa kullanılan rakamları gösterir.</string>

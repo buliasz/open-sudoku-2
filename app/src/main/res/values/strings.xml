@@ -21,26 +21,22 @@
 	<string name="edit_puzzle">Edit puzzle</string>
 
 	<string name="version">Version %s</string>
-	<string name="homepage"
-		translatable="false">https://github.com/buliasz/open-sudoku-2
+	<string name="homepage" translatable="false">https://github.com/buliasz/open-sudoku-2
 	</string>
 	<string name="send_me_bugs">Ideas, fixes etc. are welcome. If you run into a bug, don\'t hesitate to use the issue
 		tracker on the project\'s homepage.
 	</string>
 
 	<string name="current_developers_label">Open Sudoku 2 Author</string>
-	<string name="current_developers"
-		translatable="false">Bart Uliasz
+	<string name="current_developers" translatable="false">Bart Uliasz
 	</string>
 
 	<string name="old_developers_label">Open Sudoku 1 Authors</string>
-	<string name="old_developers"
-		translatable="false">Óscar García Amor, Roman Mašek
+	<string name="old_developers" translatable="false">Óscar García Amor, Roman Mašek
 	</string>
 
 	<string name="localization_contributors_label">Localization Contributors</string>
-	<string name="localization_contributors"
-		translatable="false">
+	<string name="localization_contributors" translatable="false">
 		Vit Hnilica\n
 		Martin Sobola\n
 		Martin Helff\n
@@ -132,58 +128,17 @@
 	<string name="help">Help</string>
 	<string name="that_is_all">That\’s all</string>
 
-	<string name="first_run_hint">There are several input modes which you can use to fill in the puzzle.
-		In order to help you get familiar with these modes, there will be several hints displayed as
-		you go through them.
-		\n\nYou can disable these hints in game settings.\n
-	</string>
+	<string name="first_run_hint">There are several input modes which you can use to fill in the puzzle. \t\tIn order to help you get familiar with these modes, there will be several hints displayed as \t\tyou go through them. \t\t  You can disable these hints in game settings.  \t</string>
 
-	<string name="im_popup_hint">You\’re now in the <i>Pop-up</i> input mode.
-		Tap any cell with tap to edit its content.
-		\n\nNotice the button in the lower right corner.
-		You can use this button to switch to another input mode.\n
-	</string>
+	<string name="im_popup_hint">You\\’re now in the <i>Pop-up</i> input mode. \t\tTap any cell with tap to edit its content. \t\t  Notice the button in the lower right corner. \t\tYou can use this button to switch to another input mode.  \t</string>
 
-	<string name="im_insert_on_tap_hint">You\’re now in the <i>Insert on cell tap</i> input mode.
-		First select any key button by pressing it.
-		Then just tap on cells in which you want to have the selected key applied.
-		\n\nPress one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\’s notes editing.\n
-	</string>
+	<string name="im_insert_on_tap_hint">You\\’re now in the <i>Insert on cell tap</i> input mode. \t\tFirst select any key button by pressing it. \t\tThen just tap on cells in which you want to have the selected key applied. \t\t  Press one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\\’s notes editing.  \t</string>
 
-	<string name="im_select_on_tap_hint">You\’re now in the <i>Select on cell tap</i> input mode.
-		Buttons act as a standard keyboard. You need first to select cell by tapping it, then press button to modify the selected cell.
-		\n\nPress one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\’s notes editing.\n
-	</string>
+	<string name="im_select_on_tap_hint">You\\’re now in the <i>Select on cell tap</i> input mode. \t\tButtons act as a standard keyboard. You need first to select cell by tapping it, then press button to modify the selected cell. \t\t  Press one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\\’s notes editing.  \t</string>
 
-	<string name="im_disable_modes_hint">Please remember that you don\’t have to use all input modes.
-		You can disable any of them in the game settings.
-		\n\nYou can also use the keyboard and trackball to control the game.
-		If you want to enter notes using the keyboard, press number with alt or shift.\n
-	</string>
+	<string name="im_disable_modes_hint">Please remember that you don\\’t have to use all input modes. \t\tYou can disable any of them in the game settings. \t\t  You can also use the keyboard and trackball to control the game. \t\tIf you want to enter notes using the keyboard, press number with alt or shift.  \t</string>
 
-	<string name="help_text"><b>Keyboard controls</b>
-		\n\nUse trackball to navigate to the desired cell and then press a number on the keyboard to
-		fill in the value.
-		If you want to edit the cell\’s note, press number with shift or alt.\n\n
-
-		<b>Input modes</b>
-		\n\nYou can switch between several input modes using the button in the lower right corner of
-		the screen.
-		You can also disable any input mode in game settings - it will become completely hidden.\n\n
-
-		<b>Pop-up input mode</b>
-		\n\nA pop-up dialog is shown when you tap the cell.
-		You can edit cell\’s content using this dialog.\n\n
-
-		<b>Insert on cell tap mode</b>
-		\n\nSelect any key button by pressing it.
-		Then just tap on cells in which you want to have the selected number filled.
-		\n\nPress one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\’s note editing.\n
-
-		<b>Select on cell tap mode</b>
-		\n\nButtons act as a standard numeric keyboard.
-		\n\nPress one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\’s note editing.\n
-	</string>
+	<string name="help_text">" \t\t<b>Keyboard controls</b> \t\t  Use trackball to navigate to the desired cell and then press a number on the keyboard to \t\tfill in the value. \t\tIf you want to edit the cell\\’s note, press number with shift or alt.    \t\t<b>Input modes</b> \t\t  You can switch between several input modes using the button in the lower right corner of \t\tthe screen. \t\tYou can also disable any input mode in game settings - it will become completely hidden.    \t\t<b>Pop-up input mode</b> \t\t  A pop-up dialog is shown when you tap the cell. \t\tYou can edit cell\\’s content using this dialog.    \t\t<b>Insert on cell tap mode</b> \t\t  Select any key button by pressing it. \t\tThen just tap on cells in which you want to have the selected number filled. \t\t  Press one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\\’s note editing.   \t\t<b>Select on cell tap mode</b> \t\t  Buttons act as a standard numeric keyboard. \t\t  Press one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\\’s note editing.  \t"</string>
 
 
 	<string name="game">Game</string>
@@ -197,10 +152,10 @@
 	<string name="puzzle_updated">Puzzle has been updated</string>
 
 	<string name="import_title">Import</string>
-	<string name="importing">Imported puzzles %1$d/%2$d</string>
+	<string name="importing">Imported %1$d/%2$d puzzles…</string>
 	<string name="import_puzzles_found">Found %d puzzles…</string>
-	<string name="checking_duplicates">Checking for duplicates among existing puzzles…</string>
-	<string name="puzzles_saved">Changes were applied to \‘%s\’ folder(s).</string>
+	<string name="checking_duplicates">Checking existing Sudoku puzzles…</string>
+	<string name="puzzles_saved">Changes were applied to %s folder(s).</string>
 	<string name="invalid_format">Invalid format; import was cancelled</string>
 	<string name="no_puzzles_found">No puzzles found</string>
 	<string name="unknown_import_error">Unknown error occurred while importing puzzles. Import was interrupted.</string>
@@ -209,13 +164,13 @@
 	<string name="screen_border_size_summary">Some displays do not react to touches on screen edges.
 		This could help in such cases.
 	</string>
-	<string name="highlight_touched_cell">Highlight cell on touch</string>
+	<string name="highlight_touched_cell">Highlight cells on touch</string>
 	<string name="highlight_touched_cell_summary">Highlights row and column of touched cell</string>
 	<string name="export">Export</string>
 	<string name="export_folder">Export folder</string>
 	<string name="export_all_folders">Export all folders</string>
 	<string name="exporting">From folder \‘%s\‘…</string>
-	<string name="exported_num">Exported %d/%d puzzles…</string>
+	<string name="exported_num">Exported %1$d/%2$d puzzles…</string>
 	<string name="unknown_export_error">An unknown error occurred while exporting puzzles</string>
 	<string name="highlight_completed_values">Highlight completed numbers</string>
 	<string name="highlight_completed_values_summary">Highlight buttons for numbers which have been
@@ -350,17 +305,14 @@
 
 	<string name="fill_all_notes">Fill in notes with all values</string>
 
-	<string name="sort_order_ascending"
-		translatable="false">ASC
+	<string name="sort_order_ascending" translatable="false">ASC
 	</string>
-	<string name="sort_order_descending"
-		translatable="false">DESC
+	<string name="sort_order_descending" translatable="false">DESC
 	</string>
 
 	<string name="press_color_to_apply">Press on Color to apply</string>
 
-	<string name="dark_mode_key"
-		translatable="false">ui_mode
+	<string name="dark_mode_key" translatable="false">ui_mode
 	</string>
 	<string name="dark_mode_title">Interface Mode</string>
 

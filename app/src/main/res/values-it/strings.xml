@@ -157,7 +157,8 @@
 	<string name="puzzle_inserted">Nuovo rompicapo salvato.</string>
 	<string name="puzzle_updated">Rompicapo aggiornato.</string>
 
-	<string name="puzzles_saved">Rompicapi salvati nella cartella \'%s\'.</string>
+	<string name="checking_duplicates">Controllare i puzzle di Sudoku esistenti…</string>
+	<string name="puzzles_saved">Rompicapi salvati nella cartella %s.</string>
 	<string name="no_puzzles_found">Nessun rompicapo trovato.</string>
 	<string name="unknown_import_error">Errore sconosciuto durante importazione rompicapi, importazione annullata.
 	</string>
@@ -174,7 +175,8 @@
 	<string name="export_folder">Esporta cartella</string>
 	<string name="export_all_folders">Esporta tutte le cartelle</string>
 	<string name="importing">Importazione rompicapi %1$d/%2$d…</string>
-	<string name="exporting">Esportazione rompicapi…</string>
+	<string name="exporting">Dalla cartella \'%s\'…</string>
+	<string name="exported_num">Puzzle %1$d/%2$d esportati…</string>
 	<string name="unknown_export_error">Errore sconosciuto durante esportazione rompicapi.</string>
 	<string name="highlight_completed_values">Evidenzia numeri completati</string>
 	<string name="highlight_completed_values_summary">Evidenzia tasti per numeri che sono stati inseriti 9 volte.

@@ -135,19 +135,19 @@ class FolderListActivity : ThemedActivity() {
 
 		// This is our one standard application action -- inserting a
 		// new note into the list.
-		menu.add(0, MENU_ITEM_ADD, 0, R.string.add_folder)
+		menu.add(0, MenuItems.ADD.id, 0, R.string.add_folder)
 			.setShortcut('3', 'a')
 			.setIcon(R.drawable.ic_add)
-		menu.add(0, MENU_ITEM_IMPORT, 0, R.string.import_title)
+		menu.add(0, MenuItems.IMPORT.id, 0, R.string.import_title)
 			.setShortcut('8', 'i')
 			.setIcon(R.drawable.ic_baseline_download)
-		menu.add(0, MENU_ITEM_EXPORT_ALL, 1, R.string.export_all_folders)
+		menu.add(0, MenuItems.EXPORT_ALL.id, 1, R.string.export_all_folders)
 			.setShortcut('7', 'e')
 			.setIcon(R.drawable.ic_share)
-		menu.add(0, MENU_ITEM_SETTINGS, 2, R.string.settings)
+		menu.add(0, MenuItems.SETTINGS.id, 2, R.string.settings)
 			.setShortcut('6', 's')
 			.setIcon(R.drawable.ic_settings)
-		menu.add(0, MENU_ITEM_ABOUT, 2, R.string.about)
+		menu.add(0, MenuItems.ABOUT.id, 2, R.string.about)
 			.setShortcut('1', 'h')
 			.setIcon(R.drawable.ic_info)
 
@@ -168,7 +168,7 @@ class FolderListActivity : ThemedActivity() {
 
 	override fun onContextItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
-			MENU_ITEM_EXPORT -> {
+			MenuItems.EXPORT.id -> {
 				val intent = Intent()
 				intent.setClass(this, PuzzleExportActivity::class.java)
 				intent.putExtra(Names.FOLDER_ID, mAdapter.selectedFolderId)
@@ -176,13 +176,13 @@ class FolderListActivity : ThemedActivity() {
 				return true
 			}
 
-			MENU_ITEM_RENAME -> {
+			MenuItems.RENAME.id -> {
 				renameFolderDialog.mRenameFolderID = mAdapter.selectedFolderId
 				renameFolderDialog.show(supportFragmentManager, "RenameFolderDialog")
 				return true
 			}
 
-			MENU_ITEM_DELETE -> {
+			MenuItems.DELETE.id -> {
 				deleteFolderDialog.mDeleteFolderID = mAdapter.selectedFolderId
 				deleteFolderDialog.show(supportFragmentManager, "DeleteFolderDialog")
 				return true
@@ -194,12 +194,12 @@ class FolderListActivity : ThemedActivity() {
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		val intent: Intent
 		when (item.itemId) {
-			MENU_ITEM_ADD -> {
+			MenuItems.ADD.id -> {
 				addFolderDialog.show(supportFragmentManager, "AddFolderDialog")
 				return true
 			}
 
-			MENU_ITEM_IMPORT -> {
+			MenuItems.IMPORT.id -> {
 				intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
 				intent.addCategory(Intent.CATEGORY_OPENABLE)
 				intent.setType("*/*")
@@ -207,7 +207,7 @@ class FolderListActivity : ThemedActivity() {
 				return true
 			}
 
-			MENU_ITEM_EXPORT_ALL -> {
+			MenuItems.EXPORT_ALL.id -> {
 				intent = Intent()
 				intent.setClass(this, PuzzleExportActivity::class.java)
 				intent.putExtra(Names.FOLDER_ID, PuzzleExportActivity.ALL_IDS)
@@ -215,14 +215,14 @@ class FolderListActivity : ThemedActivity() {
 				return true
 			}
 
-			MENU_ITEM_SETTINGS -> {
+			MenuItems.SETTINGS.id -> {
 				intent = Intent()
 				intent.setClass(this, GameSettingsActivity::class.java)
 				startActivity(intent)
 				return true
 			}
 
-			MENU_ITEM_ABOUT -> {
+			MenuItems.ABOUT.id -> {
 				aboutDialog.show(supportFragmentManager, "AboutDialog")
 				return true
 			}
@@ -237,7 +237,7 @@ class FolderListActivity : ThemedActivity() {
 	) {
 		if (requestCode == storagePermissionCoe) {
 			if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-				onOptionsItemSelected(mMenu!!.findItem(MENU_ITEM_IMPORT))
+				onOptionsItemSelected(mMenu!!.findItem(MenuItems.IMPORT.id))
 			} else {
 				Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show()
 			}
@@ -250,13 +250,17 @@ class FolderListActivity : ThemedActivity() {
 	}
 
 	companion object {
-		const val MENU_ITEM_ADD = Menu.FIRST
-		const val MENU_ITEM_RENAME = Menu.FIRST + 1
-		const val MENU_ITEM_DELETE = Menu.FIRST + 2
-		const val MENU_ITEM_ABOUT = Menu.FIRST + 3
-		const val MENU_ITEM_EXPORT = Menu.FIRST + 4
-		const val MENU_ITEM_EXPORT_ALL = Menu.FIRST + 5
-		const val MENU_ITEM_IMPORT = Menu.FIRST + 6
-		const val MENU_ITEM_SETTINGS = Menu.FIRST + 7
+		enum class MenuItems {
+			ADD,
+			RENAME,
+			DELETE,
+			ABOUT,
+			EXPORT,
+			EXPORT_ALL,
+			IMPORT,
+			SETTINGS;
+
+			val id = ordinal + Menu.FIRST
+		}
 	}
 }

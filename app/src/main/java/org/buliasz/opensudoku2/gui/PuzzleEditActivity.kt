@@ -117,13 +117,13 @@ class PuzzleEditActivity : ThemedActivity() {
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
 		// This is our one standard application action -- inserting a
 		// new note into the list.
-		menu.add(0, MENU_ITEM_COPY, 0, android.R.string.copy)
-		menu.add(0, MENU_ITEM_PASTE, 1, android.R.string.paste)
-		menu.add(0, MENU_ITEM_CHECK_VALIDITY, 2, R.string.check_validity)
-		menu.add(0, MENU_ITEM_SAVE, 3, R.string.save)
+		menu.add(0, MenuItems.COPY.id, 0, android.R.string.copy)
+		menu.add(0, MenuItems.PASTE.id, 1, android.R.string.paste)
+		menu.add(0, MenuItems.CHECK_VALIDITY.id, 2, R.string.check_validity)
+		menu.add(0, MenuItems.SAVE.id, 3, R.string.save)
 			.setShortcut('1', 's')
 			.setIcon(R.drawable.ic_save)
-		menu.add(0, MENU_ITEM_CANCEL, 4, android.R.string.cancel)
+		menu.add(0, MenuItems.CANCEL.id, 4, android.R.string.cancel)
 			.setShortcut('3', 'c')
 			.setIcon(R.drawable.ic_close)
 
@@ -144,33 +144,33 @@ class PuzzleEditActivity : ThemedActivity() {
 		super.onPrepareOptionsMenu(menu)
 		if (!mClipboard.hasPrimaryClip()) {
 			// If the clipboard doesn't contain data, disable the paste menu item.
-			menu.findItem(MENU_ITEM_PASTE).setEnabled(false)
+			menu.findItem(MenuItems.PASTE.id).setEnabled(false)
 		} else if (!(mClipboard.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) ||
-					mClipboard.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML))
+				mClipboard.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML))
 		) {
 			// This disables the paste menu item, since the clipboard has data but it is not plain text
 			Toast.makeText(applicationContext, mClipboard.primaryClipDescription!!.getMimeType(0), Toast.LENGTH_SHORT).show()
-			menu.findItem(MENU_ITEM_PASTE).setEnabled(false)
+			menu.findItem(MenuItems.PASTE.id).setEnabled(false)
 		} else {
 			// This enables the paste menu item, since the clipboard contains plain text.
-			menu.findItem(MENU_ITEM_PASTE).setEnabled(true)
+			menu.findItem(MenuItems.PASTE.id).setEnabled(true)
 		}
 		return true
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
-			MENU_ITEM_COPY -> {
+			MenuItems.COPY.id -> {
 				copyToClipboard()
 				return true
 			}
 
-			MENU_ITEM_PASTE -> {
+			MenuItems.PASTE.id -> {
 				pasteFromClipboard()
 				return true
 			}
 
-			MENU_ITEM_CHECK_VALIDITY -> {
+			MenuItems.CHECK_VALIDITY.id -> {
 				when (getNumberOfSolutions()) {
 					1 -> {
 						SimpleDialog(supportFragmentManager).show(R.string.puzzle_solvable)
@@ -187,12 +187,12 @@ class PuzzleEditActivity : ThemedActivity() {
 				return true
 			}
 
-			MENU_ITEM_SAVE -> {
+			MenuItems.SAVE.id -> {
 				showSaveDialogAndOrFinish()
 				return true
 			}
 
-			MENU_ITEM_CANCEL -> {
+			MenuItems.CANCEL.id -> {
 				mState = STATE_CANCEL
 				finish()
 				return true
@@ -233,13 +233,13 @@ class PuzzleEditActivity : ThemedActivity() {
 		if (numberOfSolutions == 0) {
 			dialog.show(
 				applicationContext.getString(R.string.puzzle_has_no_solution) +
-						"\n" + applicationContext.getString(R.string.do_you_want_to_save_anyway)
+					"\n" + applicationContext.getString(R.string.do_you_want_to_save_anyway)
 			)
 			return
 		} else if (numberOfSolutions > 1) {
 			dialog.show(
 				applicationContext.getString(R.string.puzzle_has_multiple_solutions) +
-						"\n" + applicationContext.getString(R.string.do_you_want_to_save_anyway)
+					"\n" + applicationContext.getString(R.string.do_you_want_to_save_anyway)
 			)
 			return
 		}
@@ -249,7 +249,7 @@ class PuzzleEditActivity : ThemedActivity() {
 		if (existingPuzzle != null) {
 			dialog.show(
 				applicationContext.getString(R.string.puzzle_already_exists, mDatabase.getFolderInfo(existingPuzzle.folderId)?.name) +
-						"\n" + applicationContext.getString(R.string.do_you_want_to_save_anyway)
+					"\n" + applicationContext.getString(R.string.do_you_want_to_save_anyway)
 			)
 			return
 		}
@@ -297,11 +297,15 @@ class PuzzleEditActivity : ThemedActivity() {
 	}
 
 	companion object {
-		const val MENU_ITEM_CHECK_VALIDITY = Menu.FIRST
-		const val MENU_ITEM_SAVE = Menu.FIRST + 1
-		const val MENU_ITEM_CANCEL = Menu.FIRST + 2
-		const val MENU_ITEM_COPY = Menu.FIRST + 3
-		const val MENU_ITEM_PASTE = Menu.FIRST + 4
+		enum class MenuItems {
+			CHECK_VALIDITY,
+			SAVE,
+			CANCEL,
+			COPY,
+			PASTE;
+
+			val id = ordinal + Menu.FIRST
+		}
 
 		// The distinct states that the activity can be run in.
 		private const val STATE_EDIT = 0

@@ -147,7 +147,8 @@
     <string name="puzzle_inserted">Das neue Sudoku-Rätsel wurde gespeichert.</string>
     <string name="puzzle_updated">Das Sudoku-Rätsel wurde aktualisiert.</string>
 
-    <string name="puzzles_saved">Die Sudoku-Rätsel wurden im Ordner \'%s\' gespeichert.</string>
+	<string name="checking_duplicates">Überprüfung bestehender Sudoku-Rätsel…</string>
+	<string name="puzzles_saved">Die Sudoku-Rätsel wurden im Ordner %s gespeichert.</string>
     <string name="no_puzzles_found">Keine Sudoku-Rätsel gefunden.</string>
     <string name="unknown_import_error">Beim Importieren von Rätseln ist ein unbekannter Fehler aufgetreten. Import wurde abgebrochen.</string>
     <string name="invalid_format">Unbekanntes Format, importieren wurde abgebrochen.</string>
@@ -162,7 +163,8 @@
     <string name="export_folder">Exportiere Ordner</string>
     <string name="export_all_folders">Exportiere alle Ordner</string>
 	<string name="importing">Importiere Sudoku-Rätsel %1$d/%2$d…</string>
-    <string name="exporting">Exportiere Sudoku-Rätsel…</string>
+    <string name="exporting">Aus dem Ordner \'%s\'…</string>
+    <string name="exported_num">%1$d/%2$d Rätsel exportiert…</string>
     <string name="unknown_export_error">Ein unbekannter Fehler ist während des Exports aufgetreten.</string>
     <string name="highlight_completed_values">Markiere vollständige Zahlen</string>
     <string name="highlight_completed_values_summary">Markiere Zahlen, die bereits vollständig eingegeben wurden.</string>
