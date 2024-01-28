@@ -28,6 +28,7 @@
 	<string name="close">Chiudi</string>
 	<string name="clear">Rimuovi</string>
 	<string name="save">Salva</string>
+	<string name="discard">Scartare</string>
 
 	<string name="get_more_puzzles_online">Scarica altri rompicapi online</string>
 
@@ -320,6 +321,7 @@
 	<string name="pref_even_title">Cellule uniformi</string>
 	<string name="pref_even_summary">Celle in caselle 3x3 pari</string>
 	<string name="processing_input_file">Elaborazione del file di input</string>
-	<string name="do_you_want_to_save_anyway">Premi OK se vuoi salvarlo comunque e tornare all\'elenco dei puzzle.</string>
+	<string name="do_you_want_to_save_anyway">Premere OK se si desidera salvarlo comunque.</string>
+	<string name="press_ok_to_save">Premere OK per salvare il puzzle.</string>
 	<string name="import_puzzles_found">Trovati %d puzzle…</string>
 </resources>

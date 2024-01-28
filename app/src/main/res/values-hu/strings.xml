@@ -35,6 +35,7 @@
 	<string name="close">Bezárás</string>
 	<string name="clear">Törlés</string>
 	<string name="save">Mentés</string>
+	<string name="discard">Eldob</string>
 
 	<string name="get_more_puzzles_online">Új feladványok letöltése</string>
 
@@ -338,7 +339,8 @@
 	<string name="pref_even_title">Páros sejtek</string>
 	<string name="pref_even_summary">Páros számú 3x3-as dobozok cellái</string>
 	<string name="processing_input_file">A bemeneti fájl feldolgozása</string>
-	<string name="do_you_want_to_save_anyway">Nyomja meg az OK gombot, ha mindenképpen el szeretné menteni, és vissza szeretne térni a rejtvénylistához.</string>
+	<string name="do_you_want_to_save_anyway">Nyomja meg az OK gombot, ha mindenképpen el szeretné menteni.</string>
+	<string name="press_ok_to_save">Nyomja meg az OK gombot a puzzle mentéséhez.</string>
 	<string name="import_puzzles_found">Talált %d rejtvények …</string>
 </resources>
 

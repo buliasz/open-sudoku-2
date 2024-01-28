@@ -578,7 +578,7 @@ object ThemeUtils {
 		cells.getCell(2, 5).value = 0
 		cells.getCell(2, 2).value = 2
 		cells.markAllCellsAsEditable()
-		cells.markFilledCellsAsNotEditable()
+		cells.markCellsWithValueAsNotEditable()
 		cells.getCell(0, 0).value = 1
 		cells.getCell(0, 1).value = 2 // Invalid value
 		cells.getCell(0, 2).value = 3

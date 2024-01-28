@@ -66,7 +66,7 @@ class SudokuGame {
 				put(Names.STATE, state)
 				put(Names.TIME, time)
 				put(Names.USER_NOTE, userNote)
-				put(Names.COMMAND_STACK, if (state == GAME_STATE_PLAYING) commandStack.serialize() else "")
+				put(Names.COMMAND_STACK, commandStack.serialize())
 				put(Names.FOLDER_ID, folderId)
 				return this
 			}

@@ -113,15 +113,13 @@ class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
 						time = parser.getAttributeValue(null, Names.TIME).toLong()
 						userNote = parser.getAttributeValue(null, Names.USER_NOTE)
 						folderId = lastFolderId
-						if (state == SudokuGame.GAME_STATE_PLAYING) {
-							commandStack.deserialize(parser.getAttributeValue(null, Names.COMMAND_STACK))
-						}
+						commandStack.deserialize(parser.getAttributeValue(null, Names.COMMAND_STACK))
 						id = existingPuzzles[cells.originalValues] ?: -1
 						if (id < 0L) {
 							mDatabase.insertPuzzle(this)
 							importedCount += 1
-						} else if (state == SudokuGame.GAME_STATE_PLAYING) {
-							mDatabase.updatePuzzle(this)    // those saved may be in progress, update makes sense for puzzles exported from by this app
+						} else if (state != SudokuGame.GAME_STATE_NOT_STARTED) {
+							mDatabase.updatePuzzle(this)    // those saved may be in progress, update makes sense for puzzles exported by by this app
 							updatedCount += 1
 						} else {
 							duplicatesCount += 1

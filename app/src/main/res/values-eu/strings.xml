@@ -35,6 +35,7 @@
 	<string name="close">Itxi</string>
 	<string name="clear">Garbitu</string>
 	<string name="save">Gorde</string>
+	<string name="discard">Baztertu</string>
 
 	<string name="get_more_puzzles_online">Lortu sudoku gehiago linean</string>
 
@@ -344,6 +345,7 @@
 	<string name="pref_even_title">Zelula uniformeak</string>
 	<string name="pref_even_summary">Zeilak 3x3-ko kaxa bikoietan</string>
 	<string name="processing_input_file">Sarrerako artxiboaren prozesamendua</string>
-	<string name="do_you_want_to_save_anyway">Presioa egin OK, dena dela, gorde nahi baduzu eta buruhausteen zerrendara itzuli.</string>
+	<string name="do_you_want_to_save_anyway">Presione OK, dena dela, gorde nahi baduzu.</string>
+	<string name="press_ok_to_save">Presione OK buru-hauskagailua gordetzeko.</string>
 	<string name="import_puzzles_found">Aurkituta %d rompecabezas…</string>
 </resources>

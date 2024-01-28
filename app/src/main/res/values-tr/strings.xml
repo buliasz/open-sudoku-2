@@ -36,6 +36,7 @@
 	<string name="close">Kapat</string>
 	<string name="clear">Temizle</string>
 	<string name="save">Kaydet</string>
+	<string name="discard">Atmak</string>
 
 	<string name="get_more_puzzles_online">Daha fazla puzzle edin</string>
 
@@ -289,7 +290,8 @@
 	<string name="pref_even_title">Çift kutular</string>
 	<string name="pref_even_summary">Çift sayılı 3x3 kutulardaki hücreler</string>
 	<string name="processing_input_file">Giriş dosyasını işleme</string>
-	<string name="do_you_want_to_save_anyway">Yine de kaydetmek ve bulmaca listesine geri dönmek istiyorsanız Tamam\'a basın.</string>
+	<string name="do_you_want_to_save_anyway">Yine de kaydetmek istiyorsanız Tamam\'a basın.</string>
+	<string name="press_ok_to_save">Bulmacayı kaydetmek için Tamam\'a basın.</string>
 	<string name="import_puzzles_found">%d bulmaca bulundu…</string>
 
 </resources>

@@ -28,6 +28,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuDatabase
@@ -41,7 +42,7 @@ import java.time.Instant
  * Activity for editing content of puzzle.
  */
 class PuzzleEditActivity : ThemedActivity() {
-	private var mState = 0
+	private var originalValues: String = ""
 	private lateinit var mDatabase: SudokuDatabase
 	private lateinit var newPuzzle: SudokuGame
 	private lateinit var mRootLayout: ViewGroup
@@ -56,14 +57,12 @@ class PuzzleEditActivity : ThemedActivity() {
 		val intent = intent
 		val action = intent.action
 		val mPuzzleID: Long
-		if (Intent.ACTION_EDIT == action) {
+		if (action == Intent.ACTION_EDIT) {
 			// Requested to edit: set that state, and the data being edited.
-			mState = STATE_EDIT
-			mPuzzleID = intent.getLongExtra(Names.PUZZLE_ID, 0)
-			require(mPuzzleID != 0L) { "Extra with key PUZZLE_ID is required." }
-		} else if (Intent.ACTION_INSERT == action) {
-			mState = STATE_INSERT
-			mPuzzleID = 0
+			mPuzzleID = intent.getLongExtra(Names.PUZZLE_ID, -1L)
+			require(mPuzzleID >= 0L) { "Extra with key PUZZLE_ID is required." }
+		} else if (action == Intent.ACTION_INSERT) {
+			mPuzzleID = -1L
 		} else {
 			// Whoops, unknown action!  Bail.
 			Log.e(TAG, "Unknown action, exiting.")
@@ -74,14 +73,15 @@ class PuzzleEditActivity : ThemedActivity() {
 			newPuzzle = SudokuGame()
 			newPuzzle.restoreState(savedInstanceState)
 		} else {
-			if (mPuzzleID != 0L) {
-				// existing puzzle, read it from database
+			if (mPuzzleID != -1L) { // existing puzzle, read it from database
 				newPuzzle = mDatabase.getPuzzle(mPuzzleID)!!
+				originalValues = newPuzzle.cells.originalValues
+				newPuzzle.reset()
 				newPuzzle.cells.markAllCellsAsEditable()
 			} else {
 				newPuzzle = SudokuGame.createEmptyGame()
-				newPuzzle.folderId = intent.getLongExtra(Names.FOLDER_ID, 0)
-				require(newPuzzle.folderId != 0L) { "Extra with key FOLDER_ID is required." }
+				newPuzzle.folderId = intent.getLongExtra(Names.FOLDER_ID, -1L)
+				require(newPuzzle.folderId >= 0L) { "Extra with key FOLDER_ID is required." }
 			}
 		}
 		mBoard.setGame(newPuzzle)
@@ -95,13 +95,11 @@ class PuzzleEditActivity : ThemedActivity() {
 		mInputMethods.imSelectOnTap.isEnabled = true
 		mInputMethods.activateInputMethod(IMControlPanel.INPUT_METHOD_SELECT_ON_TAP)
 		mClipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-	}
-
-	override fun onPause() {
-		super.onPause()
-		if (isFinishing && mState != STATE_CANCEL && !newPuzzle.cells.isEmpty) {
-			savePuzzle()
-		}
+		onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+			override fun handleOnBackPressed() {
+				if (isModified()) showSaveDialogAndOrFinish(true) else finish()
+			}
+		})
 	}
 
 	override fun onDestroy() {
@@ -123,7 +121,7 @@ class PuzzleEditActivity : ThemedActivity() {
 		menu.add(0, MenuItems.SAVE.id, 3, R.string.save)
 			.setShortcut('1', 's')
 			.setIcon(R.drawable.ic_save)
-		menu.add(0, MenuItems.CANCEL.id, 4, android.R.string.cancel)
+		menu.add(0, MenuItems.DISCARD.id, 4, R.string.discard)
 			.setShortcut('3', 'c')
 			.setIcon(R.drawable.ic_close)
 
@@ -188,12 +186,11 @@ class PuzzleEditActivity : ThemedActivity() {
 			}
 
 			MenuItems.SAVE.id -> {
-				showSaveDialogAndOrFinish()
+				showSaveDialogAndOrFinish(false)
 				return true
 			}
 
-			MenuItems.CANCEL.id -> {
-				mState = STATE_CANCEL
+			MenuItems.DISCARD.id -> {
 				finish()
 				return true
 			}
@@ -202,31 +199,53 @@ class PuzzleEditActivity : ThemedActivity() {
 	}
 
 	private fun getNumberOfSolutions(): Int {
-		newPuzzle.cells.markFilledCellsAsNotEditable()
+		newPuzzle.cells.markCellsWithValueAsNotEditable()
 		val numberOfSolutions = newPuzzle.solutionCount
 		newPuzzle.cells.markAllCellsAsEditable()
 		return numberOfSolutions
 	}
 
-	private fun savePuzzle() {
-		newPuzzle.cells.markFilledCellsAsNotEditable()
-		when (mState) {
-			STATE_EDIT -> {
-				mDatabase.updatePuzzle(newPuzzle)
-				Toast.makeText(applicationContext, R.string.puzzle_updated, Toast.LENGTH_SHORT).show()
-			}
-
-			STATE_INSERT -> {
-				newPuzzle.created = Instant.now().epochSecond
-				mDatabase.insertPuzzle(newPuzzle)
-				Toast.makeText(applicationContext, R.string.puzzle_inserted, Toast.LENGTH_SHORT).show()
-			}
+	fun isModified(): Boolean {
+		if (newPuzzle.cells.isEmpty) {
+			return false
 		}
+		if (newPuzzle.id < 0) {
+			return true
+		}
+		newPuzzle.cells.markCellsWithValueAsNotEditable()
+		val isOriginalModified = newPuzzle.cells.originalValues != originalValues
+		newPuzzle.cells.markAllCellsAsEditable()
+		return isOriginalModified
 	}
 
-	private fun showSaveDialogAndOrFinish() {
-		val dialog = SimpleDialog(supportFragmentManager)
-		dialog.onOkCallback = ::finish
+	private fun savePuzzle() {
+		newPuzzle.cells.markCellsWithValueAsNotEditable()
+		if (newPuzzle.id < 0L) {
+			newPuzzle.created = Instant.now().epochSecond
+			mDatabase.insertPuzzle(newPuzzle)
+			Toast.makeText(applicationContext, R.string.puzzle_inserted, Toast.LENGTH_SHORT).show()
+		} else {
+			mDatabase.updatePuzzle(newPuzzle)
+			Toast.makeText(applicationContext, R.string.puzzle_updated, Toast.LENGTH_SHORT).show()
+		}
+		originalValues = newPuzzle.cells.originalValues
+	}
+
+	internal fun showSaveDialogAndOrFinish(askAndFinish: Boolean) {
+		val dialog = with(SimpleDialog(supportFragmentManager)) {
+			positiveButtonString = R.string.save
+			positiveButtonCallback = {
+				savePuzzle()
+				if (askAndFinish) {
+					finish()
+				}
+			}
+			if (askAndFinish) {
+				negativeButtonString = R.string.discard
+				negativeButtonCallback = ::finish
+			}
+			this
+		}
 
 		// check number of solutions
 		val numberOfSolutions = getNumberOfSolutions()
@@ -254,7 +273,13 @@ class PuzzleEditActivity : ThemedActivity() {
 			return
 		}
 
-		finish()  // puzzle will be saved automatically in onPause callback
+		if (askAndFinish) {
+			dialog.show(applicationContext.getString(R.string.press_ok_to_save))
+			return
+		}
+
+		// no dialog necessary, save and finish is invoked
+		dialog.positiveButtonCallback?.invoke()
 	}
 
 	/**
@@ -300,17 +325,13 @@ class PuzzleEditActivity : ThemedActivity() {
 		enum class MenuItems {
 			CHECK_VALIDITY,
 			SAVE,
-			CANCEL,
+			DISCARD,
 			COPY,
 			PASTE;
 
 			val id = ordinal + Menu.FIRST
 		}
 
-		// The distinct states that the activity can be run in.
-		private const val STATE_EDIT = 0
-		private const val STATE_INSERT = 1
-		private const val STATE_CANCEL = 2
 		private const val TAG = "PuzzleEditActivity"
 	}
 }

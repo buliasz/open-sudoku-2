@@ -27,6 +27,7 @@
 	<string name="close">Zamknij</string>
 	<string name="clear">Wyczyść</string>
 	<string name="save">Zapisz</string>
+	<string name="discard">Odrzucić</string>
 	<string name="get_more_puzzles_online">Pobierz więcej łamigłówek Sudoku z internetu</string>
 	<string name="name">Imię:</string>
 	<string name="note">Adnotacja:</string>
@@ -164,7 +165,8 @@
 	<string name="puzzle_has_no_solution">Ta łamigłówka nie ma rozwiązania.</string>
 	<string name="puzzle_has_multiple_solutions">To jest niepoprawna łamigłówka, ponieważ ma więcej niż jedno rozwiązanie.</string>
 	<string name="puzzle_already_exists">Ta łamigłówka jest poprawna, ale już istnieje w katalogu %s.</string>
-	<string name="do_you_want_to_save_anyway">Naciśnij OK jeśli mimo to chcesz ją zapisać i wrócić to listy łamigłówek.</string>
+	<string name="do_you_want_to_save_anyway">Naciśnij OK jeśli mimo to chcesz ją zapisać.</string>
+	<string name="press_ok_to_save">Naciśnij OK aby zapisać łamigłówkę.</string>
 	<string name="hint_confirm">Ta opcja wypełni wybrane pole poprawną cyfrą. Czy chcesz kontynuować?</string>
 	<string name="cannot_give_hint">To pole jest nieedytowalne.</string>
 	<string name="check_validity">Sprawdź poprawność</string>

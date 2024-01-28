@@ -80,7 +80,7 @@ class SudokuPlayActivity : ThemedActivity() {
 				iconId = R.drawable.ic_info
 				titleId = R.string.well_done
 				message = this@SudokuPlayActivity.getString(R.string.congrats, mGameTimeFormatter.format(mSudokuGame.time))
-				onOkCallback = ::finish
+				positiveButtonCallback = ::finish
 				show()
 			}
 		}
@@ -136,7 +136,7 @@ class SudokuPlayActivity : ThemedActivity() {
 			mSudokuGame.resume()
 		}
 		if (mSudokuGame.state == SudokuGame.GAME_STATE_COMPLETED) {
-			mSudokuBoard.isReadOnly = (true)
+			mSudokuBoard.isReadOnly = true
 		}
 		mSudokuBoard.setGame(mSudokuGame)
 		mSudokuGame.onPuzzleSolvedListener = onSolvedListener
@@ -184,9 +184,7 @@ class SudokuPlayActivity : ThemedActivity() {
 		mShowTime = gameSettings.getBoolean("show_time", true)
 		if (mSudokuGame.state == SudokuGame.GAME_STATE_PLAYING) {
 			mSudokuGame.resume()
-			if (mShowTime) {
-				mGameTimer.start()
-			}
+			if (mShowTime) mGameTimer.start()
 		}
 		val moveCellSelectionOnPress = gameSettings.getBoolean("im_move_right_on_insert_move_right", false)
 		mSudokuBoard.moveCellSelectionOnPress = moveCellSelectionOnPress
@@ -327,7 +325,7 @@ class SudokuPlayActivity : ThemedActivity() {
 					iconId = R.drawable.ic_restore
 					titleId = R.string.app_name
 					messageId = R.string.restart_confirm
-					onOkCallback = ::resetGame
+					positiveButtonCallback = ::resetGame
 					show()
 				}
 				return true
@@ -338,7 +336,7 @@ class SudokuPlayActivity : ThemedActivity() {
 					iconId = R.drawable.ic_delete
 					titleId = R.string.app_name
 					messageId = R.string.clear_all_notes_confirm
-					onOkCallback = mSudokuGame::clearAllNotesManual
+					positiveButtonCallback = mSudokuGame::clearAllNotesManual
 					show()
 				}
 				return true
@@ -392,7 +390,7 @@ class SudokuPlayActivity : ThemedActivity() {
 					iconId = R.drawable.ic_undo
 					titleId = R.string.app_name
 					messageId = R.string.undo_to_checkpoint_confirm
-					onOkCallback = {
+					positiveButtonCallback = {
 						mSudokuGame.undoToCheckpoint()
 						selectLastCommandCell()
 					}
@@ -406,7 +404,7 @@ class SudokuPlayActivity : ThemedActivity() {
 					iconId = R.drawable.ic_undo
 					titleId = R.string.app_name
 					messageId = R.string.undo_to_before_mistake_confirm
-					onOkCallback = {
+					positiveButtonCallback = {
 						mSudokuGame.undoToBeforeMistake()
 						selectLastCommandCell()
 					}
@@ -419,7 +417,7 @@ class SudokuPlayActivity : ThemedActivity() {
 				with(SimpleDialog(supportFragmentManager)) {
 					titleId = R.string.app_name
 					messageId = R.string.solve_puzzle_confirm
-					onOkCallback = {
+					positiveButtonCallback = {
 						val numberOfSolutions = mSudokuGame.solve()
 						if (numberOfSolutions == 0) {
 							SimpleDialog(supportFragmentManager).show(R.string.puzzle_has_no_solution)
@@ -435,7 +433,7 @@ class SudokuPlayActivity : ThemedActivity() {
 			MenuItems.HINT.id -> {
 				with(SimpleDialog(supportFragmentManager)) {
 					messageId = R.string.hint_confirm
-					onOkCallback = {
+					positiveButtonCallback = {
 						val cell = mSudokuBoard.selectedCell
 						if (cell != null && cell.isEditable) {
 							when (mSudokuGame.solutionCount) {

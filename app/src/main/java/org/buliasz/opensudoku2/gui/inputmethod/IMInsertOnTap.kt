@@ -268,7 +268,7 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 	}
 
 	override fun onRestoreState(savedState: StateBundle) {
-		if (mGame.id != savedState.getLong("gameId", 0)) {
+		if (mGame.id != savedState.getLong("gameId", -1)) {
 			return
 		}
 		mSelectedNumber = savedState.getInt("selectedNumber", 0)

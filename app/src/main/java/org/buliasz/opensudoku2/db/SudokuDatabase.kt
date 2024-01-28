@@ -318,9 +318,7 @@ internal fun extractSudokuGameFromCursorRow(cursor: Cursor): SudokuGame {
 		time = cursor.getLong(cursor.getColumnIndexOrThrow(Names.TIME))
 		userNote = cursor.getString(cursor.getColumnIndexOrThrow(Names.USER_NOTE))
 		folderId = cursor.getLong(cursor.getColumnIndexOrThrow(Names.FOLDER_ID))
-		if (state == SudokuGame.GAME_STATE_PLAYING) {
-			commandStack.deserialize(cursor.getString(cursor.getColumnIndexOrThrow(Names.COMMAND_STACK)))
-		}
+		commandStack.deserialize(cursor.getString(cursor.getColumnIndexOrThrow(Names.COMMAND_STACK)))
 	}
 	return game
 }

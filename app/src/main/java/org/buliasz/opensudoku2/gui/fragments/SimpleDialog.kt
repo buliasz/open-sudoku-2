@@ -20,6 +20,7 @@ package org.buliasz.opensudoku2.gui.fragments
 
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.DialogInterface.BUTTON_NEGATIVE
 import android.content.DialogInterface.BUTTON_POSITIVE
 import android.os.Bundle
 import android.view.View
@@ -35,7 +36,11 @@ class SimpleDialog(private val fragmentManager: FragmentManager) : DialogFragmen
 	var message: String? = null
 	@DrawableRes var iconId: Int = 0
 	@StringRes var titleId: Int = R.string.app_name
-	var onOkCallback: (() -> Unit)? = null
+	var positiveButtonCallback: (() -> Unit)? = null
+	@StringRes var positiveButtonString: Int = android.R.string.ok
+	var negativeButtonCallback: (() -> Unit)? = null
+	@StringRes var negativeButtonString: Int = android.R.string.cancel
+	@StringRes var neutralButtonString: Int = android.R.string.cancel
 	var onDismiss: (() -> Unit)? = null
 	var dialogView: View? = null
 
@@ -52,11 +57,15 @@ class SimpleDialog(private val fragmentManager: FragmentManager) : DialogFragmen
 			builder.setMessage(messageId)
 		}
 
-		if (onOkCallback != null) {
-			builder.setPositiveButton(android.R.string.ok, this)
-				.setNegativeButton(android.R.string.cancel, null)
+		if (negativeButtonCallback != null) {
+			builder.setPositiveButton(positiveButtonString, this)
+				.setNegativeButton(negativeButtonString, this)
+				.setNeutralButton(neutralButtonString, null)
+		} else if (positiveButtonCallback != null) {
+			builder.setPositiveButton(positiveButtonString, this)
+				.setNegativeButton(negativeButtonString, null)
 		} else {
-			builder.setPositiveButton(android.R.string.ok, null)
+			builder.setPositiveButton(positiveButtonString, null)
 		}
 
 		return builder.create()
@@ -76,9 +85,11 @@ class SimpleDialog(private val fragmentManager: FragmentManager) : DialogFragmen
 		show()
 	}
 
-	override fun onClick(dialog: DialogInterface?, which: Int) {
-		if (which == BUTTON_POSITIVE) {
-			onOkCallback?.invoke()
+	override fun onClick(dialog: DialogInterface?, whichButton: Int) {
+		if (whichButton == BUTTON_POSITIVE) {
+			positiveButtonCallback?.invoke()
+		} else if (whichButton == BUTTON_NEGATIVE) {
+			negativeButtonCallback?.invoke()
 		}
 	}
 

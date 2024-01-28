@@ -28,6 +28,7 @@
 	<string name="close">Stäng</string>
 	<string name="clear">Töm</string>
 	<string name="save">Spara</string>
+	<string name="discard">Kasta bort</string>
 
 	<string name="get_more_puzzles_online">Hämta fler pussel online</string>
 
@@ -298,7 +299,8 @@
 	<string name="pref_even_title">Jämna celler</string>
 	<string name="pref_even_summary">Celler i jämna 3x3-rutor</string>
 	<string name="processing_input_file">Bearbeta indatafilen</string>
-	<string name="do_you_want_to_save_anyway">Tryck på OK om du vill spara den ändå och gå tillbaka till pussellistan.</string>
+	<string name="do_you_want_to_save_anyway">Tryck på OK om du vill spara den ändå.</string>
+	<string name="press_ok_to_save">Tryck på OK för att spara pusslet.</string>
 	<string name="import_puzzles_found">Hittade %d pussel…</string>
 
 </resources>

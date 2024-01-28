@@ -32,6 +32,7 @@
 	<string name="close">Fermer</string>
 	<string name="clear">Effacer</string>
 	<string name="save">Sauver</string>
+	<string name="discard">Jeter</string>
 
 	<string name="get_more_puzzles_online">Obtenir plus de grilles en ligne</string>
 
@@ -317,7 +318,8 @@
 	<string name="pref_even_title">Cellules uniformes</string>
 	<string name="pref_even_summary">Cellules dans des boîtes paires de 3x3</string>
 	<string name="processing_input_file">Traitement du fichier d’entrée</string>
-	<string name="do_you_want_to_save_anyway">Appuyez sur OK si vous voulez quand même l’enregistrer et revenir à la liste des puzzles.</string>
+	<string name="do_you_want_to_save_anyway">Appuyez sur OK si vous voulez quand même l’enregistrer.</string>
+	<string name="press_ok_to_save">Appuyez sur OK pour enregistrer le puzzle.</string>
 	<string name="import_puzzles_found">Trouvé %d puzzles…</string>
 
 </resources>

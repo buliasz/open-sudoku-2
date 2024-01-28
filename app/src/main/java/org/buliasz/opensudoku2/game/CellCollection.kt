@@ -57,6 +57,10 @@ class CellCollection private constructor(val cells: Array<Array<Cell>>) {
 		}
 		private set
 
+	private fun regenerateOriginalValues() {
+		mOriginalValues = null
+	}
+
 	private fun setSolution(validSolution: java.util.ArrayList<Array<Int>>) {
 		for (rowColumnValue in validSolution) {
 			val row = rowColumnValue[0]
@@ -176,7 +180,7 @@ class CellCollection private constructor(val cells: Array<Array<Cell>>) {
 	/**
 	 * Marks all filled cells (cells with value other than 0) as not editable.
 	 */
-	fun markFilledCellsAsNotEditable() {
+	fun markCellsWithValueAsNotEditable() {
 		for (r in 0..<SUDOKU_SIZE) {
 			for (c in 0..<SUDOKU_SIZE) {
 				val cell = cells[r][c]
@@ -184,6 +188,7 @@ class CellCollection private constructor(val cells: Array<Array<Cell>>) {
 			}
 		}
 		solutionCount = -1 // find new solution on next get
+		regenerateOriginalValues()
 	}
 
 	/**
@@ -432,7 +437,7 @@ class CellCollection private constructor(val cells: Array<Array<Cell>>) {
 					arrayOf(Cell(9), Cell(1), Cell(2), Cell(3), Cell(4), Cell(5), Cell(6), Cell(7), Cell(8))
 				)
 			)
-			debugGame.markFilledCellsAsNotEditable()
+			debugGame.markCellsWithValueAsNotEditable()
 			return debugGame
 		}
 

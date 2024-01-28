@@ -30,6 +30,7 @@
     <string name="close">Schließen</string>
     <string name="clear">Löschen</string>
     <string name="save">Speichern</string>
+    <string name="discard">Abwerfen</string>
 
     <string name="get_more_puzzles_online">Mehr Sudoku-Rätsel herunterladen</string>
 
@@ -288,6 +289,7 @@
     <string name="pref_even_title">Gleichmäßige Zellen</string>
     <string name="pref_even_summary">Zellen in geraden 3x3-Kästchen</string>
 	<string name="processing_input_file">Verarbeiten der Eingabedatei</string>
-	<string name="do_you_want_to_save_anyway">Drücken Sie OK, wenn Sie es trotzdem speichern möchten, und gehen Sie zurück zur Rätselliste.</string>
+	<string name="do_you_want_to_save_anyway">Drücken Sie OK, wenn Sie es trotzdem speichern möchten.</string>
+    <string name="press_ok_to_save">Klicken Sie auf OK, um das Rätsel zu speichern.</string>
     <string name="import_puzzles_found">%d rätsel gefunden…</string>
 </resources>

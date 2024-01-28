@@ -30,6 +30,7 @@
 	<string name="close">Fechar</string>
 	<string name="clear">Limpar</string>
 	<string name="save">Salvar</string>
+	<string name="discard">Descartar</string>
 	<string name="get_more_puzzles_online">Obtenha mais jogos online</string>
 	<string name="name">Nome:</string>
 	<string name="note">Anotação:</string>
@@ -288,7 +289,8 @@
 	<string name="pref_even_title">Até caixas</string>
 	<string name="pref_even_summary">Células em caixas 3x3 pares</string>
 	<string name="processing_input_file">Processando o arquivo de entrada</string>
-	<string name="do_you_want_to_save_anyway">Pressione OK se quiser salvá-lo de qualquer maneira e voltar para a lista de quebra-cabeças.</string>
+	<string name="do_you_want_to_save_anyway">Pressione OK se quiser salvá-lo de qualquer maneira.</string>
+	<string name="press_ok_to_save">Pressione OK para salvar o quebra-cabeça.</string>
 	<string name="import_puzzles_found">Encontrado %d quebra-cabeças…</string>
 
 </resources>
