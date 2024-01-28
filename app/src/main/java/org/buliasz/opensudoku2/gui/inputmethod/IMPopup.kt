@@ -117,7 +117,7 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 
 	override fun createControlPanelView(abbrName: String): View {
 		val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-		val controlPanel = inflater.inflate(R.layout.im_popup, null)
+		val controlPanel = inflater.inflate(R.layout.im_popup, parent, false)
 
 		mSwitchModeButton = controlPanel.findViewById(R.id.popup_switch_input_mode)
 		mSwitchModeButton.text = abbrName

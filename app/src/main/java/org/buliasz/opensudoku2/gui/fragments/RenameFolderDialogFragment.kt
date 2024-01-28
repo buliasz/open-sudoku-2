@@ -40,7 +40,7 @@ class RenameFolderDialogFragment(
 		val renameFolderView = factory.inflate(R.layout.folder_name, null)
 		val renameFolderNameInput = renameFolderView.findViewById<TextView>(R.id.name)
 		val folder = mDatabase.getFolderInfo(mRenameFolderID)
-		val folderName = if (folder != null) folder.name else ""
+		val folderName = folder?.name ?: ""
 		renameFolderNameInput.text = folderName
 		val builder = AlertDialog.Builder(requireActivity())
 			.setIcon(R.drawable.ic_edit_grey)

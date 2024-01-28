@@ -24,6 +24,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.preference.PreferenceManager
@@ -101,7 +102,7 @@ class TitleScreenActivity : ThemedActivity() {
 
 			menuItemAbout -> {
 				val factory = LayoutInflater.from(this)
-				val aboutView = factory.inflate(R.layout.about, null)
+				val aboutView = factory.inflate(R.layout.about, window.decorView.rootView as ViewGroup, false)
 				val versionLabel = aboutView.findViewById<TextView>(R.id.version_label)
 				val versionName = AndroidUtils.getAppVersionName(applicationContext)
 				versionLabel.text = getString(R.string.version, versionName)

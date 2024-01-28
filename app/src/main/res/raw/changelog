@@ -5,11 +5,18 @@
   <ul>
     <li>Open Sudoku 2 ported from Open Sudoku code.</li>
     <li>Code rewritten in Kotlin programming language.</li>
+    <li>Added center notes support.</li>
     <li>Added support for Sudoku Exchange "Puzzle Bank" format import.</li>
     <li>Added option to highlight value if entry doesn't match final solution value.</li>
     <li>Added verification if the puzzle is invalid (has more than one solution).</li>
     <li>Added single puzzle export functionality.</li>
     <li>Added verification if the imported puzzle(s) already exists.</li>
+    <li>Added sound and blink on all of a digit entered.</li>
+    <li>Added Polish translation.</li>
+    <li>Automatically close current puzzle after finishing it.</li>
+    <li>Import/export speed-up and fixes.</li>
+    <li>Prevent creating duplicate puzzles on import.</li>
+    <li>Fixed undo button and functionality.</li>
     <li>Set "Get more puzzles online" link to point to the Sudoku Exchange "Puzzle Bank".</li>
     <li>Modified keyboard behavior.</li>
     <li>Fixed numerous existing code bugs.</li>

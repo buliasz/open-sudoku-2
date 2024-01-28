@@ -114,7 +114,7 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 
 	init {
 		mInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-		val keypad = mInflater.inflate(R.layout.im_popup_edit_value, null)
+		val keypad = mInflater.inflate(R.layout.im_popup_edit_value, parent, false)
 
 		mNumberButtons[1] = keypad.findViewById(R.id.button_1)
 		mNumberButtons[2] = keypad.findViewById(R.id.button_2)

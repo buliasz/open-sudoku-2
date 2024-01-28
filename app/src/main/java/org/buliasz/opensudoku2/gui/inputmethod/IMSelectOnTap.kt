@@ -97,7 +97,7 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 
 	override fun createControlPanelView(abbrName: String): View {
 		val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-		val controlPanel = inflater.inflate(R.layout.im_select_on_tap, null)
+		val controlPanel = inflater.inflate(R.layout.im_select_on_tap, parent, false)
 
 		val numberButtons = HashMap<Int, NumberButton>()
 		numberButtons[1] = controlPanel.findViewById(R.id.button_1)
