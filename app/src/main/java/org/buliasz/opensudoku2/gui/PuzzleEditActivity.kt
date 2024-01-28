@@ -57,17 +57,23 @@ class PuzzleEditActivity : ThemedActivity() {
 		val intent = intent
 		val action = intent.action
 		val mPuzzleID: Long
-		if (action == Intent.ACTION_EDIT) {
-			// Requested to edit: set that state, and the data being edited.
-			mPuzzleID = intent.getLongExtra(Names.PUZZLE_ID, -1L)
-			require(mPuzzleID >= 0L) { "Extra with key PUZZLE_ID is required." }
-		} else if (action == Intent.ACTION_INSERT) {
-			mPuzzleID = -1L
-		} else {
-			// Whoops, unknown action!  Bail.
-			Log.e(TAG, "Unknown action, exiting.")
-			finish()
-			return
+		when (action) {
+			Intent.ACTION_EDIT -> {
+				// Requested to edit: set that state, and the data being edited.
+				mPuzzleID = intent.getLongExtra(Names.PUZZLE_ID, -1L)
+				require(mPuzzleID >= 0L) { "Extra with key PUZZLE_ID is required." }
+			}
+
+			Intent.ACTION_INSERT -> {
+				mPuzzleID = -1L
+			}
+
+			else -> {
+				// Whoops, unknown action!  Bail.
+				Log.e(TAG, "Unknown action, exiting.")
+				finish()
+				return
+			}
 		}
 		if (savedInstanceState != null) {
 			newPuzzle = SudokuGame()
@@ -199,7 +205,7 @@ class PuzzleEditActivity : ThemedActivity() {
 	}
 
 	private fun getNumberOfSolutions(): Int {
-		newPuzzle.cells.markCellsWithValueAsNotEditable()
+		newPuzzle.cells.markCellsWithValuesAsNotEditable()
 		val numberOfSolutions = newPuzzle.solutionCount
 		newPuzzle.cells.markAllCellsAsEditable()
 		return numberOfSolutions
@@ -212,14 +218,14 @@ class PuzzleEditActivity : ThemedActivity() {
 		if (newPuzzle.id < 0) {
 			return true
 		}
-		newPuzzle.cells.markCellsWithValueAsNotEditable()
+		newPuzzle.cells.markCellsWithValuesAsNotEditable()
 		val isOriginalModified = newPuzzle.cells.originalValues != originalValues
 		newPuzzle.cells.markAllCellsAsEditable()
 		return isOriginalModified
 	}
 
 	private fun savePuzzle() {
-		newPuzzle.cells.markCellsWithValueAsNotEditable()
+		newPuzzle.cells.markCellsWithValuesAsNotEditable()
 		if (newPuzzle.id < 0L) {
 			newPuzzle.created = Instant.now().epochSecond
 			mDatabase.insertPuzzle(newPuzzle)
@@ -238,6 +244,8 @@ class PuzzleEditActivity : ThemedActivity() {
 				savePuzzle()
 				if (askAndFinish) {
 					finish()
+				} else {
+					newPuzzle.cells.markAllCellsAsEditable()
 				}
 			}
 			if (askAndFinish) {

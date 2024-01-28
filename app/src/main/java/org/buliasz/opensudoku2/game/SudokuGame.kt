@@ -264,9 +264,9 @@ class SudokuGame {
 				val cell = mCells.getCell(r, c)
 				if (cell.isEditable) {
 					cell.value = 0
-					cell.cornerNote = CellNote()
-					cell.centerNote = CellNote()
 				}
+				cell.cornerNote = CellNote()
+				cell.centerNote = CellNote()
 			}
 		}
 		commandStack = CommandStack(mCells)

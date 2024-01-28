@@ -18,6 +18,7 @@
 
 package org.buliasz.opensudoku2.utils
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
@@ -578,7 +579,7 @@ object ThemeUtils {
 		cells.getCell(2, 5).value = 0
 		cells.getCell(2, 2).value = 2
 		cells.markAllCellsAsEditable()
-		cells.markCellsWithValueAsNotEditable()
+		cells.markCellsWithValuesAsNotEditable()
 		cells.getCell(0, 0).value = 1
 		cells.getCell(0, 1).value = 2 // Invalid value
 		cells.getCell(0, 2).value = 3
@@ -611,6 +612,7 @@ object ThemeUtils {
 		return MATERIAL_COLORS[selectedIndex]
 	}
 
+	@SuppressLint("DiscouragedApi")
 	private fun getColorResourceIdHelper(context: Context, style: String, color: Int): Int {
 		val colorAsString = String.format("%1$06x", findClosestMaterialColor(color) and 0x00FFFFFF)
 		return context.resources.getIdentifier(style + colorAsString, "style", context.packageName)
