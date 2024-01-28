@@ -126,22 +126,22 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 		mNumberButtons[8] = keypad.findViewById(R.id.button_8)
 		mNumberButtons[9] = keypad.findViewById(R.id.button_9)
 
-		val textColor: ColorStateList = InputMethod.makeTextColorStateList(mBoard)
-		val backgroundColor: ColorStateList = InputMethod.makeBackgroundColorStateList(mBoard)
+		val colorText: ColorStateList = InputMethod.makeTextColorStateList(mBoard)
+		val colorBackground: ColorStateList = InputMethod.makeBackgroundColorStateList(mBoard)
 
 		for ((key, b) in mNumberButtons) {
 			b.tag = key
 			b.setOnClickListener(mNumberButtonClicked)
 			b.enableAllNumbersPlaced = mHighlightCompletedValues
-			b.backgroundTintList = backgroundColor
-			b.setTextColor(textColor)
+			b.backgroundTintList = colorBackground
+			b.setTextColor(colorText)
 		}
 
 		val clearButton = keypad.findViewById<MaterialButton>(R.id.button_clear)
 		clearButton.tag = 0
 		clearButton.setOnClickListener(clearButtonListener)
-		clearButton.backgroundTintList = backgroundColor
-		clearButton.iconTint = textColor
+		clearButton.backgroundTintList = colorBackground
+		clearButton.iconTint = colorText
 
 		/* Switch mode, and update the UI */
 		val modeButtonClicked = View.OnClickListener { v: View ->
@@ -152,20 +152,20 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 		mEnterNumberButton = keypad.findViewById(R.id.enter_number)
 		mEnterNumberButton.tag = InputMethod.MODE_EDIT_VALUE
 		mEnterNumberButton.setOnClickListener(modeButtonClicked)
-		mEnterNumberButton.backgroundTintList = backgroundColor
-		mEnterNumberButton.iconTint = textColor
+		mEnterNumberButton.backgroundTintList = colorBackground
+		mEnterNumberButton.iconTint = colorText
 
 		mCornerNoteButton = keypad.findViewById(R.id.corner_note)
 		mCornerNoteButton.tag = InputMethod.MODE_EDIT_CORNER_NOTE
 		mCornerNoteButton.setOnClickListener(modeButtonClicked)
-		mCornerNoteButton.backgroundTintList = backgroundColor
-		mCornerNoteButton.iconTint = textColor
+		mCornerNoteButton.backgroundTintList = colorBackground
+		mCornerNoteButton.iconTint = colorText
 
 		mCenterNoteButton = keypad.findViewById(R.id.center_note)
 		mCenterNoteButton.tag = InputMethod.MODE_EDIT_CENTER_NOTE
 		mCenterNoteButton.setOnClickListener(modeButtonClicked)
-		mCenterNoteButton.backgroundTintList = backgroundColor
-		mCenterNoteButton.iconTint = textColor
+		mCenterNoteButton.backgroundTintList = colorBackground
+		mCenterNoteButton.iconTint = colorText
 
 		val closeButton = keypad.findViewById<View>(R.id.button_close)
 		closeButton.setOnClickListener(closeButtonListener)

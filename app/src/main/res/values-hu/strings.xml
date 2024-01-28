@@ -245,15 +245,15 @@
 		Válaszd az \"Egyéni\" opciót a fenti \"Téma\" menüpontban, hogy aktiválódjon!
 	</string>
 
-	<string name="default_lineColor">Cella keret</string>
+	<string name="default_colorLine">Cella keret</string>
 
-	<string name="default_sectorLineColor">Szektor keret</string>
+	<string name="default_colorSectorLine">Szektor keret</string>
 
-	<string name="default_textColor">Szöveg</string>
+	<string name="default_colorText">Szöveg</string>
 
-	<string name="default_textColorNote">Megjegyzés szövege</string>
+	<string name="default_colorNoteText">Megjegyzés szövege</string>
 
-	<string name="default_backgroundColor">Elsődleges háttérszín</string>
+	<string name="default_colorBackground">Elsődleges háttérszín</string>
 
 	<string name="solve_puzzle">Megfejtés</string>
 	<string name="solve_puzzle_confirm">Az app megoldja helyetted a feladványt. Biztosan ezt szeretnéd?</string>

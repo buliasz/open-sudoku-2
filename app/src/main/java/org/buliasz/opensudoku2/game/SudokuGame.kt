@@ -43,7 +43,7 @@ class SudokuGame {
 	var userNote: String = ""
 	private lateinit var mCells: CellCollection
 	private var mUsedSolver = false
-	internal var removeNotesOnEntry = false
+	internal var removeNotesOnEntry = true
 	internal var onPuzzleSolvedListener: (() -> Unit)? = null
 	internal var onDigitFinishedManuallyListener: ((Int) -> Unit)? = null
 	var onHasUndoChangedListener: (isEmpty: Boolean) -> Unit

@@ -26,39 +26,39 @@
     </declare-styleable>
 
     <declare-styleable name="SudokuBoardView">
-        <attr name="lineColor" format="color" />
-        <attr name="sectorLineColor" format="color" />
+        <attr name="colorLine" format="color" />
+        <attr name="colorSectorLine" format="color" />
 
         <!-- Cell is editable, contains text or notes -->
-        <attr name="textColor" format="color" />
-        <attr name="textColorNote" format="color" />
-        <attr name="backgroundColor" format="color" />
+        <attr name="colorText" format="color" />
+        <attr name="colorNoteText" format="color" />
+        <attr name="colorBackground" format="color" />
 
         <!-- Cell is not editable, contains a valid value -->
-        <attr name="textColorReadOnly" format="color" />
-        <attr name="backgroundColorReadOnly" format="color" />
+        <attr name="colorReadOnlyText" format="color" />
+        <attr name="colorReadOnlyBackground" format="color" />
 
         <!-- Cell is being touched -->
-        <attr name="textColorTouched" format="color" />
-        <attr name="textColorNoteTouched" format="color" />
-        <attr name="backgroundColorTouched" format="color" />
+        <attr name="colorTouchedText" format="color" />
+        <attr name="colorTouchedNoteText" format="color" />
+        <attr name="colorTouchedBackground" format="color" />
 
         <!-- Cell is selected (color of the selection frame) -->
-        <attr name="backgroundColorSelected" format="color" />
+        <attr name="colorSelectedBackground" format="color" />
 
         <!-- Cell is highlighted -->
-        <attr name="textColorHighlighted" format="color" />
-        <attr name="textColorNoteHighlighted" format="color" />
-        <attr name="backgroundColorHighlighted" format="color" />
+        <attr name="colorHighlightedText" format="color" />
+        <attr name="colorHighlightedNoteText" format="color" />
+        <attr name="colorHighlightedBackground" format="color" />
 
         <!-- Cell is editable, contains an invalid value -->
-        <attr name="textColorInvalid" format="color" />
-        <attr name="backgroundColorInvalid" format="color" />
+        <attr name="colorInvalidText" format="color" />
+        <attr name="colorInvalidBackground" format="color" />
 
         <!-- Cell is editable, contains text or notes, is in an even numbered box -->
-        <attr name="textColorEven" format="color" />
-        <attr name="textColorNoteEven" format="color" />
-        <attr name="backgroundColorEven" format="color" />
+        <attr name="colorEvenText" format="color" />
+        <attr name="colorEvenNoteText" format="color" />
+        <attr name="colorEvenBackground" format="color" />
     </declare-styleable>
 
     <declare-styleable name="NumberButton">

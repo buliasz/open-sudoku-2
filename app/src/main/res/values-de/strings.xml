@@ -206,15 +206,15 @@
     <string name="screen_custom_theme">Eigene Themenfarben</string>
     <string name="screen_custom_theme_summary_disabled">Wählen Sie \"Eigenes Thema\" in der Themenauswahl, um diese Einstellungen zu aktivieren.</string>
 
-    <string name="default_lineColor">Zellrahmen</string>
+    <string name="default_colorLine">Zellrahmen</string>
 
-    <string name="default_sectorLineColor">Sektorrahmen</string>
+    <string name="default_colorSectorLine">Sektorrahmen</string>
 
-    <string name="default_textColor">Eingefügte Zahl</string>
+    <string name="default_colorText">Eingefügte Zahl</string>
 
-    <string name="default_textColorNote">Notiztext</string>
+    <string name="default_colorNoteText">Notiztext</string>
 
-    <string name="default_backgroundColor">Hintergrund ungerader Block</string>
+    <string name="default_colorBackground">Hintergrund ungerader Block</string>
 
     <string name="resume">Fortsetzen</string>
     <string name="show_puzzle_lists_on_startup_summary">Sudoku-Liste zum Start anzeigen und Titelbildschirm überspringen.</string>

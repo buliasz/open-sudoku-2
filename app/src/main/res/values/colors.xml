@@ -19,30 +19,30 @@
   -->
 
 <resources>
-    <color name="default_lineColor">#757575</color>
-    <color name="default_sectorLineColor">#9e9e9e</color>
+    <color name="default_colorLine">#757575</color>
+    <color name="default_colorSectorLine">#9e9e9e</color>
 
-    <color name="default_textColor">#fdfdfd</color>
-    <color name="default_textColorNote">#f3f3f3</color>
-    <color name="default_backgroundColor">#424242</color>
+    <color name="default_colorText">#fdfdfd</color>
+    <color name="default_colorNoteText">#f3f3f3</color>
+    <color name="default_colorBackground">#424242</color>
 
-    <color name="default_backgroundColorSecondary">#424242</color>
+    <color name="default_colorBackgroundSecondary">#424242</color>
 
-    <color name="default_textColorReadOnly">#fdfdfd</color>
-    <color name="default_backgroundColorReadOnly">#616161</color>
+    <color name="default_colorReadOnlyText">#fdfdfd</color>
+    <color name="default_colorReadOnlyBackground">#616161</color>
 
-    <color name="default_textColorTouched">#ffffff</color>
-    <color name="default_textColorNoteTouched">#ffffff</color>
-    <color name="default_backgroundColorTouched">#00695c</color>
+    <color name="default_colorTouchedText">#ffffff</color>
+    <color name="default_colorTouchedNoteText">#ffffff</color>
+    <color name="default_colorTouchedBackground">#00695c</color>
 
-    <color name="default_backgroundColorSelected">#7BBEA8</color>
+    <color name="default_colorSelectedBackground">#7BBEA8</color>
 
-    <color name="default_textColorHighlighted">#ffffff</color>
-    <color name="default_textColorNoteHighlighted">#ffffff</color>
-    <color name="default_backgroundColorHighlighted">#005b4f</color>
+    <color name="default_colorHighlightedText">#ffffff</color>
+    <color name="default_colorHighlightedNoteText">#ffffff</color>
+    <color name="default_colorHighlightedBackground">#005b4f</color>
 
-    <color name="default_textColorError">#410002</color>
-    <color name="default_backgroundColorError">#ffdad6</color>
+    <color name="default_colorTextError">#410002</color>
+    <color name="default_colorBackgroundError">#ffdad6</color>
 
 
     <color name="opensudoku2_colorPrimary">#49B7AC</color>

@@ -240,15 +240,15 @@
 	<string name="screen_custom_theme">Vlastní barvy motivu</string>
 	<string name="screen_custom_theme_summary_disabled">Pro povolení této sekce je nutné vybrat \"Vlastní motiv\" v nastavení \"Motiv\"</string>
 
-	<string name="default_lineColor">Mřížka</string>
+	<string name="default_colorLine">Mřížka</string>
 
-	<string name="default_sectorLineColor">Okraj sektoru</string>
+	<string name="default_colorSectorLine">Okraj sektoru</string>
 
-	<string name="default_textColor">Text</string>
+	<string name="default_colorText">Text</string>
 
-	<string name="default_textColorNote">Poznámky</string>
+	<string name="default_colorNoteText">Poznámky</string>
 
-	<string name="default_backgroundColor">Hlavní pozadí</string>
+	<string name="default_colorBackground">Hlavní pozadí</string>
 
 	<string name="solve_puzzle">Ukázat řešení</string>
 	<string name="solve_puzzle_confirm">Opravdu chcete vidět řešení?</string>

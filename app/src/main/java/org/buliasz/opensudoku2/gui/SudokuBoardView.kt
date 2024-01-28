@@ -375,13 +375,13 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 
 	fun setAllColorsFromThemedContext(context: Context) {
 		// Grid lines
-		setLineColor(MaterialColors.getColor(context, R.attr.lineColor, Color.BLACK))
-		setSectorLineColor(MaterialColors.getColor(context, R.attr.sectorLineColor, Color.BLACK))
+		setLineColor(MaterialColors.getColor(context, R.attr.colorLine, Color.BLACK))
+		setSectorLineColor(MaterialColors.getColor(context, R.attr.colorSectorLine, Color.BLACK))
 
 		// Normal cell
-		setTextColor(MaterialColors.getColor(context, R.attr.textColor, Color.BLACK))
-		setTextColorNote(MaterialColors.getColor(context, R.attr.textColorNote, Color.BLACK))
-		mBackground.color = MaterialColors.getColor(context, R.attr.backgroundColor, Color.WHITE)
+		setTextColor(MaterialColors.getColor(context, R.attr.colorText, Color.BLACK))
+		setTextColorNote(MaterialColors.getColor(context, R.attr.colorNoteText, Color.BLACK))
+		mBackground.color = MaterialColors.getColor(context, R.attr.colorBackground, Color.WHITE)
 
 		// Default view behaviour is to highlight a view that has the focus. This
 		// highlights the entire board and leads to incorrect colours. Disable this
@@ -391,30 +391,30 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 		setBackgroundResource(R.color.sudoku_board_view_background_color_selector)
 
 		// Read-only cell
-		textColorReadOnly = MaterialColors.getColor(context, R.attr.textColorReadOnly, Color.WHITE)
-		backgroundColorReadOnly = MaterialColors.getColor(context, R.attr.backgroundColorReadOnly, Color.RED)
+		colorReadOnlyText = MaterialColors.getColor(context, R.attr.colorReadOnlyText, Color.WHITE)
+		colorReadOnlyBackground = MaterialColors.getColor(context, R.attr.colorReadOnlyBackground, Color.RED)
 
 		// Even 3x3 boxes
-		setTextColorEven(MaterialColors.getColor(context, R.attr.textColorEven, Color.BLACK))
-		setTextColorNoteEven(MaterialColors.getColor(context, R.attr.textColorEven, Color.BLACK))
-		setBackgroundColorEven(MaterialColors.getColor(context, R.attr.backgroundColorEven, Color.TRANSPARENT))
+		setTextColorEven(MaterialColors.getColor(context, R.attr.colorEvenText, Color.BLACK))
+		setTextColorNoteEven(MaterialColors.getColor(context, R.attr.colorEvenText, Color.BLACK))
+		setBackgroundColorEven(MaterialColors.getColor(context, R.attr.colorEvenBackground, Color.TRANSPARENT))
 
 		// Touched
-		setTextColorTouched(MaterialColors.getColor(context, R.attr.textColorTouched, Color.BLACK))
-		setTextColorNoteTouched(MaterialColors.getColor(context, R.attr.textColorNoteTouched, Color.BLACK))
-		setBackgroundColorTouched(MaterialColors.getColor(context, R.attr.backgroundColorTouched, Color.WHITE))
+		setTextColorTouched(MaterialColors.getColor(context, R.attr.colorTouchedText, Color.BLACK))
+		setTextColorNoteTouched(MaterialColors.getColor(context, R.attr.colorTouchedNoteText, Color.BLACK))
+		setBackgroundColorTouched(MaterialColors.getColor(context, R.attr.colorTouchedBackground, Color.WHITE))
 
 		// Selected / focused
-		setBackgroundColorSelected(MaterialColors.getColor(context, R.attr.backgroundColorSelected, Color.WHITE))
+		setBackgroundColorSelected(MaterialColors.getColor(context, R.attr.colorSelectedBackground, Color.WHITE))
 
 		// Highlighted cell
-		textColorHighlighted = MaterialColors.getColor(context, R.attr.textColorHighlighted, Color.WHITE)
-		setTextColorNoteHighlighted(MaterialColors.getColor(context, R.attr.textColorNoteHighlighted, Color.WHITE))
-		backgroundColorHighlighted = MaterialColors.getColor(context, R.attr.backgroundColorHighlighted, Color.BLACK)
+		colorHighlightedText = MaterialColors.getColor(context, R.attr.colorHighlightedText, Color.WHITE)
+		setTextColorNoteHighlighted(MaterialColors.getColor(context, R.attr.colorHighlightedNoteText, Color.WHITE))
+		colorHighlightedBackground = MaterialColors.getColor(context, R.attr.colorHighlightedBackground, Color.BLACK)
 
 		// Invalid values
-		setTextColorError(MaterialColors.getColor(context, R.attr.textColorInvalid, Color.WHITE))
-		setBackgroundColorError(MaterialColors.getColor(context, R.attr.backgroundColorInvalid, Color.BLACK))
+		setTextColorError(MaterialColors.getColor(context, R.attr.colorInvalidText, Color.WHITE))
+		setBackgroundColorError(MaterialColors.getColor(context, R.attr.colorInvalidBackground, Color.BLACK))
 	}
 
 	fun setLineColor(@ColorInt color: Int) {
@@ -438,7 +438,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 	}
 
 	@get:ColorInt
-	var textColorReadOnly: Int
+	var colorReadOnlyText: Int
 		get() = mTextReadOnly.color
 		set(color) {
 			mTextReadOnly.color = color
@@ -449,7 +449,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 	}
 
 	@get:ColorInt
-	var backgroundColorReadOnly: Int
+	var colorReadOnlyBackground: Int
 		get() = mBackgroundReadOnly.color
 		set(color) {
 			mBackgroundReadOnly.color = color
@@ -464,14 +464,14 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 	}
 
 	@get:ColorInt
-	var backgroundColorHighlighted: Int
+	var colorHighlightedBackground: Int
 		get() = mBackgroundHighlighted.color
 		set(color) {
 			mBackgroundHighlighted.color = color
 		}
 
 	@get:ColorInt
-	var textColorHighlighted: Int
+	var colorHighlightedText: Int
 		get() = mTextHighlighted.color
 		set(color) {
 			mTextHighlighted.color = color

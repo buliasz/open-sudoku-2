@@ -36,22 +36,22 @@ class DatabaseHelper internal constructor(private val mContext: Context) :
 	override fun onCreate(db: SQLiteDatabase) {
 		db.execSQL(
 			"CREATE TABLE ${Names.GAME} (" +
-					"${Names.ID} INTEGER PRIMARY KEY," +
-					"${Names.FOLDER_ID} INTEGER," +
-					"${Names.CREATED} INTEGER," +
-					"${Names.STATE} INTEGER," +
-					"${Names.TIME} INTEGER," +
-					"${Names.LAST_PLAYED} INTEGER," +
-					"${Names.CELLS_DATA} Text," +
-					"${Names.ORIGINAL_VALUES} Text NOT NULL," +
-					"${Names.USER_NOTE} Text NOT NULL," +
-					"${Names.COMMAND_STACK} Text);"
+				"${Names.ID} INTEGER PRIMARY KEY," +
+				"${Names.FOLDER_ID} INTEGER," +
+				"${Names.CREATED} INTEGER," +
+				"${Names.STATE} INTEGER," +
+				"${Names.TIME} INTEGER," +
+				"${Names.LAST_PLAYED} INTEGER," +
+				"${Names.CELLS_DATA} Text," +
+				"${Names.ORIGINAL_VALUES} Text NOT NULL," +
+				"${Names.USER_NOTE} Text NOT NULL," +
+				"${Names.COMMAND_STACK} Text);"
 		)
 		db.execSQL(
 			"CREATE TABLE ${Names.FOLDER} (" +
-					"${Names.ID} INTEGER PRIMARY KEY," +
-					"${Names.FOLDER_CREATED} INTEGER," +
-					"${Names.FOLDER_NAME} TEXT UNIQUE NOT NULL);"
+				"${Names.ID} INTEGER PRIMARY KEY," +
+				"${Names.FOLDER_CREATED} INTEGER," +
+				"${Names.FOLDER_NAME} TEXT UNIQUE NOT NULL);"
 		)
 		insertFolder(db, 1, mContext.getString(R.string.difficulty_easy))
 		insertPuzzle(db, 1, 1, "052006000160900004049803620400000800083201590001000002097305240200009056000100970")

@@ -221,15 +221,15 @@
 	<string name="screen_custom_theme_summary_disabled">Choisir \"Thème personnalisé\" dans le paramètre \"Thème\" ci-dessus pour activer cette section.
 	</string>
 
-	<string name="default_lineColor">Ligne</string>
+	<string name="default_colorLine">Ligne</string>
 
-	<string name="default_sectorLineColor">Ligne de secteur</string>
+	<string name="default_colorSectorLine">Ligne de secteur</string>
 
-	<string name="default_textColor">Texte</string>
+	<string name="default_colorText">Texte</string>
 
-	<string name="default_textColorNote">Texte de note</string>
+	<string name="default_colorNoteText">Texte de note</string>
 
-	<string name="default_backgroundColor">Fond primaire</string>
+	<string name="default_colorBackground">Fond primaire</string>
 
 	<string name="solve_puzzle">Résoudre la grille</string>
 	<string name="solve_puzzle_confirm">Voulez-vous vraiment voir la solution ?</string>

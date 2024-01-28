@@ -208,15 +208,15 @@
 	<string name="screen_custom_theme">Özel Tema renkleri</string>
 	<string name="screen_custom_theme_summary_disabled">Bu bölümü etkinleştirmek için yukarıdaki \"Tema\" ayarında \"Özel Tema\" yı seçin.</string>
 
-	<string name="default_lineColor">Satır</string>
+	<string name="default_colorLine">Satır</string>
 
-	<string name="default_sectorLineColor">Sektör çizgisi</string>
+	<string name="default_colorSectorLine">Sektör çizgisi</string>
 
-	<string name="default_textColor">Metin</string>
+	<string name="default_colorText">Metin</string>
 
-	<string name="default_textColorNote">Not metni</string>
+	<string name="default_colorNoteText">Not metni</string>
 
-	<string name="default_backgroundColor">Birincil arka plan</string>
+	<string name="default_colorBackground">Birincil arka plan</string>
 	<string name="solve_puzzle">Bulmaca çözmek</string>
 	<string name="solve_puzzle_confirm">Çözümü görmek istediğinizden emin misiniz?</string>
 	<string name="used_solver">Çözümü görmek için çözücüyü kullandınız!</string>

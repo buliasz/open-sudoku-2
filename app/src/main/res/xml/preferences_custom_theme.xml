@@ -50,16 +50,16 @@
         app:iconSpaceReserved="false">
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_lineColor"
-            android:key="custom_theme_lineColor"
-            android:title="@string/default_lineColor"
+            android:defaultValue="@color/default_colorLine"
+            android:key="custom_theme_colorLine"
+            android:title="@string/default_colorLine"
             app:iconSpaceReserved="false" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_sectorLineColor"
-            android:key="custom_theme_sectorLineColor"
-            android:title="@string/default_sectorLineColor"
+            android:defaultValue="@color/default_colorSectorLine"
+            android:key="custom_theme_colorSectorLine"
+            android:title="@string/default_colorSectorLine"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
@@ -68,23 +68,23 @@
         app:iconSpaceReserved="false">
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_textColor"
-            android:key="custom_theme_textColor"
-            android:title="@string/default_textColor"
+            android:defaultValue="@color/default_colorText"
+            android:key="custom_theme_colorText"
+            android:title="@string/default_colorText"
             app:iconSpaceReserved="false" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_textColorNote"
-            android:key="custom_theme_textColorNote"
-            android:title="@string/default_textColorNote"
+            android:defaultValue="@color/default_colorNoteText"
+            android:key="custom_theme_colorNoteText"
+            android:title="@string/default_colorNoteText"
             app:iconSpaceReserved="false" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_backgroundColor"
-            android:key="custom_theme_backgroundColor"
-            android:title="@string/default_backgroundColor"
+            android:defaultValue="@color/default_colorBackground"
+            android:key="custom_theme_colorBackground"
+            android:title="@string/default_colorBackground"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
@@ -93,16 +93,16 @@
         app:iconSpaceReserved="false">
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_textColorReadOnly"
-            android:key="custom_theme_textColorReadOnly"
-            android:title="@string/default_textColor"
+            android:defaultValue="@color/default_colorReadOnlyText"
+            android:key="custom_theme_colorReadOnlyText"
+            android:title="@string/default_colorText"
             app:iconSpaceReserved="false" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_backgroundColorReadOnly"
-            android:key="custom_theme_backgroundColorReadOnly"
-            android:title="@string/default_backgroundColor"
+            android:defaultValue="@color/default_colorReadOnlyBackground"
+            android:key="custom_theme_colorReadOnlyBackground"
+            android:title="@string/default_colorBackground"
             app:iconSpaceReserved="false" />
 
     </PreferenceCategory>
@@ -113,23 +113,23 @@
         app:iconSpaceReserved="false">
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_textColorTouched"
-            android:key="custom_theme_textColorTouched"
-            android:title="@string/default_textColor"
+            android:defaultValue="@color/default_colorTouchedText"
+            android:key="custom_theme_colorTouchedText"
+            android:title="@string/default_colorText"
             app:iconSpaceReserved="false" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_textColorNoteTouched"
-            android:key="custom_theme_textColorNoteTouched"
-            android:title="@string/default_textColorNote"
+            android:defaultValue="@color/default_colorTouchedNoteText"
+            android:key="custom_theme_colorTouchedNoteText"
+            android:title="@string/default_colorNoteText"
             app:iconSpaceReserved="false" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_backgroundColorTouched"
-            android:key="custom_theme_backgroundColorTouched"
-            android:title="@string/default_backgroundColor"
+            android:defaultValue="@color/default_colorTouchedBackground"
+            android:key="custom_theme_colorTouchedBackground"
+            android:title="@string/default_colorBackground"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
@@ -139,9 +139,9 @@
         app:iconSpaceReserved="false">
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_backgroundColorSelected"
-            android:key="custom_theme_backgroundColorSelected"
-            android:title="@string/default_backgroundColor"
+            android:defaultValue="@color/default_colorSelectedBackground"
+            android:key="custom_theme_colorSelectedBackground"
+            android:title="@string/default_colorBackground"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
@@ -151,23 +151,23 @@
         app:iconSpaceReserved="false">
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_textColorHighlighted"
-            android:key="custom_theme_textColorHighlighted"
-            android:title="@string/default_textColor"
+            android:defaultValue="@color/default_colorHighlightedText"
+            android:key="custom_theme_colorHighlightedText"
+            android:title="@string/default_colorText"
             app:iconSpaceReserved="false" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_textColorNoteHighlighted"
-            android:key="custom_theme_textColorNoteHighlighted"
-            android:title="@string/default_textColorNote"
+            android:defaultValue="@color/default_colorHighlightedNoteText"
+            android:key="custom_theme_colorHighlightedNoteText"
+            android:title="@string/default_colorNoteText"
             app:iconSpaceReserved="false" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_backgroundColorHighlighted"
-            android:key="custom_theme_backgroundColorHighlighted"
-            android:title="@string/default_backgroundColor"
+            android:defaultValue="@color/default_colorHighlightedBackground"
+            android:key="custom_theme_colorHighlightedBackground"
+            android:title="@string/default_colorBackground"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
@@ -178,16 +178,16 @@
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_textColorError"
-            android:key="custom_theme_textColorError"
-            android:title="@string/default_textColor"
+            android:defaultValue="@color/default_colorTextError"
+            android:key="custom_theme_colorTextError"
+            android:title="@string/default_colorText"
             app:iconSpaceReserved="false" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_backgroundColorError"
-            android:key="custom_theme_backgroundColorError"
-            android:title="@string/default_backgroundColor"
+            android:defaultValue="@color/default_colorBackgroundError"
+            android:key="custom_theme_colorBackgroundError"
+            android:title="@string/default_colorBackground"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
@@ -197,23 +197,23 @@
         app:iconSpaceReserved="false">
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_textColor"
-            android:key="custom_theme_textColorEven"
-            android:title="@string/default_textColor"
+            android:defaultValue="@color/default_colorText"
+            android:key="custom_theme_colorEvenText"
+            android:title="@string/default_colorText"
             app:iconSpaceReserved="false" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_textColor"
-            android:key="custom_theme_textColorNoteEven"
-            android:title="@string/default_textColorNote"
+            android:defaultValue="@color/default_colorText"
+            android:key="custom_theme_colorEvenNoteText"
+            android:title="@string/default_colorNoteText"
             app:iconSpaceReserved="false" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             alphaSlider="true"
-            android:defaultValue="@color/default_backgroundColor"
-            android:key="custom_theme_backgroundColorEven"
-            android:title="@string/default_backgroundColor"
+            android:defaultValue="@color/default_colorBackground"
+            android:key="custom_theme_colorEvenBackground"
+            android:title="@string/default_colorBackground"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -430,98 +430,98 @@ object ThemeUtils {
 	fun applyCustomThemeToSudokuBoardViewFromSharedPreferences(context: Context?, board: SudokuBoardView) {
 		val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context!!)
 		board.setLineColor(
-			sharedPreferences.getInt("custom_theme_lineColor", ContextCompat.getColor(context, R.color.default_lineColor))
+			sharedPreferences.getInt("custom_theme_colorLine", ContextCompat.getColor(context, R.color.default_colorLine))
 		)
 		board.setSectorLineColor(
-			sharedPreferences.getInt("custom_theme_sectorLineColor", ContextCompat.getColor(context, R.color.default_sectorLineColor))
+			sharedPreferences.getInt("custom_theme_colorSectorLine", ContextCompat.getColor(context, R.color.default_colorSectorLine))
 		)
 		board.setTextColor(
-			sharedPreferences.getInt("custom_theme_textColor", ContextCompat.getColor(context, R.color.default_textColor))
+			sharedPreferences.getInt("custom_theme_colorText", ContextCompat.getColor(context, R.color.default_colorText))
 		)
 		board.setTextColorNote(
-			sharedPreferences.getInt("custom_theme_textColorNote", ContextCompat.getColor(context, R.color.default_textColorNote))
+			sharedPreferences.getInt("custom_theme_colorNoteText", ContextCompat.getColor(context, R.color.default_colorNoteText))
 		)
 		board.setBackgroundColor(
 			sharedPreferences.getInt(
-				"custom_theme_backgroundColor",
-				ContextCompat.getColor(context, R.color.default_backgroundColor)
+				"custom_theme_colorBackground",
+				ContextCompat.getColor(context, R.color.default_colorBackground)
 			)
 		)
-		board.textColorReadOnly =
-			sharedPreferences.getInt("custom_theme_textColorReadOnly", ContextCompat.getColor(context, R.color.default_textColorReadOnly))
-		board.backgroundColorReadOnly =
+		board.colorReadOnlyText =
+			sharedPreferences.getInt("custom_theme_colorReadOnlyText", ContextCompat.getColor(context, R.color.default_colorReadOnlyText))
+		board.colorReadOnlyBackground =
 			sharedPreferences.getInt(
-				"custom_theme_backgroundColorReadOnly",
-				ContextCompat.getColor(context, R.color.default_backgroundColorReadOnly)
+				"custom_theme_colorReadOnlyBackground",
+				ContextCompat.getColor(context, R.color.default_colorReadOnlyBackground)
 			)
 		board.setTextColorTouched(
 			sharedPreferences.getInt(
-				"custom_theme_textColorTouched",
-				ContextCompat.getColor(context, R.color.default_textColorTouched)
+				"custom_theme_colorTouchedText",
+				ContextCompat.getColor(context, R.color.default_colorTouchedText)
 			)
 		)
 		board.setTextColorNoteTouched(
 			sharedPreferences.getInt(
-				"custom_theme_textColorNoteTouched",
-				ContextCompat.getColor(context, R.color.default_textColorNoteTouched)
+				"custom_theme_colorTouchedNoteText",
+				ContextCompat.getColor(context, R.color.default_colorTouchedNoteText)
 			)
 		)
 		board.setBackgroundColorTouched(
 			sharedPreferences.getInt(
-				"custom_theme_backgroundColorTouched",
-				ContextCompat.getColor(context, R.color.default_backgroundColorTouched)
+				"custom_theme_colorTouchedBackground",
+				ContextCompat.getColor(context, R.color.default_colorTouchedBackground)
 			)
 		)
 		board.setBackgroundColorSelected(
 			sharedPreferences.getInt(
-				"custom_theme_backgroundColorSelected",
-				ContextCompat.getColor(context, R.color.default_backgroundColorSelected)
+				"custom_theme_colorSelectedBackground",
+				ContextCompat.getColor(context, R.color.default_colorSelectedBackground)
 			)
 		)
-		board.textColorHighlighted =
+		board.colorHighlightedText =
 			sharedPreferences.getInt(
-				"custom_theme_textColorHighlighted",
-				ContextCompat.getColor(context, R.color.default_textColorHighlighted)
+				"custom_theme_colorHighlightedText",
+				ContextCompat.getColor(context, R.color.default_colorHighlightedText)
 			)
 		board.setTextColorNoteHighlighted(
 			sharedPreferences.getInt(
-				"custom_theme_textColorNoteHighlighted",
-				ContextCompat.getColor(context, R.color.default_textColorNoteHighlighted)
+				"custom_theme_colorHighlightedNoteText",
+				ContextCompat.getColor(context, R.color.default_colorHighlightedNoteText)
 			)
 		)
-		board.backgroundColorHighlighted =
+		board.colorHighlightedBackground =
 			sharedPreferences.getInt(
-				"custom_theme_backgroundColorHighlighted",
-				ContextCompat.getColor(context, R.color.default_backgroundColorHighlighted)
+				"custom_theme_colorHighlightedBackground",
+				ContextCompat.getColor(context, R.color.default_colorHighlightedBackground)
 			)
 		board.setTextColorEven(
 			sharedPreferences.getInt(
-				"custom_theme_textColorEven",
-				ContextCompat.getColor(context, R.color.default_textColor)
+				"custom_theme_colorEvenText",
+				ContextCompat.getColor(context, R.color.default_colorText)
 			)
 		)
 		board.setTextColorNoteEven(
 			sharedPreferences.getInt(
-				"custom_theme_textColorNoteEven",
-				ContextCompat.getColor(context, R.color.default_textColor)
+				"custom_theme_colorEvenNoteText",
+				ContextCompat.getColor(context, R.color.default_colorText)
 			)
 		)
 		board.setBackgroundColorEven(
 			sharedPreferences.getInt(
-				"custom_theme_backgroundColorEven",
-				ContextCompat.getColor(context, R.color.default_backgroundColor)
+				"custom_theme_colorEvenBackground",
+				ContextCompat.getColor(context, R.color.default_colorBackground)
 			)
 		)
 		board.setTextColorError(
 			sharedPreferences.getInt(
-				"custom_theme_textColorError",
-				ContextCompat.getColor(context, R.color.default_textColorError)
+				"custom_theme_colorTextError",
+				ContextCompat.getColor(context, R.color.default_colorTextError)
 			)
 		)
 		board.setBackgroundColorError(
 			sharedPreferences.getInt(
-				"custom_theme_backgroundColorError",
-				ContextCompat.getColor(context, R.color.default_backgroundColorError)
+				"custom_theme_colorBackgroundError",
+				ContextCompat.getColor(context, R.color.default_colorBackgroundError)
 			)
 		)
 	}

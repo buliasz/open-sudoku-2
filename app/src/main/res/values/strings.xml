@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ This file is part of Open Sudoku 2 - an open-source Sudoku game.
-  ~ Copyright (C) 2009-2023 by original authors.
-  ~
-  ~ This program is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU General Public License as published by
-  ~ the Free Software Foundation, either version 3 of the License, or
-  ~ (at your option) any later version.
-  ~
-  ~ This program is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU General Public License
-  ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  -->
+ ~ This file is part of Open Sudoku 2 - an open-source Sudoku game.
+ ~ Copyright (C) 2009-2023 by original authors.
+ ~
+ ~ This program is free software: you can redistribute it and/or modify
+ ~ it under the terms of the GNU General Public License as published by
+ ~ the Free Software Foundation, either version 3 of the License, or
+ ~ (at your option) any later version.
+ ~
+ ~ This program is distributed in the hope that it will be useful,
+ ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ ~ GNU General Public License for more details.
+ ~
+ ~ You should have received a copy of the GNU General Public License
+ ~ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ -->
 
 <resources>
 	<string name="app_name">Open Sudoku 2</string>
@@ -129,17 +129,37 @@
 	<string name="help">Help</string>
 	<string name="that_is_all">That\’s all</string>
 
-	<string name="first_run_hint">There are several input modes which you can use to fill in the puzzle. \t\tIn order to help you get familiar with these modes, there will be several hints displayed as \t\tyou go through them. \t\t  You can disable these hints in game settings.  \t</string>
+	<string name="first_run_hint">There are several input modes which you can use to fill in the puzzle. In order to help you get familiar with these modes,
+		there will be several hints displayed as you go through them. You can disable these hints in the game settings.
+	</string>
 
-	<string name="im_popup_hint">You\\’re now in the <i>Pop-up</i> input mode. \t\tTap any cell with tap to edit its content. \t\t  Notice the button in the lower right corner. \t\tYou can use this button to switch to another input mode.  \t</string>
+	<string name="im_popup_hint">You\'re now in the <i>Pop-up</i> input mode. Tap any cell with tap to edit its content. Notice the button in the lower right
+		corner. You can use this button to switch to another input mode.
+	</string>
 
-	<string name="im_insert_on_tap_hint">You\\’re now in the <i>Insert on cell tap</i> input mode. \t\tFirst select any key button by pressing it. \t\tThen just tap on cells in which you want to have the selected key applied. \t\t  Press one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\\’s notes editing.  \t</string>
+	<string name="im_insert_on_tap_hint">You\'re now in the <i>Insert on cell tap</i> input mode. First select any key button by pressing it. Then just tap on
+		cells in which you want to have the selected key applied. Press one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\'s notes
+		editing.
+	</string>
 
-	<string name="im_select_on_tap_hint">You\\’re now in the <i>Select on cell tap</i> input mode. \t\tButtons act as a standard keyboard. You need first to select cell by tapping it, then press button to modify the selected cell. \t\t  Press one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\\’s notes editing.  \t</string>
+	<string name="im_select_on_tap_hint">You\'re now in the <i>Select on cell tap</i> input mode. Buttons act as a standard keyboard. You need first to select
+		cell by tapping it, then press button to modify the selected cell. Press one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\'s
+		notes editing.
+	</string>
 
-	<string name="im_disable_modes_hint">Please remember that you don\\’t have to use all input modes. \t\tYou can disable any of them in the game settings. \t\t  You can also use the keyboard and trackball to control the game. \t\tIf you want to enter notes using the keyboard, press number with alt or shift.  \t</string>
+	<string name="im_disable_modes_hint">Please remember that you don\'t have to use all input modes. You can disable any of them in the game settings. You can
+		also use the keyboard and trackball to control the game. If you want to enter notes using the keyboard, press number with alt or shift.
+	</string>
 
-	<string name="help_text">" \t\t<b>Keyboard controls</b> \t\t  Use trackball to navigate to the desired cell and then press a number on the keyboard to \t\tfill in the value. \t\tIf you want to edit the cell\\’s note, press number with shift or alt.    \t\t<b>Input modes</b> \t\t  You can switch between several input modes using the button in the lower right corner of \t\tthe screen. \t\tYou can also disable any input mode in game settings - it will become completely hidden.    \t\t<b>Pop-up input mode</b> \t\t  A pop-up dialog is shown when you tap the cell. \t\tYou can edit cell\\’s content using this dialog.    \t\t<b>Insert on cell tap mode</b> \t\t  Select any key button by pressing it. \t\tThen just tap on cells in which you want to have the selected number filled. \t\t  Press one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\\’s note editing.   \t\t<b>Select on cell tap mode</b> \t\t  Buttons act as a standard numeric keyboard. \t\t  Press one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\\’s note editing.  \t"</string>
+	<string name="help_text">" <b>Keyboard controls</b> Use trackball to navigate to the desired cell and then press a number on the keyboard to fill in the
+		value. If you want to edit the cell\'s note, press number with shift or alt.\n
+		<b>Input modes</b> You can switch between several input modes using the button in the lower right corner of the screen. You can also disable any input
+		mode in the game settings, it will become then hidden during game.\n
+		<b>Pop-up input mode</b> A pop-up dialog is shown when you tap the cell. You can edit cell\'s content using the dialog.\n
+		<b>Insert on cell tap mode</b> Select any key button by pressing it, then just tap ona cell in which you want to have the selected number inserted.\n
+		<b>Select on cell tap mode</b> Buttons act as a standard numeric keyboard.\n
+		In any mode press one of the <i>Corner</i> or <i>Center</i> notes button to toggle the cell\'s note editing."
+	</string>
 
 
 	<string name="game">Game</string>
@@ -163,7 +183,7 @@
 
 	<string name="screen_border_size">Screen border size</string>
 	<string name="screen_border_size_summary">Some displays do not react to touches on screen edges.
-		This could help in such cases.
+		This should help in such cases.
 	</string>
 	<string name="highlight_touched_cell">Highlight cells on touch</string>
 	<string name="highlight_touched_cell_summary">Highlights row and column of touched cell</string>
@@ -218,15 +238,15 @@
 	<string name="screen_custom_theme">Custom theme colors</string>
 	<string name="screen_custom_theme_summary_disabled">Choose \“Custom Theme\” in the \“Theme\” setting above to enable this option</string>
 
-	<string name="default_lineColor">Cell border</string>
+	<string name="default_colorLine">Cell border</string>
 
-	<string name="default_sectorLineColor">Box border</string>
+	<string name="default_colorSectorLine">Box border</string>
 
-	<string name="default_textColor">Text</string>
+	<string name="default_colorText">Text</string>
 
-	<string name="default_textColorNote">Note text</string>
+	<string name="default_colorNoteText">Note text</string>
 
-	<string name="default_backgroundColor">Background</string>
+	<string name="default_colorBackground">Background</string>
 
 	<string name="solve_puzzle">Solve Puzzle</string>
 	<string name="solve_puzzle_confirm">Are you sure you want to see the solution?</string>

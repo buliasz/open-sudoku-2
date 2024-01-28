@@ -72,12 +72,12 @@ internal class PuzzleListRecyclerAdapter(
 			selectedGameId = game.id
 			with(menu ?: return@setOnCreateContextMenuListener) {
 				setHeaderTitle("Puzzle")
-				add(0, PuzzleListActivity.MENU_ITEM_PLAY, 0, R.string.play_puzzle)
-				add(0, PuzzleListActivity.MENU_ITEM_EDIT_NOTE, 1, R.string.edit_note)
-				add(0, PuzzleListActivity.MENU_ITEM_EXPORT_GAME, 2, R.string.export)
-				add(0, PuzzleListActivity.MENU_ITEM_RESET, 3, R.string.reset_puzzle)
-				add(0, PuzzleListActivity.MENU_ITEM_EDIT, 4, R.string.edit_puzzle)
-				add(0, PuzzleListActivity.MENU_ITEM_DELETE, 5, R.string.delete_puzzle)
+				add(0, PuzzleListActivity.MenuItems.PLAY.id, 0, R.string.play_puzzle)
+				add(0, PuzzleListActivity.MenuItems.EDIT_NOTE.id, 1, R.string.edit_note)
+				add(0, PuzzleListActivity.MenuItems.EXPORT_GAME.id, 2, R.string.export)
+				add(0, PuzzleListActivity.MenuItems.RESET.id, 3, R.string.reset_puzzle)
+				add(0, PuzzleListActivity.MenuItems.EDIT.id, 4, R.string.edit_puzzle)
+				add(0, PuzzleListActivity.MenuItems.DELETE.id, 5, R.string.delete_puzzle)
 			}
 		}
 

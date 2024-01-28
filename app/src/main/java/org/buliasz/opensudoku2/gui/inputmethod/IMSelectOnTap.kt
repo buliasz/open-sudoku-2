@@ -109,45 +109,45 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 		numberButtons[7] = controlPanel.findViewById(R.id.button_7)
 		numberButtons[8] = controlPanel.findViewById(R.id.button_8)
 		numberButtons[9] = controlPanel.findViewById(R.id.button_9)
-		val textColor: ColorStateList = makeTextColorStateList(mBoard)
-		val backgroundColor: ColorStateList = makeBackgroundColorStateList(mBoard)
+		val colorText: ColorStateList = makeTextColorStateList(mBoard)
+		val colorBackground: ColorStateList = makeBackgroundColorStateList(mBoard)
 		for (num in numberButtons.keys) {
 			val button = numberButtons[num]
 			button!!.tag = num
 			button.setOnClickListener(mNumberButtonClicked)
 			button.showNumbersPlaced = showDigitCount
 			button.enableAllNumbersPlaced = highlightCompletedValues
-			button.backgroundTintList = backgroundColor
-			button.setTextColor(textColor)
+			button.backgroundTintList = colorBackground
+			button.setTextColor(colorText)
 		}
 		mDigitButtons = numberButtons
 
 		val clearButton = controlPanel.findViewById<IconButton>(R.id.button_clear)
 		clearButton.tag = 0
 		clearButton.setOnClickListener(mNumberButtonClicked)
-		clearButton.backgroundTintList = backgroundColor
-		clearButton.iconTint = textColor
+		clearButton.backgroundTintList = colorBackground
+		clearButton.iconTint = colorText
 		mClearButton = clearButton
 
 		val enterNumberButton = controlPanel.findViewById<MaterialButton>(R.id.enter_number)
 		enterNumberButton.tag = MODE_EDIT_VALUE
 		enterNumberButton.setOnClickListener(mModeButtonClicked)
-		enterNumberButton.backgroundTintList = backgroundColor
-		enterNumberButton.iconTint = textColor
+		enterNumberButton.backgroundTintList = colorBackground
+		enterNumberButton.iconTint = colorText
 		mEnterNumberButton = enterNumberButton
 
 		val cornerNoteButton = controlPanel.findViewById<MaterialButton>(R.id.corner_note)
 		cornerNoteButton.tag = MODE_EDIT_CORNER_NOTE
 		cornerNoteButton.setOnClickListener(mModeButtonClicked)
-		cornerNoteButton.backgroundTintList = backgroundColor
-		cornerNoteButton.iconTint = textColor
+		cornerNoteButton.backgroundTintList = colorBackground
+		cornerNoteButton.iconTint = colorText
 		mCornerNoteButton = cornerNoteButton
 
 		val centerNoteButton = controlPanel.findViewById<MaterialButton>(R.id.center_note)
 		centerNoteButton.tag = MODE_EDIT_CENTER_NOTE
 		centerNoteButton.setOnClickListener(mModeButtonClicked)
-		centerNoteButton.backgroundTintList = backgroundColor
-		centerNoteButton.iconTint = textColor
+		centerNoteButton.backgroundTintList = colorBackground
+		centerNoteButton.iconTint = colorText
 		mCenterNoteButton = centerNoteButton
 
 		mSwitchModeButton = controlPanel.findViewById(R.id.sot_switch_input_mode)

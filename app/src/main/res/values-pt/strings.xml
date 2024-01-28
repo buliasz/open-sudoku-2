@@ -205,15 +205,15 @@
 	<string name="screen_custom_theme">Custom Theme colors</string>
 	<string name="screen_custom_theme_summary_disabled">Choose \"Custom Theme\" in \"Theme\" setting above to enable this section.</string>
 
-	<string name="default_lineColor">Line</string>
+	<string name="default_colorLine">Line</string>
 
-	<string name="default_sectorLineColor">Sector line</string>
+	<string name="default_colorSectorLine">Sector line</string>
 
-	<string name="default_textColor">Text</string>
+	<string name="default_colorText">Text</string>
 
-	<string name="default_textColorNote">Note text</string>
+	<string name="default_colorNoteText">Note text</string>
 
-	<string name="default_backgroundColor">Primary background</string>
+	<string name="default_colorBackground">Primary background</string>
 	<string name="solve_puzzle">Resolver jogo</string>
 	<string name="solve_puzzle_confirm">Tem certeza de que deseja ver a solução?</string>
 	<string name="used_solver">Você usou o solucionador para ver a solução!</string>

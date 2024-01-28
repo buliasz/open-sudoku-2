@@ -56,9 +56,9 @@ internal class FolderListRecyclerAdapter(
 			selectedFolderId = folder.id
 			with(menu ?: return@setOnCreateContextMenuListener) {
 				setHeaderTitle(folder.name)
-				add(0, FolderListActivity.MENU_ITEM_EXPORT, 0, R.string.export_folder)
-				add(0, FolderListActivity.MENU_ITEM_RENAME, 1, R.string.rename_folder)
-				add(0, FolderListActivity.MENU_ITEM_DELETE, 2, R.string.delete_folder)
+				add(0, FolderListActivity.MenuItems.EXPORT.id, 0, R.string.export_folder)
+				add(0, FolderListActivity.MenuItems.RENAME.id, 1, R.string.rename_folder)
+				add(0, FolderListActivity.MenuItems.DELETE.id, 2, R.string.delete_folder)
 			}
 		}
 

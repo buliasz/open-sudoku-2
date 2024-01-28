@@ -1,8 +1,8 @@
 # Open Sudoku 2
 
-[Open Sudoku 2](https://github.com/buliasz/open-sudoku-2) is an open-source Sudoku game original
-based on the Open Sudoku project. Open Sudoku 2 has been rewritten to the Kotlin programming
-language with lots of fixes, modifications and reimplementation. It is up to date with the current
+[Open Sudoku 2](https://github.com/buliasz/open-sudoku-2) is an open-source Sudoku game based on the
+Open Sudoku project. Open Sudoku 2 has been rewritten in the Kotlin programming
+language with lots of improvements, fixes and reimplementation. It is up to date with the current
 Android coding standards. New functionalities as well as improvements for the already existing ones
 are there.
 
@@ -14,7 +14,7 @@ More puzzles can be downloaded from the web, and it also allows you to enter you
 
 Open Sudoku 2 is authored by [Bart Uliasz](https://github.com/buliasz).
 
-Open Sudoku was/is authored by [Óscar García Amor](https://ogarcia.me/).
+Open Sudoku is authored by [Óscar García Amor](https://ogarcia.me/).
 
 The first version of Open Sudoku was developed by [Roman Mašek](https://github.com/romario333) and
 was contributed to by Vit Hnilica, Martin Sobola, Martin Helff, and Diego Pierotto.

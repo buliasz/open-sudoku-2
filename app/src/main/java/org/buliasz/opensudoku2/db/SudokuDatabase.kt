@@ -233,16 +233,6 @@ class SudokuDatabase(context: Context, readOnly: Boolean) : Closeable {
 		return null
 	}
 
-	internal fun findPuzzle(originalValues: String): Long {
-		with(SQLiteQueryBuilder()) {
-			tables = Names.GAME
-			query(db, null, Names.ORIGINAL_VALUES + "=?", arrayOf(originalValues), null, null, null).use { cursor ->
-				if (cursor.moveToFirst()) return@findPuzzle cursor.id
-			}
-		}
-		return -1
-	}
-
 	internal fun insertPuzzle(originalValues: String, folderId: Long): Boolean {
 		with(ContentValues()) {
 			put(Names.ORIGINAL_VALUES, originalValues)

@@ -47,6 +47,19 @@ import org.buliasz.opensudoku2.gui.fragments.RenameFolderDialogFragment
  * List of puzzle's folder. This activity also serves as root activity of application.
  */
 class FolderListActivity : ThemedActivity() {
+	enum class MenuItems {
+		ADD,
+		RENAME,
+		DELETE,
+		ABOUT,
+		EXPORT,
+		EXPORT_ALL,
+		IMPORT,
+		SETTINGS;
+
+		val id = ordinal + Menu.FIRST
+	}
+
 	private lateinit var importLauncher: ActivityResultLauncher<Intent>
 	private lateinit var addFolderDialog: AddFolderDialogFragment
 	private lateinit var renameFolderDialog: RenameFolderDialogFragment
@@ -247,20 +260,5 @@ class FolderListActivity : ThemedActivity() {
 
 	private fun updateList() {
 		mAdapter.updateFoldersList(mDatabase.getFolderList(true))
-	}
-
-	companion object {
-		enum class MenuItems {
-			ADD,
-			RENAME,
-			DELETE,
-			ABOUT,
-			EXPORT,
-			EXPORT_ALL,
-			IMPORT,
-			SETTINGS;
-
-			val id = ordinal + Menu.FIRST
-		}
 	}
 }

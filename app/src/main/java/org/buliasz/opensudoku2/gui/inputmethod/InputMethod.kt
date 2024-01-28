@@ -164,10 +164,10 @@ abstract class InputMethod {
 			)
 
 			// No more of this number should be entered, use the same color as given digits
-			val allNumbersPlacedColor = boardView.textColorReadOnly
+			val allNumbersPlacedColor = boardView.colorReadOnlyText
 
 			// The number being entered, or highlighted, so use the same colour as highlighted digits
-			val checkedColor = boardView.textColorHighlighted
+			val checkedColor = boardView.colorHighlightedText
 			val enabledColor = MaterialColors.getColor(boardView, com.google.android.material.R.attr.colorOnBackground)
 			val disabledColor: Int = setAlpha(MaterialColors.getColor(boardView, com.google.android.material.R.attr.colorOnSurface), 0.12f)
 			val colors = intArrayOf(
@@ -197,10 +197,10 @@ abstract class InputMethod {
 			)
 
 			// No more of this number should be entered, so use the same color as given digits
-			val allNumbersPlacedColor = boardView.backgroundColorReadOnly
+			val allNumbersPlacedColor = boardView.colorReadOnlyBackground
 
 			// The number being entered, or highlighted, so use the same colour as highlighted digits
-			val checkedColor = boardView.backgroundColorHighlighted
+			val checkedColor = boardView.colorHighlightedBackground
 			val enabledColor = MaterialColors.getColor(boardView, android.R.attr.colorBackground)
 			val disabledColor: Int = setAlpha(MaterialColors.getColor(boardView, com.google.android.material.R.attr.colorOnSurface), 0.12f)
 			val colors = intArrayOf(

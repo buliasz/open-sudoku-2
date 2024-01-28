@@ -120,14 +120,14 @@
 	<string name="export">Eksportuj</string>
 	<string name="export_folder">Eksportuj katalog</string>
 	<string name="export_all_folders">Eksportuj wszystkie katalogi</string>
-	<string name="exporting">Z katalogu \\‘%s\\‘…</string>
+	<string name="exporting">Z katalogu \'%s\'…</string>
 	<string name="exported_num">Wyeksportowano %1$d/%2$d łamigłówek…</string>
 	<string name="unknown_export_error">Wystąpił nieznany błąd w trakcie eksportu łamigłówek</string>
 	<string name="highlight_completed_values">Podświetl kompletne cyfry</string>
 	<string name="highlight_completed_values_summary">Podświetl przyciski dla cyfr które zostały wprowadzone jako wartości dziewięciu pól.</string>
 	<string name="theme">Motyw</string>
 	<string name="select_theme">Wybierz motyw kolorów</string>
-	<string name="puzzles_have_been_exported">Eksport łamigłówek do pliku \\‘%s\\’ zakończył się powodzeniem.</string>
+	<string name="puzzles_have_been_exported">Eksport łamigłówek do pliku \'%s\' zakończył się powodzeniem.</string>
 	<string name="difficulty_hard">Trudne</string>
 	<string name="difficulty_medium">Średnie</string>
 	<string name="difficulty_easy">Łatwe</string>
@@ -153,11 +153,11 @@
 	<string name="theme_custom">Motyw użytkownika</string>
 	<string name="screen_custom_theme">Kolory użytkownika</string>
 	<string name="screen_custom_theme_summary_disabled">Wybierz \"Kolory użytkownika\" w sekcji \"Motyw\" ustawień aby włączyć tę opcję</string>
-	<string name="default_lineColor">Brzegi pól</string>
-	<string name="default_sectorLineColor">Obramowanie sekcji</string>
-	<string name="default_textColor">Kolor tekstu</string>
-	<string name="default_textColorNote">Kolor adnotacji</string>
-	<string name="default_backgroundColor">Tło</string>
+	<string name="default_colorLine">Brzegi pól</string>
+	<string name="default_colorSectorLine">Obramowanie bloku 3x3</string>
+	<string name="default_colorText">Kolor tekstu</string>
+	<string name="default_colorNoteText">Kolor adnotacji</string>
+	<string name="default_colorBackground">Tło</string>
 	<string name="solve_puzzle">Rozwiąż łamigłówkę</string>
 	<string name="solve_puzzle_confirm">Czy na pewno chcesz zobaczyć rozwiązanie?</string>
 	<string name="used_solver">Użyłeś automatycznego rozwiązania łamigłówki.</string>
@@ -191,7 +191,7 @@
 	<string name="undo_to_before_mistake">Cofnij do sytuacji przed błędem</string>
 	<string name="undo_to_before_mistake_confirm">Czy na pewno chcesz cofnąć do sytuacji przed pierwszym błędem?</string>
 	<string name="remove_notes_title">Usuń adnotacje przy wprowadzeniu wartości głównej</string>
-	<string name="remove_notes_summary">Automatycznie usuwa odpowiednie adnotacje z pól tego samego wiersza, kolumny i sekcji przy wprowadzeniu wartości głównej.</string>
+	<string name="remove_notes_summary">Automatycznie usuwa odpowiednie adnotacje z pól tego samego wiersza, kolumny i bloku 3x3 przy wprowadzeniu wartości głównej.</string>
 	<string name="create_from_single_color">Utwórz z koloru</string>
 	<string name="show_puzzle_lists_on_startup_title">Pokaż listę łamigłówek po uruchomieniu</string>
 	<string name="show_puzzle_lists_on_startup_summary">Pomija ekran tytułowy i przechodzi bezpośrednio do listy łamigłówek po uruchomieniu aplikacji.</string>
@@ -218,7 +218,7 @@
 	<string name="use_dynamic_color_summary">Użyj kolorów z tapety</string>
 	<string name="theme_custom_light">Motyw jasny użytkownika</string>
 	<string name="pref_border_title">Obramowania pól</string>
-	<string name="pref_border_summary">Obramowania wokół pól i sekcji 3x3</string>
+	<string name="pref_border_summary">Obramowania wokół pól i bloku 3x3</string>
 	<string name="pref_touched_title">Dotknięte pola</string>
 	<string name="pref_touched_summary">Pola w wierszu i kolumnie dotyku</string>
 	<string name="pref_selected_title">Wybrane pole</string>
@@ -228,7 +228,7 @@
 	<string name="pref_error_title">Niepoprawne wartości</string>
 	<string name="pref_error_summary">Pola o wartości niepoprawnej</string>
 	<string name="pref_even_title">Pola parzyste</string>
-	<string name="pref_even_summary">Pola parzystej w sekcji 3x3</string>
+	<string name="pref_even_summary">Pola parzystej w bloku 3x3</string>
 	<string name="theme_emerald">Szmaragd</string>
 	<string name="processing_input_file">Przetwarzam plik wejściowy</string>
 </resources>

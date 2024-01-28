@@ -113,8 +113,8 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 		numberButtons[7] = controlPanel.findViewById(R.id.button_7)
 		numberButtons[8] = controlPanel.findViewById(R.id.button_8)
 		numberButtons[9] = controlPanel.findViewById(R.id.button_9)
-		val textColor: ColorStateList = makeTextColorStateList(mBoard)
-		val backgroundColor: ColorStateList = makeBackgroundColorStateList(mBoard)
+		val colorText: ColorStateList = makeTextColorStateList(mBoard)
+		val colorBackground: ColorStateList = makeBackgroundColorStateList(mBoard)
 		for ((key, button) in numberButtons) {
 			with(button) {
 				tag = key
@@ -122,8 +122,8 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 				setOnTouchListener(mNumberButtonTouched)
 				showNumbersPlaced = showDigitCount
 				enableAllNumbersPlaced = highlightCompletedValues
-				backgroundTintList = backgroundColor
-				setTextColor(textColor)
+				backgroundTintList = colorBackground
+				setTextColor(colorText)
 			}
 		}
 		mDigitButtons = numberButtons
@@ -132,31 +132,31 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 			tag = 0
 			setOnClickListener(mNumberButtonClicked)
 			setOnTouchListener(mNumberButtonTouched)
-			backgroundTintList = backgroundColor
-			iconTint = textColor
+			backgroundTintList = colorBackground
+			iconTint = colorText
 		}
 
 		with(controlPanel.findViewById<MaterialButton>(R.id.enter_number)) {
 			tag = MODE_EDIT_VALUE
 			setOnClickListener(mModeButtonClicked)
-			backgroundTintList = backgroundColor
-			iconTint = textColor
+			backgroundTintList = colorBackground
+			iconTint = colorText
 			mEnterNumberButton = this
 		}
 
 		with(controlPanel.findViewById<MaterialButton>(R.id.corner_note)) {
 			tag = MODE_EDIT_CORNER_NOTE
 			setOnClickListener(mModeButtonClicked)
-			backgroundTintList = backgroundColor
-			iconTint = textColor
+			backgroundTintList = colorBackground
+			iconTint = colorText
 			mCornerNoteButton = this
 		}
 
 		with(controlPanel.findViewById<MaterialButton>(R.id.center_note)) {
 			tag = MODE_EDIT_CENTER_NOTE
 			setOnClickListener(mModeButtonClicked)
-			backgroundTintList = backgroundColor
-			iconTint = textColor
+			backgroundTintList = colorBackground
+			iconTint = colorText
 			mCenterNoteButton = this
 		}
 

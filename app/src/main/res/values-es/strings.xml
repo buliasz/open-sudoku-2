@@ -227,15 +227,15 @@
 	<string name="screen_custom_theme">Colores del tema personalizado</string>
 	<string name="screen_custom_theme_summary_disabled">Escoge \"Tema personalizado\" en el ajuste anterior \"Tema\" para habilitar esta sección.</string>
 
-	<string name="default_lineColor">Línea</string>
+	<string name="default_colorLine">Línea</string>
 
-	<string name="default_sectorLineColor">Línea del sector</string>
+	<string name="default_colorSectorLine">Línea del sector</string>
 
-	<string name="default_textColor">Texto</string>
+	<string name="default_colorText">Texto</string>
 
-	<string name="default_textColorNote">Texto de las notas</string>
+	<string name="default_colorNoteText">Texto de las notas</string>
 
-	<string name="default_backgroundColor">Fondo primario</string>
+	<string name="default_colorBackground">Fondo primario</string>
 
 	<string name="solve_puzzle">Resolver puzzle</string>
 	<string name="solve_puzzle_confirm">¿Estás seguro de que quieres ver la solución?</string>

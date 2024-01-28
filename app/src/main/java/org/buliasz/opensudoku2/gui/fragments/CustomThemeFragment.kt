@@ -198,25 +198,25 @@ class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
 		val attributes = intArrayOf(
 			androidx.appcompat.R.attr.colorPrimary,
 			androidx.appcompat.R.attr.colorPrimaryDark,
-			R.attr.lineColor,
-			R.attr.sectorLineColor,
-			R.attr.textColor,
-			R.attr.textColorNote,
-			R.attr.backgroundColor,
-			R.attr.textColorReadOnly,
-			R.attr.backgroundColorReadOnly,
-			R.attr.textColorTouched,
-			R.attr.textColorNoteTouched,  // *
-			R.attr.backgroundColorTouched,
-			R.attr.backgroundColorSelected,
-			R.attr.textColorHighlighted,
-			R.attr.textColorNoteHighlighted,  // *
-			R.attr.backgroundColorHighlighted,
-			R.attr.textColorInvalid,
-			R.attr.backgroundColorInvalid,
-			R.attr.textColorEven,
-			R.attr.textColorNoteEven,
-			R.attr.backgroundColorEven
+			R.attr.colorLine,
+			R.attr.colorSectorLine,
+			R.attr.colorText,
+			R.attr.colorNoteText,
+			R.attr.colorBackground,
+			R.attr.colorReadOnlyText,
+			R.attr.colorReadOnlyBackground,
+			R.attr.colorTouchedText,
+			R.attr.colorTouchedNoteText,  // *
+			R.attr.colorTouchedBackground,
+			R.attr.colorSelectedBackground,
+			R.attr.colorHighlightedText,
+			R.attr.colorHighlightedNoteText,  // *
+			R.attr.colorHighlightedBackground,
+			R.attr.colorInvalidText,
+			R.attr.colorInvalidBackground,
+			R.attr.colorEvenText,
+			R.attr.colorEvenNoteText,
+			R.attr.colorEvenBackground
 		)
 
 		// ... and set them as the value of these preferences. The 'attributes' and 'preferenceKeys'
@@ -225,25 +225,25 @@ class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
 		val preferenceKeys = arrayOf(
 			"custom_theme_colorPrimary",
 			"custom_theme_colorAccent",
-			"custom_theme_lineColor",
-			"custom_theme_sectorLineColor",
-			"custom_theme_textColor",
-			"custom_theme_textColorNote",
-			"custom_theme_backgroundColor",
-			"custom_theme_textColorReadOnly",
-			"custom_theme_backgroundColorReadOnly",
-			"custom_theme_textColorTouched",
-			"custom_theme_textColorNoteTouched",
-			"custom_theme_backgroundColorTouched",
-			"custom_theme_backgroundColorSelected",
-			"custom_theme_textColorHighlighted",
-			"custom_theme_textColorNoteHighlighted",
-			"custom_theme_backgroundColorHighlighted",
-			"custom_theme_textColorError",
-			"custom_theme_backgroundColorError",
-			"custom_theme_textColorEven",
-			"custom_theme_textColorNoteEven",
-			"custom_theme_backgroundColorEven"
+			"custom_theme_colorLine",
+			"custom_theme_colorSectorLine",
+			"custom_theme_colorText",
+			"custom_theme_colorNoteText",
+			"custom_theme_colorBackground",
+			"custom_theme_colorReadOnlyText",
+			"custom_theme_colorReadOnlyBackground",
+			"custom_theme_colorTouchedText",
+			"custom_theme_colorTouchedNoteText",
+			"custom_theme_colorTouchedBackground",
+			"custom_theme_colorSelectedBackground",
+			"custom_theme_colorHighlightedText",
+			"custom_theme_colorHighlightedNoteText",
+			"custom_theme_colorHighlightedBackground",
+			"custom_theme_colorTextError",
+			"custom_theme_colorBackgroundError",
+			"custom_theme_colorEvenText",
+			"custom_theme_colorEvenNoteText",
+			"custom_theme_colorEvenBackground"
 		)
 		assert(attributes.size == preferenceKeys.size)
 		val themeColors = themeWrapper.theme.obtainStyledAttributes(attributes)
@@ -265,31 +265,31 @@ class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
 		tempHSL = colorAsHSL.clone()
 		tempHSL[2] += if (isLightTheme) -0.1f else 0.1f
 		val colorPrimaryDark = ColorUtils.HSLToColor(tempHSL)
-		val textColor = if (isLightTheme) Color.BLACK else Color.WHITE
-		val backgroundColor = if (isLightTheme) Color.WHITE else Color.BLACK
-		(findPreference<Preference>("custom_theme_lineColor") as ColorPickerPreference?)!!.onColorChanged(colorPrimaryDark)
-		(findPreference<Preference>("custom_theme_sectorLineColor") as ColorPickerPreference?)!!.onColorChanged(colorPrimaryDark)
-		(findPreference<Preference>("custom_theme_textColor") as ColorPickerPreference?)!!.onColorChanged(textColor)
-		(findPreference<Preference>("custom_theme_textColorNote") as ColorPickerPreference?)!!.onColorChanged(textColor)
-		(findPreference<Preference>("custom_theme_backgroundColor") as ColorPickerPreference?)!!.onColorChanged(backgroundColor)
-		val textColorReadOnly = colorOn(colorPrimary)
-		(findPreference<Preference>("custom_theme_textColorReadOnly") as ColorPickerPreference?)!!.onColorChanged(textColorReadOnly)
-		(findPreference<Preference>("custom_theme_backgroundColorReadOnly") as ColorPickerPreference?)!!.onColorChanged(colorPrimary)
-		val textColorTouched = colorOn(colorAccent)
-		(findPreference<Preference>("custom_theme_textColorTouched") as ColorPickerPreference?)!!.onColorChanged(textColorTouched)
-		(findPreference<Preference>("custom_theme_textColorNoteTouched") as ColorPickerPreference?)!!.onColorChanged(textColorTouched)
-		(findPreference<Preference>("custom_theme_backgroundColorTouched") as ColorPickerPreference?)!!.onColorChanged(colorAccent)
-		(findPreference<Preference>("custom_theme_backgroundColorSelected") as ColorPickerPreference?)!!.onColorChanged(colorPrimaryDark)
-		val textColorHighlighted = colorOn(colorPrimary)
-		(findPreference<Preference>("custom_theme_textColorHighlighted") as ColorPickerPreference?)!!.onColorChanged(textColorHighlighted)
-		(findPreference<Preference>("custom_theme_textColorNoteHighlighted") as ColorPickerPreference?)!!.onColorChanged(
-			textColorHighlighted
+		val colorText = if (isLightTheme) Color.BLACK else Color.WHITE
+		val colorBackground = if (isLightTheme) Color.WHITE else Color.BLACK
+		(findPreference<Preference>("custom_theme_colorLine") as ColorPickerPreference?)!!.onColorChanged(colorPrimaryDark)
+		(findPreference<Preference>("custom_theme_colorSectorLine") as ColorPickerPreference?)!!.onColorChanged(colorPrimaryDark)
+		(findPreference<Preference>("custom_theme_colorText") as ColorPickerPreference?)!!.onColorChanged(colorText)
+		(findPreference<Preference>("custom_theme_colorNoteText") as ColorPickerPreference?)!!.onColorChanged(colorText)
+		(findPreference<Preference>("custom_theme_colorBackground") as ColorPickerPreference?)!!.onColorChanged(colorBackground)
+		val colorReadOnlyText = colorOn(colorPrimary)
+		(findPreference<Preference>("custom_theme_colorReadOnlyText") as ColorPickerPreference?)!!.onColorChanged(colorReadOnlyText)
+		(findPreference<Preference>("custom_theme_colorReadOnlyBackground") as ColorPickerPreference?)!!.onColorChanged(colorPrimary)
+		val colorTouchedText = colorOn(colorAccent)
+		(findPreference<Preference>("custom_theme_colorTouchedText") as ColorPickerPreference?)!!.onColorChanged(colorTouchedText)
+		(findPreference<Preference>("custom_theme_colorTouchedNoteText") as ColorPickerPreference?)!!.onColorChanged(colorTouchedText)
+		(findPreference<Preference>("custom_theme_colorTouchedBackground") as ColorPickerPreference?)!!.onColorChanged(colorAccent)
+		(findPreference<Preference>("custom_theme_colorSelectedBackground") as ColorPickerPreference?)!!.onColorChanged(colorPrimaryDark)
+		val colorHighlightedText = colorOn(colorPrimary)
+		(findPreference<Preference>("custom_theme_colorHighlightedText") as ColorPickerPreference?)!!.onColorChanged(colorHighlightedText)
+		(findPreference<Preference>("custom_theme_colorHighlightedNoteText") as ColorPickerPreference?)!!.onColorChanged(
+			colorHighlightedText
 		)
-		(findPreference<Preference>("custom_theme_backgroundColorHighlighted") as ColorPickerPreference?)!!.onColorChanged(colorPrimary)
-		(findPreference<Preference>("custom_theme_textColorEven") as ColorPickerPreference?)!!.onColorChanged(textColor)
-		(findPreference<Preference>("custom_theme_textColorNoteEven") as ColorPickerPreference?)!!.onColorChanged(textColor)
+		(findPreference<Preference>("custom_theme_colorHighlightedBackground") as ColorPickerPreference?)!!.onColorChanged(colorPrimary)
+		(findPreference<Preference>("custom_theme_colorEvenText") as ColorPickerPreference?)!!.onColorChanged(colorText)
+		(findPreference<Preference>("custom_theme_colorEvenNoteText") as ColorPickerPreference?)!!.onColorChanged(colorText)
 		// Default to transparent
-		(findPreference<Preference>("custom_theme_backgroundColorEven") as ColorPickerPreference?)!!.onColorChanged(backgroundColor)
+		(findPreference<Preference>("custom_theme_colorEvenBackground") as ColorPickerPreference?)!!.onColorChanged(colorBackground)
 		(findPreference<Preference>("custom_theme_colorPrimary") as ColorPickerPreference?)!!.onColorChanged(colorPrimary)
 		(findPreference<Preference>("custom_theme_colorAccent") as ColorPickerPreference?)!!.onColorChanged(colorAccent)
 	}

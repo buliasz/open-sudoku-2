@@ -221,15 +221,15 @@
 	<string name="screen_custom_theme">Colori del tema personalizzato</string>
 	<string name="screen_custom_theme_summary_disabled">Seleziona \"Tema personalizzato\" nelle impostazioni \"Tema\" per abilitare questa sezione.</string>
 
-	<string name="default_lineColor">Linea</string>
+	<string name="default_colorLine">Linea</string>
 
-	<string name="default_sectorLineColor">Linea di selezione</string>
+	<string name="default_colorSectorLine">Linea di selezione</string>
 
-	<string name="default_textColor">Colore testo</string>
+	<string name="default_colorText">Colore testo</string>
 
-	<string name="default_textColorNote">Colore testo note</string>
+	<string name="default_colorNoteText">Colore testo note</string>
 
-	<string name="default_backgroundColor">Sfondo primario</string>
+	<string name="default_colorBackground">Sfondo primario</string>
 
 	<string name="solve_puzzle">Risolvi rompicapo</string>
 	<string name="solve_puzzle_confirm">Sei sicuro di voler vedere la soluzione?</string>

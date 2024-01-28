@@ -246,15 +246,15 @@
 	<string name="screen_custom_theme_summary_disabled">Ezarpen hau gaitzeko, aukeratu \"Itxura pertsonalizatua\" gaineko \"Itxura\" atalean
 	</string>
 
-	<string name="default_lineColor">Ingerada</string>
+	<string name="default_colorLine">Ingerada</string>
 
-	<string name="default_sectorLineColor">Sektore-ingerada</string>
+	<string name="default_colorSectorLine">Sektore-ingerada</string>
 
-	<string name="default_textColor">Testua</string>
+	<string name="default_colorText">Testua</string>
 
-	<string name="default_textColorNote">Oharren testua</string>
+	<string name="default_colorNoteText">Oharren testua</string>
 
-	<string name="default_backgroundColor">Atzeko plano nagusia</string>
+	<string name="default_colorBackground">Atzeko plano nagusia</string>
 
 	<string name="solve_puzzle">Ebatzi sudokua</string>
 	<string name="solve_puzzle_confirm">Ziur soluzioa ikusi nahi duzula?</string>

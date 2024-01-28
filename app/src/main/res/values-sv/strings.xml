@@ -217,15 +217,15 @@
 	<string name="screen_custom_theme">Anpassade temafärger</string>
 	<string name="screen_custom_theme_summary_disabled">Välj \"Anpassat tema\" i inställningen \"Tema\" ovan för att aktivera det här avsnittet.</string>
 
-	<string name="default_lineColor">Linje</string>
+	<string name="default_colorLine">Linje</string>
 
-	<string name="default_sectorLineColor">Sektor linje</string>
+	<string name="default_colorSectorLine">Sektor linje</string>
 
-	<string name="default_textColor">Text</string>
+	<string name="default_colorText">Text</string>
 
-	<string name="default_textColorNote">Anteckningens text</string>
+	<string name="default_colorNoteText">Anteckningens text</string>
 
-	<string name="default_backgroundColor">Primär bakgrund</string>
+	<string name="default_colorBackground">Primär bakgrund</string>
 	<string name="solve_puzzle">Lös pussel</string>
 	<string name="solve_puzzle_confirm">Är du säker på att du vill se lösningen?</string>
 	<string name="used_solver">Du har använt lösaren för att se lösningen!</string>

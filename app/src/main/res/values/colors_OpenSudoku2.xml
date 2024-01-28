@@ -48,6 +48,7 @@
     <color name="OpenSudoku2_md_theme_light_inverseSurface">#2e3130</color>
     <color name="OpenSudoku2_md_theme_light_inverseOnSurface">#eff1ef</color>
     <color name="OpenSudoku2_md_theme_light_inversePrimary">#6dd8cc</color>
+
     <color name="OpenSudoku2_md_theme_dark_primary">#49b7ac</color>
     <color name="OpenSudoku2_md_theme_dark_onPrimary">#000000</color>
     <color name="OpenSudoku2_md_theme_dark_primaryDark">#009587</color>
@@ -59,7 +60,7 @@
     <color name="OpenSudoku2_md_theme_dark_onSecondaryContainer">#ffffff</color>
     <color name="OpenSudoku2_md_theme_dark_tertiary">#656565</color>
     <color name="OpenSudoku2_md_theme_dark_onTertiary">#ffffff</color>
-    <color name="OpenSudoku2_md_theme_dark_tertiaryContainer">#EFFF3F</color>
+    <color name="OpenSudoku2_md_theme_dark_tertiaryContainer">#6767FF</color>
     <color name="OpenSudoku2_md_theme_dark_onTertiaryContainer">#ffffff</color>
     <color name="OpenSudoku2_md_theme_dark_error">#ffb4ab</color>
     <color name="OpenSudoku2_md_theme_dark_onError">#690005</color>

@@ -18,33 +18,32 @@
 
 <resources>
     <style name="AppTheme" parent="Theme.Material3.DayNight">
-        <item name="lineColor">?attr/colorOutline</item>
-        <item name="sectorLineColor">?attr/colorOutline</item>
+        <item name="colorLine">?attr/colorOutline</item>
+        <item name="colorSectorLine">?attr/colorOutline</item>
 
-        <item name="textColor">?attr/colorOnSurface</item>
-        <item name="textColorNote">?attr/colorOnSurface</item>
-        <item name="backgroundColor">?attr/colorSurface</item>
+        <item name="colorText">?attr/colorOnSurface</item>
+        <item name="colorNoteText">?attr/colorOnSurface</item>
+        <item name="colorBackground">?attr/colorSurface</item>
 
-        <item name="textColorReadOnly">?attr/colorOnPrimaryContainer</item>
-        <item name="backgroundColorReadOnly">?attr/colorPrimaryContainer</item>
+        <item name="colorReadOnlyText">?attr/colorPrimary</item>
+        <item name="colorReadOnlyBackground">?attr/colorPrimaryContainer</item>
 
-        <item name="textColorTouched">?attr/colorOnTertiaryContainer</item>
-        <item name="textColorNoteTouched">?attr/colorOnTertiaryContainer</item>
-        <item name="backgroundColorTouched">?attr/colorTertiaryContainer</item>
+        <item name="colorTouchedText">?attr/colorOnTertiaryContainer</item>
+        <item name="colorTouchedNoteText">?attr/colorOnTertiaryContainer</item>
+        <item name="colorTouchedBackground">?attr/colorTertiaryContainer</item>
 
-        <item name="backgroundColorSelected">?attr/colorTertiaryContainer</item>
+        <item name="colorSelectedBackground">?attr/colorTertiaryContainer</item>
 
-        <item name="textColorHighlighted">?attr/colorOnSecondaryContainer</item>
-        <item name="textColorNoteHighlighted">?attr/colorOnSecondaryContainer</item>
-        <item name="backgroundColorHighlighted">?attr/colorSecondaryContainer</item>
+        <item name="colorHighlightedText">?attr/colorOnSecondaryContainer</item>
+        <item name="colorHighlightedNoteText">?attr/colorOnSecondaryContainer</item>
+        <item name="colorHighlightedBackground">?attr/colorSecondaryContainer</item>
 
-        <item name="textColorInvalid">?attr/colorOnErrorContainer</item>
-        <item name="backgroundColorInvalid">?attr/colorErrorContainer</item>
+        <item name="colorInvalidText">?attr/colorOnErrorContainer</item>
+        <item name="colorInvalidBackground">?attr/colorErrorContainer</item>
 
-        <item name="textColorEven">?attr/colorOnSurfaceVariant</item>
-        <item name="textColorNoteEven">?attr/colorOnSurfaceVariant</item>
-        <!-- Transparent color here disables the functionality by default -->
-        <item name="backgroundColorEven">@android:color/transparent</item>
+        <item name="colorEvenText">?attr/colorOnSurfaceVariant</item>
+        <item name="colorEvenNoteText">?attr/colorOnSurfaceVariant</item>
+        <item name="colorEvenBackground">@android:color/transparent</item> <!-- Transparent color here disables the functionality by default -->
     </style>
 
     <style name="AppTheme.OpenSudoku2">
@@ -52,7 +51,7 @@
         <item name="colorOnPrimary">@color/OpenSudoku2_md_theme_dark_onPrimary</item>
         <item name="colorPrimaryDark">@color/OpenSudoku2_md_theme_dark_primaryDark</item>
         <item name="colorPrimaryContainer">@color/OpenSudoku2_md_theme_dark_primaryContainer</item>
-        <item name="colorOnPrimaryContainer">@color/OpenSudoku2_md_theme_dark_onPrimaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/OpenSudoku2_md_theme_dark_secondary</item>
         <item name="colorSecondary">@color/OpenSudoku2_md_theme_dark_secondary</item>
         <item name="colorOnSecondary">@color/OpenSudoku2_md_theme_dark_onSecondary</item>
         <item name="colorSecondaryContainer">@color/OpenSudoku2_md_theme_dark_secondaryContainer</item>
@@ -82,7 +81,7 @@
         <item name="colorOnPrimary">@color/AMOLED_md_theme_dark_onPrimary</item>
         <item name="colorPrimaryDark">@color/AMOLED_md_theme_dark_primaryDark</item>
         <item name="colorPrimaryContainer">@color/AMOLED_md_theme_dark_primaryContainer</item>
-        <item name="colorOnPrimaryContainer">@color/AMOLED_md_theme_dark_onPrimaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/AMOLED_md_theme_dark_secondary</item>
         <item name="colorSecondary">@color/AMOLED_md_theme_dark_secondary</item>
         <item name="colorOnSecondary">@color/AMOLED_md_theme_dark_onSecondary</item>
         <item name="colorSecondaryContainer">@color/AMOLED_md_theme_dark_secondaryContainer</item>
@@ -556,7 +555,7 @@
         <item name="colorSurfaceInverse">@color/GraphPaperLight_md_theme_dark_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/GraphPaperLight_md_theme_dark_inversePrimary</item>
 
-        <item name="backgroundColorEven">?attr/colorSurfaceVariant</item>
+        <item name="colorEvenBackground">?attr/colorSurfaceVariant</item>
     </style>
 
     <style name="AppTheme.GraphPaper">
@@ -588,7 +587,7 @@
         <item name="colorSurfaceInverse">@color/GraphPaper_md_theme_dark_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/GraphPaper_md_theme_dark_inversePrimary</item>
 
-        <item name="backgroundColorEven">?attr/colorSurfaceVariant</item>
+        <item name="colorEvenBackground">?attr/colorSurfaceVariant</item>
     </style>
 
     <style name="AppTheme.InvertedHighContrast">

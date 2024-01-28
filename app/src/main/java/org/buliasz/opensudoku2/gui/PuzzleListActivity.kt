@@ -42,6 +42,24 @@ import org.buliasz.opensudoku2.gui.fragments.ResetPuzzleDialogFragment
 import org.buliasz.opensudoku2.gui.fragments.SortDialogFragment
 
 class PuzzleListActivity : ThemedActivity() {
+	enum class MenuItems {
+		INSERT,
+		EDIT,
+		DELETE,
+		PLAY,
+		RESET,
+		RESET_ALL,
+		EDIT_NOTE,
+		FILTER,
+		SORT,
+		FOLDERS,
+		SETTINGS,
+		EXPORT_GAME,
+		EXPORT_FOLDER;
+
+		val id = ordinal + Menu.FIRST
+	}
+
 	private lateinit var editUserNoteDialog: EditUserNoteDialogFragment
 	private lateinit var resetPuzzleDialog: ResetPuzzleDialogFragment
 	private lateinit var deletePuzzleDialog: DeletePuzzleDialogFragment
@@ -317,24 +335,6 @@ class PuzzleListActivity : ThemedActivity() {
 	}
 
 	companion object {
-		enum class MenuItems {
-			INSERT,
-			EDIT,
-			DELETE,
-			PLAY,
-			RESET,
-			RESET_ALL,
-			EDIT_NOTE,
-			FILTER,
-			SORT,
-			FOLDERS,
-			SETTINGS,
-			EXPORT_GAME,
-			EXPORT_FOLDER;
-
-			val id = ordinal + Menu.FIRST
-		}
-
 		const val FILTER_STATE_NOT_STARTED = "filter" + SudokuGame.GAME_STATE_NOT_STARTED
 		const val FILTER_STATE_PLAYING = "filter" + SudokuGame.GAME_STATE_PLAYING
 		const val FILTER_STATE_SOLVED = "filter" + SudokuGame.GAME_STATE_COMPLETED

@@ -180,7 +180,7 @@ class SudokuPlayActivity : ThemedActivity() {
 		} else {
 			mSudokuBoard.highlightSimilarCells = HighlightMode.NONE
 		}
-		mSudokuGame.removeNotesOnEntry = gameSettings.getBoolean("remove_notes_on_input", false)
+		mSudokuGame.removeNotesOnEntry = gameSettings.getBoolean("remove_notes_on_input", true)
 		mShowTime = gameSettings.getBoolean("show_time", true)
 		if (mSudokuGame.state == SudokuGame.GAME_STATE_PLAYING) {
 			mSudokuGame.resume()

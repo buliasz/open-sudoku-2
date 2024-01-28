@@ -241,15 +241,15 @@
 	<string name="screen_custom_theme">自定义主题颜色</string>
 	<string name="screen_custom_theme_summary_disabled">在上面的“主题”设置中选择“自定义主题”来启用这个功能。</string>
 
-	<string name="default_lineColor">线</string>
+	<string name="default_colorLine">线</string>
 
-	<string name="default_sectorLineColor">界线</string>
+	<string name="default_colorSectorLine">界线</string>
 
-	<string name="default_textColor">文本</string>
+	<string name="default_colorText">文本</string>
 
-	<string name="default_textColorNote">笔记文本</string>
+	<string name="default_colorNoteText">笔记文本</string>
 
-	<string name="default_backgroundColor">原始背景</string>
+	<string name="default_colorBackground">原始背景</string>
 
 	<string name="solve_puzzle">解决谜题</string>
 	<string name="solve_puzzle_confirm">你确定想看这个解法？</string>
