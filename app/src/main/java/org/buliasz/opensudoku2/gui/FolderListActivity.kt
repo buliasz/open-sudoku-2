@@ -75,24 +75,9 @@ class FolderListActivity : ThemedActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.folder_list)
 		setDefaultKeyMode(DEFAULT_KEYS_SHORTCUT)
-		val getMorePuzzles = findViewById<View>(R.id.get_more_puzzles)
-		getMorePuzzles.setOnClickListener {
-			val webpage = Uri.parse("https://github.com/grantm/sudoku-exchange-puzzle-bank")
-			try {
-				Intent(Intent.ACTION_VIEW, webpage).apply {
-					startActivity(this)
-				}
-			} catch (_: ActivityNotFoundException) {
-				val mHintClosed = DialogInterface.OnClickListener { _: DialogInterface?, _: Int -> }
-				AlertDialog.Builder(this)
-					.setIcon(R.drawable.ic_error)
-					.setTitle(R.string.error)
-					.setMessage("Cannot start Web activity. Please open the webpage manually: $webpage")
-					.setPositiveButton(R.string.close, mHintClosed)
-					.create()
-					.show()
-			}
-		}
+		findViewById<View>(R.id.get_more_puzzles_from_os1).setOnClickListener { openWebpage("https://opensudoku.moire.org/") }
+		findViewById<View>(R.id.get_more_puzzles_from_sepb).setOnClickListener { openWebpage("https://github.com/grantm/sudoku-exchange-puzzle-bank") }
+		findViewById<View>(R.id.get_more_puzzles_from_sudocue).setOnClickListener { openWebpage("https://www.sudocue.net/download.php") }
 		mDatabase = SudokuDatabase(applicationContext, true)
 		mAdapter = FolderListRecyclerAdapter(this, mDatabase.getFolderList()) { id: Long ->
 			val i = Intent(applicationContext, PuzzleListActivity::class.java)
@@ -126,6 +111,24 @@ class FolderListActivity : ThemedActivity() {
 		// show changelog on first run
 		val changelog = Changelog(this)
 		changelog.showOnFirstRun()
+	}
+
+	private fun openWebpage(url: String) {
+		val webpage = Uri.parse(url)
+		try {
+			Intent(Intent.ACTION_VIEW, webpage).apply {
+				startActivity(this)
+			}
+		} catch (_: ActivityNotFoundException) {
+			val mHintClosed = DialogInterface.OnClickListener { _: DialogInterface?, _: Int -> }
+			AlertDialog.Builder(this)
+				.setIcon(R.drawable.ic_error)
+				.setTitle(R.string.error)
+				.setMessage("Cannot start Web activity. Please open the webpage manually: $webpage")
+				.setPositiveButton(R.string.close, mHintClosed)
+				.create()
+				.show()
+		}
 	}
 
 	override fun onStart() {

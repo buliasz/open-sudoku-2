@@ -31,6 +31,7 @@ import kotlinx.coroutines.launch
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.gui.importing.AbstractImportTask
+import org.buliasz.opensudoku2.gui.importing.OpenSudoku1ImportTask
 import org.buliasz.opensudoku2.gui.importing.OpenSudoku2ImportTask
 import org.buliasz.opensudoku2.gui.importing.SdmImportTask
 import org.buliasz.opensudoku2.gui.importing.SepbImportTask
@@ -140,14 +141,13 @@ class PuzzleImportActivity : ThemedActivity() {
 
 		val cBufferStr = String(cBuffer)
 		@Suppress("RegExpSimplifiable")
-		importTask = if (cBufferStr.contains("<opensudoku2")) {
-			// Recognized OpenSudoku2 file
+		importTask = if (cBufferStr.contains("<opensudoku2")) { // Recognized OpenSudoku2 file
 			OpenSudoku2ImportTask(dataUri)
-		} else if (cBufferStr.matches("""[.0-9\n\r]{$numberOfCharactersRead}""".toRegex())) {
-			// Recognized Sudoku SDM file
+		} else if (cBufferStr.contains("<opensudoku")) { // Recognized OpenSudoku1 file
+			OpenSudoku1ImportTask(dataUri)
+		} else if (cBufferStr.matches("""[.0-9\n\r]{$numberOfCharactersRead}""".toRegex())) { // Recognized Sudoku SDM file
 			SdmImportTask(dataUri)
-		} else if (SepbRegex.containsMatchIn(cBufferStr)) {
-			// Recognized Sudoku Exchange "Puzzle Bank" file
+		} else if (SepbRegex.containsMatchIn(cBufferStr)) { // Recognized Sudoku Exchange "Puzzle Bank" file
 			SepbImportTask(dataUri)
 		} else {
 			Log.e(TAG, "Unknown type of data provided (mime-type=${intent.type}; uri=$dataUri), exiting.")

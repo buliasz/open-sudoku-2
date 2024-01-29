@@ -28,7 +28,6 @@ import org.buliasz.opensudoku2.db.id
 import org.buliasz.opensudoku2.db.originalValues
 import org.buliasz.opensudoku2.game.CellCollection
 import org.buliasz.opensudoku2.game.SudokuGame
-import org.buliasz.opensudoku2.gui.exporting.FileExportTask
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import org.xmlpull.v1.XmlPullParserFactory
@@ -39,9 +38,9 @@ import java.io.Reader
 import java.net.URI
 
 /**
- * Handles import of application/x-opensudoku2 or .opensudoku2 files.
+ * Handles import of .opensudoku files.
  */
-class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
+class OpenSudoku1ImportTask(private val mUri: Uri) : AbstractImportTask() {
 	@Throws(SudokuInvalidFormatException::class)
 	override suspend fun processImport(context: Context) {
 		val streamReader: InputStreamReader = if (mUri.scheme == "content") {
@@ -51,12 +50,12 @@ class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
 			val juri = URI(mUri.scheme, mUri.schemeSpecificPart, mUri.fragment)
 			InputStreamReader(juri.toURL().openStream())
 		}
-		streamReader.use { importFromXml(context, it) }
+		streamReader.use { importXml(context, it) }
 	}
 
 
 	@Throws(SudokuInvalidFormatException::class)
-	private suspend fun importFromXml(context: Context, reader: Reader) {
+	private suspend fun importXml(context: Context, reader: Reader) {
 		val inBR = BufferedReader(reader)
 		val parserFactory: XmlPullParserFactory = XmlPullParserFactory.newInstance()
 		parserFactory.isNamespaceAware = false
@@ -68,10 +67,14 @@ class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
 		while (eventType != XmlPullParser.END_DOCUMENT) {
 			if (eventType == XmlPullParser.START_TAG) {
 				rootTag = parser.name
-				if (rootTag == "opensudoku2") {
+				if (rootTag == "opensudoku") {
 					when (parser.getAttributeValue(null, "version")) {
-						FileExportTask.FILE_EXPORT_VERSION -> {
-							importOpenSudoku2Puzzles(parser)
+						null -> {
+							importOpenSudoku1v1Puzzles(parser)
+						}
+
+						"2" -> {
+							importOpenSudoku1v2Puzzles(parser)
 						}
 
 						else -> {
@@ -88,7 +91,7 @@ class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
 	}
 
 	@Throws(XmlPullParserException::class, IOException::class, SudokuInvalidFormatException::class)
-	private suspend fun importOpenSudoku2Puzzles(parser: XmlPullParser) {
+	private suspend fun importOpenSudoku1v2Puzzles(parser: XmlPullParser) {
 		var eventType = parser.eventType
 		var lastTag: String
 		var lastFolderId: Long = 0
@@ -99,31 +102,68 @@ class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
 			if (eventType == XmlPullParser.START_TAG) {
 				lastTag = parser.name
 				if (lastTag == Names.FOLDER) {
-					val name = parser.getAttributeValue(null, Names.FOLDER_NAME)
-					val created = parser.getAttributeValue(null, Names.FOLDER_CREATED).toLong()
+					val name = parser.getAttributeValue(null, "name")
+					val created = parser.getAttributeValue(null, "created").toLong()
 					lastFolderId = importFolder(name, created)
 				} else if (lastTag == Names.GAME) {
 					with(SudokuGame()) {
-						created = parser.getAttributeValue(null, Names.CREATED).toLong()
-						cells = CellCollection.deserialize(parser.getAttributeValue(null, Names.CELLS_DATA))
-						lastPlayed = parser.getAttributeValue(null, Names.LAST_PLAYED).toLong()
-						state = parser.getAttributeValue(null, Names.STATE).toInt()
-						time = parser.getAttributeValue(null, Names.TIME).toLong()
-						userNote = parser.getAttributeValue(null, Names.USER_NOTE)
+						created = parser.getAttributeValue(null, "created").toLong()
+						cells = CellCollection.deserialize(parser.getAttributeValue(null, "data"))
+						lastPlayed = parser.getAttributeValue(null, "last_played").toLong()
+						state = parser.getAttributeValue(null, "state").toInt()
+						time = parser.getAttributeValue(null, "time").toLong()
+						userNote = parser.getAttributeValue(null, "note")
 						folderId = lastFolderId
-						commandStack.deserialize(parser.getAttributeValue(null, Names.COMMAND_STACK))
-						id = existingPuzzles[cells.originalValues] ?: -1
-						if (id < 0L) {
-							mDatabase.insertPuzzle(this)
+						commandStack.deserialize(parser.getAttributeValue(null, "command_stack"))
+						id = existingPuzzles[cells.originalValues] ?: -1L
+						if (id == -1L) {
+							val newId = mDatabase.insertPuzzle(this)
+							existingPuzzles[cells.originalValues] = newId
 							importedCount += 1
 						} else if (state != SudokuGame.GAME_STATE_NOT_STARTED) {
-							mDatabase.updatePuzzle(this)    // those saved may be in progress, update makes sense for puzzles exported by by this app
+							mDatabase.updatePuzzle(this)    // those saved may be in progress, update makes sense for puzzles exported
 							updatedCount += 1
 						} else {
 							duplicatesCount += 1
 						}
 						mProgressUpdate.maxValue = importedCount + updatedCount + duplicatesCount
 					}
+				}
+			}
+			eventType = parser.next()
+		}
+	}
+
+	@Throws(XmlPullParserException::class, IOException::class, SudokuInvalidFormatException::class)
+	private suspend fun importOpenSudoku1v1Puzzles(parser: XmlPullParser) {
+		var eventType = parser.eventType
+		var lastTag = ""
+		var lastFolderId: Long = -1L
+		val existingPuzzles = HashSet<String>()
+
+		mDatabase.getPuzzleListCursor().forEach { c -> existingPuzzles.add(c.originalValues) }
+		while (eventType != XmlPullParser.END_DOCUMENT) {
+			if (eventType == XmlPullParser.START_TAG) {
+				lastTag = parser.name
+				if (lastTag == "game") {
+					val values = parser.getAttributeValue(null, "data")
+					if (lastFolderId == -1L) {
+						lastFolderId = importFolder("OpenSudoku1")
+					}
+					if (!existingPuzzles.contains(values)) {
+						mDatabase.insertPuzzle(values, lastFolderId)
+						existingPuzzles.add(values)
+						importedCount += 1
+					} else {
+						duplicatesCount += 1
+					}
+					mProgressUpdate.maxValue = importedCount + duplicatesCount
+				}
+			} else if (eventType == XmlPullParser.END_TAG) {
+				lastTag = ""
+			} else if (eventType == XmlPullParser.TEXT) {
+				if (lastTag == "name") {
+					lastFolderId = importFolder(parser.text)
 				}
 			}
 			eventType = parser.next()

@@ -251,11 +251,12 @@ class SudokuDatabase(context: Context, readOnly: Boolean) : Closeable {
 		throw SQLException("Failed to insert puzzle.")
 	}
 
-	internal fun insertPuzzle(newGame: SudokuGame) {
+	internal fun insertPuzzle(newGame: SudokuGame): Long {
 		val rowId = db.insert(Names.GAME, null, newGame.contentValues)
 		if (rowId < 0) {
 			throw SQLException("Failed to insert puzzle.")
 		}
+		return rowId
 	}
 
 	internal fun updatePuzzle(game: SudokuGame): Int = db.update(Names.GAME, game.contentValues, "${Names.ID}=${game.id}", null)

@@ -364,4 +364,7 @@
 	<string name="pref_even_summary">Cells in even-numbered 3x3 boxes</string>
 	<string name="theme_emerald">Emerald</string>
 	<string name="processing_input_file">Processing the input file</string>
+	<string name="sudocue" translatable="false">SudoCue</string>
+	<string name="sudoku_exchange_puzzle_bank" translatable="false">Sudoku Exchange \"Puzzle Bank\"</string>
+	<string name="open_sudoku_1" translatable="false">Open Sudoku 1</string>
 </resources>
