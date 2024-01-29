@@ -26,9 +26,7 @@ import org.buliasz.opensudoku2.db.forEach
 import org.buliasz.opensudoku2.db.originalValues
 import org.buliasz.opensudoku2.utils.getFileName
 import java.io.BufferedReader
-import java.io.IOException
 import java.io.InputStreamReader
-import java.net.MalformedURLException
 import java.net.URL
 
 /**
@@ -45,40 +43,34 @@ class SdmImportTask(private val mUri: Uri) : AbstractImportTask() {
 @Throws(SudokuInvalidFormatException::class)
 	override suspend fun processImport(context: Context) {
 		folderName = mUri.getFileName(context.contentResolver) ?: "Imported Puzzles"
-		val isr: InputStreamReader
-		try {
-			isr = if (mUri.scheme == "content") {
-				val contentResolver = context.contentResolver
-				InputStreamReader(contentResolver.openInputStream(mUri))
-			} else {
-				val url = URL("$mUri")
-				InputStreamReader(url.openStream())
-			}
-			val newPuzzles = HashSet<String>()
-			BufferedReader(isr).useLines { lineSequence ->
-				lineSequence.forEach { inputLine ->
-					val cellsValues = inputLine.trim().replace(".", "0")
-					if (cellsValues.length == 81 && cellsValues.isDigitsOnly()) {
-						newPuzzles.add(cellsValues)
-						mProgressUpdate.maxValue = newPuzzles.size
-					}
+		val isr = if (mUri.scheme == "content") {
+			val contentResolver = context.contentResolver
+			InputStreamReader(contentResolver.openInputStream(mUri))
+		} else {
+			val url = URL("$mUri")
+			InputStreamReader(url.openStream())
+		}
+
+		val newPuzzles = HashSet<String>()
+		BufferedReader(isr).useLines { lineSequence ->
+			lineSequence.forEach { inputLine ->
+				val cellsValues = inputLine.trim().replace(".", "0")
+				if (cellsValues.length == 81 && cellsValues.isDigitsOnly()) {
+					newPuzzles.add(cellsValues)
+					mProgressUpdate.maxValue = newPuzzles.size
 				}
 			}
+		}
 
-			mDatabase.getPuzzleListCursor().forEach { c -> if (newPuzzles.remove(c.originalValues)) duplicatesCount += 1 }
-			var index = 0
-			mProgressUpdate.maxValue = newPuzzles.size
-			for (values in newPuzzles) {
-				index += 1
-				mProgressUpdate.currentValue = index
-				mDatabase.insertPuzzle(values, folderId)
-				importedCount += 1
-			}
+		// skip existing puzzles and count duplicates
+		mDatabase.getPuzzleListCursor().forEach { c -> if (newPuzzles.remove(c.originalValues)) duplicatesCount += 1 }
 
-		} catch (e: MalformedURLException) {
-			throw RuntimeException(e)
-		} catch (e: IOException) {
-			throw RuntimeException(e)
+		mProgressUpdate.currentValue = 0
+		mProgressUpdate.maxValue = newPuzzles.size
+		for (values in newPuzzles) {
+			mProgressUpdate.currentValue += 1
+			mDatabase.insertPuzzle(values, folderId)
+			importedCount += 1
 		}
 	}
 }

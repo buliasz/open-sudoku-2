@@ -60,12 +60,13 @@ class SepbImportTask(private val mUri: Uri) : AbstractImportTask() {
 			}
 		}
 
+		// skip existing puzzles and count duplicates
 		mDatabase.getPuzzleListCursor().forEach { c -> if (newPuzzles.remove(c.originalValues)) duplicatesCount += 1 }
-		var index = 0
+
+		mProgressUpdate.currentValue = 0
 		mProgressUpdate.maxValue = newPuzzles.size
 		for (values in newPuzzles) {
-			index += 1
-			mProgressUpdate.currentValue = index
+			mProgressUpdate.currentValue += 1
 			mDatabase.insertPuzzle(values, folderId)
 			importedCount += 1
 		}

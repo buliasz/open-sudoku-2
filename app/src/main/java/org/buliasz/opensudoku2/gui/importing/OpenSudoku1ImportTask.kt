@@ -20,6 +20,7 @@ package org.buliasz.opensudoku2.gui.importing
 
 import android.content.Context
 import android.net.Uri
+import androidx.core.text.isDigitsOnly
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.db.SudokuInvalidFormatException
@@ -138,35 +139,41 @@ class OpenSudoku1ImportTask(private val mUri: Uri) : AbstractImportTask() {
 	private suspend fun importOpenSudoku1v1Puzzles(parser: XmlPullParser) {
 		var eventType = parser.eventType
 		var lastTag = ""
-		var lastFolderId: Long = -1L
-		val existingPuzzles = HashSet<String>()
+		var folderId: Long = -1L
 
-		mDatabase.getPuzzleListCursor().forEach { c -> existingPuzzles.add(c.originalValues) }
+		val newPuzzles = HashSet<String>()
 		while (eventType != XmlPullParser.END_DOCUMENT) {
 			if (eventType == XmlPullParser.START_TAG) {
 				lastTag = parser.name
 				if (lastTag == "game") {
-					val values = parser.getAttributeValue(null, "data")
-					if (lastFolderId == -1L) {
-						lastFolderId = importFolder("OpenSudoku1")
+					val cellsValues = parser.getAttributeValue(null, "data")
+					if (cellsValues.length == 81 && cellsValues.isDigitsOnly()) {
+						newPuzzles.add(cellsValues)
+						mProgressUpdate.maxValue = newPuzzles.size
 					}
-					if (!existingPuzzles.contains(values)) {
-						mDatabase.insertPuzzle(values, lastFolderId)
-						existingPuzzles.add(values)
-						importedCount += 1
-					} else {
-						duplicatesCount += 1
-					}
-					mProgressUpdate.maxValue = importedCount + duplicatesCount
 				}
 			} else if (eventType == XmlPullParser.END_TAG) {
 				lastTag = ""
 			} else if (eventType == XmlPullParser.TEXT) {
 				if (lastTag == "name") {
-					lastFolderId = importFolder(parser.text)
+					folderId = importFolder(parser.text)
 				}
 			}
 			eventType = parser.next()
+		}
+		if (folderId == -1L) {
+			folderId = importFolder("OpenSudoku1")
+		}
+
+		// skip existing puzzles and count duplicates
+		mDatabase.getPuzzleListCursor().forEach { c -> if (newPuzzles.remove(c.originalValues)) duplicatesCount += 1 }
+
+		mProgressUpdate.currentValue = 0
+		mProgressUpdate.maxValue = newPuzzles.size
+		for (values in newPuzzles) {
+			mProgressUpdate.currentValue += 1
+			mDatabase.insertPuzzle(values, folderId)
+			importedCount += 1
 		}
 	}
 }
