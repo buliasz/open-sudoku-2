@@ -1,6 +1,6 @@
 /*
  * This file is part of Open Sudoku 2 - an open-source Sudoku game.
- * Copyright (C) 2009-2023 by original authors.
+ * Copyright (C) 2009-2024 by original authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ class OpenSudoku2 : Application() {
 
 		// Migrate shared preference keys from version to version.
 		val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-		val oldVersion = sharedPreferences.getInt("schema_version", 20231221)
+		val oldVersion = sharedPreferences.getInt("schema_version", 20240205)
 		val newVersion = BuildConfig.VERSION_CODE
 		if (oldVersion != newVersion) {
 			upgradeSharedPreferences(sharedPreferences, oldVersion, newVersion)

@@ -5,7 +5,7 @@
   <ul>
     <li>Open Sudoku 2 ported from Open Sudoku code.</li>
     <li>Code rewritten in Kotlin programming language.</li>
-    <li>Added center notes support.</li>
+    <li>Added centre notes support.</li>
     <li>Added support for Sudoku Exchange "Puzzle Bank" format import.</li>
     <li>Added option to highlight value if entry doesn't match final solution value.</li>
     <li>Added verification if the puzzle is invalid (has more than one solution).</li>

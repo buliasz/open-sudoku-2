@@ -1,6 +1,6 @@
 /*
  * This file is part of Open Sudoku 2 - an open-source Sudoku game.
- * Copyright (C) 2009-2023 by original authors.
+ * Copyright (C) 2009-2024 by original authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -72,7 +72,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 	/**
 	 * Registers callback which will be invoked when user taps the cell.
 	 */
-	internal lateinit var onCellTappedListener: (Cell?) -> Unit
+	internal var onCellTappedListener: (Cell?) -> Unit = {}
 
 	/**
 	 * Callback invoked when cell is selected. Cell selection can change without user interaction.

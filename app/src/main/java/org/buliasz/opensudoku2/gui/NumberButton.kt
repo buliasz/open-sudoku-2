@@ -40,7 +40,7 @@ class NumberButton(context: Context?, attrs: AttributeSet?) : MaterialButton(con
 	/** Paint when entering main numbers  */
 	private val mEnterNumberPaint: Paint = Paint()
 
-	/** Paint when entering center notes  */
+	/** Paint when entering centre notes  */
 	private val mCenterNotePaint: Paint = Paint()
 
 	/** Paint when entering corner notes  */

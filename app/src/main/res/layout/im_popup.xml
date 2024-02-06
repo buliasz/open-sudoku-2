@@ -2,7 +2,7 @@
 
 <!--
   ~ This file is part of Open Sudoku 2 - an open-source Sudoku game.
-  ~ Copyright (C) 2009-2023 by original authors.
+  ~ Copyright (C) 2009-2024 by original authors.
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@
 			android:padding="0dp"
 			android:insetLeft="4dp"
 			android:insetRight="4dp"
-			android:textSize="24sp"
+			android:textSize="16sp"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:layout_weight="5" />
