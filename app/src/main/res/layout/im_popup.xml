@@ -40,6 +40,7 @@
 			android:padding="0dp"
 			android:insetLeft="4dp"
 			android:insetRight="4dp"
+			android:textSize="24sp"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:layout_weight="5" />

@@ -74,7 +74,7 @@
 			android:summary="@string/fill_in_notes_summary"
 			android:title="@string/fill_in_notes_summary" />
 		<SwitchPreference app:iconSpaceReserved="false"
-			android:defaultValue="false"
+			android:defaultValue="true"
 			android:key="remove_notes_on_input"
 			android:summary="@string/remove_notes_summary"
 			android:title="@string/remove_notes_title" />
