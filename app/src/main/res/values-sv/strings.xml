@@ -302,5 +302,6 @@
 	<string name="do_you_want_to_save_anyway">Tryck på OK om du vill spara den ändå.</string>
 	<string name="press_ok_to_save">Tryck på OK för att spara pusslet.</string>
 	<string name="import_puzzles_found">Hittade %d pussel…</string>
+	<string name="folder_already_exists">Mappen med det här namnet finns redan. Använd ett unikt mappnamn.</string>
 
 </resources>

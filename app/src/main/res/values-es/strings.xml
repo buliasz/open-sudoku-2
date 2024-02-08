@@ -331,4 +331,5 @@
 	<string name="do_you_want_to_save_anyway">Presione OK si desea guardarlo de todos modos.</string>
 	<string name="press_ok_to_save">Presione OK para guardar el rompecabezas.</string>
 	<string name="import_puzzles_found">Encontrados %d rompecabezas…</string>
+	<string name="folder_already_exists">La carpeta con este nombre ya existe. Utilice un nombre de carpeta único.</string>
 </resources>

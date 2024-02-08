@@ -342,6 +342,7 @@
 	<string name="do_you_want_to_save_anyway">Nyomja meg az OK gombot, ha mindenképpen el szeretné menteni.</string>
 	<string name="press_ok_to_save">Nyomja meg az OK gombot a puzzle mentéséhez.</string>
 	<string name="import_puzzles_found">Talált %d rejtvények …</string>
+	<string name="folder_already_exists">Az ilyen nevű mappa már létezik. Kérjük, használjon egyedi mappanevet.</string>
 </resources>
 
 

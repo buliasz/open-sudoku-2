@@ -47,10 +47,13 @@ class RenameFolderDialogFragment(
 			.setTitle(getString(R.string.rename_folder_title, folderName))
 			.setView(renameFolderView)
 			.setPositiveButton(R.string.save) { _: DialogInterface?, _: Int ->
-				mDatabase.renameFolder(
-					mRenameFolderID,
-					renameFolderNameInput.text.toString().trim { it <= ' ' })
-				updateList()
+				val newName = renameFolderNameInput.text.toString().trim { it <= ' ' }
+				if (mDatabase.folderExists(newName)) {
+					SimpleDialog(requireActivity().supportFragmentManager).show(R.string.folder_already_exists)
+				} else {
+					mDatabase.renameFolder(mRenameFolderID, newName)
+					updateList()
+				}
 			}
 			.setNegativeButton(android.R.string.cancel, null)
 

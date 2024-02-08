@@ -233,4 +233,5 @@
 	<string name="pref_even_summary">Pola parzystej w bloku 3x3</string>
 	<string name="theme_emerald">Szmaragd</string>
 	<string name="processing_input_file">Przetwarzam plik wejściowy</string>
+	<string name="folder_already_exists">Katalog o tej nazwie już istnieje. Użyj unikalnej nazwy folderu.</string>
 </resources>

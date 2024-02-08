@@ -292,5 +292,6 @@
 	<string name="do_you_want_to_save_anyway">Pressione OK se quiser salvá-lo de qualquer maneira.</string>
 	<string name="press_ok_to_save">Pressione OK para salvar o quebra-cabeça.</string>
 	<string name="import_puzzles_found">Encontrado %d quebra-cabeças…</string>
+	<string name="folder_already_exists">A pasta com esse nome já existe. Use o nome exclusivo da pasta.</string>
 
 </resources>

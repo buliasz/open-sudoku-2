@@ -324,4 +324,5 @@
 	<string name="do_you_want_to_save_anyway">Premere OK se si desidera salvarlo comunque.</string>
 	<string name="press_ok_to_save">Premere OK per salvare il puzzle.</string>
 	<string name="import_puzzles_found">Trovati %d puzzle…</string>
+	<string name="folder_already_exists">La cartella con questo nome esiste già. Si prega di utilizzare un nome di cartella univoco.</string>
 </resources>

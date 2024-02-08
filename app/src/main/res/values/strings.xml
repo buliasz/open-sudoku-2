@@ -367,4 +367,5 @@
 	<string name="sudocue" translatable="false">SudoCue</string>
 	<string name="sudoku_exchange_puzzle_bank" translatable="false">Sudoku Exchange \"Puzzle Bank\"</string>
 	<string name="open_sudoku_1" translatable="false">Open Sudoku 1</string>
+	<string name="folder_already_exists">Folder with this name already exists. Please use unique folder name.</string>
 </resources>

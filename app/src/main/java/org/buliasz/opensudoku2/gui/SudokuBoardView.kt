@@ -383,12 +383,8 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 		setTextColorNote(MaterialColors.getColor(context, R.attr.colorNoteText, Color.BLACK))
 		mBackground.color = MaterialColors.getColor(context, R.attr.colorBackground, Color.WHITE)
 
-		// Default view behaviour is to highlight a view that has the focus. This
-		// highlights the entire board and leads to incorrect colours. Disable this
-		// behaviour across all Android versions by explicitly using a color selector
-		// that handles the focused state. The alternative,
-		// setDefaultFocusHighlightEnabled, is for API >= 26.
-		setBackgroundResource(R.color.sudoku_board_view_background_color_selector)
+		// Default view behaviour is to highlight a view that has the focus. This highlights the entire board and leads to incorrect colours.
+		defaultFocusHighlightEnabled = false
 
 		// Read-only cell
 		colorReadOnlyText = MaterialColors.getColor(context, R.attr.colorReadOnlyText, Color.WHITE)

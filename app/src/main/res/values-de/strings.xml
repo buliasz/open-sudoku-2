@@ -292,4 +292,5 @@
 	<string name="do_you_want_to_save_anyway">Drücken Sie OK, wenn Sie es trotzdem speichern möchten.</string>
     <string name="press_ok_to_save">Klicken Sie auf OK, um das Rätsel zu speichern.</string>
     <string name="import_puzzles_found">%d rätsel gefunden…</string>
+	<string name="folder_already_exists">Der Ordner mit diesem Namen ist bereits vorhanden. Bitte verwenden Sie einen eindeutigen Ordnernamen.</string>
 </resources>

@@ -342,4 +342,5 @@
 	<string name="do_you_want_to_save_anyway">Stiskněte OK, pokud jej přesto chcete uložit.</string>
 	<string name="press_ok_to_save">Stisknutím tlačítka OK křížovku uložte.</string>
 	<string name="import_puzzles_found">Nalezeno %d hádanky…</string>
+	<string name="folder_already_exists">Složka s tímto názvem již existuje. Použijte prosím jedinečný název složky.</string>
 </resources>

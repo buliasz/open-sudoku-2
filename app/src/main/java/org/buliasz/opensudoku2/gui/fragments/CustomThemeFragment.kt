@@ -68,10 +68,10 @@ class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
 		mSharedPreferences = sharedPreferences
 
 		val uiModePref = findPreference<ListPreference>("custom_theme_ui_mode")
-		if ("custom" == themeCode) {
+		if (themeCode == "custom") {
 			uiModePref!!.value = "dark"
 		}
-		if ("custom_light" == themeCode) {
+		if (themeCode == "custom_light") {
 			uiModePref!!.value = "light"
 		}
 	}
@@ -306,22 +306,22 @@ class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
 	}
 
 	override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
-		if ("theme" == key) {
+		if (key == "theme") {
 			// This is the theme changing when custom_theme_ui_mode changes, and can be ignored.
 			return
 		}
-		if ("custom_theme_ui_mode" == key) {
+		if (key == "custom_theme_ui_mode") {
 			setThemeCodeFromUiMode(sharedPreferences)
 			val mode = sharedPreferences.getString("custom_theme_ui_mode", "system")
 			ThemeUtils.sTimestampOfLastThemeUpdate = System.currentTimeMillis()
-			if ("light" == mode) {
+			if (mode == "light") {
 				val editor = sharedPreferences.edit()
 				editor.putString("theme", "custom_light")
 				editor.apply()
 				AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 				return
 			}
-			if ("dark" == mode) {
+			if (mode == "dark") {
 				val editor = sharedPreferences.edit()
 				editor.putString("theme", "custom")
 				editor.apply()
@@ -347,10 +347,10 @@ class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
 	private fun setThemeCodeFromUiMode(sharedPreferences: SharedPreferences) {
 		val mode = sharedPreferences.getString("custom_theme_ui_mode", "system")
 		val editor = sharedPreferences.edit()
-		if ("light" == mode) {
+		if (mode == "light") {
 			editor.putString("theme", "custom_light")
 		}
-		if ("dark" == mode) {
+		if (mode == "dark") {
 			editor.putString("theme", "custom")
 		}
 		editor.apply()

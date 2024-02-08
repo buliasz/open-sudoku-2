@@ -301,6 +301,8 @@ class SudokuDatabase(context: Context, readOnly: Boolean) : Closeable {
 		}
 		return qb.query(db, null, null, null, null, null, sortOrder)
 	}
+
+	fun folderExists(folderName: String): Boolean = getFolderInfo(folderName) != null
 }
 
 internal fun extractSudokuGameFromCursorRow(cursor: Cursor): SudokuGame {

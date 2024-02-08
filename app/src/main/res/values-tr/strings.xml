@@ -293,5 +293,6 @@
 	<string name="do_you_want_to_save_anyway">Yine de kaydetmek istiyorsanız Tamam\'a basın.</string>
 	<string name="press_ok_to_save">Bulmacayı kaydetmek için Tamam\'a basın.</string>
 	<string name="import_puzzles_found">%d bulmaca bulundu…</string>
+	<string name="folder_already_exists">Bu ada sahip klasör zaten var. Lütfen benzersiz klasör adı kullanın.</string>
 
 </resources>
