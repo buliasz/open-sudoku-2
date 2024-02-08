@@ -145,17 +145,13 @@ class GameSettingsFragment : PreferenceFragmentCompat(), TargetFragment, OnShare
 					when (sharedPreferences.getString("ui_mode", "system")) {
 						"light" -> {
 							AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-							return
 						}
 
 						"dark" -> {
 							AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-							return
 						}
 
-						else -> {
-							// Default behaviour (including if the value is unrecognised) is to follow
-							// the system.
+						else -> { // default behaviour is to follow the system
 							AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 						}
 					}
