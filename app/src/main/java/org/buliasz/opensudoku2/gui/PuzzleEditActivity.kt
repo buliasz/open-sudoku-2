@@ -226,14 +226,16 @@ class PuzzleEditActivity : ThemedActivity() {
 
 	private fun savePuzzle() {
 		newPuzzle.cells.markCellsWithValuesAsNotEditable()
+		newPuzzle.reset()
+		newPuzzle.created = Instant.now().epochSecond
 		if (newPuzzle.id < 0L) {
-			newPuzzle.created = Instant.now().epochSecond
 			mDatabase.insertPuzzle(newPuzzle)
 			Toast.makeText(applicationContext, R.string.puzzle_inserted, Toast.LENGTH_SHORT).show()
 		} else {
 			mDatabase.updatePuzzle(newPuzzle)
 			Toast.makeText(applicationContext, R.string.puzzle_updated, Toast.LENGTH_SHORT).show()
 		}
+
 		originalValues = newPuzzle.cells.originalValues
 	}
 
