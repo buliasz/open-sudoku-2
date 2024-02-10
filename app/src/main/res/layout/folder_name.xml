@@ -28,14 +28,16 @@
 		android:layout_height="wrap_content"
 		android:gravity="start"
 		android:text="@string/name"
-		android:textAppearance="?android:attr/textAppearanceMedium" />
+		android:textAppearance="?android:attr/textAppearanceMedium"/>
 
 	<EditText android:id="@+id/name"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:minHeight="48dp"
 		android:inputType=""
 		android:singleLine="true"
 		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:autofillHints="folderName" />
+		android:autofillHints="folderName"
+		android:contentDescription="@string/folder_name"/>
 
 </LinearLayout>

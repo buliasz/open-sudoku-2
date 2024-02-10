@@ -343,6 +343,11 @@
 	<string name="press_ok_to_save">Nyomja meg az OK gombot a puzzle mentéséhez.</string>
 	<string name="import_puzzles_found">Talált %d rejtvények …</string>
 	<string name="folder_already_exists">Az ilyen nevű mappa már létezik. Kérjük, használjon egyedi mappanevet.</string>
+	<string name="sudoku_board_widget">Sudoku tábla widget</string>
+	<string name="folder_name">Mappa neve</string>
+	<string name="corner_note">Megjegyzés a sarokban</string>
+	<string name="puzzle_selection_position">Puzzle kiválasztási pozíció %d</string>
+	<string name="center_note">Megjegyzés középen</string>
 </resources>
 
 

@@ -368,4 +368,9 @@
 	<string name="sudoku_exchange_puzzle_bank" translatable="false">Sudoku Exchange \"Puzzle Bank\"</string>
 	<string name="open_sudoku_1" translatable="false">Open Sudoku 1</string>
 	<string name="folder_already_exists">Folder with this name already exists. Please use unique folder name.</string>
+	<string name="sudoku_board_widget">Sudoku board widget</string>
+	<string name="folder_name">Folder name</string>
+	<string name="corner_note">note in corner</string>
+	<string name="puzzle_selection_position">Puzzle selection position %d</string>
+	<string name="center_note">note in center</string>
 </resources>

@@ -291,5 +291,10 @@
 	<string name="press_ok_to_save">Pressione OK para salvar o quebra-cabeça.</string>
 	<string name="import_puzzles_found">Encontrado %d quebra-cabeças …</string>
 	<string name="folder_already_exists">Pasta com este nome já existe. Use o nome exclusivo da pasta.</string>
+	<string name="sudoku_board_widget">Widget da placa Sudoku</string>
+	<string name="folder_name">Nome da pasta</string>
+	<string name="corner_note">nota no canto</string>
+	<string name="puzzle_selection_position">Posição de seleção do quebra-cabeça %d</string>
+	<string name="center_note">nota no centro</string>
 
 </resources>

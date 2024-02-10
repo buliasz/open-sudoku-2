@@ -234,4 +234,9 @@
 	<string name="theme_emerald">Szmaragd</string>
 	<string name="processing_input_file">Przetwarzam plik wejściowy</string>
 	<string name="folder_already_exists">Katalog o tej nazwie już istnieje. Użyj unikalnej nazwy folderu.</string>
+	<string name="sudoku_board_widget">Widżet tablicy Sudoku</string>
+	<string name="folder_name">Nazwa katalogu</string>
+	<string name="corner_note">adnotacja narożna</string>
+	<string name="puzzle_selection_position">Pozycja wyboru sudoku %d</string>
+	<string name="center_note">adnotacja środkowa</string>
 </resources>

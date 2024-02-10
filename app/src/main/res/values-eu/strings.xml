@@ -349,4 +349,9 @@
 	<string name="press_ok_to_save">Presione OK buru-hauskagailua gordetzeko.</string>
 	<string name="import_puzzles_found">Aurkituta %d rompecabezas…</string>
 	<string name="folder_already_exists">Izen honekin karpeta existitzen da. Erabil ezazu karpeta bakar baten izena.</string>
+	<string name="sudoku_board_widget">Sudoku taulako Widgeta</string>
+	<string name="folder_name">Karpetaren izena</string>
+	<string name="corner_note">kantoiko oharrean</string>
+	<string name="puzzle_selection_position">Buru-hautespenaren aukeraketa-posizioa %d</string>
+	<string name="center_note">erdiko oharrean</string>
 </resources>

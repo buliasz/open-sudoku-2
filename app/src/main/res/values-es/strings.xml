@@ -332,4 +332,9 @@
 	<string name="press_ok_to_save">Presione OK para guardar el rompecabezas.</string>
 	<string name="import_puzzles_found">Encontrados %d rompecabezas…</string>
 	<string name="folder_already_exists">La carpeta con este nombre ya existe. Utilice un nombre de carpeta único.</string>
+	<string name="sudoku_board_widget">Widget de tablero de Sudoku</string>
+	<string name="folder_name">Nombre de la carpeta</string>
+	<string name="corner_note">Nota en la esquina</string>
+	<string name="puzzle_selection_position">Puzzle selection position %d</string>
+	<string name="center_note">Nota en el centro</string>
 </resources>

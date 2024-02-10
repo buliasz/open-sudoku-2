@@ -303,5 +303,10 @@
 	<string name="press_ok_to_save">Tryck på OK för att spara pusslet.</string>
 	<string name="import_puzzles_found">Hittade %d pussel…</string>
 	<string name="folder_already_exists">Mappen med det här namnet finns redan. Använd ett unikt mappnamn.</string>
+	<string name="sudoku_board_widget">Widget för Sudoku-bräda</string>
+	<string name="folder_name">Mappens namn</string>
+	<string name="corner_note">Anteckning i hörnet</string>
+	<string name="puzzle_selection_position">Position för val av pussel %d</string>
+	<string name="center_note">Anteckning i mitten</string>
 
 </resources>

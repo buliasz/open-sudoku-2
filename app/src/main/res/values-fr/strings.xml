@@ -322,5 +322,10 @@
 	<string name="press_ok_to_save">Appuyez sur OK pour enregistrer le puzzle.</string>
 	<string name="import_puzzles_found">Trouvé %d puzzles…</string>
 	<string name="folder_already_exists">Le dossier portant ce nom existe déjà. Veuillez utiliser un nom de dossier unique.</string>
+	<string name="sudoku_board_widget">Widget Tableau Sudoku</string>
+	<string name="folder_name">Nom du dossier</string>
+	<string name="corner_note">note dans le coin</string>
+	<string name="puzzle_selection_position">Position de sélection du puzzle %d</string>
+	<string name="center_note">note au centre</string>
 
 </resources>

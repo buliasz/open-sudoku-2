@@ -293,4 +293,9 @@
     <string name="press_ok_to_save">Klicken Sie auf OK, um das Rätsel zu speichern.</string>
     <string name="import_puzzles_found">%d rätsel gefunden…</string>
 	<string name="folder_already_exists">Der Ordner mit diesem Namen ist bereits vorhanden. Bitte verwenden Sie einen eindeutigen Ordnernamen.</string>
+	<string name="sudoku_board_widget">Sudoku-Board-Widget</string>
+	<string name="folder_name">Name des Ordners</string>
+	<string name="corner_note">Eck-Notiz</string>
+	<string name="puzzle_selection_position">Position der Rätselauswahl %d</string>
+    <string name="center_note">Zentrale Notiz</string>
 </resources>

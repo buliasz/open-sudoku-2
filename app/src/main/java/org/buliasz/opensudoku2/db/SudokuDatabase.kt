@@ -147,11 +147,11 @@ class SudokuDatabase(context: Context, readOnly: Boolean) : Closeable {
 		val values = ContentValues()
 		values.put(Names.FOLDER_CREATED, created)
 		values.put(Names.FOLDER_NAME, name)
-		val rowId: Long = db.insert(Names.FOLDER, Names.ID, values)
-		if (rowId > 0) {
-			return FolderInfo(rowId, name)
+		val rowId = db.insert(Names.FOLDER, Names.ID, values)
+		if (rowId < 0) {
+			throw SQLException("Failed to insert folder '$name'.")
 		}
-		throw SQLException("Failed to insert folder '$name'.")
+		return FolderInfo(rowId, name)
 	}
 
 	/**
@@ -161,10 +161,6 @@ class SudokuDatabase(context: Context, readOnly: Boolean) : Closeable {
 	 * @param name     New name for the folder.
 	 */
 	fun renameFolder(folderId: Long, name: String) {
-		val existingFolder = getFolderInfo(name)
-		if (existingFolder != null) {
-			throw SQLException("Folder of this name already exists.")
-		}
 		val values = ContentValues()
 		values.put(Names.FOLDER_NAME, name)
 		db.update(Names.FOLDER, values, Names.ID + "=" + folderId, null)
@@ -233,7 +229,7 @@ class SudokuDatabase(context: Context, readOnly: Boolean) : Closeable {
 		return null
 	}
 
-	internal fun insertPuzzle(originalValues: String, folderId: Long): Boolean {
+	internal fun insertPuzzle(originalValues: String, folderId: Long) {
 		with(ContentValues()) {
 			put(Names.ORIGINAL_VALUES, originalValues)
 			put(Names.CREATED, Instant.now().epochSecond)
@@ -244,11 +240,10 @@ class SudokuDatabase(context: Context, readOnly: Boolean) : Closeable {
 			put(Names.COMMAND_STACK, "")
 			put(Names.FOLDER_ID, folderId)
 			val rowId = db.insert(Names.GAME, null, this)
-			if (rowId > 0) {
-				return@insertPuzzle true
+			if (rowId < 0) {
+				throw SQLException("Failed to insert puzzle.")
 			}
 		}
-		throw SQLException("Failed to insert puzzle.")
 	}
 
 	internal fun insertPuzzle(newGame: SudokuGame): Long {
@@ -261,7 +256,7 @@ class SudokuDatabase(context: Context, readOnly: Boolean) : Closeable {
 
 	internal fun updatePuzzle(game: SudokuGame): Int = db.update(Names.GAME, game.contentValues, "${Names.ID}=${game.id}", null)
 
-	internal fun resetAllPuzzles(folderID: Long): Boolean {
+	internal fun resetAllPuzzles(folderID: Long) {
 		with(ContentValues()) {
 			putNull(Names.CELLS_DATA)
 			put(Names.LAST_PLAYED, 0)
@@ -270,11 +265,10 @@ class SudokuDatabase(context: Context, readOnly: Boolean) : Closeable {
 			put(Names.USER_NOTE, "")
 			put(Names.COMMAND_STACK, "")
 			val rowsCount = db.update(Names.GAME, this, "${Names.FOLDER_ID}=$folderID", null)
-			if (rowsCount > 0) {
-				return@resetAllPuzzles true
+			if (rowsCount <= 0) {
+				throw SQLException("Failed to insert puzzle.")
 			}
 		}
-		throw SQLException("Failed to insert puzzle.")
 	}
 
 	/**

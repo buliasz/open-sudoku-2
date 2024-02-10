@@ -67,6 +67,7 @@ internal class PuzzleListRecyclerAdapter(
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 		puzzlesCursor.moveToPosition(position)
 		val game: SudokuGame = extractSudokuGameFromCursorRow(puzzlesCursor)
+		holder.itemView.contentDescription = mContext.getString(R.string.puzzle_selection_position, position)
 		holder.itemView.setOnClickListener { onClickListener(game.id) }
 		holder.itemView.setOnCreateContextMenuListener { menu, _, _ ->
 			selectedGameId = game.id
@@ -85,11 +86,7 @@ internal class PuzzleListRecyclerAdapter(
 		holder.boardView.isReadOnly = true
 		holder.boardView.isFocusable = false
 		holder.boardView.cells = game.cells
-		ThemeUtils.applyThemeToSudokuBoardViewFromContext(
-			ThemeUtils.getCurrentThemeFromPreferences(mContext),
-			holder.boardView,
-			mContext
-		)
+		ThemeUtils.applyThemeToSudokuBoardViewFromContext(ThemeUtils.getCurrentThemeFromPreferences(mContext), holder.boardView, mContext)
 
 //          R.id.state
 		var stateString: String? = null

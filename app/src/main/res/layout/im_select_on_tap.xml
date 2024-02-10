@@ -146,6 +146,7 @@
 
 	<org.buliasz.opensudoku2.gui.IconButton android:id="@+id/corner_note"
 		style="@style/keypadButton"
+		android:contentDescription="@string/corner_note"
 		app:icon="@drawable/ic_corner_note"
 		app:layout_constraintDimensionRatio="1:1"
 		app:layout_constraintHorizontal_bias="0.5"
@@ -168,6 +169,7 @@
 	<org.buliasz.opensudoku2.gui.IconButton android:id="@+id/button_clear"
 		style="@style/keypadButton"
 		android:checkable="false"
+		android:contentDescription="@string/clear"
 		app:icon="@drawable/ink_eraser"
 		app:iconGravity="textStart"
 		app:iconTint="@color/grey_900"

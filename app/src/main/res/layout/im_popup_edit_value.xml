@@ -73,6 +73,7 @@
 
 			<org.buliasz.opensudoku2.gui.IconButton android:id="@+id/corner_note"
 				style="@style/popupButton"
+				android:contentDescription="@string/corner_note"
 				app:icon="@drawable/ic_corner_note"
 				app:iconGravity="textStart" />
 		</TableRow>
@@ -97,6 +98,7 @@
 
 			<org.buliasz.opensudoku2.gui.IconButton android:id="@+id/center_note"
 				style="@style/popupButton"
+				android:contentDescription="@string/center_note"
 				app:icon="@drawable/ic_center_note"
 				app:iconGravity="textStart" />
 		</TableRow>

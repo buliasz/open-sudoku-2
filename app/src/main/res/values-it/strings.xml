@@ -325,4 +325,9 @@
 	<string name="press_ok_to_save">Premere OK per salvare il puzzle.</string>
 	<string name="import_puzzles_found">Trovati %d puzzle…</string>
 	<string name="folder_already_exists">La cartella con questo nome esiste già. Si prega di utilizzare un nome di cartella univoco.</string>
+	<string name="sudoku_board_widget">Widget per la bacheca del Sudoku</string>
+	<string name="folder_name">Nome della cartella</string>
+	<string name="corner_note">Nota nell\'angolo</string>
+	<string name="puzzle_selection_position">Posizione di selezione del puzzle %d</string>
+	<string name="center_note">Nota al centro</string>
 </resources>

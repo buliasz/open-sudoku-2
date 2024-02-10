@@ -6,8 +6,8 @@ android {
         applicationId 'org.buliasz.opensudoku2'
         minSdk 26
         targetSdk 34
-        versionCode 20240206
-        versionName '1.0 RC2'
+        versionCode 20240209
+        versionName '1.0 RC3'
 
         vectorDrawables.useSupportLibrary true
     }

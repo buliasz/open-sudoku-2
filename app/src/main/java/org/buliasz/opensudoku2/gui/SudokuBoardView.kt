@@ -137,6 +137,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 		mTextNoteHighlighted.isAntiAlias = true
 		mPaints = Array(9) { Array(9) { arrayOf(mBackground, mText, mTextNote) } }
 		setAllColorsFromThemedContext(context)
+		contentDescription = context.getString(R.string.sudoku_board_widget)
 	}
 
 	override fun onDraw(canvas: Canvas) {
@@ -200,8 +201,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 					}
 
 					HighlightMode.NUMBERS_AND_NOTES -> {
-						shouldHighlightCell = highlightedValueIsValid &&
-							(highlightedValue == cell.value) // || cell.notedNumbers.contains(highlightedValue) && cell.value == 0)
+						shouldHighlightCell = highlightedValueIsValid && (highlightedValue == cell.value)
 					}
 				}
 				if (shouldHighlightCell) {
@@ -239,9 +239,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 
 				// Draw the cell background
 				canvas.drawRect(
-					cellLeft.toFloat(), cellTop.toFloat(),
-					cellLeft + mCellWidth, cellTop + mCellHeight,
-					mPaints[row][col][0]
+					cellLeft.toFloat(), cellTop.toFloat(), cellLeft + mCellWidth, cellTop + mCellHeight, mPaints[row][col][0]
 				)
 
 				// Draw cell contents
@@ -252,10 +250,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 						valuePaint = mTextTouched
 					}
 					canvas.drawText(
-						"$value",
-						(cellLeft + mNumberLeft).toFloat(),
-						cellTop + mNumberTop - numberAscent,
-						valuePaint
+						"$value", (cellLeft + mNumberLeft).toFloat(), cellTop + mNumberTop - numberAscent, valuePaint
 					)
 				} else {
 					// To draw notes the cell is divided to 3 rows (0-2) and notesPerRow columns.
@@ -317,12 +312,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 								)
 							}
 						}
-						canvas.drawText(
-							note,
-							cellLeft + offsetX,
-							cellTop + offsetY,
-							paint
-						)
+						canvas.drawText(note, cellLeft + offsetX, cellTop + offsetY, paint)
 					}
 				}
 			}
@@ -366,8 +356,10 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 			val halfStrokeWidth = mBackgroundFocused.strokeWidth / 2
 			mBackgroundFocused.alpha = 128
 			canvas.drawRect(
-				cellLeft + halfStrokeWidth, cellTop + halfStrokeWidth,
-				cellLeft + mCellWidth - halfStrokeWidth, cellTop + mCellHeight - halfStrokeWidth,
+				cellLeft + halfStrokeWidth,
+				cellTop + halfStrokeWidth,
+				cellLeft + mCellWidth - halfStrokeWidth,
+				cellTop + mCellHeight - halfStrokeWidth,
 				mBackgroundFocused
 			)
 		}
@@ -765,9 +757,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 	}
 
 	enum class HighlightMode {
-		NONE,
-		NUMBERS,
-		NUMBERS_AND_NOTES
+		NONE, NUMBERS, NUMBERS_AND_NOTES
 	}
 
 	companion object {
