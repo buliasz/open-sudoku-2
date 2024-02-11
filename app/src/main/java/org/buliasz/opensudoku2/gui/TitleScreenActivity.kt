@@ -24,21 +24,18 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.preference.PreferenceManager
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.db.Names.PUZZLE_ID
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.game.SudokuGame
-import org.buliasz.opensudoku2.gui.fragments.SimpleDialog
-import org.buliasz.opensudoku2.utils.AndroidUtils
+import org.buliasz.opensudoku2.gui.fragments.AboutDialogFragment
 
 class TitleScreenActivity : ThemedActivity() {
-	private val menuItemSettings = 0
-	private val menuItemAbout = 1
 	private var mResumeButton: Button? = null
+	private lateinit var aboutDialog: AboutDialogFragment
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_title_screen)
@@ -48,6 +45,8 @@ class TitleScreenActivity : ThemedActivity() {
 		setupResumeButton()
 		mPuzzleListButton.setOnClickListener { startActivity(Intent(this, FolderListActivity::class.java)) }
 		mSettingsButton.setOnClickListener { startActivity(Intent(this, GameSettingsActivity::class.java)) }
+		val factory = LayoutInflater.from(this)
+		aboutDialog = AboutDialogFragment(factory)
 
 		// check the preference to skip the title screen and launch the folder list activity
 		// directly
@@ -84,10 +83,10 @@ class TitleScreenActivity : ThemedActivity() {
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
 		super.onCreateOptionsMenu(menu)
-		menu.add(0, menuItemSettings, 0, R.string.settings)
+		menu.add(0, MenuItems.SETTINGS.id, 0, R.string.settings)
 			.setShortcut('0', 's')
 			.setIcon(R.drawable.ic_settings)
-		menu.add(0, menuItemAbout, 1, R.string.about)
+		menu.add(0, MenuItems.ABOUT.id, 1, R.string.about)
 			.setShortcut('1', 'h')
 			.setIcon(R.drawable.ic_info)
 		return true
@@ -95,22 +94,13 @@ class TitleScreenActivity : ThemedActivity() {
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
-			menuItemSettings -> {
+			MenuItems.SETTINGS.id -> {
 				startActivity(Intent(this, GameSettingsActivity::class.java))
 				return true
 			}
 
-			menuItemAbout -> {
-				val factory = LayoutInflater.from(this)
-				val aboutView = factory.inflate(R.layout.about, window.decorView.rootView as ViewGroup, false)
-				val versionLabel = aboutView.findViewById<TextView>(R.id.version_label)
-				val versionName = AndroidUtils.getAppVersionName(applicationContext)
-				versionLabel.text = getString(R.string.version, versionName)
-				with(SimpleDialog(supportFragmentManager)) {
-					iconId = R.mipmap.ic_launcher_icon
-					dialogView = aboutView
-					show()
-				}
+			MenuItems.ABOUT.id -> {
+				aboutDialog.show(supportFragmentManager, "AboutDialog")
 				return true
 			}
 		}
@@ -120,5 +110,13 @@ class TitleScreenActivity : ThemedActivity() {
 	override fun onResume() {
 		super.onResume()
 		setupResumeButton()
+	}
+
+	companion object {
+		enum class MenuItems {
+			SETTINGS,
+			ABOUT;
+			val id = ordinal + Menu.FIRST
+		}
 	}
 }
