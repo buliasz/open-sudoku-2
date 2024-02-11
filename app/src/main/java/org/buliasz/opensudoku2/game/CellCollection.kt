@@ -96,7 +96,8 @@ class CellCollection private constructor(val cells: Array<Array<Cell>>) {
 		get() {
 			for (row in 0..<SUDOKU_SIZE) {
 				for (col in 0..<SUDOKU_SIZE) {
-					if (!cells[row][col].matchesSolution) return true
+					val cell = cells[row][col]
+					if (cell.value != 0 && !cell.matchesSolution) return true
 				}
 			}
 			return false
