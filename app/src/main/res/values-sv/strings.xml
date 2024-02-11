@@ -308,5 +308,7 @@
 	<string name="corner_note">Anteckning i hörnet</string>
 	<string name="puzzle_selection_position">Position för val av pussel %d</string>
 	<string name="center_note">Anteckning i mitten</string>
+	<string name="cell_value">Cellens värde</string>
+	<string name="user_note_value">Värde för användaranteckning</string>
 
 </resources>

@@ -24,7 +24,7 @@ import java.util.StringTokenizer
  */
 class CellNote(private val binaryNotedNumbers: Short = 0) {
 	/**
-	 * Returns numbers currently noted in cell.
+	 * All notes associated with the cell, irrespective of whether they are corner notes or center notes.
 	 */
 	val notedNumbers: MutableList<Int>
 		get() {

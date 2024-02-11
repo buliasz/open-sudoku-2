@@ -29,36 +29,32 @@ import org.buliasz.opensudoku2.gui.PuzzleListActivity
 import org.buliasz.opensudoku2.gui.PuzzleListSorter
 
 class SortDialogFragment(
-	private var mListSorter: PuzzleListSorter,
-	private val settings: SharedPreferences,
-	private val updateList: () -> Unit
-) :
-	DialogFragment() {
+	private var mListSorter: PuzzleListSorter, private val settings: SharedPreferences, private val updateList: () -> Unit
+) : DialogFragment() {
 	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 		val builder = AlertDialog.Builder(requireActivity())
-			.setIcon(R.drawable.ic_sort)
-			.setTitle(R.string.sort_puzzles_by)
-			.setSingleChoiceItems(
-				R.array.game_sort,
-				mListSorter.sortType
-			) { _: DialogInterface?, whichButton: Int -> mListSorter.sortType = whichButton }
-			.setPositiveButton(R.string.sort_order_ascending) { _: DialogInterface?, _: Int ->
-				mListSorter.isAscending = (true)
-				settings.edit()
-					.putInt(PuzzleListActivity.SORT_TYPE, mListSorter.sortType)
-					.putBoolean(PuzzleListActivity.SORT_ORDER, true)
-					.apply()
-				updateList()
-			}
-			.setNegativeButton(R.string.sort_order_descending) { _: DialogInterface?, _: Int ->
-				mListSorter.isAscending = (false)
-				settings.edit()
-					.putInt(PuzzleListActivity.SORT_TYPE, mListSorter.sortType)
-					.putBoolean(PuzzleListActivity.SORT_ORDER, false)
-					.apply()
-				updateList()
-			}
-			.setNeutralButton(android.R.string.cancel) { _: DialogInterface?, _: Int -> }
+				.setIcon(R.drawable.ic_sort)
+				.setTitle(R.string.sort_puzzles_by)
+				.setSingleChoiceItems(R.array.game_sort, mListSorter.sortType) { _: DialogInterface?, whichButton: Int ->
+					mListSorter.sortType = whichButton
+				}
+				.setPositiveButton(R.string.sort_order_ascending) { _: DialogInterface?, _: Int ->
+					mListSorter.isAscending = (true)
+					settings.edit()
+						.putInt(PuzzleListActivity.SORT_TYPE, mListSorter.sortType)
+						.putBoolean(PuzzleListActivity.SORT_ORDER, true)
+						.apply()
+					updateList()
+				}
+				.setNegativeButton(R.string.sort_order_descending) { _: DialogInterface?, _: Int ->
+					mListSorter.isAscending = (false)
+					settings.edit()
+						.putInt(PuzzleListActivity.SORT_TYPE, mListSorter.sortType)
+						.putBoolean(PuzzleListActivity.SORT_ORDER, false)
+						.apply()
+					updateList()
+				}
+				.setNeutralButton(android.R.string.cancel) { _: DialogInterface?, _: Int -> }
 		return builder.create()
 	}
 }

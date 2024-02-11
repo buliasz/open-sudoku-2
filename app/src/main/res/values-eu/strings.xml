@@ -354,4 +354,6 @@
 	<string name="corner_note">kantoiko oharrean</string>
 	<string name="puzzle_selection_position">Buru-hautespenaren aukeraketa-posizioa %d</string>
 	<string name="center_note">erdiko oharrean</string>
+	<string name="cell_value">Ziega-balioa</string>
+	<string name="user_note_value">Erabiltzaile-oharraren balioa</string>
 </resources>

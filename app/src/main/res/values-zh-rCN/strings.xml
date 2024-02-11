@@ -345,4 +345,6 @@
 	<string name="corner_note">角落里的笔记</string>
 	<string name="puzzle_selection_position">拼图选择位置 %d</string>
 	<string name="center_note">中间的注释</string>
+	<string name="cell_value">单元格值</string>
+	<string name="user_note_value">用户注释值</string>
 </resources>

@@ -38,6 +38,6 @@
 		android:singleLine="true"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:autofillHints="folderName"
-		android:contentDescription="@string/folder_name"/>
+		android:hint="@string/folder_name"/>
 
 </LinearLayout>

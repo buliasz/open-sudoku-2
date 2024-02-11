@@ -110,7 +110,7 @@ abstract class AbstractImportTask {
 			try {
 				mDatabase = database
 				processImport(mContext)  // let subclass handle the import
-			} catch (e: SudokuInvalidFormatException) {
+			} catch (e: Exception) {
 				Log.e(this.javaClass.name, "Invalid format", e)
 				importError = mContext.getString(R.string.invalid_format)
 			}

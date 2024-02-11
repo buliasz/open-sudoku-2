@@ -71,11 +71,11 @@ class OpenSudoku2ImportTask(private val mUri: Uri) : AbstractImportTask() {
 				if (rootTag == "opensudoku2") {
 					when (parser.getAttributeValue(null, "version")) {
 						FileExportTask.FILE_EXPORT_VERSION -> {
-							importOpenSudoku2Puzzles(parser)
+							importOpenSudoku2Puzzles(parser) // exceptions are caught in the main import method
 						}
 
 						else -> {
-							importError = "Unknown version of data."
+							importError = context.getString(R.string.invalid_format)
 						}
 					}
 				} else {

@@ -20,6 +20,7 @@ package org.buliasz.opensudoku2.game
 import android.content.ContentValues
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log
 import org.buliasz.opensudoku2.db.Names
 import org.buliasz.opensudoku2.game.CellCollection.Companion.SUDOKU_SIZE
 import org.buliasz.opensudoku2.game.command.AbstractCommand
@@ -91,16 +92,20 @@ class SudokuGame {
 	}
 
 	fun restoreState(inState: Bundle) {
-		id = inState.getLong(Names.ID)
-		created = inState.getLong(Names.CREATED)
-		state = inState.getInt(Names.STATE)
-		mTime = inState.getLong(Names.TIME)
-		lastPlayed = inState.getLong(Names.LAST_PLAYED)
-		cells = CellCollection.deserialize(inState.getString(Names.CELLS_DATA) ?: "")
-		userNote = inState.getString(Names.USER_NOTE) ?: ""
-		commandStack.deserialize(inState.getString(Names.COMMAND_STACK))
-		folderId = inState.getLong(Names.FOLDER_ID)
-		mCells.validate()
+		try {
+			id = inState.getLong(Names.ID)
+			created = inState.getLong(Names.CREATED)
+			state = inState.getInt(Names.STATE)
+			mTime = inState.getLong(Names.TIME)
+			lastPlayed = inState.getLong(Names.LAST_PLAYED)
+			cells = CellCollection.deserialize(inState.getString(Names.CELLS_DATA) ?: "")
+			userNote = inState.getString(Names.USER_NOTE) ?: ""
+			commandStack.deserialize(inState.getString(Names.COMMAND_STACK))
+			folderId = inState.getLong(Names.FOLDER_ID)
+			mCells.validate()
+		} catch (e: Exception) {    // this shouldn't normally happen, stored state corrupted
+			Log.e(javaClass.simpleName, "Error restoring Game state", e)
+		}
 	}
 
 	/**

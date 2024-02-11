@@ -24,6 +24,7 @@ import android.database.Cursor
 import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteQueryBuilder
+import android.util.Log
 import org.buliasz.opensudoku2.game.CellCollection
 import org.buliasz.opensudoku2.game.FolderInfo
 import org.buliasz.opensudoku2.game.SudokuGame
@@ -189,13 +190,7 @@ class SudokuDatabase(context: Context, readOnly: Boolean) : Closeable {
 		with(SQLiteQueryBuilder()) {
 			tables = Names.GAME
 			query(
-				db,
-				null,
-				Names.ORIGINAL_VALUES + "=?",
-				arrayOf(cells.originalValues),
-				null,
-				null,
-				null
+				db, null, Names.ORIGINAL_VALUES + "=?", arrayOf(cells.originalValues), null, null, null
 			).use { cursor ->
 				if (cursor.moveToFirst()) return@findPuzzle extractSudokuGameFromCursorRow(cursor)
 			}
@@ -301,21 +296,25 @@ class SudokuDatabase(context: Context, readOnly: Boolean) : Closeable {
 
 internal fun extractSudokuGameFromCursorRow(cursor: Cursor): SudokuGame {
 	val game = SudokuGame()
-	with(game) {
-		id = cursor.id
-		created = cursor.getLong(cursor.getColumnIndexOrThrow(Names.CREATED))
-		val cellsDataIndex = cursor.getColumnIndexOrThrow(Names.CELLS_DATA)
-		cells = CellCollection.deserialize(
-			cursor.getString(
-				if (!cursor.isNull(cellsDataIndex)) cellsDataIndex else cursor.getColumnIndexOrThrow(Names.ORIGINAL_VALUES),
-			),
-		)
-		lastPlayed = cursor.getLong(cursor.getColumnIndexOrThrow(Names.LAST_PLAYED))
-		state = cursor.getInt(cursor.getColumnIndexOrThrow(Names.STATE))
-		time = cursor.getLong(cursor.getColumnIndexOrThrow(Names.TIME))
-		userNote = cursor.getString(cursor.getColumnIndexOrThrow(Names.USER_NOTE))
-		folderId = cursor.getLong(cursor.getColumnIndexOrThrow(Names.FOLDER_ID))
-		commandStack.deserialize(cursor.getString(cursor.getColumnIndexOrThrow(Names.COMMAND_STACK)))
+	try {
+		with(game) {
+			id = cursor.id
+			created = cursor.getLong(cursor.getColumnIndexOrThrow(Names.CREATED))
+			val cellsDataIndex = cursor.getColumnIndexOrThrow(Names.CELLS_DATA)
+			cells = CellCollection.deserialize(
+				cursor.getString(
+					if (!cursor.isNull(cellsDataIndex)) cellsDataIndex else cursor.getColumnIndexOrThrow(Names.ORIGINAL_VALUES),
+				),
+			)
+			lastPlayed = cursor.getLong(cursor.getColumnIndexOrThrow(Names.LAST_PLAYED))
+			state = cursor.getInt(cursor.getColumnIndexOrThrow(Names.STATE))
+			time = cursor.getLong(cursor.getColumnIndexOrThrow(Names.TIME))
+			userNote = cursor.getString(cursor.getColumnIndexOrThrow(Names.USER_NOTE))
+			folderId = cursor.getLong(cursor.getColumnIndexOrThrow(Names.FOLDER_ID))
+			commandStack.deserialize(cursor.getString(cursor.getColumnIndexOrThrow(Names.COMMAND_STACK)))
+		}
+	} catch (e: Exception) {    // this shouldn't normally happen, db corrupted
+		Log.e(DB_TAG, "Error extracting SudokuGame from cursor", e)
 	}
 	return game
 }
@@ -335,3 +334,5 @@ internal val Cursor.originalValues: String
 
 internal val Cursor.id: Long
 	get() = getLong(getColumnIndexOrThrow(Names.ID))
+
+const val DB_TAG = "SudokuDatabase"

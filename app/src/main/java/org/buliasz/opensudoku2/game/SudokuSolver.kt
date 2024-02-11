@@ -48,7 +48,7 @@ class SudokuSolver {
 				if (!cell.isEditable) {
 					val matrixRow = cellToRow(row, col, cell.value - 1)
 					val matrixCol = 9 * row + col // calculates column of node based on cell constraint
-					val rowNode = mLinkedList[matrixRow][matrixCol]!!
+					val rowNode = mLinkedList[matrixRow][matrixCol] ?: continue // should not happen, only if imported sudoku has errors
 					var rightNode = rowNode
 					do {
 						cover(rightNode)

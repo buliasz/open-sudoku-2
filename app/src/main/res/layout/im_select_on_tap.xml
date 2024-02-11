@@ -135,6 +135,7 @@
 
 	<org.buliasz.opensudoku2.gui.IconButton android:id="@+id/enter_number"
 		style="@style/keypadButton"
+		android:contentDescription="@string/cell_value"
 		app:icon="@drawable/ic_enter_number"
 		app:layout_constraintDimensionRatio="1:1"
 		app:layout_constraintVertical_bias="0.0"

@@ -254,7 +254,7 @@
 	<string name="used_solver">You have used the solver to see the solution!</string>
 	<string name="puzzle_has_no_solution">This puzzle has no solution.</string>
 	<string name="puzzle_has_multiple_solutions">This is invalid puzzle because it has multiple solutions.</string>
-	<string name="puzzle_already_exists">This puzzle is valid but it already exists in the %s folder.</string>
+	<string name="puzzle_already_exists">This puzzle already exists in the %s folder.</string>
 	<string name="do_you_want_to_save_anyway">Press OK if you want to save it anyway.</string>
 	<string name="press_ok_to_save">Press OK to save the puzzle.</string>
 
@@ -373,4 +373,6 @@
 	<string name="corner_note">note in corner</string>
 	<string name="puzzle_selection_position">Puzzle selection position %d</string>
 	<string name="center_note">note in center</string>
+	<string name="cell_value">cell value</string>
+	<string name="user_note_value">user note value</string>
 </resources>

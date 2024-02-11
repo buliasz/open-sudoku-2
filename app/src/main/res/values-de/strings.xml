@@ -298,4 +298,6 @@
 	<string name="corner_note">Eck-Notiz</string>
 	<string name="puzzle_selection_position">Position der Rätselauswahl %d</string>
     <string name="center_note">Zentrale Notiz</string>
+	<string name="cell_value">Zellenwert</string>
+    <string name="user_note_value">Wert der Benutzernotiz</string>
 </resources>

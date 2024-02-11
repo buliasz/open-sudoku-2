@@ -348,4 +348,6 @@
 	<string name="corner_note">rohová poznámka</string>
 	<string name="puzzle_selection_position">Pozice výběru křížovky %d</string>
 	<string name="center_note">Středová poznámka</string>
+	<string name="cell_value">Hodnota buňky</string>
+	<string name="user_note_value">Hodnota poznámky uživatele</string>
 </resources>

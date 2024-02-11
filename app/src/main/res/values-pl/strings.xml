@@ -239,4 +239,6 @@
 	<string name="corner_note">adnotacja narożna</string>
 	<string name="puzzle_selection_position">Pozycja wyboru sudoku %d</string>
 	<string name="center_note">adnotacja środkowa</string>
+	<string name="cell_value">wartość komórki</string>
+	<string name="user_note_value">Wartość notatki użytkownika</string>
 </resources>

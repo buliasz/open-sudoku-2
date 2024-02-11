@@ -124,12 +124,8 @@ class PuzzleEditActivity : ThemedActivity() {
 		menu.add(0, MenuItems.COPY.id, 0, android.R.string.copy)
 		menu.add(0, MenuItems.PASTE.id, 1, android.R.string.paste)
 		menu.add(0, MenuItems.CHECK_VALIDITY.id, 2, R.string.check_validity)
-		menu.add(0, MenuItems.SAVE.id, 3, R.string.save)
-			.setShortcut('1', 's')
-			.setIcon(R.drawable.ic_save)
-		menu.add(0, MenuItems.DISCARD.id, 4, R.string.discard)
-			.setShortcut('3', 'c')
-			.setIcon(R.drawable.ic_close)
+		menu.add(0, MenuItems.SAVE.id, 3, R.string.save).setShortcut('1', 's').setIcon(R.drawable.ic_save)
+		menu.add(0, MenuItems.DISCARD.id, 4, R.string.discard).setShortcut('3', 'c').setIcon(R.drawable.ic_close)
 
 		// Generate any additional actions that can be performed on the
 		// overall list.  In a normal install, there are no additional
@@ -138,8 +134,7 @@ class PuzzleEditActivity : ThemedActivity() {
 		val intent = Intent(null, intent.data)
 		intent.addCategory(Intent.CATEGORY_ALTERNATIVE)
 		menu.addIntentOptions(
-			Menu.CATEGORY_ALTERNATIVE, 0, 0,
-			ComponentName(this, PuzzleEditActivity::class.java), null, intent, 0, null
+			Menu.CATEGORY_ALTERNATIVE, 0, 0, ComponentName(this, PuzzleEditActivity::class.java), null, intent, 0, null
 		)
 		return true
 	}
@@ -148,16 +143,17 @@ class PuzzleEditActivity : ThemedActivity() {
 		super.onPrepareOptionsMenu(menu)
 		if (!mClipboard.hasPrimaryClip()) {
 			// If the clipboard doesn't contain data, disable the paste menu item.
-			menu.findItem(MenuItems.PASTE.id).setEnabled(false)
-		} else if (!(mClipboard.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) ||
-				mClipboard.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML))
+			menu.findItem(MenuItems.PASTE.id).setVisible(false)
+		} else if (!(mClipboard.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) || mClipboard.primaryClipDescription!!.hasMimeType(
+				ClipDescription.MIMETYPE_TEXT_HTML
+			))
 		) {
 			// This disables the paste menu item, since the clipboard has data but it is not plain text
 			Toast.makeText(applicationContext, mClipboard.primaryClipDescription!!.getMimeType(0), Toast.LENGTH_SHORT).show()
-			menu.findItem(MenuItems.PASTE.id).setEnabled(false)
+			menu.findItem(MenuItems.PASTE.id).setVisible(false)
 		} else {
 			// This enables the paste menu item, since the clipboard contains plain text.
-			menu.findItem(MenuItems.PASTE.id).setEnabled(true)
+			menu.findItem(MenuItems.PASTE.id).setVisible(true)
 		}
 		return true
 	}
@@ -261,14 +257,12 @@ class PuzzleEditActivity : ThemedActivity() {
 		val numberOfSolutions = getNumberOfSolutions()
 		if (numberOfSolutions == 0) {
 			dialog.show(
-				applicationContext.getString(R.string.puzzle_has_no_solution) +
-					"\n" + applicationContext.getString(R.string.do_you_want_to_save_anyway)
+				applicationContext.getString(R.string.puzzle_has_no_solution) + "\n" + applicationContext.getString(R.string.do_you_want_to_save_anyway)
 			)
 			return
 		} else if (numberOfSolutions > 1) {
 			dialog.show(
-				applicationContext.getString(R.string.puzzle_has_multiple_solutions) +
-					"\n" + applicationContext.getString(R.string.do_you_want_to_save_anyway)
+				applicationContext.getString(R.string.puzzle_has_multiple_solutions) + "\n" + applicationContext.getString(R.string.do_you_want_to_save_anyway)
 			)
 			return
 		}
@@ -277,8 +271,10 @@ class PuzzleEditActivity : ThemedActivity() {
 		val existingPuzzle = mDatabase.findPuzzle(newPuzzle.cells)
 		if (existingPuzzle != null) {
 			dialog.show(
-				applicationContext.getString(R.string.puzzle_already_exists, mDatabase.getFolderInfo(existingPuzzle.folderId)?.name) +
-					"\n" + applicationContext.getString(R.string.do_you_want_to_save_anyway)
+				applicationContext.getString(
+					R.string.puzzle_already_exists,
+					mDatabase.getFolderInfo(existingPuzzle.folderId)?.name
+				) + "\n" + applicationContext.getString(R.string.do_you_want_to_save_anyway)
 			)
 			return
 		}
@@ -311,23 +307,30 @@ class PuzzleEditActivity : ThemedActivity() {
 	 * @see CellCollection.serialize
 	 */
 	private fun pasteFromClipboard() {
-		if (mClipboard.hasPrimaryClip()) {
-			if (mClipboard.primaryClipDescription?.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) == true ||
-				mClipboard.primaryClipDescription?.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML) == true
-			) {
-				val clipDataItem = mClipboard.primaryClip!!.getItemAt(0)
-				val clipDataText = clipDataItem.text.toString()
-				if (CellCollection.isValid(clipDataText)) {
-					val cells: CellCollection = CellCollection.deserialize(clipDataText)
-					newPuzzle.cells = cells
-					(mRootLayout.getChildAt(0) as SudokuBoardView).cells = cells
-					Toast.makeText(applicationContext, R.string.pasted_from_clipboard, Toast.LENGTH_SHORT).show()
-				} else {
-					Toast.makeText(applicationContext, R.string.invalid_puzzle_format, Toast.LENGTH_SHORT).show()
-				}
-			} else {
-				Toast.makeText(applicationContext, R.string.invalid_mime_type, Toast.LENGTH_LONG).show()
+		if (!mClipboard.hasPrimaryClip() || (
+				mClipboard.primaryClipDescription?.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) != true &&
+				mClipboard.primaryClipDescription?.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML) != true
+			)
+		) {
+			Toast.makeText(applicationContext, R.string.invalid_mime_type, Toast.LENGTH_LONG).show()
+			return
+		}
+
+		val clipDataItem = mClipboard.primaryClip!!.getItemAt(0)
+		val clipDataText = clipDataItem.text.toString()
+		if (CellCollection.isValid(clipDataText)) {
+			val cells: CellCollection = try {
+				CellCollection.deserialize(clipDataText)
+			} catch (e: Exception) {
+				Toast.makeText(applicationContext, R.string.invalid_puzzle_format, Toast.LENGTH_LONG).show()
+				return
 			}
+
+			newPuzzle.cells = cells
+			(mRootLayout.getChildAt(0) as SudokuBoardView).cells = cells
+			Toast.makeText(applicationContext, R.string.pasted_from_clipboard, Toast.LENGTH_SHORT).show()
+		} else {
+			Toast.makeText(applicationContext, R.string.invalid_puzzle_format, Toast.LENGTH_LONG).show()
 		}
 	}
 

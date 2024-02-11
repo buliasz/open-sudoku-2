@@ -330,4 +330,6 @@
 	<string name="corner_note">Nota nell\'angolo</string>
 	<string name="puzzle_selection_position">Posizione di selezione del puzzle %d</string>
 	<string name="center_note">Nota al centro</string>
+	<string name="cell_value">valore della cella</string>
+	<string name="user_note_value">Valore della nota utente</string>
 </resources>

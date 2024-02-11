@@ -298,5 +298,7 @@
 	<string name="corner_note">nota no canto</string>
 	<string name="puzzle_selection_position">Posição de seleção do quebra-cabeça %d</string>
 	<string name="center_note">Nota no centro</string>
+	<string name="cell_value">valor da célula</string>
+	<string name="user_note_value">valor da nota do usuário</string>
 
 </resources>

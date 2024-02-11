@@ -327,5 +327,7 @@
 	<string name="corner_note">note dans le coin</string>
 	<string name="puzzle_selection_position">Position de sélection du puzzle %d</string>
 	<string name="center_note">note au centre</string>
+	<string name="cell_value">valeur de cellule</string>
+	<string name="user_note_value">Valeur de la note de l’utilisateur</string>
 
 </resources>

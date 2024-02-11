@@ -144,20 +144,10 @@ class Cell private constructor(value: Int, cornerNote: CellNote, centerNote: Cel
 		}
 
 	/**
-	 * All notes associated with the cell, irrespective of whether they are corner notes or center notes.
-	 */
-	val notedNumbers: List<Int?>
-		get() {
-			val notes = cornerNote.notedNumbers
-			notes.addAll(centerNote.notedNumbers)
-			return notes
-		}
-
-	/**
 	 * True if cell can be edited.
 	 */
 	var isEditable: Boolean
-		get() = mEditable
+		get() = mEditable || mValue == 0 // buggy imported puzzle from OS1 may have 0 value with editable disabled
 		set(editable) {
 			mEditable = editable
 			onChange()

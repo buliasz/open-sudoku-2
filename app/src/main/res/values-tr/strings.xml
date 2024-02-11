@@ -299,5 +299,7 @@
 	<string name="corner_note">köşede not</string>
 	<string name="puzzle_selection_position">Bulmaca seçim konumu %d</string>
 	<string name="center_note">Ortadaki not</string>
+	<string name="cell_value">Hücre değeri</string>
+	<string name="user_note_value">Kullanıcı Notu Değeri</string>
 
 </resources>

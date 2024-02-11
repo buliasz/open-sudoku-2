@@ -117,6 +117,8 @@ class OpenSudoku1ImportTask(private val mUri: Uri) : AbstractImportTask() {
 						folderId = lastFolderId
 						commandStack.deserialize(parser.getAttributeValue(null, "command_stack"))
 						id = existingPuzzles[cells.originalValues] ?: -1L
+
+						// update database
 						if (id == -1L) {
 							val newId = mDatabase.insertPuzzle(this)
 							existingPuzzles[cells.originalValues] = newId
@@ -127,8 +129,8 @@ class OpenSudoku1ImportTask(private val mUri: Uri) : AbstractImportTask() {
 						} else {
 							duplicatesCount += 1
 						}
-						mProgressUpdate.maxValue = importedCount + updatedCount + duplicatesCount
 					}
+					mProgressUpdate.maxValue = importedCount + updatedCount + duplicatesCount
 				}
 			}
 			eventType = parser.next()
