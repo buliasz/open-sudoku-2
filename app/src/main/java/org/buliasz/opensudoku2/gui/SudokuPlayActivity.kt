@@ -251,9 +251,9 @@ class SudokuPlayActivity : ThemedActivity() {
 
 		// drop-down menu
 		if (mFillInNotesEnabled) {
-			menu.add(0, MenuItems.FILL_IN_NOTES.id, 1, R.string.fill_in_notes).setIcon(R.drawable.ic_edit_grey)
+			menu.add(0, MenuItems.FILL_IN_NOTES.id, 1, R.string.fill_in_notes).setIcon(R.drawable.ic_edit)
 		}
-		menu.add(0, MenuItems.FILL_IN_NOTES_WITH_ALL_VALUES.id, 1, R.string.fill_all_notes).setIcon(R.drawable.ic_edit_grey)
+		menu.add(0, MenuItems.FILL_IN_NOTES_WITH_ALL_VALUES.id, 1, R.string.fill_all_notes).setIcon(R.drawable.ic_edit)
 		menu.add(0, MenuItems.CLEAR_ALL_NOTES.id, 2, R.string.clear_all_notes).setShortcut('3', 'a').setIcon(R.drawable.ic_delete)
 		menu.add(0, MenuItems.SET_CHECKPOINT.id, 3, R.string.set_checkpoint)
 		menu.add(0, MenuItems.UNDO_TO_CHECKPOINT.id, 4, R.string.undo_to_checkpoint)
@@ -280,14 +280,14 @@ class SudokuPlayActivity : ThemedActivity() {
 
 	override fun onPrepareOptionsMenu(menu: Menu): Boolean {
 		super.onPrepareOptionsMenu(menu)
-		menu.findItem(MenuItems.FILL_IN_NOTES_WITH_ALL_VALUES.id)
 		val isPlaying = (mSudokuGame.state == SudokuGame.GAME_STATE_PLAYING)
-		menu.findItem(MenuItems.CLEAR_ALL_NOTES.id).setVisible(isPlaying)
-		menu.findItem(MenuItems.FILL_IN_NOTES.id).setVisible(isPlaying && mFillInNotesEnabled)
-		menu.findItem(MenuItems.UNDO_TO_CHECKPOINT.id).setVisible(isPlaying && mSudokuGame.hasUndoCheckpoint())
-		menu.findItem(MenuItems.UNDO_TO_BEFORE_MISTAKE.id).setVisible(isPlaying)
-		menu.findItem(MenuItems.SOLVE.id).setVisible(isPlaying)
-		menu.findItem(MenuItems.HINT.id).setVisible(isPlaying)
+		menu.findItem(MenuItems.FILL_IN_NOTES_WITH_ALL_VALUES.id)?.setVisible(isPlaying)
+		menu.findItem(MenuItems.CLEAR_ALL_NOTES.id)?.setVisible(isPlaying)
+		menu.findItem(MenuItems.FILL_IN_NOTES.id)?.setVisible(isPlaying && mFillInNotesEnabled)
+		menu.findItem(MenuItems.UNDO_TO_CHECKPOINT.id)?.setVisible(isPlaying && mSudokuGame.hasUndoCheckpoint())
+		menu.findItem(MenuItems.UNDO_TO_BEFORE_MISTAKE.id)?.setVisible(isPlaying && mSudokuGame.cells.hasMistakes)
+		menu.findItem(MenuItems.SOLVE.id)?.setVisible(isPlaying)
+		menu.findItem(MenuItems.HINT.id)?.setVisible(isPlaying)
 		return true
 	}
 

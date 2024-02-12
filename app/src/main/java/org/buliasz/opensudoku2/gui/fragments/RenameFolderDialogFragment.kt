@@ -43,7 +43,7 @@ class RenameFolderDialogFragment(
 		val folderName = folder?.name ?: ""
 		renameFolderNameInput.text = folderName
 		val builder = AlertDialog.Builder(requireActivity())
-			.setIcon(R.drawable.ic_edit_grey)
+			.setIcon(R.drawable.ic_edit)
 			.setTitle(getString(R.string.rename_folder_title, folderName))
 			.setView(renameFolderView)
 			.setPositiveButton(R.string.save) { _: DialogInterface?, _: Int ->
