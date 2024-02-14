@@ -31,7 +31,7 @@
 
 	<EditText android:id="@+id/user_note"
 		android:hint="@string/user_note_value"
-		android:autofillHints="@string/user_note_value"
+		android:autofillHints="user_note_value"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:minHeight="48dp"

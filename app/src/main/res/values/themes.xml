@@ -22,6 +22,7 @@
 		<item name="colorSectorLine">?attr/colorOutline</item>
 
 		<item name="colorText">@color/dimmable_black</item>
+		<item name="android:textColorHint">#949494</item>
 		<item name="colorNoteText">?attr/colorOnSurface</item>
 		<item name="colorBackground">?attr/colorSurface</item>
 
