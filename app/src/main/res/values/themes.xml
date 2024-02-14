@@ -49,11 +49,12 @@
 	</style>
 
 	<style name="myCustomMenuTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
-		<item name="android:textColor">@color/dimmable_black</item>
+		<item name="android:textColor">?attr/colorText</item>
 	</style>
 
 	<style name="AppTheme.AlertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
-		<item name="colorBackground">#FFFFFF</item>
+		<item name="colorBackground">?attr/colorBackground</item>
+		<item name="colorOnPrimary">?attr/colorText</item>
 	</style>
 
 	<style name="AppTheme.OpenSudoku2">
