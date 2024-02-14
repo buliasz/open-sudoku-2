@@ -21,7 +21,7 @@
 		<item name="colorLine">?attr/colorOutline</item>
 		<item name="colorSectorLine">?attr/colorOutline</item>
 
-		<item name="colorText">?attr/colorOnSurface</item>
+		<item name="colorText">@color/dimmable_black</item>
 		<item name="colorNoteText">?attr/colorOnSurface</item>
 		<item name="colorBackground">?attr/colorSurface</item>
 
@@ -44,7 +44,16 @@
 		<item name="colorEvenText">?attr/colorOnSurfaceVariant</item>
 		<item name="colorEvenNoteText">?attr/colorOnSurfaceVariant</item>
 		<item name="colorEvenBackground">@android:color/transparent</item> <!-- Transparent color here disables the functionality by default -->
-		<item name="alertDialogTheme">@style/Theme.Material3.DayNight.Dialog.Alert</item>
+		<item name="alertDialogTheme">@style/AppTheme.AlertDialog</item>
+		<item name="android:itemTextAppearance">@style/myCustomMenuTextAppearance</item>
+	</style>
+
+	<style name="myCustomMenuTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+		<item name="android:textColor">@color/dimmable_black</item>
+	</style>
+
+	<style name="AppTheme.AlertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+		<item name="colorBackground">#FFFFFF</item>
 	</style>
 
 	<style name="AppTheme.OpenSudoku2">

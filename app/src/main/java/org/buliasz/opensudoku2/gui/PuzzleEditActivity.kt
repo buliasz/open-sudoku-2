@@ -143,17 +143,17 @@ class PuzzleEditActivity : ThemedActivity() {
 		super.onPrepareOptionsMenu(menu)
 		if (!mClipboard.hasPrimaryClip()) {
 			// If the clipboard doesn't contain data, disable the paste menu item.
-			menu.findItem(MenuItems.PASTE.id).setVisible(false)
+			menu.findItem(MenuItems.PASTE.id)?.isEnabled = false
 		} else if (!(mClipboard.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) || mClipboard.primaryClipDescription!!.hasMimeType(
 				ClipDescription.MIMETYPE_TEXT_HTML
 			))
 		) {
 			// This disables the paste menu item, since the clipboard has data but it is not plain text
 			Toast.makeText(applicationContext, mClipboard.primaryClipDescription!!.getMimeType(0), Toast.LENGTH_SHORT).show()
-			menu.findItem(MenuItems.PASTE.id).setVisible(false)
+			menu.findItem(MenuItems.PASTE.id)?.isEnabled = false
 		} else {
 			// This enables the paste menu item, since the clipboard contains plain text.
-			menu.findItem(MenuItems.PASTE.id).setVisible(true)
+			menu.findItem(MenuItems.PASTE.id)?.isEnabled = true
 		}
 		return true
 	}

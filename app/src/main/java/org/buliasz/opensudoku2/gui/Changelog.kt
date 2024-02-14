@@ -49,10 +49,11 @@ class Changelog(private val mContext: Context) {
 		val webView = WebView(mContext)
 		webView.loadData(changelog, "text/html", "utf-8")
 		val changelogDialog = AlertDialog.Builder(mContext)
-			.setIcon(R.drawable.ic_info)
-			.setTitle(R.string.what_is_new)
-			.setView(webView)
-			.setPositiveButton(R.string.close, null).create()
+				.setIcon(R.drawable.ic_info)
+				.setTitle(R.string.what_is_new)
+				.setView(webView)
+				.setPositiveButton(R.string.close, null)
+				.create()
 		changelogDialog.show()
 	}
 
