@@ -55,9 +55,9 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 	// without re-implementing all the drawables, and they would require a custom parent layout
 	// to work properly in a ConstraintLayout, so it's simpler and more consistent in the UI to
 	// handle the toggle logic in the code here.
-	private var mEnterNumberButton: MaterialButton? = null
-	private var mCornerNoteButton: MaterialButton? = null
-	private var mCenterNoteButton: MaterialButton? = null
+	private lateinit var mEnterNumberButton: MaterialButton
+	private lateinit var mCornerNoteButton: MaterialButton
+	private lateinit var mCenterNoteButton: MaterialButton
 	private lateinit var mSwitchModeButton: Button
 	internal var onSelectedNumberChangedListener: ((Int) -> Unit)? = null
 	private val mNumberButtonTouched = OnTouchListener { view: View, _: MotionEvent? ->
@@ -169,25 +169,25 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 	private fun update() {
 		when (mEditMode) {
 			MODE_EDIT_VALUE -> {
-				mEnterNumberButton!!.isChecked = true
-				mCornerNoteButton!!.isChecked = false
-				mCenterNoteButton!!.isChecked = false
+				mEnterNumberButton.isChecked = true
+				mCornerNoteButton.isChecked = false
+				mCenterNoteButton.isChecked = false
 			}
 
 			MODE_EDIT_CORNER_NOTE -> {
-				mEnterNumberButton!!.isChecked = false
-				mCornerNoteButton!!.isChecked = true
-				mCenterNoteButton!!.isChecked = false
+				mEnterNumberButton.isChecked = false
+				mCornerNoteButton.isChecked = true
+				mCenterNoteButton.isChecked = false
 			}
 
 			MODE_EDIT_CENTER_NOTE -> {
-				mEnterNumberButton!!.isChecked = false
-				mCornerNoteButton!!.isChecked = false
-				mCenterNoteButton!!.isChecked = true
+				mEnterNumberButton.isChecked = false
+				mCornerNoteButton.isChecked = false
+				mCenterNoteButton.isChecked = true
 			}
 		}
 		val valuesUseCount = mGame.cells.valuesUseCount
-		for (button in mDigitButtons!!.values) {
+		mDigitButtons?.values?.forEach { button ->
 			val tag = button.tag as Int
 			button.mode = mEditMode
 			if (mSelectedNumber == tag) {

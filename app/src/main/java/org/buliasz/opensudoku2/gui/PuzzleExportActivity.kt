@@ -55,24 +55,25 @@ class PuzzleExportActivity : ThemedActivity() {
 			finish()
 			return
 		}
-		mExportParams.folderId = intent.getLongExtra(Names.FOLDER_ID, ALL_IDS)
-		mExportParams.puzzleId = intent.getLongExtra(Names.ID, ALL_IDS)
+		val folderId = intent.getLongExtra(Names.FOLDER_ID, ALL_IDS)
+		mExportParams.folderId = folderId
+		val puzzleId = intent.getLongExtra(Names.ID, ALL_IDS)
+		mExportParams.puzzleId = puzzleId
 		val timestamp = DateFormat.format("yyyy-MM-dd-HH-mm-ss", Date()).toString()
 
-		val fileName = if (mExportParams.folderId == -1L) {
+		val fileName = if (folderId == ALL_IDS) {
 			"all-folders-$timestamp"
 		} else {
 			val folderName = SudokuDatabase(applicationContext, true).use { database ->
-				val folderId = mExportParams.folderId ?: database.getPuzzle(mExportParams.puzzleId!!)!!.folderId
 				val folder = database.getFolderInfo(folderId)
 				if (folder == null) {
-					Log.e(TAG, "Folder with id ${mExportParams.folderId} not found, exiting.")
+					Log.e(TAG, "Folder with id $folderId not found, exiting.")
 					finish()
 					return@onCreate
 				}
 				folder.name
 			}
-			if (mExportParams.puzzleId != null) "$folderName-${mExportParams.puzzleId}-$timestamp" else "$folderName-$timestamp"
+			if (puzzleId != ALL_IDS) "$folderName-$puzzleId-$timestamp" else "$folderName-$timestamp"
 		}
 
 		intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
@@ -81,23 +82,19 @@ class PuzzleExportActivity : ThemedActivity() {
 		intent.putExtra(Intent.EXTRA_TITLE, "$fileName.opensudoku2")
 		registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 			if (result.resultCode == Activity.RESULT_OK) {
-				val data: Intent? = result.data
-				if (data != null) {
-					val uri = data.data
-					startExportToFileTask(uri)
-				}
+				result.data?.data?.let(::startExportToFileTask)
 			} else if (result.resultCode == RESULT_CANCELED) {
 				finish()
 			}
 		}.launch(intent)
 	}
 
-	private fun startExportToFileTask(uri: Uri?) {
+	private fun startExportToFileTask(uri: Uri) {
 		val finishDialog = SimpleDialog(supportFragmentManager)
 		finishDialog.onDismiss = ::finish
 		mFileExportTask.onExportFinishedListener = { result ->
 			withContext(Dispatchers.Main) {
-				if (result!!.isSuccess) {
+				if (result?.isSuccess == true) {
 					finishDialog.show(getString(R.string.puzzles_have_been_exported, result.filename))
 				} else {
 					finishDialog.show(getString(R.string.unknown_export_error))
@@ -105,7 +102,7 @@ class PuzzleExportActivity : ThemedActivity() {
 			}
 		}
 		try {
-			mExportParams.fileOutputStream = contentResolver.openOutputStream(uri!!)
+			mExportParams.fileOutputStream = contentResolver.openOutputStream(uri)
 			mExportParams.filename = uri.getFileName(contentResolver)
 		} catch (e: FileNotFoundException) {
 			finishDialog.show(R.string.unknown_export_error)
@@ -126,10 +123,7 @@ class PuzzleExportActivity : ThemedActivity() {
 	}
 
 	companion object {
-		/**
-		 * Id of folder to export. If -1, all folders will be exported.
-		 */
-		const val ALL_IDS: Long = -1
+		const val ALL_IDS: Long = -1 // export all folders
 		private val TAG = PuzzleExportActivity::class.java.simpleName
 	}
 }

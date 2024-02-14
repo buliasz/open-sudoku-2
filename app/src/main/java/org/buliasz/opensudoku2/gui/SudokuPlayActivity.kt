@@ -418,7 +418,7 @@ class SudokuPlayActivity : ThemedActivity() {
 				with(SimpleDialog(supportFragmentManager)) {
 					messageId = R.string.hint_confirm
 					positiveButtonCallback = {
-						val cell = mSudokuBoard.selectedCell
+						val cell = mSudokuBoard.mSelectedCell
 						if (cell != null && cell.isEditable) {
 							if (mSudokuGame.solutionCount > 1) {
 								SimpleDialog(supportFragmentManager).show(R.string.puzzle_has_multiple_solutions)
@@ -461,7 +461,7 @@ class SudokuPlayActivity : ThemedActivity() {
 	}
 
 	private fun selectLastCommandCell() {
-		selectCell(mSudokuGame.lastCommandCell ?: return)
+		mSudokuGame.lastCommandCell.let(::selectCell)
 	}
 
 	private fun selectCell(cell: Cell?) {

@@ -36,7 +36,7 @@ import org.buliasz.opensudoku2.gui.inputmethod.InputMethod
  * have been entered in to the grid. This can be used in a ColorStateList to adjust
  * the button's background/foreground colors if all 9 copies of a digit are entered.
  */
-class NumberButton(context: Context?, attrs: AttributeSet?) : MaterialButton(context!!, attrs) {
+class NumberButton(context: Context, attrs: AttributeSet?) : MaterialButton(context, attrs) {
 	/** Paint when entering main numbers  */
 	private val mEnterNumberPaint: Paint = Paint()
 

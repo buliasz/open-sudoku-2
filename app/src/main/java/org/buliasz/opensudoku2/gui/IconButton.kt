@@ -33,7 +33,7 @@ import com.google.android.material.button.MaterialButton
  *
  * Do not set android:text, use android:contentDescription for accessibility.
  */
-class IconButton(context: Context?, attrs: AttributeSet?) : MaterialButton(context!!, attrs) {
+class IconButton(context: Context, attrs: AttributeSet?) : MaterialButton(context, attrs) {
 	override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
 		val height = bottom - top
 		iconSize = (height * (2.0 / 3.0)).toInt()

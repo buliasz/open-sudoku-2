@@ -45,8 +45,13 @@ import kotlin.math.roundToInt
 class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
 	private var blinkingValue: Int = 0
 	private val blinker = Blinker(this)
-	var selectedCell: Cell? = null
-		private set
+	var mSelectedCell: Cell? = null
+		private set(value) {
+			if (field != value) {
+				field = value
+				onCellSelectedListener(value)
+			}
+		}
 
 	private var mCellWidth = 0f
 	private var mCellHeight = 0f
@@ -72,7 +77,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 	/**
 	 * Registers callback which will be invoked when user taps the cell.
 	 */
-	internal var onCellTappedListener: (Cell?) -> Unit = {}
+	internal var onCellTappedListener: (Cell) -> Unit = {}
 
 	/**
 	 * Callback invoked when cell is selected. Cell selection can change without user interaction.
@@ -191,7 +196,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 
 				// Possibly highlight this cell if it contains the same digit (or, optionally,
 				// note) as the selected cell.
-				val cellIsNotAlreadySelected = selectedCell == null || selectedCell !== cell
+				val cellIsNotAlreadySelected = mSelectedCell == null || mSelectedCell !== cell
 				val highlightedValueIsValid = highlightedValue != 0
 				var shouldHighlightCell = false
 				when (highlightSimilarCells) {
@@ -225,9 +230,10 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 				}
 
 				// Highlight this cell if (a) we're highlighting cells in the same row/column as the touched cell, and (b) this cell is in that row or column.
-				if (highlightTouchedCell && mTouchedCell != null) {
-					val touchedRow = mTouchedCell!!.rowIndex
-					val touchedCol = mTouchedCell!!.columnIndex
+				val touchedCell = mTouchedCell
+				if (highlightTouchedCell && touchedCell != null) {
+					val touchedRow = touchedCell.rowIndex
+					val touchedCol = touchedCell.columnIndex
 					if (row == touchedRow || col == touchedCol) {
 						mPaints[row][col][0] = mBackgroundTouched
 						mPaints[row][col][1] = mTextTouched
@@ -302,16 +308,17 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 
 						// Vertically align the centre note
 						val offsetY = mCellHeight / 2f + bounds.height() / 2f
-						cell.centerNote.notedNumbers.withIndex().forEach {
-							if (it.value == highlightedValue) {
-								canvas.drawCircle(
-									cellLeft + offsetX - bounds.width() / 2f + bounds.width() / cell.centerNote.notedNumbers.size * (it.index + 0.5f),
-									cellTop + offsetY - bounds.height() / 2f,
-									mPaints[row][col][2].textSize * 0.6f,
-									mBackgroundHighlighted
-								)
+						cell.centerNote.notedNumbers.withIndex()
+							.forEach {
+								if (it.value == highlightedValue) {
+									canvas.drawCircle(
+										cellLeft + offsetX - bounds.width() / 2f + bounds.width() / cell.centerNote.notedNumbers.size * (it.index + 0.5f),
+										cellTop + offsetY - bounds.height() / 2f,
+										mPaints[row][col][2].textSize * 0.6f,
+										mBackgroundHighlighted
+									)
+								}
 							}
-						}
 						canvas.drawText(note, cellLeft + offsetX, cellTop + offsetY, paint)
 					}
 				}
@@ -347,9 +354,10 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 		}
 
 		// highlight selected cell
+		val selectedCell = mSelectedCell
 		if (!mReadonly && selectedCell != null) {
-			cellLeft = (selectedCell!!.columnIndex * mCellWidth).roundToInt() + paddingLeft
-			cellTop = (selectedCell!!.rowIndex * mCellHeight).roundToInt() + paddingTop
+			cellLeft = (selectedCell.columnIndex * mCellWidth).roundToInt() + paddingLeft
+			cellTop = (selectedCell.rowIndex * mCellHeight).roundToInt() + paddingTop
 
 			// The stroke is drawn half inside and half outside the given cell. Compensate by adjusting the cell's bounds by half the
 			// stroke width to move it entirely inside the cell.
@@ -518,7 +526,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 	}
 
 	fun invokeOnCellSelected() {
-		onCellSelectedListener(selectedCell)
+		onCellSelectedListener(mSelectedCell)
 	}
 
 	override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -608,7 +616,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 		when (event.action) {
 			MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> mTouchedCell = getCellAtPoint(x, y)
 			MotionEvent.ACTION_UP -> {
-				selectedCell = getCellAtPoint(x, y)
+				mSelectedCell = getCellAtPoint(x, y)
 				performClick()
 			}
 
@@ -620,8 +628,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 
 	override fun performClick(): Boolean {
 		invalidate() // selected cell has changed, update board as soon as you can
-		onCellTappedListener(selectedCell)
-		onCellSelectedListener(selectedCell)
+		mSelectedCell?.let(onCellTappedListener)
 		if (autoHideTouchedCellHint) {
 			mTouchedCell = null
 		}
@@ -629,50 +636,51 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 	}
 
 	override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-		if (!mReadonly) {
-			when (keyCode) {
-				KeyEvent.KEYCODE_DPAD_UP -> return moveCellSelection(0, -1)
-				KeyEvent.KEYCODE_DPAD_RIGHT -> return moveCellSelection(1, 0)
-				KeyEvent.KEYCODE_DPAD_DOWN -> return moveCellSelection(0, 1)
-				KeyEvent.KEYCODE_DPAD_LEFT -> return moveCellSelection(-1, 0)
-				KeyEvent.KEYCODE_0, KeyEvent.KEYCODE_SPACE, KeyEvent.KEYCODE_DEL -> {
-					// clear value in selected cell
-					if (selectedCell != null) {
-						if (event.isShiftPressed) {
-							mGame.setCellCornerNote(selectedCell!!, CellNote.EMPTY, true)
-						} else if (event.isAltPressed) {
-							mGame.setCellCenterNote(selectedCell!!, CellNote.EMPTY, true)
-						} else {
-							mGame.setCellValue(selectedCell!!, 0, true)
-							moveCellSelectionRight()
-						}
-					}
-					return true
-				}
+		if (mReadonly) return false
 
-				KeyEvent.KEYCODE_DPAD_CENTER -> {
-					if (selectedCell != null) {
-						onCellTappedListener(selectedCell)
-					}
-					return true
-				}
-			}
-			if (keyCode >= KeyEvent.KEYCODE_1 && keyCode <= KeyEvent.KEYCODE_9 && selectedCell != null) {
-				val selNumber = keyCode - KeyEvent.KEYCODE_0
-				val cell = selectedCell!!
-				if (event.isShiftPressed) {    // add or remove number in cell's corner note
-					mGame.setCellCornerNote(cell, cell.cornerNote.toggleNumber(selNumber), true)
-				} else if (event.isAltPressed) {    // add or remove number in cell's center note
-					mGame.setCellCenterNote(cell, cell.cornerNote.toggleNumber(selNumber), true)
-				} else {  // enter number in cell
-					mGame.setCellValue(cell, selNumber, true)
-					if (moveCellSelectionOnPress) {
+		val selectedCell = mSelectedCell
+
+		when (keyCode) {
+			KeyEvent.KEYCODE_DPAD_UP -> return moveCellSelection(0, -1)
+			KeyEvent.KEYCODE_DPAD_RIGHT -> return moveCellSelection(1, 0)
+			KeyEvent.KEYCODE_DPAD_DOWN -> return moveCellSelection(0, 1)
+			KeyEvent.KEYCODE_DPAD_LEFT -> return moveCellSelection(-1, 0)
+			KeyEvent.KEYCODE_0, KeyEvent.KEYCODE_SPACE, KeyEvent.KEYCODE_DEL -> {
+				// clear value in selected cell
+				if (selectedCell != null) {
+					if (event.isShiftPressed) {
+						mGame.setCellCornerNote(selectedCell, CellNote.EMPTY, true)
+					} else if (event.isAltPressed) {
+						mGame.setCellCenterNote(selectedCell, CellNote.EMPTY, true)
+					} else {
+						mGame.setCellValue(selectedCell, 0, true)
 						moveCellSelectionRight()
 					}
 				}
 				return true
 			}
+
+			KeyEvent.KEYCODE_DPAD_CENTER -> {
+				selectedCell?.let(onCellTappedListener)
+				return true
+			}
 		}
+
+		if (keyCode >= KeyEvent.KEYCODE_1 && keyCode <= KeyEvent.KEYCODE_9 && selectedCell != null) {
+			val selNumber = keyCode - KeyEvent.KEYCODE_0
+			if (event.isShiftPressed) {    // add or remove number in cell's corner note
+				mGame.setCellCornerNote(selectedCell, selectedCell.cornerNote.toggleNumber(selNumber), true)
+			} else if (event.isAltPressed) {    // add or remove number in cell's center note
+				mGame.setCellCenterNote(selectedCell, selectedCell.cornerNote.toggleNumber(selNumber), true)
+			} else {  // enter number in cell
+				mGame.setCellValue(selectedCell, selNumber, true)
+				if (moveCellSelectionOnPress) {
+					moveCellSelectionRight()
+				}
+			}
+			return true
+		}
+
 		return false
 	}
 
@@ -681,8 +689,10 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 	 * skips on beginning of another line.
 	 */
 	fun moveCellSelectionRight() {
+		val selectedCell = mSelectedCell ?: return
+
 		if (!moveCellSelection(1, 0)) {
-			var selRow = selectedCell!!.rowIndex
+			var selRow = selectedCell.rowIndex
 			selRow++
 			if (!moveCellSelectionTo(selRow, 0)) {
 				moveCellSelectionTo(0, 0)
@@ -699,12 +709,12 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 	 * @param vy Vertical offset, by which move selected cell.
 	 */
 	private fun moveCellSelection(vx: Int, vy: Int): Boolean {
+		val selectedCell = mSelectedCell ?: return false
+
 		var newRow = 0
 		var newCol = 0
-		if (selectedCell != null) {
-			newRow = selectedCell!!.rowIndex + vy
-			newCol = selectedCell!!.columnIndex + vx
-		}
+		newRow = selectedCell.rowIndex + vy
+		newCol = selectedCell.columnIndex + vx
 		return moveCellSelectionTo(newRow, newCol)
 	}
 
@@ -717,8 +727,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 	 */
 	fun moveCellSelectionTo(row: Int, col: Int): Boolean {
 		if (col >= 0 && col < CellCollection.SUDOKU_SIZE && row >= 0 && row < CellCollection.SUDOKU_SIZE) {
-			selectedCell = mCells.getCell(row, col)
-			onCellSelectedListener(selectedCell)
+			mSelectedCell = mCells.getCell(row, col)
 			postInvalidate()
 			return true
 		}
@@ -726,8 +735,7 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 	}
 
 	fun clearCellSelection() {
-		selectedCell = null
-		onCellSelectedListener(selectedCell)
+		mSelectedCell = null
 		postInvalidate()
 	}
 
@@ -757,7 +765,9 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 	}
 
 	enum class HighlightMode {
-		NONE, NUMBERS, NUMBERS_AND_NOTES
+		NONE,
+		NUMBERS,
+		NUMBERS_AND_NOTES
 	}
 
 	companion object {

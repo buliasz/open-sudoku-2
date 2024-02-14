@@ -25,11 +25,11 @@ import androidx.preference.PreferenceManager
 /**
  * This class is responsible for persisting of control panel's state.
  */
-class IMControlPanelStatePersister(context: Context?) {
+class IMControlPanelStatePersister(context: Context) {
 	private val mPreferences: SharedPreferences
 
 	init {
-		mPreferences = PreferenceManager.getDefaultSharedPreferences(context!!)
+		mPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 	}
 
 	fun saveState(controlPanel: IMControlPanel) {

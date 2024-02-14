@@ -35,14 +35,14 @@ class IMControlPanel : LinearLayout {
 	val imSelectOnTap: IMSelectOnTap = IMSelectOnTap(this)
 	private var mContext: Context
 	private lateinit var mBoard: SudokuBoardView
-	private var mGame: SudokuGame? = null
+	private lateinit var mGame: SudokuGame
 	private var mHintsQueue: HintsQueue? = null
 	private val mInputMethods: MutableList<InputMethod> = ArrayList()
 	var activeMethodIndex = -1
 		private set
-	private val mOnCellTapListener = { cell: Cell? ->
+	private val mOnCellTapListener = { cell: Cell ->
 		if (activeMethodIndex != -1) {
-			mInputMethods[activeMethodIndex].onCellTapped(cell!!)
+			mInputMethods[activeMethodIndex].onCellTapped(cell)
 		}
 	}
 	private val mOnCellSelected = { cell: Cell? ->
@@ -60,7 +60,7 @@ class IMControlPanel : LinearLayout {
 		mContext = context
 	}
 
-	fun initialize(board: SudokuBoardView, game: SudokuGame?, hintsQueue: HintsQueue?) {
+	fun initialize(board: SudokuBoardView, game: SudokuGame, hintsQueue: HintsQueue?) {
 		board.onCellTappedListener = mOnCellTapListener
 		board.onCellSelectedListener = mOnCellSelected
 		mBoard = board
@@ -122,9 +122,7 @@ class IMControlPanel : LinearLayout {
 		if (activeMethodIndex != -1) {
 			val activeMethod = mInputMethods[activeMethodIndex]
 			activeMethod.activate()
-			if (mHintsQueue != null) {
-				mHintsQueue!!.showOneTimeHint(activeMethod.inputMethodName!!, activeMethod.nameResID, activeMethod.helpResID)
-			}
+			mHintsQueue?.showOneTimeHint(activeMethod.inputMethodName!!, activeMethod.nameResID, activeMethod.helpResID)
 		}
 	}
 
@@ -132,9 +130,7 @@ class IMControlPanel : LinearLayout {
 		ensureInputMethods()
 		var id = activeMethodIndex + 1
 		if (id >= mInputMethods.size) {
-			if (mHintsQueue != null) {
-				mHintsQueue!!.showOneTimeHint("thatIsAll", R.string.that_is_all, R.string.im_disable_modes_hint)
-			}
+			mHintsQueue?.showOneTimeHint("thatIsAll", R.string.that_is_all, R.string.im_disable_modes_hint)
 			id = 0
 		}
 		activateInputMethod(id)
@@ -169,7 +165,7 @@ class IMControlPanel : LinearLayout {
 	}
 
 	private fun addInputMethod(methodIndex: Int, im: InputMethod) {
-		im.initialize(mContext, this, mGame!!, mBoard, mHintsQueue)
+		im.initialize(mContext, this, mGame, mBoard, mHintsQueue)
 		mInputMethods.add(methodIndex, im)
 	}
 

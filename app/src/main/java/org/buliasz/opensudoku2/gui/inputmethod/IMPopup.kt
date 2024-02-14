@@ -64,9 +64,9 @@ class IMPopup(val parent: ViewGroup) : InputMethod() {
 				setOnDismissListener(mOnPopupDismissedListener)
 				setShowNumberTotals(showDigitCount)
 				setHighlightCompletedValues(highlightCompletedValues)
+				mDigitButtons = mNumberButtons
 				this
 			}
-			mDigitButtons = mEditCellDialog!!.mNumberButtons
 		}
 	}
 

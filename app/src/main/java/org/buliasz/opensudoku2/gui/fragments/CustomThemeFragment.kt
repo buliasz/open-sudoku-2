@@ -151,10 +151,10 @@ class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
 		val themeNamesWithoutCustomTheme = themeNames.copyOfRange(0, themeNames.size - 1)
 		builder.setItems(themeNamesWithoutCustomTheme) { _: DialogInterface?, which: Int ->
 			copyFromExistingThemeIndex(which)
-			mCopyFromExistingThemeDialog!!.dismiss()
+			mCopyFromExistingThemeDialog?.dismiss()
 		}
 		val copyFromExistingThemeDialog = builder.create()
-		copyFromExistingThemeDialog.setOnDismissListener({ mCopyFromExistingThemeDialog = null })
+		copyFromExistingThemeDialog.setOnDismissListener { mCopyFromExistingThemeDialog = null }
 		copyFromExistingThemeDialog.show()
 		mCopyFromExistingThemeDialog = copyFromExistingThemeDialog
 	}
@@ -163,7 +163,7 @@ class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
 		val colorDialog = ColorPickerDialog(context, mSharedPreferences!!.getInt("custom_theme_colorPrimary", Color.WHITE), "XXX")
 		colorDialog.alphaSliderVisible = false
 		colorDialog.hexValueEnabled = true
-		colorDialog.setOnColorChangedListener { colorPrimary: Int -> createCustomThemeFromSingleColor(colorPrimary) }
+		colorDialog.setOnColorChangedListener(::createCustomThemeFromSingleColor)
 		colorDialog.show()
 	}
 

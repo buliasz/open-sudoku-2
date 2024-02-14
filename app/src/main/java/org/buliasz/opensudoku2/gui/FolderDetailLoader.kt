@@ -21,22 +21,21 @@ import android.content.Context
 import android.util.Log
 import org.buliasz.opensudoku2.db.SudokuDatabase
 import org.buliasz.opensudoku2.game.FolderInfo
+import java.io.Closeable
 import java.util.concurrent.Executors
 
 /**
  * Loads details of given folders on one single background thread.
- * Results are published on GUI thread via [FolderDetailCallback] interface.
+ * Results are published on UI.
  *
  * Please note that instance of this class has to be created on GUI thread!
- *
- * You should explicitly call [.destroy] when this object is no longer needed.
  */
-class FolderDetailLoader(context: Context?) {
+class FolderDetailLoader(context: Context) : Closeable {
 	private val mDatabase: SudokuDatabase
 	private val executorService = Executors.newSingleThreadExecutor()
 
 	init {
-		mDatabase = SudokuDatabase(context!!, true)
+		mDatabase = SudokuDatabase(context, true)
 	}
 
 	fun loadDetailAsync(folderId: Long, loadedCallback: (FolderInfo) -> Unit) {
@@ -50,7 +49,7 @@ class FolderDetailLoader(context: Context?) {
 		}
 	}
 
-	fun destroy() {
+	override fun close() {
 		executorService.shutdownNow()
 		mDatabase.close()
 	}

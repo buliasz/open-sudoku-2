@@ -43,6 +43,8 @@ import org.buliasz.opensudoku2.gui.fragments.AddFolderDialogFragment
 import org.buliasz.opensudoku2.gui.fragments.DeleteFolderDialogFragment
 import org.buliasz.opensudoku2.gui.fragments.RenameFolderDialogFragment
 
+const val storagePermissionCode = 1
+
 /**
  * List of puzzle's folder. This activity also serves as root activity of application.
  */
@@ -66,10 +68,9 @@ class FolderListActivity : ThemedActivity() {
 	private lateinit var aboutDialog: AboutDialogFragment
 	private lateinit var deleteFolderDialog: DeleteFolderDialogFragment
 	private lateinit var mAdapter: FolderListRecyclerAdapter
-	private val storagePermissionCoe = 1
 	private lateinit var mDatabase: SudokuDatabase
 	private lateinit var recyclerView: RecyclerView
-	private var mMenu: Menu? = null
+	private lateinit var mMenu: Menu
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -175,8 +176,7 @@ class FolderListActivity : ThemedActivity() {
 		val intent = Intent(null, intent.data)
 		intent.addCategory(Intent.CATEGORY_ALTERNATIVE)
 		menu.addIntentOptions(
-			Menu.CATEGORY_ALTERNATIVE, 0, 0,
-			ComponentName(this, FolderListActivity::class.java), null, intent, 0, null
+			Menu.CATEGORY_ALTERNATIVE, 0, 0, ComponentName(this, FolderListActivity::class.java), null, intent, 0, null
 		)
 		mMenu = menu
 		return true
@@ -246,14 +246,10 @@ class FolderListActivity : ThemedActivity() {
 		return super.onOptionsItemSelected(item)
 	}
 
-	override fun onRequestPermissionsResult(
-		requestCode: Int,
-		permissions: Array<String>,
-		grantResults: IntArray
-	) {
-		if (requestCode == storagePermissionCoe) {
+	override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+		if (requestCode == storagePermissionCode) {
 			if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-				onOptionsItemSelected(mMenu!!.findItem(MenuItems.IMPORT.id))
+				onOptionsItemSelected(mMenu.findItem(MenuItems.IMPORT.id))
 			} else {
 				Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show()
 			}

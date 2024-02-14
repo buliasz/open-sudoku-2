@@ -134,7 +134,7 @@ class PuzzleListActivity : ThemedActivity() {
 	override fun onDestroy() {
 		super.onDestroy()
 		mDatabase.close()
-		mFolderDetailLoader.destroy()
+		mFolderDetailLoader.close()
 		mAdapter.close()
 	}
 

@@ -33,7 +33,7 @@ import org.buliasz.opensudoku2.game.SudokuGame
 import org.buliasz.opensudoku2.gui.fragments.AboutDialogFragment
 
 class TitleScreenActivity : ThemedActivity() {
-	private var mResumeButton: Button? = null
+	private lateinit var mResumeButton: Button
 	private lateinit var aboutDialog: AboutDialogFragment
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +62,9 @@ class TitleScreenActivity : ThemedActivity() {
 	}
 
 	private fun canResume(mSudokuGameID: Long): Boolean {
-		val mSudokuGame = SudokuDatabase(applicationContext, true).use { it.getPuzzle(mSudokuGameID) ?: return@canResume false }
+		val mSudokuGame = SudokuDatabase(applicationContext, true).use { db ->
+			db.getPuzzle(mSudokuGameID) ?: return@canResume false
+		}
 		return mSudokuGame.state != SudokuGame.GAME_STATE_COMPLETED
 	}
 
@@ -70,14 +72,14 @@ class TitleScreenActivity : ThemedActivity() {
 		val gameSettings = PreferenceManager.getDefaultSharedPreferences(applicationContext)
 		val puzzleID = gameSettings.getLong("most_recently_played_puzzle_id", 0)
 		if (canResume(puzzleID)) {
-			mResumeButton!!.visibility = View.VISIBLE
-			mResumeButton!!.setOnClickListener {
+			mResumeButton.visibility = View.VISIBLE
+			mResumeButton.setOnClickListener {
 				val intentToPlay = Intent(this@TitleScreenActivity, SudokuPlayActivity::class.java)
 				intentToPlay.putExtra(PUZZLE_ID, puzzleID)
 				startActivity(intentToPlay)
 			}
 		} else {
-			mResumeButton?.visibility = View.GONE
+			mResumeButton.visibility = View.GONE
 		}
 	}
 

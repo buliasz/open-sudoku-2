@@ -49,7 +49,7 @@ abstract class InputMethod {
 		set(value) {
 			if (field != value) {
 				field = value
-				mDigitButtons?.forEach { (_, button) ->
+				mDigitButtons?.values?.forEach { button ->
 					button.showNumbersPlaced = value
 				}
 			}

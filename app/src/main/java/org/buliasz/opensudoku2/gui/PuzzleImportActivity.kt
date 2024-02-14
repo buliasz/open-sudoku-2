@@ -67,10 +67,7 @@ class PuzzleImportActivity : ThemedActivity() {
 		supportRequestWindowFeature(Window.FEATURE_LEFT_ICON)
 		setContentView(R.layout.import_puzzle)
 		setTitle(R.string.import_title)
-		window.setFeatureDrawableResource(
-			Window.FEATURE_LEFT_ICON,
-			R.mipmap.ic_launcher_icon
-		)
+		window.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.mipmap.ic_launcher_icon)
 		val importTask: AbstractImportTask
 		val intent = intent
 		val action = intent.action
@@ -81,8 +78,7 @@ class PuzzleImportActivity : ThemedActivity() {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
 				intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
 			} else {
-				@Suppress("DEPRECATION")
-				intent.extras!![Intent.EXTRA_STREAM] as Uri?
+				@Suppress("DEPRECATION") intent.extras?.get(Intent.EXTRA_STREAM) as Uri?
 			}
 		} else if (action.equals("android.intent.action.VIEW", ignoreCase = true)) {
 			intent.data

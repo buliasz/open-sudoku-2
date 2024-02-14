@@ -209,7 +209,7 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 
 			// Update the count of numbers placed
 			if (mValueCount.isNotEmpty()) {
-				button.setNumbersPlaced(mValueCount[tag]!!)
+				button.setNumbersPlaced(mValueCount[tag] ?: 0)
 			}
 		}
 	}
@@ -254,21 +254,21 @@ class IMPopupDialog(val parent: ViewGroup, mContext: Context, mBoard: SudokuBoar
 		update()
 	}
 
-	fun setCornerNotes(numbers: List<Int>?) {
+	fun setCornerNotes(numbers: List<Int>) {
 		mCornerNoteSelectedNumbers.clear()
-		mCornerNoteSelectedNumbers.addAll(numbers!!)
+		mCornerNoteSelectedNumbers.addAll(numbers)
 		update()
 	}
 
-	fun setCenterNotes(numbers: List<Int>?) {
+	fun setCenterNotes(numbers: List<Int>) {
 		mCenterNoteSelectedNumbers.clear()
-		mCenterNoteSelectedNumbers.addAll(numbers!!)
+		mCenterNoteSelectedNumbers.addAll(numbers)
 		update()
 	}
 
-	fun setValueCount(count: Map<Int, Int>?) {
+	fun setValueCount(count: Map<Int, Int>) {
 		mValueCount.clear()
-		mValueCount.putAll(count!!)
+		mValueCount.putAll(count)
 		update()
 	}
 }

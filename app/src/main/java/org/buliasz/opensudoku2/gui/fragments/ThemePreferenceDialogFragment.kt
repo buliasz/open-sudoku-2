@@ -56,7 +56,7 @@ import org.buliasz.opensudoku2.utils.ThemeUtils
 class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
 	private lateinit var mBoard: SudokuBoardView
 	var mClickedDialogEntryIndex = 0
-	private var mEntries: Array<CharSequence?>? = null
+	private lateinit var mEntries: Array<CharSequence?>
 	private lateinit var mEntryValues: Array<CharSequence>
 	private lateinit var mAdapter: ThemeAdapter
 
@@ -82,7 +82,7 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
 			mEntryValues = preference.entryValues
 		} else {
 			mClickedDialogEntryIndex = savedInstanceState.getInt(SAVE_STATE_INDEX, 0)
-			mEntries = savedInstanceState.getCharSequenceArray(SAVE_STATE_ENTRIES)
+			mEntries = savedInstanceState.getCharSequenceArray(SAVE_STATE_ENTRIES)!!
 			mEntryValues = savedInstanceState.getCharSequenceArray(SAVE_STATE_ENTRY_VALUES)!!
 		}
 	}
@@ -124,12 +124,11 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
 		}
 	}
 
-	internal inner class ThemeAdapter(private val mEntries: Array<CharSequence?>?) : RecyclerView.Adapter<ViewHolder?>() {
+	internal inner class ThemeAdapter(private val mEntries: Array<CharSequence?>) : RecyclerView.Adapter<ViewHolder?>() {
 		internal var onItemClickListener: View.OnClickListener? = null
 
 		/** Drawable for icon that indicates this theme enforces dark mode  */
-		private val mDarkModeIcon: Drawable? =
-			ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_dark_mode, requireContext().theme)
+		private val mDarkModeIcon: Drawable? = ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_dark_mode, requireContext().theme)
 
 		internal inner class ViewHolder(itemView: MaterialRadioButton) : RecyclerView.ViewHolder(itemView) {
 			val radioButton: MaterialRadioButton
@@ -151,7 +150,7 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
 
 		override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 			val button = holder.radioButton
-			button.text = mEntries!![position]
+			button.text = mEntries[position]
 			button.isChecked = position == mClickedDialogEntryIndex
 			if (ThemeUtils.isDarkTheme(mEntryValues[position] as String)) {
 				button.setCompoundDrawablesWithIntrinsicBounds(null, null, mDarkModeIcon, null)
@@ -160,7 +159,7 @@ class ThemePreferenceDialogFragment : ListPreferenceDialogFragmentCompat() {
 			}
 		}
 
-		override fun getItemCount(): Int = mEntries?.size ?: 0
+		override fun getItemCount(): Int = mEntries.size
 	}
 
 	private fun prepareBoardPreviewView(initialTheme: String) {

@@ -55,7 +55,7 @@ class FileExportTask {
 	}
 
 	private fun saveToFile(exportParams: FileExportTaskParams, context: Context, progressUpdater: ProgressUpdater): FileExportTaskResult {
-		require(exportParams.folderId != null) { "'folderId' param must be set" }
+		requireNotNull(exportParams.folderId) { "'folderId' param must be set" }
 		requireNotNull(exportParams.fileOutputStream) { "Output stream cannot be null" }
 		val result = FileExportTaskResult()
 		result.isSuccess = true

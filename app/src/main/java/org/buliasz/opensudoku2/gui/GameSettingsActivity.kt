@@ -40,10 +40,7 @@ class GameSettingsActivity :
 
 	override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
 		val args = pref.extras
-		val fragment = supportFragmentManager.fragmentFactory.instantiate(
-			classLoader,
-			pref.fragment!!
-		)
+		val fragment = supportFragmentManager.fragmentFactory.instantiate(classLoader, pref.fragment ?: return true)
 		fragment.arguments = args
 
 		@Suppress("DEPRECATION")    // known bug in Preferences library https://stackoverflow.com/a/74230035/7926219

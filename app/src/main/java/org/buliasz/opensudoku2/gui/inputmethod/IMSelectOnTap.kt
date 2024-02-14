@@ -45,16 +45,16 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 	 */
 	internal var highlightCompletedValues = true
 	private var mSelectedCell: Cell? = null
-	private var mClearButton: IconButton? = null
+	private lateinit var mClearButton: IconButton
 	private var mEditMode = MODE_EDIT_VALUE
 
 	// Conceptually these behave like RadioButtons. However, it's difficult to style a RadioButton
 	// without re-implementing all the drawables, and they would require a custom parent layout
 	// to work properly in a ConstraintLayout, so it's simpler and more consistent in the UI to
 	// handle the toggle logic in the code here.
-	private var mEnterNumberButton: MaterialButton? = null
-	private var mCornerNoteButton: MaterialButton? = null
-	private var mCenterNoteButton: MaterialButton? = null
+	private lateinit var mEnterNumberButton: MaterialButton
+	private lateinit var mCornerNoteButton: MaterialButton
+	private lateinit var mCenterNoteButton: MaterialButton
 	private lateinit var mSwitchModeButton: Button
 
 	private val mNumberButtonClicked = View.OnClickListener { v: View ->
@@ -112,8 +112,8 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 		val colorText: ColorStateList = makeTextColorStateList(mBoard)
 		val colorBackground: ColorStateList = makeBackgroundColorStateList(mBoard)
 		for (num in numberButtons.keys) {
-			val button = numberButtons[num]
-			button!!.tag = num
+			val button = numberButtons[num]!!
+			button.tag = num
 			button.setOnClickListener(mNumberButtonClicked)
 			button.showNumbersPlaced = showDigitCount
 			button.enableAllNumbersPlaced = highlightCompletedValues
@@ -166,7 +166,7 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 		get() = mSwitchModeButton
 
 	override fun onActivated() {
-		onCellSelected(if (mBoard.isReadOnly) null else mBoard.selectedCell)
+		onCellSelected(if (mBoard.isReadOnly) null else mBoard.mSelectedCell)
 	}
 
 	override fun onCellSelected(cell: Cell?) {
@@ -176,37 +176,31 @@ class IMSelectOnTap(val parent: ViewGroup) : InputMethod() {
 	}
 
 	private fun update() {
-		val editable = mSelectedCell != null && mSelectedCell!!.isEditable
-		mClearButton!!.isEnabled = editable
+		val editable = mSelectedCell?.isEditable ?: false
+		mClearButton.isEnabled = editable
 
 		// Determine which buttons to check, based on the value / notes in the selected cell
 		var buttonsToCheck: MutableList<Int> = ArrayList()
 		when (mEditMode) {
 			MODE_EDIT_VALUE -> {
-				mEnterNumberButton!!.isChecked = true
-				mCornerNoteButton!!.isChecked = false
-				mCenterNoteButton!!.isChecked = false
-				if (mSelectedCell != null) {
-					buttonsToCheck.add(mSelectedCell!!.value)
-				}
+				mEnterNumberButton.isChecked = true
+				mCornerNoteButton.isChecked = false
+				mCenterNoteButton.isChecked = false
+				mSelectedCell?.let { buttonsToCheck.add(it.value) }
 			}
 
 			MODE_EDIT_CORNER_NOTE -> {
-				mEnterNumberButton!!.isChecked = false
-				mCornerNoteButton!!.isChecked = true
-				mCenterNoteButton!!.isChecked = false
-				if (mSelectedCell != null) {
-					buttonsToCheck = mSelectedCell!!.cornerNote.notedNumbers
-				}
+				mEnterNumberButton.isChecked = false
+				mCornerNoteButton.isChecked = true
+				mCenterNoteButton.isChecked = false
+				mSelectedCell?.let { buttonsToCheck = it.cornerNote.notedNumbers }
 			}
 
 			MODE_EDIT_CENTER_NOTE -> {
-				mEnterNumberButton!!.isChecked = false
-				mCornerNoteButton!!.isChecked = false
-				mCenterNoteButton!!.isChecked = true
-				if (mSelectedCell != null) {
-					buttonsToCheck = mSelectedCell!!.centerNote.notedNumbers
-				}
+				mEnterNumberButton.isChecked = false
+				mCornerNoteButton.isChecked = false
+				mCenterNoteButton.isChecked = true
+				mSelectedCell?.let { buttonsToCheck = it.centerNote.notedNumbers }
 			}
 		}
 		val valuesUseCount = mGame.cells.valuesUseCount
