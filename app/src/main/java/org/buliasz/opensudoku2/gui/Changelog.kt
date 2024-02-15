@@ -21,8 +21,8 @@ package org.buliasz.opensudoku2.gui
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
-import android.webkit.WebView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.text.HtmlCompat
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.utils.AndroidUtils
 import java.io.IOException
@@ -46,15 +46,13 @@ class Changelog(private val mContext: Context) {
 
 	private fun showChangelogDialog() {
 		val changelog = changelogFromResources
-		val webView = WebView(mContext)
-		webView.loadData(changelog, "text/html", "utf-8")
-		val changelogDialog = AlertDialog.Builder(mContext)
-				.setIcon(R.drawable.ic_info)
-				.setTitle(R.string.what_is_new)
-				.setView(webView)
-				.setPositiveButton(R.string.close, null)
-				.create()
-		changelogDialog.show()
+		AlertDialog.Builder(mContext)
+			.setIcon(R.drawable.ic_info)
+			.setTitle(R.string.what_is_new)
+			.setMessage(HtmlCompat.fromHtml(changelog, HtmlCompat.FROM_HTML_MODE_COMPACT))
+			.setPositiveButton(R.string.close, null)
+			.create()
+			.show()
 	}
 
 	private val changelogFromResources: String

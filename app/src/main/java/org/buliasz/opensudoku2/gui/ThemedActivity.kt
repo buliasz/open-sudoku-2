@@ -27,9 +27,9 @@ import org.buliasz.opensudoku2.utils.ThemeUtils
 abstract class ThemedActivity : AppCompatActivity() {
 	private var mTimestampWhenApplyingTheme: Long = 0
 	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
 		ThemeUtils.setThemeFromPreferences(this)
 		mTimestampWhenApplyingTheme = System.currentTimeMillis()
-		super.onCreate(savedInstanceState)
 	}
 
 	protected fun recreateActivityIfThemeChanged() {

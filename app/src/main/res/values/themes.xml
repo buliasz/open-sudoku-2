@@ -35,7 +35,7 @@
 
 		<item name="colorSelectedBackground">?attr/colorTertiaryContainer</item>
 
-		<item name="colorHighlightedText">?attr/colorOnSecondaryContainer</item>
+		<item name="colorHighlightedText">#5C5CFF</item>
 		<item name="colorHighlightedNoteText">?attr/colorOnSecondaryContainer</item>
 		<item name="colorHighlightedBackground">?attr/colorSecondaryContainer</item>
 
@@ -53,8 +53,7 @@
 		<item name="android:textColor">?attr/colorText</item>
 	</style>
 
-	<style name="AppTheme.AlertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
-		<item name="colorBackground">?attr/colorBackground</item>
+	<style name="AppTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
 		<item name="colorOnPrimary">?attr/colorText</item>
 	</style>
 

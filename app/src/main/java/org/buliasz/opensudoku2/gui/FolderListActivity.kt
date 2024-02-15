@@ -109,9 +109,8 @@ class FolderListActivity : ThemedActivity() {
 			}
 		}
 
-		// show changelog on first run
-		val changelog = Changelog(this)
-		changelog.showOnFirstRun()
+		// show changelog on first run (case when auto folder opening is enabled and a new app version was released)
+		Changelog(this).showOnFirstRun()
 	}
 
 	private fun openWebpage(url: String) {

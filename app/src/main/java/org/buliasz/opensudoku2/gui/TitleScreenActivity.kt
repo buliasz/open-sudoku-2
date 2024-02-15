@@ -48,16 +48,13 @@ class TitleScreenActivity : ThemedActivity() {
 		val factory = LayoutInflater.from(this)
 		aboutDialog = AboutDialogFragment(factory)
 
-		// check the preference to skip the title screen and launch the folder list activity
-		// directly
+		// check the preference to skip the title screen and launch the folder list activity directly
 		val gameSettings = PreferenceManager.getDefaultSharedPreferences(applicationContext)
 		val showPuzzleFolderListOnStartup = gameSettings.getBoolean("show_puzzle_lists_on_startup", false)
 		if (showPuzzleFolderListOnStartup) {
 			startActivity(Intent(this, FolderListActivity::class.java))
-		} else {
-			// show changelog on first run
-			val changelog = Changelog(this)
-			changelog.showOnFirstRun()
+		} else { // show changelog on first run
+			Changelog(this).showOnFirstRun()
 		}
 	}
 

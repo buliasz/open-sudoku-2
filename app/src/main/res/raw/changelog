@@ -1,8 +1,5 @@
-<html>
-<head><style type="text/css">body {font-size: smaller;}</style></head>
-<body>
-  <b>1.0</b>
-  <ul>
+<b>v1.0</b>
+<ul>
     <li>Open Sudoku 2 ported from Open Sudoku code.</li>
     <li>Code rewritten in Kotlin programming language.</li>
     <li>Added centre notes support.</li>
@@ -25,6 +22,4 @@
     <li>Filled missing translation entries for existing translations with automatic translator. Please let me know if you notice incorrect translations.</li>
     <li>Replaced deprecated libraries/calls usage with an up to date code and libraries.</li>
     <li>A lot of "under the hood" refactors and cleanups for code maintainability and performance.</li>
-  </ul>
-</body>
-</html>
+</ul>

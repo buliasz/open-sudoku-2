@@ -35,7 +35,7 @@
 
 		<item name="colorSelectedBackground">?attr/colorTertiaryContainer</item>
 
-		<item name="colorHighlightedText">?attr/colorOnSecondaryContainer</item>
+		<item name="colorHighlightedText">#5E5EFF</item>
 		<item name="colorHighlightedNoteText">?attr/colorOnSecondaryContainer</item>
 		<item name="colorHighlightedBackground">?attr/colorSecondaryContainer</item>
 
@@ -54,7 +54,6 @@
 	</style>
 
 	<style name="AppTheme.AlertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
-		<item name="colorBackground">?attr/colorBackground</item>
 		<item name="colorOnPrimary">?attr/colorText</item>
 	</style>
 
