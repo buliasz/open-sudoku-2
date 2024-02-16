@@ -24,15 +24,13 @@ import androidx.preference.PreferenceFragmentCompat
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.gui.fragments.GameSettingsFragment
 
-class GameSettingsActivity :
-	ThemedActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback, FragmentManager.OnBackStackChangedListener {
+class GameSettingsActivity : ThemedActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback, FragmentManager.OnBackStackChangedListener {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.preferences_host)
 		supportFragmentManager.addOnBackStackChangedListener(this)
 		if (savedInstanceState == null) {
-			supportFragmentManager
-				.beginTransaction()
+			supportFragmentManager.beginTransaction()
 				.replace(R.id.preferences_content, GameSettingsFragment())
 				.commit()
 		}

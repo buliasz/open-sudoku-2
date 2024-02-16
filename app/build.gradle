@@ -6,16 +6,16 @@ android {
         applicationId 'org.buliasz.opensudoku2'
         minSdk 26
         targetSdk 34
-        versionCode 20240214
-        versionName '1.0 RC6'
+        versionCode 20240215
+        versionName '1.0 RC7'
 
         vectorDrawables.useSupportLibrary true
     }
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
