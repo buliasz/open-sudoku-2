@@ -36,6 +36,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
+import androidx.annotation.Keep
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.graphics.ColorUtils
 import androidx.core.view.MenuHost
@@ -56,6 +57,7 @@ import org.buliasz.opensudoku2.utils.ThemeUtils
 /**
  * Preview and set a custom app theme.
  */
+@Keep
 class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListener, MenuProvider {
 	private lateinit var mBoard: SudokuBoardView
 	private var mCopyFromExistingThemeDialog: Dialog? = null
@@ -360,12 +362,10 @@ class CustomThemeFragment : PreferenceFragmentCompat(), OnSharedPreferenceChange
 	private fun quantizeCustomAppColorPreferences() {
 		val settingsEditor = mSharedPreferences!!.edit()
 		settingsEditor.putInt(
-			"custom_theme_colorPrimary",
-			ThemeUtils.findClosestMaterialColor(mSharedPreferences!!.getInt("custom_theme_colorPrimary", Color.GRAY))
+			"custom_theme_colorPrimary", ThemeUtils.findClosestMaterialColor(mSharedPreferences!!.getInt("custom_theme_colorPrimary", Color.GRAY))
 		)
 		settingsEditor.putInt(
-			"custom_theme_colorAccent",
-			ThemeUtils.findClosestMaterialColor(mSharedPreferences!!.getInt("custom_theme_colorAccent", Color.WHITE))
+			"custom_theme_colorAccent", ThemeUtils.findClosestMaterialColor(mSharedPreferences!!.getInt("custom_theme_colorAccent", Color.WHITE))
 		)
 		settingsEditor.apply()
 	}

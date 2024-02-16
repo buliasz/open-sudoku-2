@@ -35,7 +35,7 @@
 
 		<item name="colorSelectedBackground">?attr/colorTertiaryContainer</item>
 
-		<item name="colorHighlightedText">#5C5CFF</item>
+		<item name="colorHighlightedText">?attr/colorOnSecondaryContainer</item>
 		<item name="colorHighlightedNoteText">?attr/colorOnSecondaryContainer</item>
 		<item name="colorHighlightedBackground">?attr/colorSecondaryContainer</item>
 
@@ -45,6 +45,8 @@
 		<item name="colorEvenText">?attr/colorOnSurfaceVariant</item>
 		<item name="colorEvenNoteText">?attr/colorOnSurfaceVariant</item>
 		<item name="colorEvenBackground">@android:color/transparent</item> <!-- Transparent color here disables the functionality by default -->
+
+		<item name="android:textColorLink">#5C5CFF</item>
 		<item name="alertDialogTheme">@style/AppTheme.AlertDialog</item>
 		<item name="android:itemTextAppearance">@style/myCustomMenuTextAppearance</item>
 	</style>

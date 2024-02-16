@@ -134,7 +134,7 @@
 		there will be several hints displayed as you go through them. You can disable these hints in the game settings.
 	</string>
 
-	<string name="im_popup_hint">You\'re now in the <i>Pop-up</i> input mode. Tap any cell with tap to edit its content. Notice the button in the lower right
+	<string name="im_popup_hint">You\'re now in the <i>Pop-up</i> input mode. Choose any cell with tap to edit its content. Notice the button in the lower right
 		corner. You can use this button to switch to another input mode.
 	</string>
 

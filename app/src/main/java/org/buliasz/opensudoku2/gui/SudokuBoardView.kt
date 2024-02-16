@@ -710,11 +710,8 @@ class SudokuBoardView @JvmOverloads constructor(context: Context, attrs: Attribu
 	 */
 	private fun moveCellSelection(vx: Int, vy: Int): Boolean {
 		val selectedCell = mSelectedCell ?: return false
-
-		var newRow = 0
-		var newCol = 0
-		newRow = selectedCell.rowIndex + vy
-		newCol = selectedCell.columnIndex + vx
+		val newRow = selectedCell.rowIndex + vy
+		val newCol = selectedCell.columnIndex + vx
 		return moveCellSelectionTo(newRow, newCol)
 	}
 
