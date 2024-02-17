@@ -312,8 +312,6 @@
 	<string name="dark_mode_dark">Modo oscuro</string>
 	<string name="dark_mode_system">Usar el modo claro/oscuro del sistema</string>
 	<string name="disabled_by_theme">El tema seleccionado establece el modo</string>
-	<string name="use_dynamic_color">Usar color dinámico</string>
-	<string name="use_dynamic_color_summary">Usa los colores de tu fondo de pantalla</string>
 	<string name="theme_custom_light">Tema de luz personalizado</string>
 	<string name="pref_border_title">Bordes de celda</string>
 	<string name="pref_border_summary">Colores de borde alrededor de celdas y cuadros de 3x3</string>

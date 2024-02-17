@@ -273,8 +273,6 @@
 	<string name="dark_mode_dark">Modo escuro</string>
 	<string name="dark_mode_system">Use o modo claro/escuro do sistema</string>
 	<string name="disabled_by_theme">O tema selecionado define o modo</string>
-	<string name="use_dynamic_color">Use cores dinâmicas</string>
-	<string name="use_dynamic_color_summary">Use cores do seu papel de parede</string>
 	<string name="theme_custom_light">Custom Light Theme</string>
 	<string name="pref_border_title">Fronteiras celulares</string>
 	<string name="pref_border_summary">Cores das bordas ao redor das células e caixas 3x3</string>

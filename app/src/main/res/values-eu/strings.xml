@@ -329,8 +329,6 @@
 	<string name="dark_mode_dark">Modu iluna</string>
 	<string name="dark_mode_system">Sistemaren modu argi/ iluna erabili</string>
 	<string name="disabled_by_theme">Aukeratutako gaiak modua ezartzen du</string>
-	<string name="use_dynamic_color">Kolore dinamikoa erabili</string>
-	<string name="use_dynamic_color_summary">Erabili zure pantaila-hondoaren koloreak</string>
 	<string name="theme_custom_light">Argi pertsonalizatuaren gaia</string>
 	<string name="pref_border_title">Ziega-ertzak</string>
 	<string name="pref_border_summary">Ertzeko koloreak ziega eta 3x3 koadroen inguruan</string>

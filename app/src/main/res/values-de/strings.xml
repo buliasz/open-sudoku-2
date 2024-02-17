@@ -273,8 +273,6 @@
     <string name="dark_mode_dark">Dunkler Modus</string>
     <string name="dark_mode_system">Hell-/Dunkelmodus des Systems verwenden</string>
     <string name="disabled_by_theme">Ausgewähltes Thema legt den Modus fest</string>
-    <string name="use_dynamic_color">Dynamische Farbe verwenden</string>
-    <string name="use_dynamic_color_summary">Verwenden Sie Farben aus Ihrem Hintergrundbild</string>
     <string name="theme_custom_light">Benutzerdefiniertes Lichtdesign</string>
     <string name="pref_border_title">Zellen-Ränder</string>
     <string name="pref_border_summary">Rahmenfarben um Zellen und 3x3-Kästchen</string>

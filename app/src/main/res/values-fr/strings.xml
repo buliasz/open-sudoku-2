@@ -302,8 +302,6 @@
 	<string name="dark_mode_dark">Mode sombre</string>
 	<string name="dark_mode_system">Utiliser le mode clair/sombre du système</string>
 	<string name="disabled_by_theme">Le thème sélectionné définit le mode</string>
-	<string name="use_dynamic_color">Utiliser la couleur dynamique</string>
-	<string name="use_dynamic_color_summary">Utilisez les couleurs de votre fond d’écran</string>
 	<string name="theme_custom_light">Thème de lumière personnalisé</string>
 	<string name="pref_border_title">Bordures de cellule</string>
 	<string name="pref_border_summary">Couleurs de bordure autour des cellules et des cases 3x3</string>

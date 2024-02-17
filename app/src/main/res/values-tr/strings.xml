@@ -274,8 +274,6 @@
 	<string name="dark_mode_dark">Karanlık mod</string>
 	<string name="dark_mode_system">Sistemin açık/karanlık modunu kullanma</string>
 	<string name="disabled_by_theme">Seçilen tema modu belirler</string>
-	<string name="use_dynamic_color">Dinamik renk kullan</string>
-	<string name="use_dynamic_color_summary">Duvar kağıdınızdaki renkleri kullanın</string>
 	<string name="theme_custom_light">Özel Tema Işığı</string>
 	<string name="pref_border_title">Hücre sınırları</string>
 	<string name="pref_border_summary">Hücrelerin ve 3x3 kutuların etrafındaki kenarlık renkleri</string>

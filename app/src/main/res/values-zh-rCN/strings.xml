@@ -320,8 +320,6 @@
 	<string name="dark_mode_dark">深色模式</string>
 	<string name="dark_mode_system">使用系统浅色/深色模式</string>
 	<string name="disabled_by_theme">所选主题设置模式</string>
-	<string name="use_dynamic_color">使用动态颜色</string>
-	<string name="use_dynamic_color_summary">使用墙纸上的颜色</string>
 	<string name="theme_custom_light">自定义灯光主题</string>
 	<string name="pref_border_title">单元格边框</string>
 	<string name="pref_border_summary">单元格和 3x3 框周围的边框颜色</string>

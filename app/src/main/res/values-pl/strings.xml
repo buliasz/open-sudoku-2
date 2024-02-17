@@ -216,8 +216,6 @@
 	<string name="dark_mode_dark">Tryb ciemny</string>
 	<string name="dark_mode_system">Synchronizuj tryb jasny/ciemny z systemem</string>
 	<string name="disabled_by_theme">Wybrany motyw ustawia tryb</string>
-	<string name="use_dynamic_color">Użyj kolorów dynamicznych</string>
-	<string name="use_dynamic_color_summary">Użyj kolorów z tapety</string>
 	<string name="theme_custom_light">Motyw jasny użytkownika</string>
 	<string name="pref_border_title">Obramowania pól</string>
 	<string name="pref_border_summary">Obramowania wokół pól i bloku 3x3</string>

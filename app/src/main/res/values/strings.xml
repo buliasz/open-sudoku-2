@@ -335,8 +335,7 @@
 
 	<string name="press_color_to_apply">Press on Color to apply</string>
 
-	<string name="dark_mode_key" translatable="false">ui_mode
-	</string>
+	<string name="dark_mode_key" translatable="false">ui_mode</string>
 	<string name="dark_mode_title">Interface Mode</string>
 
 	<!-- Options when selecting dark mode -->
@@ -344,9 +343,6 @@
 	<string name="dark_mode_dark">Dark mode</string>
 	<string name="dark_mode_system">Use system light/dark mode</string>
 	<string name="disabled_by_theme">Selected theme sets the mode</string>
-
-	<string name="use_dynamic_color">Use dynamic color</string>
-	<string name="use_dynamic_color_summary">Use colors from your wallpaper</string>
 
 	<string name="theme_custom_light">Custom Light Theme</string>
 

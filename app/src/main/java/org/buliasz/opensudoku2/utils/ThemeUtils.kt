@@ -23,13 +23,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
-import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
-import com.google.android.material.color.DynamicColors
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.game.CellCollection
 import org.buliasz.opensudoku2.gui.SudokuBoardView
@@ -344,13 +342,6 @@ object ThemeUtils {
 	fun setThemeFromPreferences(activity: Activity) {
 		val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
 
-		// If dynamic colors are enabled then use them, overriding other settings
-		val useDynamicColor = sharedPreferences.getBoolean("use_dynamic_color", false)
-		if (useDynamicColor) {
-			Log.d(TAG, "Using dynamic colors and returning")
-			DynamicColors.applyToActivityIfAvailable(activity)
-			return
-		}
 		val themeCode = sharedPreferences.getString("theme", "opensudoku2")
 		val customTheme = "custom" == themeCode || "custom_light" == themeCode
 		val themeId: Int = if (customTheme) {
@@ -364,11 +355,9 @@ object ThemeUtils {
 			getThemeResourceIdFromString(themeCode)
 		}
 		activity.setTheme(themeId)
-		val currentNightMode = AppCompatDelegate.getDefaultNightMode()
 
-		// A dark theme overrides the UI mode, and is always in night mode. Otherwise,
-		// follow the user's preference.
-		//
+		val currentNightMode = AppCompatDelegate.getDefaultNightMode()
+		// A dark theme overrides the UI mode, and is always in night mode. Otherwise, follow the user's preference.
 		// If the UI mode has changed then signal the caller to recreate.
 		val newNightMode: Int = if (isDarkTheme(themeCode)) {
 			AppCompatDelegate.MODE_NIGHT_YES
@@ -382,9 +371,7 @@ object ThemeUtils {
 					AppCompatDelegate.MODE_NIGHT_YES
 				}
 
-				else -> {
-					// Default behaviour (including if the value is unrecognised) is to follow
-					// the system.
+				else -> { // Default behaviour (including if the value is unrecognised) is to follow the system.
 					AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 				}
 			}
@@ -392,7 +379,6 @@ object ThemeUtils {
 		if (newNightMode != currentNightMode) {
 			AppCompatDelegate.setDefaultNightMode(newNightMode)
 		}
-
 		// https://issuetracker.google.com/issues/123835106 -- calling applyStyle does not work
 		// if the night mode has changed, and the new night mode is "MODE_NIGHT_YES". The activity
 		// has to recreate again, the night mode does not change, and then the call to applyStyle
@@ -404,16 +390,15 @@ object ThemeUtils {
 		if (newNightMode != currentNightMode && newNightMode == AppCompatDelegate.MODE_NIGHT_YES && customTheme) {
 			ActivityCompat.recreate(activity)
 		}
+
 		if (customTheme) {
 			val themeResource = activity.theme
 			val colorPrimaryResourceId = getColorPrimaryResourceId(
-				activity,
-				findClosestMaterialColor(sharedPreferences.getInt("custom_theme_colorPrimary", -0xb24954))
+				activity, findClosestMaterialColor(sharedPreferences.getInt("custom_theme_colorPrimary", -0xb24954))
 			)
 			themeResource.applyStyle(colorPrimaryResourceId, true)
 			val colorAccentResourceId = getColorAccentResourceId(
-				activity,
-				findClosestMaterialColor(sharedPreferences.getInt("custom_theme_colorAccent", -0x9a9a9b))
+				activity, findClosestMaterialColor(sharedPreferences.getInt("custom_theme_colorAccent", -0x9a9a9b))
 			)
 			themeResource.applyStyle(colorAccentResourceId, true)
 		}

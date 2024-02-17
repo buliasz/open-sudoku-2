@@ -283,8 +283,6 @@
 	<string name="dark_mode_dark">Mörkt läge</string>
 	<string name="dark_mode_system">Använd systemets ljusa/mörka läge</string>
 	<string name="disabled_by_theme">Valt tema ställer in läget</string>
-	<string name="use_dynamic_color">Använd dynamisk färg</string>
-	<string name="use_dynamic_color_summary">Använd färger från din tapet</string>
 	<string name="theme_custom_light">Anpassat ljustema</string>
 	<string name="pref_border_title">Cellkantlinjer</string>
 	<string name="pref_border_summary">Kantfärger runt celler och 3x3-rutor</string>

@@ -125,12 +125,6 @@
 			android:key="@string/dark_mode_key"
 			app:useSimpleSummaryProvider="true"
 			android:title="@string/dark_mode_title" />
-		<SwitchPreference app:iconSpaceReserved="false"
-			android:enabled="false"
-			android:defaultValue="false"
-			android:key="use_dynamic_color"
-			android:summary="@string/use_dynamic_color_summary"
-			android:title="@string/use_dynamic_color" />
 		<ListPreference app:iconSpaceReserved="false"
 			android:defaultValue="opensudoku2"
 			android:entries="@array/theme_names"

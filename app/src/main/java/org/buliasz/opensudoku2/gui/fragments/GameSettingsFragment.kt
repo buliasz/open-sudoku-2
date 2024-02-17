@@ -27,14 +27,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.ActivityCompat
 import androidx.preference.DialogPreference.TargetFragment
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.Preference.SummaryProvider
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreference
-import com.google.android.material.color.DynamicColors
 import org.buliasz.opensudoku2.R
 import org.buliasz.opensudoku2.utils.ThemeUtils
 
@@ -62,20 +59,6 @@ class GameSettingsFragment : PreferenceFragmentCompat(), TargetFragment, OnShare
 			uiModePref.summaryProvider = null
 			uiModePref.setSummary(R.string.disabled_by_theme)
 		}
-
-		// Adjust the visibility of the dynamic colors option if the device supports it.
-		// There's no point in disabling it -- that would still show the preference on a device
-		// that, in its current state, is not capable of supporting the option.
-		//
-		// Note: Using dynamic color is a separate preference because it's not possible to
-		// determine what the actual colors are, so it's impossible to create a preview of the
-		// game board if this was enabled.
-		val dynamicColorPref = findPreference<SwitchPreference>("use_dynamic_color")!!
-		val dynamicColorsAvailable = DynamicColors.isDynamicColorAvailable()
-		dynamicColorPref.isVisible = dynamicColorsAvailable
-
-		// Disable theme selection if dynamic colors is enabled
-		themePref.isEnabled = !dynamicColorPref.isChecked
 
 		// Disable the custom theme colors preference if a custom theme is not selected.
 		if (themeName != "custom" && themeName != "custom_light") {
@@ -120,18 +103,6 @@ class GameSettingsFragment : PreferenceFragmentCompat(), TargetFragment, OnShare
 				// Default behaviour (including if the value is unrecognised) is to follow
 				// the system.
 				AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-				return
-			}
-
-			"use_dynamic_color" -> {
-				// Dynamic color overrides the current theme, so disable theme selection. Like
-				// any other theme the timestamp must be updated and the activity recreated to
-				// use the new colours.
-				val useDynamicColor = sharedPreferences.getBoolean(key, false)
-				val themePref = findPreference<ListPreference>("theme")!!
-				themePref.isEnabled = !useDynamicColor
-				ThemeUtils.sTimestampOfLastThemeUpdate = System.currentTimeMillis()
-				ActivityCompat.recreate(requireActivity())
 				return
 			}
 

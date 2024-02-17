@@ -323,8 +323,6 @@
 	<string name="dark_mode_dark">Sötét mód</string>
 	<string name="dark_mode_system">A rendszer világos/sötét módjának használata</string>
 	<string name="disabled_by_theme">A kiválasztott téma beállítja a módot</string>
-	<string name="use_dynamic_color">Dinamikus szín használata</string>
-	<string name="use_dynamic_color_summary">A háttérkép színeinek használata</string>
 	<string name="theme_custom_light">Egyéni fény téma</string>
 	<string name="pref_border_title">Cellaszegélyek</string>
 	<string name="pref_border_summary">Szegélyszínek a cellák és a 3x3-as dobozok körül</string>

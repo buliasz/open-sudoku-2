@@ -18,83 +18,83 @@
   -->
 
 <resources>
-    <string-array name="game_states">
-        <item>@string/not_started</item>
-        <item>@string/playing</item>
-        <item>@string/solved</item>
-    </string-array>
-    <string-array name="game_sort">
-        <item>@string/sort_creation_date</item>
-        <item>@string/sort_play_time</item>
-        <item>@string/sort_last_played</item>
-    </string-array>
-    <string-array name="theme_names">
-        <item>@string/app_name</item>
-        <item>@string/theme_amoled</item>
-        <item>@string/theme_latte</item>
-        <item>@string/theme_espresso</item>
-        <item>@string/theme_sunrise</item>
-        <item>@string/theme_honeybee</item>
-        <item>@string/theme_crystal</item>
-        <item>@string/theme_midnight_blue</item>
-        <item>@string/theme_emerald</item>
-        <item>@string/theme_forest</item>
-        <item>@string/theme_amethyst</item>
-        <item>@string/theme_ruby</item>
-        <item>@string/theme_default</item>
-        <item>@string/theme_paper</item>
-        <item>@string/theme_graph_paper</item>
-        <item>@string/theme_light</item>
-        <item>@string/theme_paper_light</item>
-        <item>@string/theme_graph_paper_light</item>
-        <item>@string/theme_high_contrast</item>
-        <item>@string/theme_inverted_high_contrast</item>
-        <item>@string/theme_custom</item>
-        <item>@string/theme_custom_light</item>
-    </string-array>
-    <string-array name="dark_mode_names">
-        <item>@string/dark_mode_light</item>
-        <item>@string/dark_mode_dark</item>
-        <item>@string/dark_mode_system</item>
-    </string-array>
-    <string-array name="dark_mode_codes" translatable="false">
-        <item>light</item>
-        <item>dark</item>
-        <item>system</item>
-    </string-array>
-    <string-array name="custom_dark_mode_names">
-        <item>@string/dark_mode_light</item>
-        <item>@string/dark_mode_dark</item>
-    </string-array>
-    <string-array name="custom_dark_mode_codes" translatable="false">
-        <item>light</item>
-        <item>dark</item>
-    </string-array>
+	<string-array name="game_states">
+		<item>@string/not_started</item>
+		<item>@string/playing</item>
+		<item>@string/solved</item>
+	</string-array>
+	<string-array name="game_sort">
+		<item>@string/sort_creation_date</item>
+		<item>@string/sort_play_time</item>
+		<item>@string/sort_last_played</item>
+	</string-array>
+	<string-array name="theme_names">
+		<item>@string/app_name</item>
+		<item>@string/theme_amoled</item>
+		<item>@string/theme_latte</item>
+		<item>@string/theme_espresso</item>
+		<item>@string/theme_sunrise</item>
+		<item>@string/theme_honeybee</item>
+		<item>@string/theme_crystal</item>
+		<item>@string/theme_midnight_blue</item>
+		<item>@string/theme_emerald</item>
+		<item>@string/theme_forest</item>
+		<item>@string/theme_amethyst</item>
+		<item>@string/theme_ruby</item>
+		<item>@string/theme_default</item>
+		<item>@string/theme_paper</item>
+		<item>@string/theme_graph_paper</item>
+		<item>@string/theme_light</item>
+		<item>@string/theme_paper_light</item>
+		<item>@string/theme_graph_paper_light</item>
+		<item>@string/theme_high_contrast</item>
+		<item>@string/theme_inverted_high_contrast</item>
+		<item>@string/theme_custom</item>
+		<item>@string/theme_custom_light</item>
+	</string-array>
+	<string-array name="dark_mode_names">
+		<item>@string/dark_mode_light</item>
+		<item>@string/dark_mode_dark</item>
+		<item>@string/dark_mode_system</item>
+	</string-array>
+	<string-array name="dark_mode_codes" translatable="false">
+		<item>light</item>
+		<item>dark</item>
+		<item>system</item>
+	</string-array>
+	<string-array name="custom_dark_mode_names">
+		<item>@string/dark_mode_light</item>
+		<item>@string/dark_mode_dark</item>
+	</string-array>
+	<string-array name="custom_dark_mode_codes" translatable="false">
+		<item>light</item>
+		<item>dark</item>
+	</string-array>
 
-    <!-- Theme codes should not change -->
-    <string-array name="theme_codes" translatable="false">
-        <item>opensudoku2</item>
-        <item>amoled</item>
-        <item>latte</item>
-        <item>espresso</item>
-        <item>sunrise</item>
-        <item>honeybee</item>
-        <item>crystal</item>
-        <item>midnight_blue</item>
-        <item>emerald</item>
-        <item>forest</item>
-        <item>amethyst</item>
-        <item>ruby</item>
-        <item>default</item>
-        <item>paper</item>
-        <item>graphpaper</item>
-        <item>light</item>
-        <item>paperlight</item>
-        <item>graphpaperlight</item>
-        <item>highcontrast</item>
-        <item>invertedhighcontrast</item>
-        <item>custom</item>
-        <item>custom_light</item>
-    </string-array>
-    <!-- End of theme codes -->
+	<!-- Theme codes should not change -->
+	<string-array name="theme_codes" translatable="false">
+		<item>opensudoku2</item>
+		<item>amoled</item>
+		<item>latte</item>
+		<item>espresso</item>
+		<item>sunrise</item>
+		<item>honeybee</item>
+		<item>crystal</item>
+		<item>midnight_blue</item>
+		<item>emerald</item>
+		<item>forest</item>
+		<item>amethyst</item>
+		<item>ruby</item>
+		<item>default</item>
+		<item>paper</item>
+		<item>graphpaper</item>
+		<item>light</item>
+		<item>paperlight</item>
+		<item>graphpaperlight</item>
+		<item>highcontrast</item>
+		<item>invertedhighcontrast</item>
+		<item>custom</item>
+		<item>custom_light</item>
+	</string-array>
+	<!-- End of theme codes -->
 </resources>

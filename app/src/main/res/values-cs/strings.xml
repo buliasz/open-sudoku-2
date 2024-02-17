@@ -323,8 +323,6 @@
 	<string name="dark_mode_dark">Tmavý režim</string>
 	<string name="dark_mode_system">Použijte systémový režim světlý/tmavý</string>
 	<string name="disabled_by_theme">Vybrané téma nastaví režim</string>
-	<string name="use_dynamic_color">Použití dynamických barev</string>
-	<string name="use_dynamic_color_summary">Použití barev z tapety</string>
 	<string name="theme_custom_light">Vlastní světelný motiv</string>
 	<string name="pref_border_title">Ohraničení buněk</string>
 	<string name="pref_border_summary">Barvy ohraničení kolem buněk a polí 3x3</string>
