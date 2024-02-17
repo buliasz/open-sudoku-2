@@ -58,6 +58,7 @@
 
 	<style name="AppTheme.AlertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
 		<item name="colorOnPrimary">?attr/colorText</item>
+		<item name="android:textColorLink">#A7A7FF</item>
 	</style>
 
 	<style name="AppTheme.OpenSudoku2">
