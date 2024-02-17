@@ -20,9 +20,7 @@ package org.buliasz.opensudoku2.gui.inputmethod
 import android.content.Context
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.Button
 import com.google.android.material.button.MaterialButton
@@ -55,18 +53,12 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 	// without re-implementing all the drawables, and they would require a custom parent layout
 	// to work properly in a ConstraintLayout, so it's simpler and more consistent in the UI to
 	// handle the toggle logic in the code here.
+	private lateinit var mClearButton: MaterialButton
 	private lateinit var mEnterNumberButton: MaterialButton
 	private lateinit var mCornerNoteButton: MaterialButton
 	private lateinit var mCenterNoteButton: MaterialButton
 	private lateinit var mSwitchModeButton: Button
 	internal var onSelectedNumberChangedListener: ((Int) -> Unit)? = null
-	private val mNumberButtonTouched = OnTouchListener { view: View, _: MotionEvent? ->
-		view.performClick()
-		mSelectedNumber = view.tag as Int
-		onSelectedNumberChanged()
-		update()
-		true
-	}
 
 	private val mNumberButtonClicked = View.OnClickListener { v: View ->
 		mSelectedNumber = v.tag as Int
@@ -119,7 +111,6 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 			with(button) {
 				tag = key
 				setOnClickListener(mNumberButtonClicked)
-				setOnTouchListener(mNumberButtonTouched)
 				showNumbersPlaced = showDigitCount
 				enableAllNumbersPlaced = highlightCompletedValues
 				backgroundTintList = colorBackground
@@ -128,12 +119,12 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 		}
 		mDigitButtons = numberButtons
 
-		with(controlPanel.findViewById<MaterialButton>(R.id.button_clear)) {
+		mClearButton = with(controlPanel.findViewById<MaterialButton>(R.id.button_clear)) {
 			tag = 0
 			setOnClickListener(mNumberButtonClicked)
-			setOnTouchListener(mNumberButtonTouched)
 			backgroundTintList = colorBackground
 			iconTint = colorText
+			this
 		}
 
 		with(controlPanel.findViewById<MaterialButton>(R.id.enter_number)) {
@@ -200,6 +191,7 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 			// Update the count of numbers placed
 			button.setNumbersPlaced(valuesUseCount[tag] ?: 0)
 		}
+		mClearButton.isChecked = mSelectedNumber == 0
 		mBoard.highlightedValue = if (mBoard.isReadOnly) 0 else mSelectedNumber
 	}
 
@@ -251,7 +243,7 @@ class IMInsertOnTap(val parent: ViewGroup) : InputMethod() {
 			}
 
 			MODE_EDIT_VALUE -> {
-				// Normal flow, just set the value (or clear it if it is repeated touch)
+				// Normal flow, just set the value (or clear it if it is repeated click)
 				if (selectedDigit == cell.value) {
 					selectedDigit = 0
 					mBoard.clearCellSelection()
