@@ -22,7 +22,7 @@
 		<item name="colorSectorLine">?attr/colorOutline</item>
 
 		<item name="colorText">@color/dimmable_black</item>
-		<item name="android:textColorHint">#949494</item>
+		<item name="android:textColorHint">#757575</item>
 		<item name="colorNoteText">?attr/colorOnSurface</item>
 		<item name="colorBackground">?attr/colorSurface</item>
 
@@ -53,6 +53,7 @@
 
 	<style name="myCustomMenuTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
 		<item name="android:textColor">?attr/colorText</item>
+		<item name="android:textSize">17sp</item>
 	</style>
 
 	<style name="AppTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">

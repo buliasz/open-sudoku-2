@@ -46,7 +46,7 @@
 		<item name="colorEvenNoteText">?attr/colorOnSurfaceVariant</item>
 		<item name="colorEvenBackground">@android:color/transparent</item> <!-- Transparent color here disables the functionality by default -->
 
-		<item name="android:textColorLink">#7272FF</item>
+		<item name="android:textColorLink">#7373FF</item>
 		<item name="alertDialogTheme">@style/AppTheme.AlertDialog</item>
 		<item name="android:itemTextAppearance">@style/myCustomMenuTextAppearance</item>
 	</style>
