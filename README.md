@@ -1,14 +1,13 @@
-# Merging back to the Open Sudoku code
+# This is old version, please go to the new repository
 
 As agreed with Óscar García Amor the author of the current Open Sudoku, I'm the new maintainer of that
-code and will be moving the Open Sudoku 2 to Open Sudoku.
-In practice it will be more like overwriting that code because practically all the java code was
+code and the Open Sudoku 2 was moved to [Open Sudoku project](https://gitlab.com/opensudoku/opensudoku).
+In practice it was more like overwriting old code because practically all the java code was
 rewritten in Kotlin, there were plenty of changes here and there and new functionalities.
 
-You should expect that soon this project will be moved to [the original Open Sudoku repo](https://gitlab.com/opensudoku/opensudoku).
-Instead of Open Sudoku 2, it will be back Open Sudoku with the new big version number (4.0).
-This will probably take a week to make sure the update will not break backward compatibility so
-that the current users of Open Sudoku will not loose their data by updating to the new version.
+To get the newest version please to [the Open Sudoku repo](https://gitlab.com/opensudoku/opensudoku).
+Backward compatibility with the previous Open Sudoku is now verified so that users of old Open Sudoku should
+not loose their data by updating to the new version.
 
 # Open Sudoku 2
 
